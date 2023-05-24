@@ -87,7 +87,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                         ],
                       ),
                     ),
-                    Row(
+                    /*Row(
                       children: [
                         Expanded(
                           child: DropdownButtonHideUnderline(
@@ -146,7 +146,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                     GridView.builder(
                         shrinkWrap: true,
                         itemCount: state.model!.data.length,
@@ -173,7 +173,11 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.network(
-                                        '${state.model!.data[index].filePath!}/${state.model!.data[index].image}'),
+                                      '${state.model!.data[index].filePath!}/${state.model!.data[index].image}',
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     Text(
                                       state.model!.data[index].name!,
                                       softWrap: true,
@@ -182,6 +186,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                           .titleMedium!
                                           .copyWith(
                                               color: CustomColors.primeColour),
+                                      textAlign: TextAlign.center,
                                     )
                                   ],
                                 ),
