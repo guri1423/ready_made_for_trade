@@ -1,6 +1,6 @@
 # ready_made_4_trade
 
-A new Flutter project.
+
 
 ## Getting Started
 
