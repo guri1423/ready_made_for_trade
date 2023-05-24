@@ -162,17 +162,41 @@ class _JobLivePageState extends State<JobLivePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                       child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height:  30,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                         ),
-                        child: Text(snapshot.data!.data.projectTitle!,
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text('   ${snapshot.data!.data.projectTitle!}',
+                              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                            ),
+                          ],
+                        ),
                       )
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      child: textField(context, _projectDetails ,'Project Details', MediaQuery.of(context).size.width, 100),
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height:  40,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: Text('   ${snapshot.data!.data.projectDescription!}',
+                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                              ),
+                            ],
+                          ),
+                        )
                     ),
 
                     Row(
@@ -202,8 +226,22 @@ class _JobLivePageState extends State<JobLivePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
 
+
+                        Text('Total Price - \$${snapshot.data!.data.totalPrice}',
+                          style: TextStyle(
+                              fontSize: 16,
+
+                              color: CustomColors.blueButton,
+                              fontWeight: FontWeight.bold
+                          ),),
                         SizedBox(width: 10,),
-                        Expanded(child: textField(context, _totalPrice , 'Total Price', 170, 50)),
+                        Text('          ',
+                          style: TextStyle(
+                              fontSize: 16,
+
+                              color: CustomColors.blueButton,
+                              fontWeight: FontWeight.bold
+                          ),)
                       ],
                     ),
                     SizedBox(height: 20,),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/job_live_page.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
@@ -41,9 +42,12 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
           GestureDetector(
               onTap: () {
 
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(customerId: widget.customerId, jobId: widget.jobId)));
+
               },
               child: smallButton(
                   context, 'SEND QUOTE', CustomColors.blueButton, 170)),
+          SizedBox(height: 10,),
           const BottomToolsForInsidePage(),
         ],
       ),
@@ -199,7 +203,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  ' ${snapshot.data!.data!.vat}',
+                                  '\$ ${snapshot.data!.data!.vat}',
                                   style: style,
                                 ),
                               ],
@@ -209,42 +213,42 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 47),
-                          //   child: Row(
-                          //     children: [
-                          //       Text(
-                          //         'PAID',
-                          //         style: style,
-                          //       ),
-                          //       Spacer(),
-                          //       Text(
-                          //         '\$ ${jobInvoiceData?.data?.depositAmount}',
-                          //         style: style,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                          // const Divider(
-                          //   thickness: 1,
-                          //   color: CustomColors.black,
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 47),
-                          //   child: Row(
-                          //     children: [
-                          //       Text(
-                          //         'REMAINING',
-                          //         style: style,
-                          //       ),
-                          //       Spacer(),
-                          //       Text(
-                          //         '\$ ${jobInvoiceData?.data?.depositAmount}',
-                          //         style: style,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'PAID',
+                                  style: style,
+                                ),
+                                Spacer(),
+                                Text(
+                                  '\$ ${snapshot.data!.data.depositAmount}',
+                                  style: style,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1,
+                            color: CustomColors.black,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'REMAINING',
+                                  style: style,
+                                ),
+                                Spacer(),
+                                Text(
+                                  '\$ ${snapshot.data!.data.depositAmount}',
+                                  style: style,
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
