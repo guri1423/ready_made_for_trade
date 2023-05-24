@@ -60,8 +60,8 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data!.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  print("this is  ___${snapshot.data!.data[0].projectImages}");
-                  print("this is what ___${snapshot.data!.data.last.projectImages}");
+                  print("this is jdskfljf ___${snapshot.data!.data[0].projectImages}");
+                  print("this is whatndfnsnfalanfl ___${snapshot.data!.data.last.projectImages}");
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: Row(
