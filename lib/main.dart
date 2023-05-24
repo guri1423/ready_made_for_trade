@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/theme.dart';
 import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search_cubit.dart';
@@ -14,6 +15,10 @@ import 'package:ready_made_4_trade/modules/trainings/bloc/training_cubit.dart';
 import 'modules/bottom_nav/cubit/navigation_cubit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(MyApp());
 }
 
