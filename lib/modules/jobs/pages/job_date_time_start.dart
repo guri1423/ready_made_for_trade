@@ -8,6 +8,7 @@ import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/send_deposit.dart';
@@ -18,7 +19,8 @@ import '../../../widgets/bottom_bar_for_all.dart';
 class JobStartDateTime extends StatefulWidget {
   int? jobId;
   int? projectId;
-  JobStartDateTime({Key? key,required this.jobId, required this.projectId}) : super(key: key);
+  int? customerId;
+  JobStartDateTime({Key? key,required this.jobId, required this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<JobStartDateTime> createState() => _JobStartDateTimeState();
@@ -85,7 +87,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
 
         bottomNavigationBar: const BottomToolsForInsidePage(),
 
-        body: FutureBuilder<GetJobInvoiceData?>(
+        body: FutureBuilder<GetJobData?>(
             future: _remoteApi.getJobData(widget.jobId.toString()),
             builder: (context, snapshot){
               if(snapshot.hasData){
@@ -97,7 +99,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
 
                       SizedBox(height: 10,),
 
-                      Text('JOB #${snapshot.data!.data!.quoteId!}',
+                      Text('JOB #${snapshot.data!.data.quoteId!}',
                         style: TextStyle(
                             fontSize: 20,
                             fontFamily:'Dongle',
@@ -798,7 +800,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                                         jobStartMonth: monthValue.toString(), jobStartYear: _year.text, jobEndDate: endDateValue.toString(),
                                         jobEndMonth: endMonthValue.toString(), jobEndYear: _yearEnd.text, depositAmount: _amount.text, jobStartHours: hoursValue.toString(),
                                       jobStartMinutes: minutesValue.toString(), jobEndHours: endHoursValue.toString(),
-                                      jobEndMinutes: endMinutesValue.toString(),
+                                      jobEndMinutes: endMinutesValue.toString(), status: 'Confirm Start Date',
                                        ));
 
                                     debugPrint('model print${model!.toJson().toString()}');
@@ -813,7 +815,9 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                                           textColor: Colors.white,
                                           fontSize: 16.0);
 
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SendDeposit(jobId: widget.jobId,projectId: widget.projectId,)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SendDeposit(
+                                        customerId: widget.customerId,
+                                        jobId: widget.jobId,projectId: widget.projectId,)));
 
 
 

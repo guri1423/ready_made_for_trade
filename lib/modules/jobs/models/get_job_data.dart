@@ -1,3 +1,6 @@
+// To parse this JSON data, do
+//
+//     final getJobData = getJobDataFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -6,63 +9,68 @@ GetJobData getJobDataFromJson(String str) => GetJobData.fromJson(json.decode(str
 String getJobDataToJson(GetJobData data) => json.encode(data.toJson());
 
 class GetJobData {
-  Data? data;
-  String? message;
-  bool? status;
+  JobData data;
+  String message;
+  bool status;
 
   GetJobData({
-    this.data,
-    this.message,
-    this.status,
+   required this.data,
+   required this.message,
+   required this.status,
   });
 
   factory GetJobData.fromJson(Map<String, dynamic> json) => GetJobData(
-    data: Data.fromJson(json["data"]),
+    data: JobData.fromJson(json["data"]),
     message: json["message"],
     status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
-    "data": data!.toJson(),
+    "data": data.toJson(),
     "message": message,
     "status": status,
   };
 }
 
-class Data {
+class JobData {
   int? id;
   String? appointmentId;
   String? quoteId;
-  dynamic? projectId;
+  dynamic projectId;
   String? projectTitle;
   String? projectDescription;
   String? materialCost;
   String? labourCost;
   String? vat;
+  String? isVat;
   String? totalPrice;
+  dynamic totalIncVat;
   String? customerId;
   String? userId;
-  DateTime? jobStartFullDate;
-  DateTime? jobEndFullDate;
-  String? jobStartDate;
-  String? jobStartMonth;
-  String? jobStartYear;
-  String? jobStartTime;
-  String? jobEndDate;
-  String? jobEndMonth;
-  String? jobEndYear;
-  String? jobEndTime;
-  String? depositAmount;
+  dynamic jobStartFullDate;
+  dynamic jobEndFullDate;
+  dynamic jobStartDate;
+  dynamic jobStartMonth;
+  dynamic jobStartYear;
+  dynamic jobEndDate;
+  dynamic jobEndMonth;
+  dynamic jobEndYear;
+  dynamic jobStartHourse;
+  dynamic jobStartMinutes;
+  dynamic jobEndHourse;
+  dynamic jobEndMinutes;
+  dynamic depositAmount;
   String? isJobConfirm;
-  dynamic? status;
+  String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? customerName;
   String? userName;
   String? userLogo;
   String? filePath;
+  String? address;
 
-  Data({
+  JobData({
     this.id,
     this.appointmentId,
     this.quoteId,
@@ -72,7 +80,9 @@ class Data {
     this.materialCost,
     this.labourCost,
     this.vat,
+    this.isVat,
     this.totalPrice,
+    this.totalIncVat,
     this.customerId,
     this.userId,
     this.jobStartFullDate,
@@ -80,11 +90,13 @@ class Data {
     this.jobStartDate,
     this.jobStartMonth,
     this.jobStartYear,
-    this.jobStartTime,
     this.jobEndDate,
     this.jobEndMonth,
     this.jobEndYear,
-    this.jobEndTime,
+    this.jobStartHourse,
+    this.jobStartMinutes,
+    this.jobEndHourse,
+    this.jobEndMinutes,
     this.depositAmount,
     this.isJobConfirm,
     this.status,
@@ -94,9 +106,10 @@ class Data {
     this.userName,
     this.userLogo,
     this.filePath,
+    this.address,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory JobData.fromJson(Map<String, dynamic> json) => JobData(
     id: json["id"],
     appointmentId: json["appointment_id"],
     quoteId: json["quote_id"],
@@ -106,19 +119,23 @@ class Data {
     materialCost: json["material_cost"],
     labourCost: json["labour_cost"],
     vat: json["vat"],
+    isVat: json["is_vat"],
     totalPrice: json["total_price"],
+    totalIncVat: json["total_inc_vat"],
     customerId: json["customer_id"],
     userId: json["user_id"],
-    jobStartFullDate: DateTime.parse(json["Job_start_full_date"]),
-    jobEndFullDate: DateTime.parse(json["Job_end_full_date"]),
+    jobStartFullDate: json["Job_start_full_date"],
+    jobEndFullDate: json["Job_end_full_date"],
     jobStartDate: json["Job_start_date"],
     jobStartMonth: json["job_start_month"],
     jobStartYear: json["job_start_year"],
-    jobStartTime: json["job_start_time"],
     jobEndDate: json["Job_end_date"],
     jobEndMonth: json["job_end_month"],
     jobEndYear: json["job_end_year"],
-    jobEndTime: json["job_end_time"],
+    jobStartHourse: json["job_start_hourse"],
+    jobStartMinutes: json["job_start_minutes"],
+    jobEndHourse: json["job_end_hourse"],
+    jobEndMinutes: json["job_end_minutes"],
     depositAmount: json["deposit_amount"],
     isJobConfirm: json["is_job_confirm"],
     status: json["status"],
@@ -128,6 +145,7 @@ class Data {
     userName: json["user_name"],
     userLogo: json["user_logo"],
     filePath: json["file_path"],
+    address: json["address"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -140,19 +158,23 @@ class Data {
     "material_cost": materialCost,
     "labour_cost": labourCost,
     "vat": vat,
+    "is_vat": isVat,
     "total_price": totalPrice,
+    "total_inc_vat": totalIncVat,
     "customer_id": customerId,
     "user_id": userId,
-    "Job_start_full_date": jobStartFullDate!.toIso8601String(),
-    "Job_end_full_date": jobEndFullDate!.toIso8601String(),
+    "Job_start_full_date": jobStartFullDate,
+    "Job_end_full_date": jobEndFullDate,
     "Job_start_date": jobStartDate,
     "job_start_month": jobStartMonth,
     "job_start_year": jobStartYear,
-    "job_start_time": jobStartTime,
     "Job_end_date": jobEndDate,
     "job_end_month": jobEndMonth,
     "job_end_year": jobEndYear,
-    "job_end_time": jobEndTime,
+    "job_start_hourse": jobStartHourse,
+    "job_start_minutes": jobStartMinutes,
+    "job_end_hourse": jobEndHourse,
+    "job_end_minutes": jobEndMinutes,
     "deposit_amount": depositAmount,
     "is_job_confirm": isJobConfirm,
     "status": status,
@@ -162,5 +184,6 @@ class Data {
     "user_name": userName,
     "user_logo": userLogo,
     "file_path": filePath,
+    "address": address,
   };
 }

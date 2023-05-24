@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/deposit_requested.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -11,7 +12,8 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 class SendDeposit extends StatefulWidget {
   int? jobId;
   int? projectId;
-   SendDeposit({Key? key, required this.jobId, required this.projectId}) : super(key: key);
+  int? customerId;
+   SendDeposit({Key? key, required this.jobId, required this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<SendDeposit> createState() => _SendDepositState();
@@ -51,7 +53,7 @@ class _SendDepositState extends State<SendDeposit> {
         ),
       ),
 
-      body: FutureBuilder<GetJobInvoiceData?>(
+      body: FutureBuilder<GetJobData?>(
         future: _remoteApi.getJobData(widget.jobId.toString()),
         builder: (context,  snapshot){
 
@@ -183,7 +185,7 @@ class _SendDepositState extends State<SendDeposit> {
 
                                 Spacer(),
 
-                                Text('\$ ${snapshot.data!.data!.vat}',
+                                Text('\$ ${snapshot.data!.data.vat}',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily:'Dongle Regular',
@@ -213,7 +215,7 @@ class _SendDepositState extends State<SendDeposit> {
 
                                 Spacer(),
 
-                                Text('\$ ${snapshot.data!.data!.depositAmount}',
+                                Text('\$ ${snapshot.data!.data.depositAmount}',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily:'Dongle Regular',
@@ -243,7 +245,7 @@ class _SendDepositState extends State<SendDeposit> {
 
                                 Spacer(),
 
-                                Text('\$ ${snapshot.data!.data!.totalPrice}',
+                                Text('\$ ${snapshot.data!.data.totalPrice}',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily:'Dongle Regular',
@@ -287,7 +289,9 @@ class _SendDepositState extends State<SendDeposit> {
                         GestureDetector(
                             onTap:(){
 
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> DepositRequested(jobId: widget.jobId,projectId: widget.projectId,)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> DepositRequested(
+                                customerId: widget.customerId,
+                                jobId: widget.jobId,projectId: widget.projectId,)));
                             },
 
                             child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),

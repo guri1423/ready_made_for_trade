@@ -35,4 +35,5 @@ class Urls{
   static const getJobData = "${baseUrl}GetJobData";
   static const jobAgreed = "${baseUrl}jobagreed";
   static const confirmJob = "${baseUrl}ConfirmJobDates";
+  static const addPayment = "${baseUrl}AddDepositAmount";
 }

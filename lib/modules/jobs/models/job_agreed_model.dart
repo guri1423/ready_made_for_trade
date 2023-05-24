@@ -16,6 +16,7 @@ class JobAgreedModel{
     required this.jobStartMinutes,
     required this.jobEndHours,
     required this.jobEndMinutes,
+    required this.status,
 
 
   });
@@ -32,6 +33,7 @@ class JobAgreedModel{
   String? jobStartMinutes;
   String? jobEndMinutes;
   String? jobEndHours;
+  String? status;
 
 
 
@@ -53,6 +55,7 @@ class JobAgreedModel{
     "job_start_minutes": jobStartMinutes,
     "job_end_hourse": jobEndHours,
     "job_end_minutes" : jobEndMinutes,
+    "status": status
 
 
 

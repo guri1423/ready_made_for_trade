@@ -456,7 +456,9 @@ class RemoteApi {
 
   Future<AddAppointmentResponse?> addAppointment(
       AddAppointmentModel model) async {
-    debugPrint(model.toJson().toString());
+
+
+    debugPrint('TESt Id customer ${model.toJson().toString()}');
 
     try {
       final response = await http.post(
@@ -633,7 +635,7 @@ class RemoteApi {
     return null;
   }
 
-  Future<GetJobInvoiceData?> getJobData(String? jobId) async {
+  Future<GetJobData?> getJobData(String? jobId) async {
     try {
       final response = await http.post(
         Uri.parse(Urls.getJobData),
@@ -648,7 +650,7 @@ class RemoteApi {
       var jsonResponse = json.decode(response.body);
 
       String jsonString = json.encode(jsonResponse);
-      return getJobInvoiceDataFromJson(jsonString);
+      return getJobDataFromJson(jsonString);
 
     } catch (e) {
       debugPrint(e.toString());
@@ -696,6 +698,38 @@ class RemoteApi {
           "Content-Type": "application/json",
         },
         body: json.encode(model.toJson()),
+      );
+
+
+      var jsonResponse = json.decode(response.body);
+      debugPrint('json response $jsonResponse');
+
+      JobAgreeResponse returnResponse = JobAgreeResponse.fromJson(jsonResponse);
+
+      return returnResponse;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return null;
+  }
+
+  Future<JobAgreeResponse?> addPayment(String payment, String jobId, String status ) async {
+
+
+    try {
+      final response = await http.post(
+        Uri.parse(Urls.addPayment),
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+
+          },
+
+        body: json.encode({
+          "job_id" : jobId,
+          "deposit_amount" : payment,
+          "status" : status
+        })
       );
 
 

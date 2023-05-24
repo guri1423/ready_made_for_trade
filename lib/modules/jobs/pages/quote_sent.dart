@@ -14,11 +14,14 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
+import '../models/get_job_data.dart';
+
 class QuoteSent extends StatefulWidget {
   int? jobId;
   int? projectId;
+  int? customerId;
 
-  QuoteSent({Key? key, this.jobId, this.projectId}) : super(key: key);
+  QuoteSent({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<QuoteSent> createState() => _QuoteSentState();
@@ -35,6 +38,12 @@ class _QuoteSentState extends State<QuoteSent> {
   RemoteApi _remoteApi = RemoteApi();
 
   String? vatValue;
+
+  String changeValue(String value){
+    if(value == 0)
+      return 'YES';
+    else return 'NO';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,21 +76,21 @@ class _QuoteSentState extends State<QuoteSent> {
           ),
         ),
         bottomNavigationBar: const BottomToolsForInsidePage(),
-        body: FutureBuilder<GetJobInvoiceData?>(
+        body: FutureBuilder<GetJobData?>(
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              GetJobInvoiceData? jobInvoiceData = snapshot.data;
+
 
               _projectTitle.text =
-                  jobInvoiceData?.data?.projectTitle ?? _projectTitle.text;
-              _projectDetails.text = jobInvoiceData?.data?.projectDescription ??
+                  snapshot.data!.data.projectTitle?? _projectTitle.text;
+              _projectDetails.text =  snapshot.data!.data.projectDescription ??
                   _projectDetails.text;
-              _vat.text = jobInvoiceData?.data?.vat ?? _vat.text;
+              _vat.text =  snapshot.data!.data.vat ?? _vat.text;
               _materialCost.text =
-                  jobInvoiceData?.data?.materialCost ?? _materialCost.text;
+                  snapshot.data!.data.materialCost ?? _materialCost.text;
               _labourCost.text =
-                  jobInvoiceData?.data?.labourCost ?? _labourCost.text;
+                  snapshot.data!.data.labourCost ?? _labourCost.text;
 
               return SingleChildScrollView(
                 child: Padding(
@@ -91,7 +100,7 @@ class _QuoteSentState extends State<QuoteSent> {
                       Row(
                         children: [
                           Text(
-                            'JOB #${snapshot.data!.data!.quoteId} - QUOTE SENT',
+                            'JOB #${snapshot.data!.data.quoteId} - QUOTE SENT',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'Dongle Regular',
@@ -139,7 +148,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                  snapshot.data!.data!
+                                                  snapshot.data!.data
                                                       .customerName!,
                                                   style: Theme.of(context)
                                                       .textTheme
@@ -149,7 +158,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                                 height: 12,
                                               ),
                                               Text(
-                                                  "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
+                                                  snapshot.data!.data.address!,
                                                   style: style),
                                             ],
                                           ),
@@ -239,96 +248,29 @@ class _QuoteSentState extends State<QuoteSent> {
                         children: [
                           Expanded(
                             child: SizedBox(
-                                height: 54,
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                      decoration: const InputDecoration(
-                                        iconColor: CustomColors.white,
-                                        isDense: true,
-                                        errorBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        focusedErrorBorder: InputBorder.none,
-                                      ),
-                                      buttonHeight: 40,
-                                      buttonWidth: 40,
-                                      buttonDecoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                            color: CustomColors.textFldBorder,
-                                            width: 1,
-                                          ),
-                                          color: CustomColors.white),
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      itemHeight:
-                                          MediaQuery.of(context).size.height *
-                                              0.056,
-                                      icon: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 2),
-                                        child: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: CustomColors.primeColour,
-                                        ),
-                                      ),
-                                      iconOnClick: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 2),
-                                        child: Icon(
-                                          Icons.arrow_drop_up,
-                                          color: CustomColors.primeColour,
-                                        ),
-                                      ),
-                                      hint: Padding(
-                                        padding: const EdgeInsets.only(left: 5),
-                                        child: Text(
-                                          'VAT',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                  color: CustomColors
-                                                      .textFieldTextColour),
-                                        ),
-                                      ),
-                                      value: vatValue,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          vatValue = value as String;
-                                        });
-                                      },
-                                      items: vatList
-                                          .map((item) => DropdownMenuItem(
-                                              value: item,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                child: Text(
-                                                  item.toString(),
-                                                  style: TextStyle(
-                                                      color: CustomColors
-                                                          .blackText),
-                                                ),
-                                              )))
-                                          .toList(),
-                                      validator: (value) {
-                                        return validationDropField(value);
-                                      }),
-                                )),
+                                height: 40,
+                                child: Center(
+                                  child: Text('VAT: ${changeValue(snapshot.data!.data.vat!)}',
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,),
+                                )
+                            ),
                           ),
                           const SizedBox(
                             width: 20,
                           ),
-                          const Expanded(
+                          if(snapshot.data!.data.vat == 'YES')Expanded(
                             child: SizedBox(
                               height: 40,
+                              child: Center(child: Text('Total Inc Vat: \$${snapshot.data!.data.totalIncVat!}',
+                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
                             ),
-                          ),
+                          ) else Expanded(
+                            child: SizedBox(
+                              height: 40,
+                              child: Center(child: Text('Total: \$${snapshot.data!.data.totalPrice!}',
+                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -354,16 +296,16 @@ class _QuoteSentState extends State<QuoteSent> {
                                 AddQuoteResponse? model =
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
-                                        customerId: int.parse(userId),
+                                        customerId: widget.customerId,
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
-                                        vat: _vat.text,
+                                        vat: 0,
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
                                         jobId: widget.jobId,
-                                        status:  int.parse('0')));
+                                        status:  'Quote Sent'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -410,16 +352,16 @@ class _QuoteSentState extends State<QuoteSent> {
                                   AddQuoteResponse? model =
                                       await _remoteApi.addQuote(AddQuoteModel(
                                           userId: int.parse(userId!),
-                                          customerId: int.parse(userId),
+                                          customerId: widget.customerId,
                                           materialCost: _materialCost.text,
                                           labourCost: _labourCost.text,
-                                          vat: _vat.text,
+                                          vat: 0,
                                           projectId: widget.projectId,
                                           projectTitle: _projectTitle.text,
                                           projectDescription:
                                               _projectDetails.text,
                                           jobId: widget.jobId,
-                                          status:  0));
+                                          status: 'Quote Sent'));
 
                                   if (model != null) {
                                     Fluttertoast.showToast(
@@ -435,6 +377,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 PreviewJobQuote(
+                                                  customerId: widget.customerId,
                                                   jobId: widget.jobId,
                                                   projectId: widget.projectId,
                                                 )));
@@ -463,6 +406,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               JobStartDateTime(
+                                                customerId: widget.customerId,
                                                 jobId: widget.jobId,
                                                 projectId: widget.projectId,
                                               )));

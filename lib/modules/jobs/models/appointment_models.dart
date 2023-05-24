@@ -13,6 +13,7 @@ class AddAppointmentModel{
     required this.minutes,
     required this.projectTitle,
     required this.projectDescription,
+    required this.status
 
 
 
@@ -28,6 +29,7 @@ class AddAppointmentModel{
   String? minutes;
   String? projectTitle;
   String? projectDescription;
+  String? status;
 
 
 
@@ -43,6 +45,7 @@ class AddAppointmentModel{
     "minutes": minutes,
     "project_title": projectTitle,
     "project_description": projectDescription,
+    "status": status,
 
 
 

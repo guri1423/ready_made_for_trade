@@ -11,7 +11,8 @@ class InvoiceSent extends StatefulWidget {
 
   int? jobId;
   int? projectId;
-  InvoiceSent({Key? key, required this.jobId, required this.projectId}) : super(key: key);
+  int? customerId;
+  InvoiceSent({Key? key, required this.jobId, required this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<InvoiceSent> createState() => _InvoiceSentState();
@@ -169,7 +170,9 @@ class _InvoiceSentState extends State<InvoiceSent> {
               children: [
                 GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote(jobId: widget.jobId,projectId: widget.projectId,)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote(
+                        customerId: widget.customerId!,
+                        jobId: widget.jobId,projectId: widget.projectId,)));
                     },
                     child: smallButton(context, 'PREVIEW', CustomColors.skyblue, 170)),
                 smallButton(context, 'SAVE', CustomColors.skyblue, 170),
@@ -178,7 +181,9 @@ class _InvoiceSentState extends State<InvoiceSent> {
 
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote(jobId: widget.jobId,projectId: widget.projectId,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote(
+                  customerId: widget.customerId!,
+                  jobId: widget.jobId,projectId: widget.projectId,)));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
