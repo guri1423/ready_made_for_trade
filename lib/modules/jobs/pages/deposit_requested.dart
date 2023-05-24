@@ -233,135 +233,38 @@ class _DepositRequestedState extends State<DepositRequested> {
                       SizedBox(
                         height: 10,
                       ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Expanded(
-                            child: SizedBox(
-                                height: 40,
-                                child: customTextFieldForm(
-                                  context,
-                                  controller: _materialCost,
-                                  hintText: 'Material Cost',
-                                )),
+                          Text(
+                            'Total - \$${snapshot.data!.data.totalPrice!}',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Dongle Regular',
+                                color: CustomColors.blueButton,
+                                fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            width: 20,
+
+                          Text(
+                            '                 ',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Dongle Regular',
+                                color: CustomColors.blueButton,
+                                fontWeight: FontWeight.bold),
                           ),
-                          Expanded(
-                            child: SizedBox(
-                                height: 40,
-                                child: customTextFieldForm(
-                                  context,
-                                  controller: _labourCost,
-                                  hintText: 'Labour Cost',
-                                )),
-                          ),
+
+
+
                         ],
                       ),
+
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // Expanded(
-                          //   child: SizedBox(
-                          //       height: 54,
-                          //       child: DropdownButtonHideUnderline(
-                          //         child: DropdownButtonFormField2(
-                          //             decoration: const InputDecoration(
-                          //               iconColor: CustomColors.white,
-                          //               isDense: true,
-                          //               errorBorder: InputBorder.none,
-                          //               disabledBorder: InputBorder.none,
-                          //               enabledBorder: InputBorder.none,
-                          //               border: InputBorder.none,
-                          //               focusedBorder: InputBorder.none,
-                          //               focusedErrorBorder: InputBorder.none,
-                          //             ),
-                          //             buttonHeight: 40,
-                          //             buttonWidth: 40,
-                          //             buttonDecoration: BoxDecoration(
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(4),
-                          //                 border: Border.all(
-                          //                   color: CustomColors.textFldBorder,
-                          //                   width: 1,
-                          //                 ),
-                          //                 color: CustomColors.white),
-                          //             itemPadding:
-                          //                 EdgeInsets.symmetric(horizontal: 5),
-                          //             itemHeight:
-                          //                 MediaQuery.of(context).size.height *
-                          //                     0.056,
-                          //             icon: Padding(
-                          //               padding:
-                          //                   const EdgeInsets.only(right: 2),
-                          //               child: Icon(
-                          //                 Icons.arrow_drop_down,
-                          //                 color: CustomColors.primeColour,
-                          //               ),
-                          //             ),
-                          //             iconOnClick: Padding(
-                          //               padding:
-                          //                   const EdgeInsets.only(right: 2),
-                          //               child: Icon(
-                          //                 Icons.arrow_drop_up,
-                          //                 color: CustomColors.primeColour,
-                          //               ),
-                          //             ),
-                          //             hint: Padding(
-                          //               padding: const EdgeInsets.only(left: 5),
-                          //               child: Text(
-                          //                 'VAT',
-                          //                 style: Theme.of(context)
-                          //                     .textTheme
-                          //                     .titleSmall!
-                          //                     .copyWith(
-                          //                         color: CustomColors
-                          //                             .textFieldTextColour),
-                          //               ),
-                          //             ),
-                          //             value: vatValue,
-                          //             onChanged: (value) {
-                          //               setState(() {
-                          //                 vatValue = value as String?;
-                          //               });
-                          //             },
-                          //             items: vatList
-                          //                 .map((item) => DropdownMenuItem(
-                          //                     value: item,
-                          //                     child: Padding(
-                          //                       padding:
-                          //                           const EdgeInsets.symmetric(
-                          //                               horizontal: 5),
-                          //                       child: Text(
-                          //                         item.toString(),
-                          //                         style: TextStyle(
-                          //                             color: CustomColors
-                          //                                 .blackText),
-                          //                       ),
-                          //                     )))
-                          //                 .toList(),
-                          //             validator: (value) {
-                          //               return validationDropField(value);
-                          //             }),
-                          //       )),
-                          // ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          const Expanded(
-                            child: SizedBox(
-                                height: 40,
-                              ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -376,7 +279,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                             width: 170,
                             child: Center(
                               child: Text(
-                                'Paid - \$${snapshot.data!.data.depositAmount!}',
+                                'Paid - \$',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -395,42 +298,25 @@ class _DepositRequestedState extends State<DepositRequested> {
                             Expanded(
                               child: GestureDetector(
                                   onTap: () async {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId,
-                                      projectId: widget.projectId, customerId: widget.customerId,
-
-                                    )
-
-                                    )
-                                    );
-                                  },
-                                  child: smallButton(context, 'PREVIEW',
-                                      CustomColors.skyblue, 170)),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                  onTap: () async {
                                     String? userId =
-                                        await _storageServices.getUserId();
+                                    await _storageServices.getUserId();
 
                                     debugPrint(widget.jobId.toString());
                                     debugPrint(userId.toString());
 
                                     AddQuoteResponse? model =
-                                        await _remoteApi.addQuote(AddQuoteModel(
-                                            userId: int.parse(userId!),
-                                            customerId: widget.customerId,
-                                            materialCost: _materialCost.text,
-                                            labourCost: _labourCost.text,
-                                            vat: 0,
-                                            projectId: widget.projectId,
-                                            projectTitle: _projectTitle.text,
-                                            projectDescription:
-                                                _projectDetails.text,
-                                            jobId: widget.jobId,
-                                            status:  'Deposit Requested'));
+                                    await _remoteApi.addQuote(AddQuoteModel(
+                                        userId: int.parse(userId!),
+                                        customerId: widget.customerId,
+                                        materialCost: _materialCost.text,
+                                        labourCost: _labourCost.text,
+                                        vat: 0,
+                                        projectId: widget.projectId,
+                                        projectTitle: _projectTitle.text,
+                                        projectDescription:
+                                        _projectDetails.text,
+                                        jobId: widget.jobId,
+                                        status:  'Deposit Requested'));
 
                                     if (model != null) {
                                       Fluttertoast.showToast(
@@ -455,63 +341,11 @@ class _DepositRequestedState extends State<DepositRequested> {
                                   child: smallButton(context, 'SAVE',
                                       CustomColors.skyblue, 170)),
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                  onTap: () async {
-                                    String? userId =
-                                        await _storageServices.getUserId();
 
-                                    debugPrint(widget.jobId.toString());
-                                    debugPrint(userId.toString());
-
-                                    AddQuoteResponse? model =
-                                        await _remoteApi.addQuote(AddQuoteModel(
-                                            userId: int.parse(userId!),
-                                            customerId: widget.customerId,
-                                            materialCost: _materialCost.text,
-                                            labourCost: _labourCost.text,
-                                            vat: 0,
-                                            projectId: widget.projectId,
-                                            projectTitle: _projectTitle.text,
-                                            projectDescription:
-                                                _projectDetails.text,
-                                            jobId: widget.jobId,
-                                            status:  'Deposit Requested'));
-
-                                    if (model != null) {
-                                      Fluttertoast.showToast(
-                                          msg: model.message!,
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 2,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    } else {
-                                      Fluttertoast.showToast(
-                                          msg: 'Something went wrong',
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 2,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    }
-                                  },
-                                  child: smallButton(context, 'RESEND',
-                                      CustomColors.blueButton, 170)),
-                            ),
                             const SizedBox(
                               width: 20,
                             ),
+
                             Expanded(
                               child: GestureDetector(
                                   onTap: () {
@@ -519,16 +353,18 @@ class _DepositRequestedState extends State<DepositRequested> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ConfirmJob(
-                                                  customerId: widget.customerId,
-                                                  jobId: widget.jobId,
-                                                )));
+                                              customerId: widget.customerId,
+                                              jobId: widget.jobId,
+                                            )));
                                   },
                                   child: smallButton(context, 'DEPOSIT',
                                       CustomColors.blueButton, 170)),
                             ),
+
                           ],
                         ),
-                      )
+                      ),
+
                     ],
                   ),
                 ),

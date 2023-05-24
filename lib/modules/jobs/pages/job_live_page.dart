@@ -88,7 +88,6 @@ class _JobLivePageState extends State<JobLivePage> {
                           Text('JOB #${snapshot.data!.data.quoteId} - JOB LIVE',
                             style: TextStyle(
                                 fontSize: 20,
-                                fontFamily:'Dongle',
                                 color: CustomColors.blueButton,
                                 fontWeight: FontWeight.bold
                             ),),
@@ -162,7 +161,13 @@ class _JobLivePageState extends State<JobLivePage> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      child: textField(context, _projectTitle ,'Project Title', MediaQuery.of(context).size.width, 50),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Text(snapshot.data!.data.projectTitle!,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                      )
                     ),
 
                     Padding(
@@ -190,106 +195,13 @@ class _JobLivePageState extends State<JobLivePage> {
                       ],
                     ),
 
-                    SizedBox(height: 10,),
-
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        textField(context, _materialCost , 'Material Cost', 170, 50),
-                        textField(context, _labourCost , 'Labour Cost', 170, 50),
-                      ],
-                    ),
 
                     SizedBox(height: 20,),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
-                          child: SizedBox(
-                              height: 54,
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButtonFormField2(
-                                    decoration: const InputDecoration(
-                                      iconColor: CustomColors.white,
-                                      isDense: true,
-                                      errorBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      focusedErrorBorder: InputBorder.none,
-                                    ),
-                                    buttonHeight: 40,
-                                    buttonWidth: 40,
-                                    buttonDecoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(4),
-                                        border: Border.all(
-                                          color: CustomColors.textFldBorder,
-                                          width: 1,
-                                        ),
-                                        color: CustomColors.white),
-                                    itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 5),
-                                    itemHeight:
-                                    MediaQuery.of(context).size.height *
-                                        0.056,
-                                    icon: Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 2),
-                                      child: Icon(
-                                        Icons.arrow_drop_down,
-                                        color: CustomColors.primeColour,
-                                      ),
-                                    ),
-                                    iconOnClick: Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 2),
-                                      child: Icon(
-                                        Icons.arrow_drop_up,
-                                        color: CustomColors.primeColour,
-                                      ),
-                                    ),
-                                    hint: Padding(
-                                      padding: const EdgeInsets.only(left: 5),
-                                      child: Text(
-                                        'VAT',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                            color: CustomColors
-                                                .textFieldTextColour),
-                                      ),
-                                    ),
-                                    value: vatValue,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        vatValue = value as String?;
-                                      });
-                                    },
-                                    items: vatList
-                                        .map((item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Padding(
-                                          padding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: Text(
-                                            item.toString(),
-                                            style: TextStyle(
-                                                color: CustomColors
-                                                    .blackText),
-                                          ),
-                                        )))
-                                        .toList(),
-                                    validator: (value) {
-                                      return validationDropField(value);
-                                    }),
-                              )),
-                        ),
+
                         SizedBox(width: 10,),
                         Expanded(child: textField(context, _totalPrice , 'Total Price', 170, 50)),
                       ],
