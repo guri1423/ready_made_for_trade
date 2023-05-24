@@ -6,7 +6,7 @@ import 'package:ready_made_4_trade/core/strings.dart';
 class StorageServices{
 
 
-  final storage =  FlutterSecureStorage();
+  final storage =  const FlutterSecureStorage();
 
   setEmail(String email)async{
     await storage.write(key: Strings.emailKey, value: email);
