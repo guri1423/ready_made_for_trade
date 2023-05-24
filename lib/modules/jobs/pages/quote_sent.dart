@@ -250,7 +250,7 @@ class _QuoteSentState extends State<QuoteSent> {
                             child: SizedBox(
                                 height: 40,
                                 child: Center(
-                                  child: Text('VAT: ${changeValue(snapshot.data!.data.vat!)}',
+                                  child: Text('VAT: ${changeValue(snapshot.data!.data.isVat!)}',
                                     style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,),
                                 )
                             ),

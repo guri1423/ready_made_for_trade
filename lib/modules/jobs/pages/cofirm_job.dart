@@ -773,7 +773,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
                               jobEndMonth: endMonthValue.toString(), jobEndYear: _yearEnd.text,
                               jobStartHours: hoursValue.toString(), jobStartMinutes: minutesValue.toString(),
                               jobEndHours: endHoursValue.toString(), jobEndMinutes: endMinutesValue.toString(), status: 'Confirm Start Date',
-                              depositAmount: 'static value'));
+                              depositAmount: '600'));
 
                           debugPrint('model print${model!.toJson().toString()}');
 

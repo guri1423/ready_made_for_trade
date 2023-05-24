@@ -113,10 +113,10 @@ class _SendDepositState extends State<SendDeposit> {
 
                         Row(
                           children:  [
-                            Text('1 EXAMPLE LANE,\n''SOUTHEND,\n''ESSEX,\n''D50 HHD'  ,
+                            Text( snapshot.data!.data.address! ,
                                 style: TextStyle(
                                     fontSize: 10,
-                                    fontFamily:'Dongle Regular',
+
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold
                                 )),
@@ -126,7 +126,7 @@ class _SendDepositState extends State<SendDeposit> {
                             Text('${formattedDate}\n''Quote #${snapshot.data!.data!.quoteId}'  ,
                                 style: TextStyle(
                                     fontSize: 10,
-                                    fontFamily:'Dongle Regular',
+
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold
                                 )),
@@ -148,7 +148,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 Text('TOTAL',
                                   style: TextStyle(
                                       fontSize: 18,
-                                      fontFamily:'Dongle Regular',
+
                                       color: CustomColors.greyButton,
                                       fontWeight: FontWeight.bold
                                   ),),
@@ -158,7 +158,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 Text('\$ ${snapshot.data!.data!.totalPrice}',
                                   style: TextStyle(
                                       fontSize: 18,
-                                      fontFamily:'Dongle Regular' ,
+
                                       color: CustomColors.greyButton,
                                       fontWeight: FontWeight.bold
                                   ),),
