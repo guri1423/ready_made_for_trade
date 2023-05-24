@@ -123,6 +123,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 children: [
                                   Image.network(
                                       '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}'),
+                                  const SizedBox(height: 5,),
                                   Text(
                                     state.model!.data[index].materialName!,
                                     style: Theme.of(context)
@@ -130,6 +131,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                         .titleMedium!
                                         .copyWith(
                                             color: CustomColors.primeColour),
+                                    textAlign: TextAlign.center,
                                   )
                                 ],
                               ),
