@@ -1,11 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/create_project.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/projects.dart';
-import 'package:ready_made_4_trade/modules/gallery/pages/projects_details.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
@@ -19,10 +16,7 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
-
   final RemoteApi apiServices = RemoteApi();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +28,9 @@ class _GalleryPageState extends State<GalleryPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 10,),
+            SizedBox(
+              width: 10,
+            ),
             SizedBox(
               width: 180,
               height: 90,
@@ -51,64 +47,62 @@ class _GalleryPageState extends State<GalleryPage> {
           ],
         ),
       ),
-
       bottomNavigationBar: const BottomToolsForInsidePage(),
-
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Column(
           children: [
             FutureBuilder<GetGalleryImages?>(
                 future: apiServices.getGalleryImages(),
-                builder: (BuildContext context, snapshot){
-                  if(snapshot.hasData){
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.hasData) {
                     return Expanded(
                       child: GridView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           itemCount: snapshot.data!.data.length,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 10.0,
                             crossAxisSpacing: 10.0,
-
-
-
-                          ), itemBuilder: (BuildContext context, int index){
-                        return Image.network('${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}');
-                      }),
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image.network(
+                                '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}');
+                          }),
                     );
                   }
-                  if(snapshot.hasError){
+                  if (snapshot.hasError) {
                     return const Center(child: Text('Something went Wrong'));
-                  }
-                  else {
+                  } else {
                     return const Center(child: CircularProgressIndicator());
                   }
-                }
-            ),
-
-
-
+                }),
+            const SizedBox(height: 10,),
             GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const AllProjectsPage()));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllProjectsPage()));
                 },
-
                 child: extraLongButton(context, 'PROJECTS')),
-
-            SizedBox(height: 15,),
-
+            SizedBox(
+              height: 15,
+            ),
             GestureDetector(
-                 onTap: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateProject()));
-                 },
-
-                child: extraLongButton(context, 'CREATE PROJECT'))
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CreateProject()));
+                },
+                child: extraLongButton(context, 'CREATE PROJECT')),
+            SizedBox(
+              height: 15,
+            ),
           ],
         ),
       ),
-
     );
   }
 }

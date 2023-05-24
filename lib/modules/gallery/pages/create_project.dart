@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
-import 'package:ready_made_4_trade/modules/gallery/models/add_project_model.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/projects.dart';
@@ -12,13 +11,16 @@ import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class CreateProject extends StatefulWidget {
-  CreateProject({Key? key, this.projectId, this.projctName, this.isComingFromEditProject = false
-  }) : super(key: key);
+  CreateProject(
+      {Key? key,
+      this.projectId,
+      this.projctName,
+      this.isComingFromEditProject = false})
+      : super(key: key);
 
   String? projectId;
   String? projctName;
   bool isComingFromEditProject;
-
 
   @override
   State<CreateProject> createState() => _CreateProjectState();
@@ -29,7 +31,7 @@ class _CreateProjectState extends State<CreateProject> {
 
   List<bool> _isCheckedList = List.generate(1000, (_) => false);
 
-   TextEditingController _projectName = TextEditingController();
+  TextEditingController _projectName = TextEditingController();
 
   List<String>? _imageList = [];
 
@@ -37,7 +39,6 @@ class _CreateProjectState extends State<CreateProject> {
 
   getProjectName() {
     _projectName = TextEditingController()..text = widget.projctName ?? "";
-
   }
 
   @override
@@ -87,7 +88,7 @@ class _CreateProjectState extends State<CreateProject> {
                     return Expanded(
                       child: GridView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           itemCount: snapshot.data!.data.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -131,68 +132,72 @@ class _CreateProjectState extends State<CreateProject> {
                     return const Center(child: CircularProgressIndicator());
                   }
                 }),
-
+            const SizedBox(
+              height: 10,
+            ),
             customTextFieldForm(context,
                 controller: _projectName, hintText: 'Enter Project Name'),
             const SizedBox(
               height: 15,
             ),
             GestureDetector(
-                onTap: () async{
+                onTap: () async {
+                  if (widget.isComingFromEditProject) {
+                    debugPrint('coming from edit project');
 
+                    AddProjectResponse? response =
+                        await apiServices.editProject(
+                            imageList: _imageList!,
+                            projectTitle: _projectName.text,
+                            projectId: widget.projectId!.toString());
 
+                    if (response!.status!) {
+                      Fluttertoast.showToast(
+                          msg: response.message!,
+                          backgroundColor: CustomColors.main,
+                          textColor: CustomColors.white,
+                          gravity: ToastGravity.CENTER);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AllProjectsPage()),
+                          (route) => false);
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: 'Something went wrong, please try again',
+                          backgroundColor: CustomColors.main,
+                          textColor: CustomColors.white,
+                          gravity: ToastGravity.CENTER);
+                    }
+                  } else {
+                    AddProjectResponse? response = await apiServices.addProject(
+                        imageList: _imageList!,
+                        projectTitle: _projectName.text);
 
-                 if(widget.isComingFromEditProject){
-
-                   debugPrint('coming from edit project');
-
-                   AddProjectResponse? response = await apiServices.editProject(imageList: _imageList!, projectTitle: _projectName.text, projectId: widget.projectId!.toString());
-
-                   if(response!.status!){
-                     Fluttertoast.showToast(msg: response.message!,
-                         backgroundColor: CustomColors.main,
-                         textColor: CustomColors.white,
-                         gravity: ToastGravity.CENTER);
-                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> AllProjectsPage()), (route) => false);
-                   }
-
-                   else{
-                     Fluttertoast.showToast(msg: 'Something went wrong, please try again',
-                         backgroundColor: CustomColors.main,
-                         textColor: CustomColors.white,
-                         gravity: ToastGravity.CENTER);
-
-                   }
-
-                 }
-
-                 else{
-
-                   AddProjectResponse? response = await apiServices.addProject(imageList: _imageList!, projectTitle: _projectName.text);
-
-                   if(response!.status!){
-                     Fluttertoast.showToast(msg: response.message!,
-                         backgroundColor: CustomColors.main,
-                         textColor: CustomColors.white,
-                         gravity: ToastGravity.CENTER);
-                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> AllProjectsPage()), (route) => false);
-                   }
-
-                   else{
-                     Fluttertoast.showToast(msg: 'Something went wrong, please try again',
-                         backgroundColor: CustomColors.main,
-                         textColor: CustomColors.white,
-                         gravity: ToastGravity.CENTER);
-
-                   }
-
-
-                 }
-
-
-
+                    if (response!.status!) {
+                      Fluttertoast.showToast(
+                          msg: response.message!,
+                          backgroundColor: CustomColors.main,
+                          textColor: CustomColors.white,
+                          gravity: ToastGravity.CENTER);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AllProjectsPage()),
+                          (route) => false);
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: 'Something went wrong, please try again',
+                          backgroundColor: CustomColors.main,
+                          textColor: CustomColors.white,
+                          gravity: ToastGravity.CENTER);
+                    }
+                  }
                 },
-                child: extraLongButton(context, 'CREATE PROJECT'))
+                child: extraLongButton(context, 'CREATE PROJECT')),
+            SizedBox(
+              height: 15,
+            ),
           ],
         ),
       ),
