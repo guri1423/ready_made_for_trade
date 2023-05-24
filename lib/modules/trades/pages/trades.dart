@@ -64,9 +64,12 @@ class _TradesPageState extends State<TradesPage> {
         ),
       ),
       bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: () {
-          BlocProvider.of<SearchTradesCubit>(context).getTrades();
-        },
+        onBackPress: _searchTrades.text.isNotEmpty
+            ? () {
+                _searchTrades.clear();
+                BlocProvider.of<SearchTradesCubit>(context).getTrades();
+              }
+            : null,
       ),
       body: BlocBuilder<SearchTradesCubit, SearchTradesState>(
         builder: (context, state) {

@@ -66,10 +66,12 @@ class _CustomersPageState extends State<CustomersPage> {
         ),
       ),
       bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: () {
-          _search.clear();
-          BlocProvider.of<CustomerSearchCubit>(context).getCustomer();
-        },
+        onBackPress: _search.text.isNotEmpty
+            ? () {
+                _search.clear();
+                BlocProvider.of<CustomerSearchCubit>(context).getCustomer();
+              }
+            : null,
       ),
       body: BlocBuilder<CustomerSearchCubit, CustomerSearchState>(
         builder: (context, state) {

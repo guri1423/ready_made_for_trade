@@ -65,10 +65,12 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
         ),
       ),
       bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: () {
-          _search.clear();
-          BlocProvider.of<MaterialCubit>(context).getMaterials();
-        },
+        onBackPress: _search.text.isNotEmpty
+            ? () {
+                _search.clear();
+                BlocProvider.of<MaterialCubit>(context).getMaterials();
+              }
+            : null,
       ),
       body: BlocBuilder<MaterialCubit, MaterialPageState>(
         builder: (context, state) {
@@ -123,7 +125,9 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 children: [
                                   Image.network(
                                       '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}'),
-                                  const SizedBox(height: 5,),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Text(
                                     state.model!.data[index].materialName!,
                                     style: Theme.of(context)

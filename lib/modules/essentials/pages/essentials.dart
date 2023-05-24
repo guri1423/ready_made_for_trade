@@ -54,9 +54,12 @@ class _EssentialsPageState extends State<EssentialsPage> {
           ),
         ),
         bottomNavigationBar: BottomToolsForInsidePage(
-          onBackPress: () {
-            BlocProvider.of<EssentialBlocCubit>(context).getAllMaterials();
-          },
+          onBackPress: _search.text.isNotEmpty
+              ? () {
+                  BlocProvider.of<EssentialBlocCubit>(context)
+                      .getAllMaterials();
+                }
+              : null,
         ),
         body: BlocBuilder<EssentialBlocCubit, EssentialBlocState>(
           builder: (context, state) {

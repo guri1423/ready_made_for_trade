@@ -61,11 +61,12 @@ class _FAndIPageState extends State<FAndIPage> {
           ),
         ),
         bottomNavigationBar: BottomToolsForInsidePage(
-          onBackPress: () {
-            _search.clear();
-            BlocProvider.of<FinanaceInsuranceCubit>(context)
-                .getFinanceInsuranceData(typeOfData);
-          },
+          onBackPress: _search.text.isNotEmpty
+              ? () {
+                  BlocProvider.of<FinanaceInsuranceCubit>(context)
+                      .getFinanceInsuranceData(typeOfData);
+                }
+              : null,
         ),
         body: BlocBuilder<FinanaceInsuranceCubit, FinanaceInsuranceState>(
           builder: (context, state) {
