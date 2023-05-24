@@ -11,7 +11,8 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 class InvoicePaid extends StatefulWidget {
   int? jobId;
   int? customerId;
- InvoicePaid({Key? key, required this.jobId, required this.customerId}) : super(key: key);
+  int? projectId;
+ InvoicePaid({Key? key, required this.jobId, required this.customerId, required this.projectId}) : super(key: key);
 
   @override
   State<InvoicePaid> createState() => _InvoicePaidState();
@@ -89,7 +90,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                         child: Row(
                           children: [
                             Text(
-                              'JOB #${snapshot.data!.data.quoteId} - DEPOSIT REQUESTED',
+                              'JOB #${snapshot.data!.data.quoteId} - INVOICE PAID',
                               style: TextStyle(
                                   fontSize: 17,
                                   fontFamily: 'Dongle Regular',
@@ -260,25 +261,24 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          GestureDetector(
-                              onTap: () {
+                          Expanded(
+                            child: GestureDetector(
+                                onTap: () {
 
-                              },
-                              child: smallButton(context, 'ADD PAYMENT',
-                                  CustomColors.blueButton, 170)),
-                          SizedBox(
-                            height: 50,
-                            width: 170,
-                            child: Center(
-                              child: Text(
-                                'Paid - \$',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Dongle Regular',
-                                    color: CustomColors.blueButton,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
+                                },
+                                child: smallButton(context, 'SAVE',
+                                    CustomColors.skyblue, 170)),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                                onTap: () {
+
+                                },
+                                child: smallButton(context, 'PREVIEW',
+                                    CustomColors.skyblue, 170)),
                           ),
                         ],
                       ),
@@ -292,8 +292,8 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                   onTap: () async {
 
                                   },
-                                  child: smallButton(context, 'SAVE',
-                                      CustomColors.skyblue, 170)),
+                                  child: smallButton(context, 'RESEND',
+                                      CustomColors.blueButton, 170)),
                             ),
 
                             const SizedBox(
@@ -305,7 +305,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                   onTap: () {
 
                                   },
-                                  child: smallButton(context, 'DEPOSIT',
+                                  child: smallButton(context, 'SEND RECEIPT',
                                       CustomColors.blueButton, 170)),
                             ),
 

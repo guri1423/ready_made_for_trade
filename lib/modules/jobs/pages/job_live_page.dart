@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 
@@ -299,7 +300,7 @@ class _JobLivePageState extends State<JobLivePage> {
                           GestureDetector(
 
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoicePaid(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
                               },
                               child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
 
