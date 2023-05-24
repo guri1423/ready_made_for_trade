@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/home_widgets.dart';
@@ -14,7 +14,6 @@ import 'package:ready_made_4_trade/modules/receipts/bloc/receipts_cubit.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-import 'package:http/http.dart' as http;
 
 class ReceiptsPage extends StatefulWidget {
   const ReceiptsPage({Key? key}) : super(key: key);
@@ -24,13 +23,12 @@ class ReceiptsPage extends StatefulWidget {
 }
 
 class _ReceiptsPageState extends State<ReceiptsPage> {
-
-
   @override
   void initState() {
     super.initState();
     BlocProvider.of<ReceiptsCubit>(context).getReceipts();
   }
+
   File? _image1;
   final RemoteApi apiServices = RemoteApi();
   final StorageServices _servicesStorage = StorageServices();
@@ -75,20 +73,20 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
           children: [
             BlocBuilder<ReceiptsCubit, ReceiptsState>(
               builder: (context, state) {
-
-                if(state is ReceiptsLoading){
+                if (state is ReceiptsLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if(state is ReceiptsSuccess){
+                if (state is ReceiptsSuccess) {
                   return Expanded(
                     child: Column(
                       children: [
                         Expanded(
                           child: GridView.builder(
                             shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: const ClampingScrollPhysics(),
                             itemCount: state.model!.data.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               mainAxisSpacing: 10.0,
                               crossAxisSpacing: 10.0,
@@ -102,7 +100,8 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            BlocProvider.of<ReceiptsCubit>(context).sendReceipts();
+                            BlocProvider.of<ReceiptsCubit>(context)
+                                .sendReceipts();
                           },
                           child: extraLongButton(context, 'SEND RECEIPTS'),
                         ),
@@ -124,16 +123,17 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                           },
                           child: extraLongButton(context, 'ADD RECEIPTS'),
                         ),
+                        SizedBox(
+                          height: 15,
+                        ),
                       ],
                     ),
                   );
-
                 }
-                if(state is ReceiptsFailure){
+                if (state is ReceiptsFailure) {
                   return const Text('Something went wrong');
                 }
-                if(state is SendReceiptsInitial){
-
+                if (state is SendReceiptsInitial) {
                   return Expanded(
                     child: Column(
                       children: [
@@ -143,7 +143,7 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: state.model!.data.length,
                               gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10.0,
                                 crossAxisSpacing: 10.0,
@@ -153,10 +153,10 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                   onTap: () {
                                     setState(() {
                                       _isCheckedList[index] =
-                                      !_isCheckedList[index];
+                                          !_isCheckedList[index];
                                       if (_isCheckedList[index]) {
-                                        _imageList!
-                                            .add(state.model!.data[index].image!);
+                                        _imageList!.add(
+                                            state.model!.data[index].image!);
                                       } else {
                                         int? indexVal = _imageList?.indexOf(
                                             state.model!.data[index].image!);
@@ -178,41 +178,40 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                               }),
                         ),
                         GestureDetector(
-                          onTap: () async{
-                            AddProjectResponse? response = await apiServices.sendReceipt(imageList: _imageList!);
+                          onTap: () async {
+                            AddProjectResponse? response = await apiServices
+                                .sendReceipt(imageList: _imageList!);
 
-                            if(response!.status!){
-                              Fluttertoast.showToast(msg: response.message!,
+                            if (response!.status!) {
+                              Fluttertoast.showToast(
+                                  msg: response.message!,
                                   backgroundColor: CustomColors.main,
                                   textColor: CustomColors.white,
                                   gravity: ToastGravity.CENTER);
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ReceiptsPage()), (route) => false);
-                            }
-
-                            else{
-                              Fluttertoast.showToast(msg: 'Something went wrong, please try again',
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ReceiptsPage()),
+                                  (route) => false);
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: 'Something went wrong, please try again',
                                   backgroundColor: CustomColors.main,
                                   textColor: CustomColors.white,
                                   gravity: ToastGravity.CENTER);
-
                             }
-
-
-
                           },
                           child: extraLongButton(context, 'SEND RECEIPTS'),
                         ),
                       ],
                     ),
                   );
-
                 }
-
 
                 return const Center(child: CircularProgressIndicator());
               },
             ),
-
           ],
         ),
       ),
