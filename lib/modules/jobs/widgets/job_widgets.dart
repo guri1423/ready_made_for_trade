@@ -5,7 +5,7 @@ import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 
-Widget viewJobQuote(context, {Data? model}) {
+Widget viewJobQuote(context, {JobData? model}) {
   TextStyle style = Theme.of(context).textTheme.titleSmall!.copyWith();
   return Container(
     decoration: BoxDecoration(
@@ -46,7 +46,7 @@ Widget viewJobQuote(context, {Data? model}) {
                         height: 12,
                       ),
                       Text(
-                          model.userName ??
+                          model.address ??
                               "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
                           style: style),
                     ],

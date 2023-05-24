@@ -18,8 +18,9 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 class CreateQuote extends StatefulWidget {
   int? jobId;
   int? projectId;
+  String? customerId;
 
-  CreateQuote({Key? key, this.jobId, this.projectId}) : super(key: key);
+  CreateQuote({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<CreateQuote> createState() => _CreateQuoteState();
@@ -36,6 +37,13 @@ class _CreateQuoteState extends State<CreateQuote> {
   final StorageServices _storageServices = StorageServices();
 
   String? vatValue;
+
+  int changeValue(String value){
+    if(value == 'YES')
+      return 0;
+    else
+      return 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +77,15 @@ class _CreateQuoteState extends State<CreateQuote> {
           ),
         ),
         bottomNavigationBar: const BottomToolsForInsidePage(),
-        body: FutureBuilder<GetJobInvoiceData?>(
+        body: FutureBuilder<GetJobData?>(
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              GetJobInvoiceData? jobInvoiceData = snapshot.data!;
 
-              _projectTitle.text = jobInvoiceData.data?.projectTitle ?? _projectTitle.text;
+
+              _projectTitle.text = snapshot.data!.data.projectTitle!;
               _projectDetails.text =
-                  jobInvoiceData.data?.projectDescription ?? _projectDetails.text;
+                  snapshot.data!.data.projectDescription!;
 
               return SingleChildScrollView(
                 child: Padding(
@@ -89,7 +97,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                              'JOB #${snapshot.data!.data!.quoteId!} - QUOTE NEEDED',
+                              'JOB #${snapshot.data!.data.quoteId!} - QUOTE NEEDED',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -97,7 +105,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                             ),
                           ),
                           const Icon(
-                            Icons.delete,
+                            Icons.close_outlined,
                             size: 30,
                             color: CustomColors.primeColour,
                           ),
@@ -106,9 +114,10 @@ class _CreateQuoteState extends State<CreateQuote> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: viewJobQuote(context,
-                            model: Data(
-                                customerName: snapshot.data!.data!.customerName,
-                                userName: snapshot.data!.data!.userName)),
+                            model: JobData(
+                                customerName: snapshot.data!.data.customerName,
+                                address: snapshot.data!.data.address,
+                                userName: snapshot.data!.data.userName)),
                       ),
                       const SizedBox(
                         height: 20,
@@ -269,6 +278,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => PreviewJobQuote(
+                                              customerId: int.parse(widget.customerId!),
                                               jobId: widget.jobId,
                                               projectId: widget.projectId,
                                             )));
@@ -292,15 +302,15 @@ class _CreateQuoteState extends State<CreateQuote> {
                                 AddQuoteResponse? model =
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
-                                        customerId: int.parse(userId),
+                                        customerId: int.parse(widget.customerId!),
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
-                                        vat: vatValue,
+                                        vat: changeValue(vatValue!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
-                                        jobId: widget.jobId,status: 0));
+                                        jobId: widget.jobId,status: 'Create Quotes'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -356,15 +366,15 @@ class _CreateQuoteState extends State<CreateQuote> {
                                 AddQuoteResponse? model =
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
-                                        customerId: int.parse(userId),
+                                        customerId: int.parse(widget.customerId!),
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
-                                        vat: vatValue,
+                                        vat: changeValue(vatValue!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
-                                        jobId: widget.jobId,status: 0));
+                                        jobId: widget.jobId,status: 'Create Quotes'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -382,6 +392,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => PreviewJobQuote(
+                                          customerId: int.parse(widget.customerId!),
                                           projectId: widget.projectId,
                                           jobId: widget.jobId,
                                         ),

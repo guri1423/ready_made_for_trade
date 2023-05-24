@@ -7,7 +7,8 @@ import 'package:ready_made_4_trade/modules/jobs/pages/invoice_sent.dart';
 class SendInvoicePage extends StatefulWidget {
   int? jobId;
   int? projectId;
-  SendInvoicePage({Key? key, required this.jobId, required this.projectId}) : super(key: key);
+  int? customerId;
+  SendInvoicePage({Key? key, required this.jobId, required this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<SendInvoicePage> createState() => _SendInvoicePageState();
@@ -273,19 +274,26 @@ class _SendInvoicePageState extends State<SendInvoicePage> {
 
             SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: Row(
-
-                crossAxisAlignment: CrossAxisAlignment.end,
-
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
                 children: [
-                  GestureDetector(
-                      onTap:(){
+                  Row(
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoiceSent(jobId: widget.jobId,projectId: widget.projectId,)));
-                      },
+                    crossAxisAlignment: CrossAxisAlignment.end,
 
-                      child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap:(){
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoiceSent(
+                              customerId: widget.customerId,
+                              jobId: widget.jobId,projectId: widget.projectId,)));
+                          },
+
+                          child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                    ],
+                  ),
+                  SizedBox(height: 6,)
                 ],
               ),
             ),

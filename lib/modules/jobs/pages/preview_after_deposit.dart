@@ -1,34 +1,27 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
-import 'package:ready_made_4_trade/modules/jobs/pages/invoice_sent.dart';
-import 'package:ready_made_4_trade/modules/jobs/pages/quote_sent.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
-class PreviewJobQuote extends StatefulWidget {
-  int? jobId;
-  int? projectId;
-  int? customerId;
+import '../../../core/colors.dart';
 
-  PreviewJobQuote({Key? key, required this.jobId, required this.projectId, required this.customerId})
-      : super(key: key);
+class PreviewAfterDeposit extends StatefulWidget {
+  int? jobId;
+  int? customerId;
+  int? projectId;
+   PreviewAfterDeposit({Key? key, required this.jobId, required this.customerId, required this.projectId}) : super(key: key);
 
   @override
-  State<PreviewJobQuote> createState() => _PreviewJobQuoteState();
+  State<PreviewAfterDeposit> createState() => _PreviewAfterDepositState();
 }
 
-class _PreviewJobQuoteState extends State<PreviewJobQuote> {
-  RemoteApi _remoteApi = RemoteApi();
+RemoteApi _remoteApi = RemoteApi();
 
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -40,24 +33,17 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
       color: CustomColors.greyButton,
     );
 
+
     return Scaffold(
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => QuoteSent(
-                              customerId: widget.customerId,
-                              jobId: widget.jobId,
-                              projectId: widget.projectId,
-                            )));
+
               },
               child: smallButton(
                   context, 'SEND QUOTE', CustomColors.blueButton, 170)),
-          SizedBox(height: 10,),
           const BottomToolsForInsidePage(),
         ],
       ),
@@ -154,7 +140,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                           Spacer(),
                           Text(
                               '${formattedDate}\n'
-                              'Quote #${snapshot.data!.data.quoteId}',
+                                  'Quote #${snapshot.data!.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'Dongle Regular',
@@ -203,27 +189,26 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-                          if (snapshot.data!.data.vat == 'YES')
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 47),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'TOTAL INC VAT',
-                                    style: style,
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    ' ${snapshot.data!.data.totalIncVat}',
-                                    style: style,
-                                  ),
-                                ],
-                              ),
-                            )
-                          else
-                            SizedBox.shrink(),
-
-
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'TOTAL INC VAT',
+                                  style: style,
+                                ),
+                                Spacer(),
+                                Text(
+                                  ' ${snapshot.data!.data!.vat}',
+                                  style: style,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1,
+                            color: CustomColors.black,
+                          ),
                           // Padding(
                           //   padding: const EdgeInsets.symmetric(horizontal: 47),
                           //   child: Row(

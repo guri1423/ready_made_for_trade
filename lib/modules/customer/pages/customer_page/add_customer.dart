@@ -378,21 +378,21 @@ Widget customTextFieldForm(context,
         .titleSmall!
         .copyWith(color: CustomColors.black),
     onChanged: (value) {
-      if (hintText == 'Labour Cost' || hintText == 'Material Cost') {
-        // Remove any non-digit characters from the input
-        String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-        // Parse the cleaned value as an integer
-        int? number = int.tryParse(cleanValue);
-        if (number != null) {
-          // Format the number with commas
-          String formattedNumber = NumberFormat.decimalPattern().format(number);
-          // Update the TextField value with the formatted number
-          controller.value = TextEditingValue(
-            text: formattedNumber,
-            selection: TextSelection.collapsed(offset: formattedNumber.length),
-          );
-        }
-      }
+      // if (hintText == 'Labour Cost' || hintText == 'Material Cost') {
+      //   // Remove any non-digit characters from the input
+      //   String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+      //   // Parse the cleaned value as an integer
+      //   int? number = int.tryParse(cleanValue);
+      //   if (number != null) {
+      //     // Format the number with commas
+      //     String formattedNumber = NumberFormat.decimalPattern().format(number);
+      //     // Update the TextField value with the formatted number
+      //     controller.value = TextEditingValue(
+      //       text: formattedNumber,
+      //       selection: TextSelection.collapsed(offset: formattedNumber.length),
+      //     );
+      //   }
+      // }
     },
     decoration: InputDecoration(
       hintText: hintText,

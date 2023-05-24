@@ -54,6 +54,8 @@ class _AddJobsPageState extends State<AddJobsPage> {
   @override
   Widget build(BuildContext context) {
 
+    debugPrint('Customer Id ${widget.customerId}');
+
     ThemeData theme = Theme.of(context);
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
@@ -95,7 +97,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       onTap: (){
 
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>  CreateQuote()));
+                            MaterialPageRoute(builder: (context) =>  CreateQuote(customerId: widget.customerId)));
 
                       },
                       child: Icon(Icons.close_outlined)),
@@ -448,7 +450,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
 
                   AddAppointmentResponse? model =  await _remoteApi.addAppointment(AddAppointmentModel(userId: user_id , customerId: widget.customerId, date: dateValue.toString(),
                       month: monthValue.toString(), year: _year.text, hours: hoursValue.toString(), minutes: minutesValue.toString(),
-                      projectTitle: _projectTitle.text, projectDescription: _projectDetails.text,
+                      projectTitle: _projectTitle.text, projectDescription: _projectDetails.text, status: 'Appointment Set',
                       ));
 
                   if(model != null){
@@ -462,7 +464,8 @@ class _AddJobsPageState extends State<AddJobsPage> {
                         fontSize: 16.0);
 
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>  CreateQuote(projectId: model.appointmentId,jobId: model.jobId, )));
+                        MaterialPageRoute(builder: (context) =>  CreateQuote(projectId: model.appointmentId,
+                          jobId: model.jobId, customerId: widget.customerId,)));
 
                   }
 

@@ -18,12 +18,12 @@ class AddQuoteModel {
   int? customerId;
   String? materialCost;
   String? labourCost;
-  String? vat;
+  int? vat;
   int? projectId;
   String? projectTitle;
   String? projectDescription;
   int? jobId;
-  int? status;
+  String? status;
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,

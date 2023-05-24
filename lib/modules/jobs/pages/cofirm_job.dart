@@ -1,14 +1,23 @@
 
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/core/list/list.dart';
+import 'package:ready_made_4_trade/core/utils.dart';
+import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 
+import 'job_live_page.dart';
+
 class ConfirmJob extends StatefulWidget {
   int? jobId;
-   ConfirmJob({Key? key, required this.jobId}) : super(key: key);
+  int? customerId;
+   ConfirmJob({Key? key, required this.jobId, required this.customerId}) : super(key: key);
 
   @override
   State<ConfirmJob> createState() => _ConfirmJobState();
@@ -19,18 +28,25 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
 
 
-  final TextEditingController _date = TextEditingController();
-  final TextEditingController _month = TextEditingController();
+
   final TextEditingController _year = TextEditingController();
-  final TextEditingController _dateEnd = TextEditingController();
-  final TextEditingController _monthEnd = TextEditingController();
+
   final TextEditingController _yearEnd = TextEditingController();
-  final TextEditingController _time = TextEditingController();
-  final TextEditingController _timeEnd = TextEditingController();
-  final TextEditingController _amount = TextEditingController();
+
 
   RemoteApi _remoteApi = RemoteApi();
   StorageServices _storageServices = StorageServices();
+
+
+  int? hoursValue;
+  int? dateValue;
+  int? monthValue;
+  int? minutesValue;
+
+  int? endHoursValue;
+  int? endDateValue;
+  int? endMonthValue;
+  int? endMinutesValue;
 
   bool _isChecked = false;
 
@@ -98,19 +114,310 @@ class _ConfirmJobState extends State<ConfirmJob> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
-                  textField(context, _date , 'DD', 55, 50),
-
-                  textField(context, _month , 'MM', 55, 50),
-
-                  textField(context, _year , 'YY', 50, 50),
-
-                  textField(context, _time , '00:00', 80, 50),
-
-
-                  smallButton(context, 'Save', CustomColors.blueButton, 90)
-
-
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'DD',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: endDateValue,
+                          onChanged: (value) {
+                            setState(() {
+                              endDateValue = value as int;
+                            });
+                          },
+                          items: dateList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'MM',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: endMonthValue,
+                          onChanged: (value) {
+                            setState(() {
+                              endMonthValue = value as int;
+                            });
+                          },
+                          items: monthList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                      height: 40,
+                      width: 60,
+                      child: customTextFieldForm(
+                          context,
+                          controller: _yearEnd, hintText: ' YY')),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'hrs',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: endHoursValue,
+                          onChanged: (value) {
+                            setState(() {
+                              endHoursValue = value as int?;
+                            });
+                          },
+                          items: hoursList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 65,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 10),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              'mins',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: endMinutesValue,
+                          onChanged: (value) {
+                            setState(() {
+                              endMinutesValue = value as int;
+                            });
+                          },
+                          items: minuteList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  /* const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                      child: smallButton(
+                          context, 'SAVE', CustomColors.blueButton, 0))*/
                 ],
               ),
 
@@ -131,19 +438,310 @@ class _ConfirmJobState extends State<ConfirmJob> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-
-                  textField(context, _dateEnd , 'DD', 55, 50),
-
-                  textField(context, _monthEnd , 'MM', 55, 50),
-
-                  textField(context, _yearEnd , 'YY', 50, 50),
-
-                  textField(context, _timeEnd , '00:00', 80, 50),
-
-
-                  smallButton(context, 'Save', CustomColors.blueButton, 90)
-
-
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'DD',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: dateValue,
+                          onChanged: (value) {
+                            setState(() {
+                              dateValue = value as int;
+                            });
+                          },
+                          items: dateList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'MM',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: monthValue,
+                          onChanged: (value) {
+                            setState(() {
+                              monthValue = value as int;
+                            });
+                          },
+                          items: monthList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                      height: 40,
+                      width: 60,
+                      child: customTextFieldForm(
+                          context,
+                          controller: _year, hintText: ' YY')),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 60,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'hrs',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: hoursValue,
+                          onChanged: (value) {
+                            setState(() {
+                              hoursValue = value as int;
+                            });
+                          },
+                          items: hoursList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 65,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          buttonHeight: 40,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
+                          ),
+                          itemPadding: EdgeInsets.symmetric(horizontal: 10),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          iconOnClick: Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              'mins',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: minutesValue,
+                          onChanged: (value) {
+                            setState(() {
+                              minutesValue = value as int;
+                            });
+                          },
+                          items: minuteList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
+                    ),
+                  ),
+                  /* const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                      child: smallButton(
+                          context, 'SAVE', CustomColors.blueButton, 0))*/
                 ],
               ),
 
@@ -168,12 +766,14 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
                     GestureDetector(
 
-                       /* onTap: ()async{
+                        onTap: ()async{
 
-                          JobAgreeResponse? model = await  _remoteApi.confirmJob(JobAgreedModel(jobId: widget.jobId, jobStartDate: _date.text,
-                              jobStartMonth: _month.text, jobStartYear: _year.text, jobEndDate: _dateEnd.text,
-                              jobEndMonth: _monthEnd.text, jobEndYear: _yearEnd.text, depositAmount: '221',
-                              jobStartTime: , jobEndTime: _timeEnd.text));
+                          JobAgreeResponse? model = await  _remoteApi.confirmJob(JobAgreedModel(jobId: widget.jobId, jobStartDate: dateValue.toString(),
+                              jobStartMonth: monthValue.toString(), jobStartYear: _year.text, jobEndDate: endDateValue.toString(),
+                              jobEndMonth: endMonthValue.toString(), jobEndYear: _yearEnd.text,
+                              jobStartHours: hoursValue.toString(), jobStartMinutes: minutesValue.toString(),
+                              jobEndHours: endHoursValue.toString(), jobEndMinutes: endMinutesValue.toString(), status: 'Confirm Start Date',
+                              depositAmount: 'static value'));
 
                           debugPrint('model print${model!.toJson().toString()}');
 
@@ -189,7 +789,9 @@ class _ConfirmJobState extends State<ConfirmJob> {
                                 fontSize: 16.0);
 
 
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(
+                              customerId: widget.customerId, jobId: widget.jobId,
+                            )));
 
 
                           }
@@ -209,7 +811,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
 
 
-                        },*/
+                        },
 
 
 

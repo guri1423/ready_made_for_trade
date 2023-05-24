@@ -7,8 +7,11 @@ import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/preview_job_quote.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -16,7 +19,8 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 class DepositRequested extends StatefulWidget {
   int? jobId;
   int? projectId;
-  DepositRequested({Key? key, this.jobId, this.projectId}) : super(key: key);
+  int? customerId;
+  DepositRequested({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
 
   @override
   State<DepositRequested> createState() => _DepositRequestedState();
@@ -68,20 +72,19 @@ class _DepositRequestedState extends State<DepositRequested> {
           ),
         ),
         bottomNavigationBar: const BottomToolsForInsidePage(),
-        body: FutureBuilder<GetJobInvoiceData?>(
+        body: FutureBuilder<GetJobData?>(
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              GetJobInvoiceData? jobInvoiceData = snapshot.data!;
 
-              vatValue = jobInvoiceData.data?.vat ?? "";
+              vatValue = snapshot.data!.data.vat ?? vatValue;
 
-              _projectTitle.text = jobInvoiceData.data?.projectTitle ?? "";
+              _projectTitle.text = snapshot.data!.data.projectTitle ?? _projectTitle.text;
               _projectDetails.text =
-                  jobInvoiceData.data?.projectDescription ?? "";
-              _vat.text = jobInvoiceData.data?.vat ?? "";
-              _materialCost.text = jobInvoiceData.data?.materialCost ?? "";
-              _labourCost.text = jobInvoiceData.data?.labourCost ?? "";
+                  snapshot.data!.data.projectDescription ?? _projectDetails.text;
+              _vat.text = snapshot.data!.data.vat ?? _vat.text;
+              _materialCost.text = snapshot.data!.data.materialCost ?? _materialCost.text;
+              _labourCost.text = snapshot.data!.data.labourCost ?? _labourCost.text;
 
               return Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -94,9 +97,9 @@ class _DepositRequestedState extends State<DepositRequested> {
                         child: Row(
                           children: [
                             Text(
-                              'JOB #${snapshot.data!.data!.quoteId} - DEPOSIT REQUESTED',
+                              'JOB #${snapshot.data!.data.quoteId} - DEPOSIT REQUESTED',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: 'Dongle Regular',
                                   color: CustomColors.blueButton,
                                   fontWeight: FontWeight.bold),
@@ -141,7 +144,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                         children: [
                                           Text(
                                               snapshot
-                                                  .data!.data!.customerName!,
+                                                  .data!.data.customerName!,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge!
@@ -150,7 +153,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                             height: 12,
                                           ),
                                           Text(
-                                              "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
+                                              snapshot.data!.data.address!,
                                               style: style),
                                         ],
                                       ),
@@ -208,9 +211,9 @@ class _DepositRequestedState extends State<DepositRequested> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           Text(
-                            'Material - \$0',
+                            'Material - \$${snapshot.data!.data.materialCost!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
@@ -218,7 +221,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Labour - \$0',
+                            'Labour - \$${snapshot.data!.data.labourCost!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
@@ -262,101 +265,97 @@ class _DepositRequestedState extends State<DepositRequested> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Expanded(
-                            child: SizedBox(
-                                height: 54,
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                      decoration: const InputDecoration(
-                                        iconColor: CustomColors.white,
-                                        isDense: true,
-                                        errorBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        focusedErrorBorder: InputBorder.none,
-                                      ),
-                                      buttonHeight: 40,
-                                      buttonWidth: 40,
-                                      buttonDecoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                            color: CustomColors.textFldBorder,
-                                            width: 1,
-                                          ),
-                                          color: CustomColors.white),
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      itemHeight:
-                                          MediaQuery.of(context).size.height *
-                                              0.056,
-                                      icon: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 2),
-                                        child: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: CustomColors.primeColour,
-                                        ),
-                                      ),
-                                      iconOnClick: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 2),
-                                        child: Icon(
-                                          Icons.arrow_drop_up,
-                                          color: CustomColors.primeColour,
-                                        ),
-                                      ),
-                                      hint: Padding(
-                                        padding: const EdgeInsets.only(left: 5),
-                                        child: Text(
-                                          'VAT',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                  color: CustomColors
-                                                      .textFieldTextColour),
-                                        ),
-                                      ),
-                                      value: vatValue,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          vatValue = value as String?;
-                                        });
-                                      },
-                                      items: vatList
-                                          .map((item) => DropdownMenuItem(
-                                              value: item,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                child: Text(
-                                                  item.toString(),
-                                                  style: TextStyle(
-                                                      color: CustomColors
-                                                          .blackText),
-                                                ),
-                                              )))
-                                          .toList(),
-                                      validator: (value) {
-                                        return validationDropField(value);
-                                      }),
-                                )),
-                          ),
+                          // Expanded(
+                          //   child: SizedBox(
+                          //       height: 54,
+                          //       child: DropdownButtonHideUnderline(
+                          //         child: DropdownButtonFormField2(
+                          //             decoration: const InputDecoration(
+                          //               iconColor: CustomColors.white,
+                          //               isDense: true,
+                          //               errorBorder: InputBorder.none,
+                          //               disabledBorder: InputBorder.none,
+                          //               enabledBorder: InputBorder.none,
+                          //               border: InputBorder.none,
+                          //               focusedBorder: InputBorder.none,
+                          //               focusedErrorBorder: InputBorder.none,
+                          //             ),
+                          //             buttonHeight: 40,
+                          //             buttonWidth: 40,
+                          //             buttonDecoration: BoxDecoration(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(4),
+                          //                 border: Border.all(
+                          //                   color: CustomColors.textFldBorder,
+                          //                   width: 1,
+                          //                 ),
+                          //                 color: CustomColors.white),
+                          //             itemPadding:
+                          //                 EdgeInsets.symmetric(horizontal: 5),
+                          //             itemHeight:
+                          //                 MediaQuery.of(context).size.height *
+                          //                     0.056,
+                          //             icon: Padding(
+                          //               padding:
+                          //                   const EdgeInsets.only(right: 2),
+                          //               child: Icon(
+                          //                 Icons.arrow_drop_down,
+                          //                 color: CustomColors.primeColour,
+                          //               ),
+                          //             ),
+                          //             iconOnClick: Padding(
+                          //               padding:
+                          //                   const EdgeInsets.only(right: 2),
+                          //               child: Icon(
+                          //                 Icons.arrow_drop_up,
+                          //                 color: CustomColors.primeColour,
+                          //               ),
+                          //             ),
+                          //             hint: Padding(
+                          //               padding: const EdgeInsets.only(left: 5),
+                          //               child: Text(
+                          //                 'VAT',
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .titleSmall!
+                          //                     .copyWith(
+                          //                         color: CustomColors
+                          //                             .textFieldTextColour),
+                          //               ),
+                          //             ),
+                          //             value: vatValue,
+                          //             onChanged: (value) {
+                          //               setState(() {
+                          //                 vatValue = value as String?;
+                          //               });
+                          //             },
+                          //             items: vatList
+                          //                 .map((item) => DropdownMenuItem(
+                          //                     value: item,
+                          //                     child: Padding(
+                          //                       padding:
+                          //                           const EdgeInsets.symmetric(
+                          //                               horizontal: 5),
+                          //                       child: Text(
+                          //                         item.toString(),
+                          //                         style: TextStyle(
+                          //                             color: CustomColors
+                          //                                 .blackText),
+                          //                       ),
+                          //                     )))
+                          //                 .toList(),
+                          //             validator: (value) {
+                          //               return validationDropField(value);
+                          //             }),
+                          //       )),
+                          // ),
                           const SizedBox(
                             width: 20,
                           ),
-                          Expanded(
+                          const Expanded(
                             child: SizedBox(
                                 height: 40,
-                                child: customTextFieldForm(
-                                  context,
-                                  controller: _totalPrice,
-                                  hintText: 'Total Price',
-                                )),
+                              ),
                           ),
                         ],
                       ),
@@ -372,12 +371,12 @@ class _DepositRequestedState extends State<DepositRequested> {
                               },
                               child: smallButton(context, 'ADD PAYMENT',
                                   CustomColors.blueButton, 170)),
-                          const SizedBox(
+                           SizedBox(
                             height: 50,
                             width: 170,
                             child: Center(
                               child: Text(
-                                'Paid - \$0',
+                                'Paid - \$${snapshot.data!.data.depositAmount!}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -396,7 +395,13 @@ class _DepositRequestedState extends State<DepositRequested> {
                             Expanded(
                               child: GestureDetector(
                                   onTap: () async {
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId,
+                                      projectId: widget.projectId, customerId: widget.customerId,
+
+                                    )
+
+                                    )
+                                    );
                                   },
                                   child: smallButton(context, 'PREVIEW',
                                       CustomColors.skyblue, 170)),
@@ -416,16 +421,16 @@ class _DepositRequestedState extends State<DepositRequested> {
                                     AddQuoteResponse? model =
                                         await _remoteApi.addQuote(AddQuoteModel(
                                             userId: int.parse(userId!),
-                                            customerId: int.parse(userId),
+                                            customerId: widget.customerId,
                                             materialCost: _materialCost.text,
                                             labourCost: _labourCost.text,
-                                            vat: _vat.text,
+                                            vat: 0,
                                             projectId: widget.projectId,
                                             projectTitle: _projectTitle.text,
                                             projectDescription:
                                                 _projectDetails.text,
                                             jobId: widget.jobId,
-                                            status:  int.parse('0')));
+                                            status:  'Deposit Requested'));
 
                                     if (model != null) {
                                       Fluttertoast.showToast(
@@ -470,16 +475,16 @@ class _DepositRequestedState extends State<DepositRequested> {
                                     AddQuoteResponse? model =
                                         await _remoteApi.addQuote(AddQuoteModel(
                                             userId: int.parse(userId!),
-                                            customerId: int.parse(userId),
+                                            customerId: widget.customerId,
                                             materialCost: _materialCost.text,
                                             labourCost: _labourCost.text,
-                                            vat: _vat.text,
+                                            vat: 0,
                                             projectId: widget.projectId,
                                             projectTitle: _projectTitle.text,
                                             projectDescription:
                                                 _projectDetails.text,
                                             jobId: widget.jobId,
-                                            status:  int.parse('0')));
+                                            status:  'Deposit Requested'));
 
                                     if (model != null) {
                                       Fluttertoast.showToast(
@@ -514,6 +519,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ConfirmJob(
+                                                  customerId: widget.customerId,
                                                   jobId: widget.jobId,
                                                 )));
                                   },
@@ -579,14 +585,28 @@ class _DepositRequestedState extends State<DepositRequested> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
-                        child: smallButton(
-                            context, 'SAVE', CustomColors.greyButton, 100)),
+                        child: GestureDetector(
+                          onTap: (){
+
+                            _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid');
+
+
+
+                          },
+                          child: smallButton(
+                              context, 'SAVE', CustomColors.greyButton, 100),
+                        )),
                     const SizedBox(
                       width: 20,
                     ),
                     Expanded(
-                        child: smallButton(
-                            context, 'DELETE', CustomColors.yellow, 100)),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: smallButton(
+                              context, 'DELETE', CustomColors.yellow, 100),
+                        )),
                   ],
                 ),
               ],
