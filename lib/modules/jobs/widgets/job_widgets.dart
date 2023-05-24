@@ -1,0 +1,181 @@
+import 'package:flutter/material.dart';
+import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
+import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
+import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
+
+Widget viewJobQuote(context, {Data? model}) {
+  TextStyle style = Theme.of(context).textTheme.titleSmall!.copyWith();
+  return Container(
+    decoration: BoxDecoration(
+        color: CustomColors.primeColour,
+        borderRadius: BorderRadius.circular(5)),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: CustomColors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.asset('assets/images/user.png'),
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(model!.customerName ?? 'MR JOHN SMITH',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith()),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                          model.userName ??
+                              "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
+                          style: style),
+                    ],
+                  ),
+                  const Spacer(),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/Phone Icon.png',
+                        height: 25,
+                        width: 25,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DiaryPage()));
+                        },
+                        child: Image.asset(
+                          'assets/images/Book Appointment.png',
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Show Costs on quote',
+                style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'Dongle',
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              Checkbox(value: true, onChanged: (val) {})
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget viewJobQuoteWithoutModel(context) {
+  TextStyle style = Theme.of(context).textTheme.titleSmall!.copyWith();
+  return Container(
+    decoration: BoxDecoration(
+        color: CustomColors.primeColour,
+        borderRadius: BorderRadius.circular(5)),
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: CustomColors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.asset('assets/images/user.png'),
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('MR JOHN SMITH',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith()),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text("1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
+                          style: style),
+                    ],
+                  ),
+                  const Spacer(),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/Phone Icon.png',
+                        height: 25,
+                        width: 25,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Image.asset(
+                        'assets/images/Book Appointment.png',
+                        height: 25,
+                        width: 25,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Text('Show Costs on quote',
+              style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'Dongle',
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+        ],
+      ),
+    ),
+  );
+}
