@@ -89,7 +89,12 @@ class _FAndIPageState extends State<FAndIPage> {
                             child: SizedBox(
                               height: 40,
                               child: smallButton(
-                                  context, 'FINANCE', CustomColors.skyblue, 0),
+                                  context,
+                                  'FINANCE',
+                                  typeOfData.contains('finance')
+                                      ? CustomColors.skyblue
+                                      : CustomColors.primeColour,
+                                  0),
                             ),
                           ),
                         ),
@@ -107,8 +112,13 @@ class _FAndIPageState extends State<FAndIPage> {
                             },
                             child: SizedBox(
                               height: 40,
-                              child: smallButton(context, 'INSURANCE',
-                                  CustomColors.primeColour, 0),
+                              child: smallButton(
+                                  context,
+                                  'INSURANCE',
+                                  typeOfData.contains('insurance')
+                                      ? CustomColors.skyblue
+                                      : CustomColors.primeColour,
+                                  0),
                             ),
                           ),
                         ),
@@ -127,14 +137,14 @@ class _FAndIPageState extends State<FAndIPage> {
                                   .getFinanceInsuranceSearchData(
                                       _search.text, typeOfData);
                             },
-                            hintText: 'Search Contacts',
+                            hintText: 'Stocklists',
                             theme: Theme.of(context),
                             controller: _search,
                           ))
                         ],
                       ),
                     ),
-                    Row(
+                    /*Row(
                       children: [
                         Expanded(
                           child: DropdownButtonHideUnderline(
@@ -193,7 +203,7 @@ class _FAndIPageState extends State<FAndIPage> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                     viewFinanceAndInsurance(context, state.model!.data)
                   ]));
             }
