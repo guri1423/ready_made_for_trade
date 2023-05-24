@@ -18,7 +18,6 @@ class AddTradesPage extends StatefulWidget {
 }
 
 class _AddTradesPageState extends State<AddTradesPage> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _title = TextEditingController();
   TextEditingController _firstName = TextEditingController();
@@ -80,7 +79,11 @@ class _AddTradesPageState extends State<AddTradesPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomToolsForInsidePage(),
+      bottomNavigationBar:  BottomToolsForInsidePage(
+        onBackPress: (){
+          Navigator.pop(context);
+        },
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -131,7 +134,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                 ),
                 SizedBox(
                     height: 40,
-                    width: MediaQuery.of(context).size.width*0.53,
+                    width: MediaQuery.of(context).size.width * 0.53,
                     child: customTextFieldForm(
                       context,
                       controller: _nickName,
@@ -154,22 +157,15 @@ class _AddTradesPageState extends State<AddTradesPage> {
                 SizedBox(
                     height: 62,
                     width: MediaQuery.of(context).size.width,
-                    child: customTextFieldAddCustomer(
-                        context,
-
+                    child: customTextFieldAddCustomer(context,
                         controller: _mobileNo,
                         hintText: 'Mobile No',
                         validator: (value) => mobilNumberValidator(value))),
-                const SizedBox(
-                  height: 15,
-                ),
                 SizedBox(
                     height: 62,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(
-
                       context,
-
                       controller: _email,
                       hintText: 'Email',
                       validator: (value) => validateEmail(value!),
@@ -183,17 +179,15 @@ class _AddTradesPageState extends State<AddTradesPage> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-
                           String? userId = await _storageServices.getUserId();
                           String? email = await _storageServices.getEmail();
 
                           debugPrint('User ID ${userId.toString()}');
 
                           bool statusForm = formValidate();
-                          if(statusForm){
-
-                            PostTradesResponse? status = await apiServices.addTrades(
-                                AddTradesModel(
+                          if (statusForm) {
+                            PostTradesResponse? status =
+                                await apiServices.addTrades(AddTradesModel(
                                     title: _title.text,
                                     first_name: _firstName.text,
                                     last_name: _lastName.text,
@@ -206,10 +200,16 @@ class _AddTradesPageState extends State<AddTradesPage> {
 
                             debugPrint(status.toString());
                             if (status!.status == true) {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text('Response added successfully')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('Response added successfully')));
 
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> TradesPage()), (route) => false);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TradesPage()),
+                                  (route) => false);
                             } else {
                               Fluttertoast.showToast(
                                   msg: status.message,
@@ -219,15 +219,13 @@ class _AddTradesPageState extends State<AddTradesPage> {
                                   backgroundColor: Colors.red,
                                   textColor: Colors.white,
                                   fontSize: 16.0);
-
                             }
-
                           }
-
                         },
                         child: SizedBox(
                             height: 40,
-                            child: longButton(context, 'SAVE', CustomColors.primeColour)),
+                            child: longButton(
+                                context, 'SAVE', CustomColors.primeColour)),
                       ),
                     ),
                     const SizedBox(
