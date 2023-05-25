@@ -279,7 +279,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                             width: 170,
                             child: Center(
                               child: Text(
-                                'Paid - \$',
+                                'Paid - \$ ',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',

@@ -80,7 +80,7 @@ class _CreateQuoteState extends State<CreateQuote> {
         body: FutureBuilder<GetJobData?>(
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && snapshot.data != null) {
 
 
               _projectTitle.text = snapshot.data!.data.projectTitle!;
@@ -111,14 +111,14 @@ class _CreateQuoteState extends State<CreateQuote> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: viewJobQuote(context,
-                            model: JobData(
-                                customerName: snapshot.data!.data.customerName,
-                                address: snapshot.data!.data.address,
-                                userName: snapshot.data!.data.userName)),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 5),
+                      //   child: viewJobQuote(context,
+                      //       model: JobData(
+                      //           customerName: snapshot.data!.data.customerName,
+                      //           address: snapshot.data!.data.address,
+                      //           userName: snapshot.data!.data.userName)),
+                      // ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -436,6 +436,10 @@ class _CreateQuoteState extends State<CreateQuote> {
                   ),
                 ),
               );
+            }
+
+            if(snapshot.hasError){
+              return const Center(child: Text('Something went wrong'));
             }
 
             return const Center(child: CircularProgressIndicator());

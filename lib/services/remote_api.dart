@@ -674,6 +674,8 @@ class RemoteApi {
 
       var jsonResponse = json.decode(response.body);
 
+      debugPrint(jsonResponse.toString());
+
       String jsonString = json.encode(jsonResponse);
       return getJobDataFromJson(jsonString);
 

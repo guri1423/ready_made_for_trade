@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getJobData = getJobDataFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -44,22 +41,23 @@ class JobData {
   String? vat;
   String? isVat;
   String? totalPrice;
-  dynamic totalIncVat;
+  String? totalIncVat;
   String? customerId;
   String? userId;
-  dynamic jobStartFullDate;
-  dynamic jobEndFullDate;
-  dynamic jobStartDate;
-  dynamic jobStartMonth;
-  dynamic jobStartYear;
-  dynamic jobEndDate;
-  dynamic jobEndMonth;
-  dynamic jobEndYear;
-  dynamic jobStartHourse;
-  dynamic jobStartMinutes;
-  dynamic jobEndHourse;
-  dynamic jobEndMinutes;
+  DateTime? jobStartFullDate;
+  DateTime? jobEndFullDate;
+  String? jobStartDate;
+  String? jobStartMonth;
+  String? jobStartYear;
+  String? jobEndDate;
+  String? jobEndMonth;
+  String? jobEndYear;
+  String? jobStartHourse;
+  String? jobStartMinutes;
+  String? jobEndHourse;
+  String? jobEndMinutes;
   dynamic depositAmount;
+  String? requestDepositAmount;
   String? isJobConfirm;
   String? status;
   DateTime? createdAt;
@@ -99,6 +97,7 @@ class JobData {
     this.jobEndHourse,
     this.jobEndMinutes,
     this.depositAmount,
+    this.requestDepositAmount,
     this.isJobConfirm,
     this.status,
     this.createdAt,
@@ -126,8 +125,8 @@ class JobData {
     totalIncVat: json["total_inc_vat"],
     customerId: json["customer_id"],
     userId: json["user_id"],
-    jobStartFullDate: json["Job_start_full_date"],
-    jobEndFullDate: json["Job_end_full_date"],
+    jobStartFullDate: DateTime.parse(json["Job_start_full_date"]),
+    jobEndFullDate: DateTime.parse(json["Job_end_full_date"]),
     jobStartDate: json["Job_start_date"],
     jobStartMonth: json["job_start_month"],
     jobStartYear: json["job_start_year"],
@@ -139,6 +138,7 @@ class JobData {
     jobEndHourse: json["job_end_hourse"],
     jobEndMinutes: json["job_end_minutes"],
     depositAmount: json["deposit_amount"],
+    requestDepositAmount: json["request_deposit_amount"],
     isJobConfirm: json["is_job_confirm"],
     status: json["status"],
     createdAt: DateTime.parse(json["created_at"]),
@@ -166,8 +166,8 @@ class JobData {
     "total_inc_vat": totalIncVat,
     "customer_id": customerId,
     "user_id": userId,
-    "Job_start_full_date": jobStartFullDate,
-    "Job_end_full_date": jobEndFullDate,
+    "Job_start_full_date": jobStartFullDate!.toIso8601String(),
+    "Job_end_full_date": jobEndFullDate!.toIso8601String(),
     "Job_start_date": jobStartDate,
     "job_start_month": jobStartMonth,
     "job_start_year": jobStartYear,
@@ -179,6 +179,7 @@ class JobData {
     "job_end_hourse": jobEndHourse,
     "job_end_minutes": jobEndMinutes,
     "deposit_amount": depositAmount,
+    "request_deposit_amount": requestDepositAmount,
     "is_job_confirm": isJobConfirm,
     "status": status,
     "created_at": createdAt!.toIso8601String(),
