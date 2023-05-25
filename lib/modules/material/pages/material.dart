@@ -185,7 +185,8 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
-                            launchUrlString(state.model!.data[index].url!);
+                            launchUrlString(state.model!.data[index].url!,
+                                mode: LaunchMode.externalApplication);
                           },
                           child: Container(
                             decoration: BoxDecoration(

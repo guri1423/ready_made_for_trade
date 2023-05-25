@@ -21,16 +21,7 @@ class _TradesPageState extends State<TradesPage> {
   final TextEditingController _searchTrades = TextEditingController();
 
   final RemoteApi apiServices = RemoteApi();
-  List<String> tradeType = [
-    'Brick Layer',
-    'Builder',
-    'Carpet Layer',
-    'Electrician',
-    "Kitchen/Bathroom fitter",
-    'Landscaper',
-    'Plumber',
-    'Scaffolder'
-  ];
+
 
   @override
   void initState() {
@@ -458,3 +449,13 @@ class _TradesPageState extends State<TradesPage> {
     );
   }
 }
+List<String> tradeType = [
+  'Brick Layer',
+  'Builder',
+  'Carpet Layer',
+  'Electrician',
+  "Kitchen/Bathroom fitter",
+  'Landscaper',
+  'Plumber',
+  'Scaffolder'
+];

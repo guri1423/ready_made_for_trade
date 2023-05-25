@@ -156,18 +156,20 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 3,
-                                mainAxisExtent: 160),
+                                mainAxisExtent: 160
+                            ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              launchUrlString(state.model!.data[index].link!);
+                              launchUrlString(state.model!.data[index].link!,
+                                  mode: LaunchMode.externalApplication);
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: CustomColors.white),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 14),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,15 +180,18 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    Text(
-                                      state.model!.data[index].name!,
-                                      softWrap: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                              color: CustomColors.primeColour),
-                                      textAlign: TextAlign.center,
+                                    Flexible(
+                                      flex: 2,
+                                      child: Text(
+                                        state.model!.data[index].name!,
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                                color: CustomColors.primeColour),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     )
                                   ],
                                 ),
