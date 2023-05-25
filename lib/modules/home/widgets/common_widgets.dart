@@ -3,17 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/trades/search_cubit/search_trades_cubit.dart';
 
-Widget extraLongButton(context, String title) {
+Widget extraLongButton(context, String title,
+    {bool isShowIcon = false, Color color = CustomColors.primeColour}) {
   return SizedBox(
     height: 44,
     width: MediaQuery.of(context).size.width,
     child: Container(
       decoration: BoxDecoration(
-        color: CustomColors.primeColour,
+        color: color,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Visibility(
-        visible: !title.contains('ADD'),
+        visible: !title.contains('ADD') || isShowIcon,
         replacement: Row(
           children: [
             const SizedBox(
