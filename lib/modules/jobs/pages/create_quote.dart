@@ -8,7 +8,6 @@ import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_cust
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
-import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_job_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/widgets/job_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -84,8 +83,7 @@ class _CreateQuoteState extends State<CreateQuote> {
 
 
               _projectTitle.text = snapshot.data!.data.projectTitle!;
-              _projectDetails.text =
-                  snapshot.data!.data.projectDescription!;
+              _projectDetails.text = snapshot.data!.data.projectDescription!;
 
               return SingleChildScrollView(
                 child: Padding(
@@ -111,14 +109,14 @@ class _CreateQuoteState extends State<CreateQuote> {
                           ),
                         ],
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(vertical: 5),
-                      //   child: viewJobQuote(context,
-                      //       model: JobData(
-                      //           customerName: snapshot.data!.data.customerName,
-                      //           address: snapshot.data!.data.address,
-                      //           userName: snapshot.data!.data.userName)),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: viewJobQuote(context,
+                            model: JobData(
+                                customerName: snapshot.data!.data.customerName,
+                                address: snapshot.data!.data.address,
+                                userName: snapshot.data!.data.userName)),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -201,17 +199,17 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       itemHeight:
                                           MediaQuery.of(context).size.height *
                                               0.056,
-                                      icon: Padding(
+                                      icon: const Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 2),
+                                            EdgeInsets.only(right: 2),
                                         child: Icon(
                                           Icons.arrow_drop_down,
                                           color: CustomColors.primeColour,
                                         ),
                                       ),
-                                      iconOnClick: Padding(
+                                      iconOnClick: const Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 2),
+                                            EdgeInsets.only(right: 2),
                                         child: Icon(
                                           Icons.arrow_drop_up,
                                           color: CustomColors.primeColour,
@@ -244,7 +242,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                                         horizontal: 5),
                                                 child: Text(
                                                   item.toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: CustomColors
                                                           .blackText),
                                                 ),

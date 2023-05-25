@@ -51,9 +51,9 @@ class BottomToolsForInsidePage extends StatelessWidget {
                     child: Center(
                       child: state.index == 0
                           ? Image.asset(
-                              "assets/images/Menu - Back.png",
+                              "assets/images/updated_images/013-back.png",
                             )
-                          : Image.asset("assets/images/Menu - Back.png"),
+                          : Image.asset("assets/images/updated_images/013-back.png"),
                     ),
                   ),
                 ),
@@ -77,8 +77,8 @@ class BottomToolsForInsidePage extends StatelessWidget {
                     width: 50,
                     child: Center(
                       child: state.index == 1
-                          ? Image.asset("assets/images/Menu - Menu.png")
-                          : Image.asset("assets/images/Menu - Menu.png"),
+                          ? Image.asset("assets/images/updated_images/014-menu.png")
+                          : Image.asset("assets/images/updated_images/014-menu.png"),
                     ),
                   ),
                 ),
@@ -103,9 +103,9 @@ class BottomToolsForInsidePage extends StatelessWidget {
                     child: Center(
                       child: state.index == 2
                           ? Image.asset(
-                              "assets/images/Menu - Account.png",
+                              "assets/images/updated_images/016-user.png",
                             )
-                          : Image.asset("assets/images/Menu - Account.png"),
+                          : Image.asset("assets/images/updated_images/016-user.png"),
                     ),
                   ),
                 ),
@@ -130,9 +130,9 @@ class BottomToolsForInsidePage extends StatelessWidget {
                     child: Center(
                       child: state.index == 3
                           ? Image.asset(
-                              "assets/images/Menu - Settings.png",
+                              "assets/images/updated_images/015-settings.png",
                             )
-                          : Image.asset("assets/images/Menu - Settings.png"),
+                          : Image.asset("assets/images/updated_images/015-settings.png"),
                     ),
                   ),
                 ),

@@ -16,18 +16,18 @@ import 'package:ready_made_4_trade/modules/trainings/pages/trainings.dart';
 import '../model/get_user_data.dart';
 
 List<String> images = [
-  'assets/images/updated_images/017-dslr-camera.png',
-  'assets/images/Path 6834.png',
-  'assets/images/Customer Icon.png',
-  'assets/images/JOB Icon.png',
-  'assets/images/Diary Icon.png',
-  'assets/images/Materials Icon.png',
-  'assets/images/Trades Icon.png',
-  'assets/images/Checklist Icon.png',
-  'assets/images/updated_images/027-insurance-policy.png',
-  'assets/images/Receipt Icon.png',
-  'assets/images/updated_images/028-delivery-van.png',
-  'assets/images/Training Icon.png'
+  'assets/images/updated_images/Camera.png',
+  'assets/images/updated_images/Gallery.png',
+  'assets/images/updated_images/Customers.png',
+  'assets/images/updated_images/Jobs.png',
+  'assets/images/updated_images/diary.png',
+  'assets/images/updated_images/Materials 1.png',
+  'assets/images/updated_images/Trades.png',
+  'assets/images/updated_images/Checklist.png',
+  'assets/images/updated_images/FandI.png',
+  'assets/images/updated_images/Receipt 1.png',
+  'assets/images/updated_images/Essentials.png',
+  'assets/images/updated_images/Training 1.png'
 ];
 
 List<String> iconNames = [
