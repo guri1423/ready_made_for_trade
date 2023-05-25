@@ -125,8 +125,8 @@ class JobData {
     totalIncVat: json["total_inc_vat"],
     customerId: json["customer_id"],
     userId: json["user_id"],
-    jobStartFullDate: DateTime.parse(json["Job_start_full_date"]),
-    jobEndFullDate: DateTime.parse(json["Job_end_full_date"]),
+    jobStartFullDate: json["Job_start_full_date"] != null ? DateTime.parse(json["Job_start_full_date"]) : null,
+    jobEndFullDate: json["Job_end_full_date"] != null ? DateTime.parse(json["Job_end_full_date"]) : null,
     jobStartDate: json["Job_start_date"],
     jobStartMonth: json["job_start_month"],
     jobStartYear: json["job_start_year"],
@@ -141,8 +141,8 @@ class JobData {
     requestDepositAmount: json["request_deposit_amount"],
     isJobConfirm: json["is_job_confirm"],
     status: json["status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] != null ? DateTime.parse(json["created_at"]) : null,
+    updatedAt: json["updated_at"] != null ? DateTime.parse(json["updated_at"]) : null,
     customerName: json["customer_name"],
     userName: json["user_name"],
     userLogo: json["user_logo"],
@@ -150,6 +150,7 @@ class JobData {
     address: json["address"],
     remaining: json["Remaining"],
   );
+
 
   Map<String, dynamic> toJson() => {
     "id": id,

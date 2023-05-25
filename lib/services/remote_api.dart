@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -22,6 +23,7 @@ import 'package:ready_made_4_trade/modules/trades/models/add_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trainings/models/get_trainings_model.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
+
 import '../core/base_urls.dart';
 import '../modules/home/pages/icon_models/customer_model.dart';
 import '../modules/home/pages/icon_models/jobs_model.dart';
@@ -51,9 +53,7 @@ class RemoteApi {
     debugPrint(email);
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchUser),
-
-              body: {'email': email});
+          await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
 
       var jsonResponse = response.body;
 
@@ -72,9 +72,7 @@ class RemoteApi {
 
     try {
       Response response = await http
-          .post(Uri.parse(Urls.fetchCustomer),
-
-          body: {'user_id': userId});
+          .post(Uri.parse(Urls.fetchCustomer), body: {'user_id': userId});
       var jsonResponse = json.decode(response.body);
 
       if (jsonResponse['message'].toString().contains('Not Found')) {
@@ -461,8 +459,6 @@ class RemoteApi {
 
   Future<AddAppointmentResponse?> addAppointment(
       AddAppointmentModel model) async {
-
-
     debugPrint('TESt Id customer ${model.toJson().toString()}');
 
     try {
@@ -640,7 +636,6 @@ class RemoteApi {
 
   Future<GetJobInvoiceData?> getJobInvoice(int? jobId) async {
     try {
-
       final response = await http.post(
         Uri.parse(Urls.getJobInvoice),
         headers: {
@@ -671,22 +666,15 @@ class RemoteApi {
         body: json.encode({"job_id": jobId}), // Encode the model to JSON string
       );
 
+      debugPrint(response.body);
 
-      var jsonResponse = json.decode(response.body);
-
-      debugPrint(jsonResponse.toString());
-
-      String jsonString = json.encode(jsonResponse);
-      return getJobDataFromJson(jsonString);
-
+      return getJobDataFromJson(response.body);
     } catch (e) {
       debugPrint(e.toString());
     }
-    return null;
   }
 
   Future<JobAgreeResponse?> jobAgreed(JobAgreedModel model) async {
-
     debugPrint(model.toJson().toString());
 
     try {
@@ -699,7 +687,6 @@ class RemoteApi {
         body: json.encode(model.toJson()),
       );
 
-
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
 
@@ -711,10 +698,8 @@ class RemoteApi {
     }
     return null;
   }
-
 
   Future<JobAgreeResponse?> confirmJob(JobAgreedModel model) async {
-
     debugPrint(model.toJson().toString());
 
     try {
@@ -726,7 +711,6 @@ class RemoteApi {
         },
         body: json.encode(model.toJson()),
       );
-
 
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
@@ -740,25 +724,16 @@ class RemoteApi {
     return null;
   }
 
-  Future<JobAgreeResponse?> addPayment(String payment, String jobId, String status ) async {
-
-
+  Future<JobAgreeResponse?> addPayment(
+      String payment, String jobId, String status) async {
     try {
-      final response = await http.post(
-        Uri.parse(Urls.addPayment),
+      final response = await http.post(Uri.parse(Urls.addPayment),
           headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
-
           },
-
-        body: json.encode({
-          "job_id" : jobId,
-          "deposit_amount" : payment,
-          "status" : status
-        })
-      );
-
+          body: json.encode(
+              {"job_id": jobId, "deposit_amount": payment, "status": status}));
 
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
@@ -771,6 +746,4 @@ class RemoteApi {
     }
     return null;
   }
-
-
 }

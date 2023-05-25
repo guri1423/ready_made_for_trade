@@ -85,10 +85,65 @@ class _AddJobsPageState extends State<AddJobsPage> {
             ],
           ),
         ),
-        bottomNavigationBar: const BottomToolsForInsidePage(),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () async {
+
+
+                String? user_id = await _storageServices.getUserId();
+
+                AddAppointmentResponse? model =  await _remoteApi.addAppointment(AddAppointmentModel(userId: user_id , customerId: widget.customerId, date: dateValue.toString(),
+                  month: monthValue.toString(), year: _year.text, hours: hoursValue.toString(), minutes: minutesValue.toString(),
+                  projectTitle: _projectTitle.text, projectDescription: _projectDetails.text, status: 'Appointment Set',
+                ));
+
+                if(model != null){
+                  Fluttertoast.showToast(
+                      msg: model.message!,
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) =>  CreateQuote(projectId: model.appointmentId,
+                        jobId: model.jobId, customerId: widget.customerId,)));
+
+                }
+
+                else{
+
+                  Fluttertoast.showToast(
+                      msg: 'Something went wrong',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                }
+
+
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: extraLongButton(context, 'CREATE QUOTE'),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            const BottomToolsForInsidePage(),
+          ],
+        ),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -441,54 +496,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       context,
                       controller: _projectDetails,
                       hintText: 'Project Details')),
-              Spacer(),
-              GestureDetector(
-                onTap: () async {
 
-
-                  String? user_id = await _storageServices.getUserId();
-
-                  AddAppointmentResponse? model =  await _remoteApi.addAppointment(AddAppointmentModel(userId: user_id , customerId: widget.customerId, date: dateValue.toString(),
-                      month: monthValue.toString(), year: _year.text, hours: hoursValue.toString(), minutes: minutesValue.toString(),
-                      projectTitle: _projectTitle.text, projectDescription: _projectDetails.text, status: 'Appointment Set',
-                      ));
-
-                  if(model != null){
-                    Fluttertoast.showToast(
-                        msg: model.message!,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 2,
-                        backgroundColor: Colors.green,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>  CreateQuote(projectId: model.appointmentId,
-                          jobId: model.jobId, customerId: widget.customerId,)));
-
-                  }
-
-                  else{
-
-                    Fluttertoast.showToast(
-                        msg: 'Something went wrong',
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 2,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-
-                  }
-
-
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: extraLongButton(context, 'CREATE QUOTE'),
-                ),
-              )
             ],
           ),
         ));
