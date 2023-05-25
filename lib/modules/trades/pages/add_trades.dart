@@ -81,8 +81,8 @@ class _AddTradesPageState extends State<AddTradesPage> {
           ],
         ),
       ),
-      bottomNavigationBar:  BottomToolsForInsidePage(
-        onBackPress: (){
+      bottomNavigationBar: BottomToolsForInsidePage(
+        onBackPress: () {
           Navigator.pop(context);
         },
       ),
@@ -167,8 +167,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                       ),
                     ),
                     itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                    itemHeight:
-                    MediaQuery.of(context).size.height * 0.056,
+                    itemHeight: MediaQuery.of(context).size.height * 0.056,
                     icon: const Padding(
                       padding: EdgeInsets.only(right: 10),
                       child: Icon(
@@ -184,29 +183,26 @@ class _AddTradesPageState extends State<AddTradesPage> {
                       ),
                     ),
                     hint: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         'Trade',
-                        style: theme.textTheme.titleMedium!.copyWith(
-                            color: CustomColors.textFieldTextColour),
+                        style: theme.textTheme.titleMedium!
+                            .copyWith(color: CustomColors.textFieldTextColour),
                       ),
                     ),
                     items: tradeType
                         .map((item) => DropdownMenuItem(
-                        value: item,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Text(
-                            item.toString(),
-                            style:
-                            TextStyle(color: CustomColors.blackText),
-                          ),
-                        )))
+                            value: item,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                item.toString(),
+                                style: TextStyle(color: CustomColors.blackText),
+                              ),
+                            )))
                         .toList(),
-                    onChanged: (val){
-
-                    },
+                    onChanged: (val) {},
                   ),
                 ),
                 SizedBox(

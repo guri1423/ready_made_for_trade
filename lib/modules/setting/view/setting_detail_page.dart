@@ -14,6 +14,7 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
         toolbarHeight: 90,
         backgroundColor: Colors.white,
@@ -40,10 +41,19 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: () {
-          Navigator.pop(context);
-        },
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: extraLongButton(context, 'LOG OUT'),
+          ),
+          BottomToolsForInsidePage(
+            onBackPress: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -57,12 +67,14 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
                   itemCount: settingList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      extraLongButton(context, settingList[index],isShowIcon: true)),
+                  itemBuilder: (context, index) => extraLongButton(
+                      context, settingList[index],
+                      isShowIcon: true)),
               const SizedBox(
                 height: 10,
               ),
-              extraLongButton(context, 'ASK AN EXPERT',color: CustomColors.yellow)
+              extraLongButton(context, 'ASK AN EXPERT',
+                  color: CustomColors.yellow),
             ],
           ),
         ),
