@@ -40,7 +40,7 @@ class _QuoteSentState extends State<QuoteSent> {
   String? vatValue;
 
   String changeValue(String value){
-    if(value == 0)
+    if(value == 1)
       return 'YES';
     else return 'NO';
   }
@@ -299,7 +299,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                         customerId: widget.customerId,
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
-                                        vat: 0,
+                                        vat: int.parse(snapshot.data!.data.isVat!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
@@ -355,7 +355,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                           customerId: widget.customerId,
                                           materialCost: _materialCost.text,
                                           labourCost: _labourCost.text,
-                                          vat: 0,
+                                          vat: int.parse(snapshot.data!.data.isVat!),
                                           projectId: widget.projectId,
                                           projectTitle: _projectTitle.text,
                                           projectDescription:

@@ -40,9 +40,9 @@ class _CreateQuoteState extends State<CreateQuote> {
 
   int changeValue(String value){
     if(value == 'YES')
-      return 0;
-    else
       return 1;
+    else
+      return 0;
   }
 
   @override

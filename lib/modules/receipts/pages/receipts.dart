@@ -82,29 +82,30 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: state.model!.data.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10.0,
-                              crossAxisSpacing: 10.0,
+                          child: SingleChildScrollView(
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: state.model!.data.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10.0,
+                                crossAxisSpacing: 10.0,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return Image.network(
+                                  '${state.model!.data[index].filePath}/${state.model!.data[index].image}',
+                                );
+                              },
                             ),
-                            itemBuilder: (BuildContext context, int index) {
-                              return Image.network(
-                                '${state.model!.data[index].filePath}/${state.model!.data[index].image}',
-                              );
-                            },
                           ),
                         ),
+
                         GestureDetector(
                           onTap: () {
-                            BlocProvider.of<ReceiptsCubit>(context)
-                                .sendReceipts();
+                            BlocProvider.of<ReceiptsCubit>(context!).sendReceipts();
                           },
-                          child: extraLongButton(context, 'SEND RECEIPTS'),
+                          child: extraLongButton(context!, 'SEND RECEIPTS'),
                         ),
                         SizedBox(
                           height: 15,
@@ -118,18 +119,16 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                     _image1 = File(value!.path);
                                   });
                                 }
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddReceipts(image: _image1, )));
+                                Navigator.push(context!, MaterialPageRoute(builder: (context) => AddReceipts(image: _image1, )));
                               });
                             });
                           },
-                          child: extraLongButton(context, 'ADD RECEIPTS'),
-                        ),
-                        SizedBox(
-                          height: 15,
+                          child: extraLongButton(context!, 'ADD RECEIPTS'),
                         ),
                       ],
                     ),
                   );
+
                 }
                 if (state is ReceiptsFailure) {
                   return const Text('Something went wrong');

@@ -16,6 +16,8 @@ import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:http/http.dart' as http;
 
+import '../../home/widgets/common_widgets.dart';
+
 
 
 class AddReceipts extends StatefulWidget {
@@ -284,7 +286,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                   onTap: (){
                     uploadReceipts();
                   },
-                  child: longButton(context, 'Submit Receipt', CustomColors.blueButton))
+                  child: extraLongButton(context, 'Submit Receipt',))
 
 
 

@@ -203,7 +203,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-                          if (snapshot.data!.data.vat == 'YES')
+                          if (snapshot.data!.data.isVat == '1')
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 47),
                               child: Row(
@@ -214,7 +214,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    ' ${snapshot.data!.data.totalIncVat}',
+                                    '\$ ${snapshot.data!.data.totalIncVat}',
                                     style: style,
                                   ),
                                 ],
