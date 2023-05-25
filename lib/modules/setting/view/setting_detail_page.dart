@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/setting/view/add_reminders_page.dart';
+import 'package:ready_made_4_trade/modules/setting/view/ask_expert_page.dart';
+import 'package:ready_made_4_trade/modules/setting/view/edit_website_page.dart';
+import 'package:ready_made_4_trade/modules/setting/view/quote_invoice_terms_page.dart';
+import 'package:ready_made_4_trade/modules/setting/view/setup_company_info_page.dart';
+import 'package:ready_made_4_trade/modules/setting/view/upload_logo_page.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class SettingDetailPage extends StatefulWidget {
@@ -67,14 +73,25 @@ class _SettingDetailPageState extends State<SettingDetailPage> {
                   itemCount: settingList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => extraLongButton(
-                      context, settingList[index],
-                      isShowIcon: true)),
+                  itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      navigateToNextPage(index)!));
+                        },
+                        child: extraLongButton(context, settingList[index],
+                            isShowIcon: true),
+                      )),
               const SizedBox(
                 height: 10,
               ),
-              extraLongButton(context, 'ASK AN EXPERT',
-                  color: CustomColors.yellow),
+              GestureDetector(
+                onTap: () {},
+                child: extraLongButton(context, 'ASK AN EXPERT',
+                    color: CustomColors.yellow),
+              ),
             ],
           ),
         ),
@@ -90,3 +107,26 @@ List<String> settingList = [
   'QUOTE & INVOICE TERMS',
   'ADD REMINDERS',
 ];
+
+Widget? navigateToNextPage(int index) {
+  switch (index) {
+    case 0:
+      return SetupCompanyInfoPage();
+
+    case 1:
+      return EditWebsitePage();
+
+    case 2:
+      return UploadLogoPage();
+
+    case 3:
+      return QuoteInvoiceTermsPage();
+
+    case 4:
+      return AddRemaindersPage();
+
+    case 5:
+      return AskExpertPage();
+  }
+  return null;
+}
