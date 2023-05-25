@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 
 GetAllTrainings getAllTrainingsFromJson(String str) => GetAllTrainings.fromJson(json.decode(str));
@@ -35,7 +34,7 @@ class Datum {
   String? title;
   String? videoLink;
   String? description;
-  int? position;
+  String? position;
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;

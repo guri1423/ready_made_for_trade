@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 
 GetAllProjects getAllProjectsFromJson(String str) => GetAllProjects.fromJson(json.decode(str));
@@ -12,9 +11,9 @@ class GetAllProjects {
   bool status;
 
   GetAllProjects({
-  required  this.data,
-  required  this.message,
-  required  this.status,
+   required this.data,
+   required this.message,
+   required this.status,
   });
 
   factory GetAllProjects.fromJson(Map<String, dynamic> json) => GetAllProjects(
@@ -32,7 +31,7 @@ class GetAllProjects {
 
 class ProjectsData {
   int? id;
-  int? userId;
+  String? userId;
   String? projectTitle;
   List<String>? projectImages;
   String? status;

@@ -1,4 +1,6 @@
-
+// To parse this JSON data, do
+//
+//     final getEssentialsData = getEssentialsDataFromJson(jsonString);
 
 import 'dart:convert';
 

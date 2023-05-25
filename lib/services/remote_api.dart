@@ -50,7 +50,9 @@ class RemoteApi {
     debugPrint(email);
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
+          await http.post(Uri.parse(Urls.fetchUser),
+
+              body: {'email': email});
 
       var jsonResponse = response.body;
 
@@ -69,7 +71,9 @@ class RemoteApi {
 
     try {
       Response response = await http
-          .post(Uri.parse(Urls.fetchCustomer), body: {'user_id': userId});
+          .post(Uri.parse(Urls.fetchCustomer),
+
+          body: {'user_id': userId});
       var jsonResponse = json.decode(response.body);
 
       if (jsonResponse['message'].toString().contains('Not Found')) {
