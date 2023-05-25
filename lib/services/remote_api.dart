@@ -17,6 +17,7 @@ import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
 import 'package:ready_made_4_trade/modules/login/model/login_response.dart';
 import 'package:ready_made_4_trade/modules/material/models/get_materials_model.dart';
+import 'package:ready_made_4_trade/modules/receipts/models/receipts_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/add_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trainings/models/get_trainings_model.dart';
@@ -541,6 +542,26 @@ class RemoteApi {
       debugPrint(jsonResponse);
 
       return getDairyDataFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<GetJobList?> getJobListReceipts() async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.getJobList), body: {'user_id': userId});
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+
+      return getJobListFromJson(jsonResponse);
     } catch (e) {
       debugPrint(e.toString());
       return null;

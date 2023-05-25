@@ -11,6 +11,7 @@ import 'package:ready_made_4_trade/modules/gallery/models/project_response_model
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/home_widgets.dart';
 import 'package:ready_made_4_trade/modules/receipts/bloc/receipts_cubit.dart';
+import 'package:ready_made_4_trade/modules/receipts/pages/add_receipts.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -117,7 +118,7 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                     _image1 = File(value!.path);
                                   });
                                 }
-                                uploadReceipts();
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddReceipts(image: _image1, )));
                               });
                             });
                           },
@@ -230,6 +231,7 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
     debugPrint('User ID ${userId.toString()}');
 
     request.fields["user_id"] = userId!;
+
 
     final file = await http.MultipartFile.fromPath('image', _image1!.path);
     request.files.add(file);

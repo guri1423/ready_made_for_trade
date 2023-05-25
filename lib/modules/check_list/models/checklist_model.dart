@@ -1,5 +1,4 @@
 
-
 import 'dart:convert';
 
 GetChecklist getChecklistFromJson(String str) => GetChecklist.fromJson(json.decode(str));
@@ -12,9 +11,9 @@ class GetChecklist {
   bool status;
 
   GetChecklist({
-   required this.data,
-   required this.message,
-   required this.status,
+    required this.data,
+    required this.message,
+    required this.status,
   });
 
   factory GetChecklist.fromJson(Map<String, dynamic> json) => GetChecklist(
@@ -34,7 +33,7 @@ class Datum {
   int? id;
   String? checklistName;
   String? videolink;
-  int? position;
+  String? position;
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;

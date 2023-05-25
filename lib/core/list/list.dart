@@ -20,6 +20,11 @@ final List<String>customerType = [
 
 ];
 
+final List<String>categoryList = [
+  'Materials', 'Entertainment', 'Travel'
+
+];
+
 final List<String> vatList =[ 'YES', 'NO' ];
 
 
