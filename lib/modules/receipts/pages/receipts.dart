@@ -103,9 +103,9 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
 
                         GestureDetector(
                           onTap: () {
-                            BlocProvider.of<ReceiptsCubit>(context!).sendReceipts();
+                            BlocProvider.of<ReceiptsCubit>(context).sendReceipts();
                           },
-                          child: extraLongButton(context!, 'SEND RECEIPTS'),
+                          child: extraLongButton(context, 'SEND RECEIPTS'),
                         ),
                         SizedBox(
                           height: 15,
@@ -119,11 +119,11 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                     _image1 = File(value!.path);
                                   });
                                 }
-                                Navigator.push(context!, MaterialPageRoute(builder: (context) => AddReceipts(image: _image1, )));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddReceipts(image: _image1, )));
                               });
                             });
                           },
-                          child: extraLongButton(context!, 'ADD RECEIPTS'),
+                          child: extraLongButton(context, 'ADD RECEIPTS'),
                         ),
                       ],
                     ),

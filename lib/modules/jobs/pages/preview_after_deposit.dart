@@ -183,7 +183,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data!.totalPrice}',
+                                  '\$ ${snapshot.data!.data.totalPrice}',
                                   style: style,
                                 ),
                               ],
@@ -203,7 +203,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data!.vat}',
+                                  '\$ ${snapshot.data!.data.vat}',
                                   style: style,
                                 ),
                               ],

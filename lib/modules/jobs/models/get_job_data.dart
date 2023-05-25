@@ -11,9 +11,9 @@ class GetJobData {
   bool status;
 
   GetJobData({
-   required this.data,
-   required this.message,
-   required this.status,
+    required this.data,
+    required this.message,
+    required this.status,
   });
 
   factory GetJobData.fromJson(Map<String, dynamic> json) => GetJobData(

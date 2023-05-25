@@ -14,6 +14,8 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
+
+
 class CreateQuote extends StatefulWidget {
   int? jobId;
   int? projectId;
@@ -44,9 +46,13 @@ class _CreateQuoteState extends State<CreateQuote> {
       return 0;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     debugPrint('JOb id ${widget.jobId}');
+    debugPrint('Project id ${widget.projectId}');
+    debugPrint('Customer id ${widget.customerId}');
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
         appBar: AppBar(
@@ -82,8 +88,8 @@ class _CreateQuoteState extends State<CreateQuote> {
             if (snapshot.hasData && snapshot.data != null) {
 
 
-              _projectTitle.text = snapshot.data!.data.projectTitle!;
-              _projectDetails.text = snapshot.data!.data.projectDescription!;
+              _projectTitle.text = snapshot.data!.data.projectTitle ?? '';
+              _projectDetails.text = snapshot.data!.data.projectDescription ?? '';
 
               return SingleChildScrollView(
                 child: Padding(

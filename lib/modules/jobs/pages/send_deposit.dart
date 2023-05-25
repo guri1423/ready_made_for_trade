@@ -189,7 +189,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data!.totalPrice}',
+                                  '\$ ${snapshot.data!.data.totalPrice}',
                                   style: style,
                                 ),
                               ],
