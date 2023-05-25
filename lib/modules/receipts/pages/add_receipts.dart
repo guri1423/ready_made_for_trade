@@ -10,6 +10,7 @@ import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/modules/receipts/models/receipts_model.dart';
+import 'package:ready_made_4_trade/modules/receipts/pages/receipts.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -279,7 +280,11 @@ class _AddReceiptsState extends State<AddReceipts> {
 
               SizedBox(height: 30,),
 
-              longButton(context, 'Submit Receipt', CustomColors.blueButton)
+              GestureDetector(
+                  onTap: (){
+                    uploadReceipts();
+                  },
+                  child: longButton(context, 'Submit Receipt', CustomColors.blueButton))
 
 
 
@@ -296,10 +301,7 @@ class _AddReceiptsState extends State<AddReceipts> {
   }
 
   void uploadReceipts() async {
-    var uri = Uri.parse(
-      "https://readymade4trade.omkatech.in/api/ReceiptAddImage",
-    );
-
+    var uri = Uri.parse("https://readymade4trade.omkatech.in/api/ReceiptAddImage");
     var request = http.MultipartRequest("POST", uri);
 
     String? userId = await _storageServices.getUserId();
@@ -307,33 +309,40 @@ class _AddReceiptsState extends State<AddReceipts> {
     debugPrint('User ID ${userId.toString()}');
 
     request.fields["user_id"] = userId!;
-    request.fields["job"] = userId!;
-    request.fields["job,category,amount,date"] = userId!;
-    request.fields["job,category,amount,date"] = userId!;
-    request.fields["job,category,amount,date"] = userId!;
-
+    request.fields["job"] = jobValue!;
+    request.fields["category"] = categoryValue!;
+    request.fields["amount"] = _amount.text;
+    request.fields["date"] = _date.text;
 
     final file = await http.MultipartFile.fromPath('image', widget.image!.path);
     request.files.add(file);
+
+    request.headers["Accept"] = "application/json";
+    request.headers["Content-Type"] = "application/json";
 
     await request.send().then((response) async {
       debugPrint(response.statusCode.toString());
       debugPrint(response.toString());
       response.stream.transform(utf8.decoder).listen((value) async {
         debugPrint(value);
-        /* ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'Your response has been added successfully',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Your response has been added successfully',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.green,
-        ));*/
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.green,
+      ));
+
+         Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptsPage()));
+
+
       });
     }).catchError((e) {
       print(e);
@@ -352,4 +361,5 @@ class _AddReceiptsState extends State<AddReceipts> {
       ));
     });
   }
+
 }
