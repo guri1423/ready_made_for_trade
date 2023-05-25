@@ -69,6 +69,7 @@ class JobData {
   String? userLogo;
   String? filePath;
   String? address;
+  int? remaining;
 
   JobData({
     this.id,
@@ -107,6 +108,7 @@ class JobData {
     this.userLogo,
     this.filePath,
     this.address,
+    this.remaining,
   });
 
   factory JobData.fromJson(Map<String, dynamic> json) => JobData(
@@ -146,6 +148,7 @@ class JobData {
     userLogo: json["user_logo"],
     filePath: json["file_path"],
     address: json["address"],
+    remaining: json["Remaining"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -185,5 +188,6 @@ class JobData {
     "user_logo": userLogo,
     "file_path": filePath,
     "address": address,
+    "Remaining": remaining,
   };
 }

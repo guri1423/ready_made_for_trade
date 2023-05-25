@@ -69,6 +69,7 @@ class JobInvoiceData {
   String? userLogo;
   String? filePath;
   String? customerAddress;
+  int? remaining;
 
   JobInvoiceData({
     this.id,
@@ -107,6 +108,7 @@ class JobInvoiceData {
     this.userLogo,
     this.filePath,
     this.customerAddress,
+    this.remaining,
   });
 
   factory JobInvoiceData.fromJson(Map<String, dynamic> json) => JobInvoiceData(
@@ -146,6 +148,7 @@ class JobInvoiceData {
     userLogo: json["user_logo"],
     filePath: json["file_path"],
     customerAddress: json["customer_address"],
+    remaining: json["Remaining"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -185,5 +188,6 @@ class JobInvoiceData {
     "user_logo": userLogo,
     "file_path": filePath,
     "customer_address": customerAddress,
+    "Remaining": remaining,
   };
 }

@@ -40,9 +40,15 @@ class _QuoteSentState extends State<QuoteSent> {
   String? vatValue;
 
   String changeValue(String value){
-    if(value == 1)
-      return 'YES';
-    else return 'NO';
+    debugPrint(value);
+    debugPrint('vat val');
+    if(value == '1')
+     {
+       return 'YES';
+     }
+    else {
+      return 'NO';
+    }
   }
 
   @override
