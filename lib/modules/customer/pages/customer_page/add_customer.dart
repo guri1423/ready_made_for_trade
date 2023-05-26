@@ -369,10 +369,10 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
 }
 
 Widget customTextFieldForm(context,
-    {required TextEditingController controller, required String hintText}) {
+    {required TextEditingController controller, required String hintText,bool isBig = false}) {
   return TextFormField(
     controller: controller,
-    maxLines: hintText.contains('Project Details') ? 20 : 1,
+    maxLines: hintText.contains('Project Details') ? 20 : isBig?10:1,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
