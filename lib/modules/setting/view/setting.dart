@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
-import 'package:ready_made_4_trade/modules/setting/view/setting_detail_page.dart';
+import 'package:ready_made_4_trade/modules/account/view/account_page.dart';
 import 'package:ready_made_4_trade/modules/setting/widget/settings_widget.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 
@@ -163,7 +163,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+
+                        },
                         child: SizedBox(
                             height: 40,
                             child: smallButton(
@@ -176,11 +178,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SettingDetailPage()));
+
                         },
                         child: SizedBox(
                             height: 40,

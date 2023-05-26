@@ -1,11 +1,11 @@
 
 
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
-import 'package:ready_made_4_trade/modules/account/view/account.dart';
+import 'package:ready_made_4_trade/modules/account/view/account_page.dart';
 import 'package:ready_made_4_trade/modules/bottom_nav/cubit/navigation_cubit.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/setting/view/setting.dart';
