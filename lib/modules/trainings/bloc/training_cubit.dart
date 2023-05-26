@@ -9,19 +9,24 @@ class TrainingCubit extends Cubit<TrainingState> {
   TrainingCubit() : super(TrainingInitial());
 
   RemoteApi _remoteApi = RemoteApi();
-  getAllTrainings()async{
+
+  getAllTrainings() async {
     emit(TrainingLoading());
 
     GetAllTrainings? model = await _remoteApi.getAllTrainings();
 
-    if(model != null){
+    if (model != null) {
       emit(TrainingSuccess(model));
-    }
-
-    else{
+    } else {
       emit(TrainingFailure());
     }
   }
 
-
+  storeTrainingUpdate(
+      {required String customerId,
+      required String userID,
+      required Map<String, dynamic> status}) async {
+    await _remoteApi.saveTrainingStatus(
+        userID: userID, customerId: customerId, status: status);
+  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/trainings/bloc/training_cubit.dart';
-import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -15,15 +15,20 @@ class TrainingsPage extends StatefulWidget {
 }
 
 class _TrainingsPageState extends State<TrainingsPage> {
-
-
   bool isChecked = false;
+  String? userId;
+  final StorageServices _storageServices = StorageServices();
 
   List<bool> _isCheckedList = List.generate(1000, (_) => false);
+
+  getUserId() async {
+    userId = await _storageServices.getUserId();
+  }
 
   @override
   void initState() {
     super.initState();
+    getUserId();
 
     BlocProvider.of<TrainingCubit>(context).getAllTrainings();
   }
@@ -61,8 +66,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
       bottomNavigationBar: const BottomToolsForInsidePage(),
       body: BlocBuilder<TrainingCubit, TrainingState>(
         builder: (context, state) {
-
-          if(state is TrainingSuccess){
+          if (state is TrainingSuccess) {
             return Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: ListView.builder(
@@ -75,11 +79,12 @@ class _TrainingsPageState extends State<TrainingsPage> {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: (){
-                                launchUrlString(state.model!.data[index].videoLink!);
+                              onTap: () {
+                                launchUrlString(
+                                    state.model!.data[index].videoLink!);
                               },
-                              child: extraLongButton(context,
-                                state.model!.data[index].title!),
+                              child: extraLongButton(
+                                  context, state.model!.data[index].title!),
                             ),
                           ),
                           const SizedBox(
@@ -94,32 +99,43 @@ class _TrainingsPageState extends State<TrainingsPage> {
                               onChanged: (bool? value) {
                                 setState(() {
                                   _isCheckedList[index] =
-                                  !_isCheckedList[index];
+                                      !_isCheckedList[index];
+                                  if (userId != null) {
+                                    BlocProvider.of<TrainingCubit>(context)
+                                        .storeTrainingUpdate(status: {
+                                      "$index": getStatus(_isCheckedList[index])
+                                    }, userID: userId!, customerId: userId!);
+                                  }
+
+                                  // print(_isCheckedList[index]);
                                 });
                               },
                             ),
                           ),
                         ],
                       );
-                    })
-            );
+                    }));
           }
 
-          if(state is TrainingLoading){
+          if (state is TrainingLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if(state is TrainingFailure){
+          if (state is TrainingFailure) {
             return const Center(child: Text('Something went wrong'));
           }
 
           return const Center(child: CircularProgressIndicator());
-
-
-
-
         },
       ),
     );
+  }
+
+  String getStatus(bool status) {
+    if (status) {
+      return "1";
+    } else {
+      return "0";
+    }
   }
 }

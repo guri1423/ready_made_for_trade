@@ -28,6 +28,7 @@ class Urls{
   static const getEssentials = "${baseUrl}Essentials";
   static const getSearchEssentials = "${baseUrl}SearchEssentials";
   static const getTraining = "${baseUrl}ShowTraining";
+  static const saveTrainingStatus = "${baseUrl}UpdateTrainingChecklist";
   static const getDiaryData = "${baseUrl}getdiary";
   static const addQuote = "${baseUrl}JobUpdate";
   static const getReceiptImages = "${baseUrl}ReceiptGetImages";

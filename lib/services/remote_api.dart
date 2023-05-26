@@ -204,10 +204,8 @@ class RemoteApi {
   Future<GetAllTrades?> filterTrades(String? value) async {
     String? userId = await _servicesStorage.getUserId();
     try {
-      Response response = await http
-          .post(Uri.parse(Urls.filterTrades), body: {
-            'user_id' : userId,
-            'trade': value});
+      Response response = await http.post(Uri.parse(Urls.filterTrades),
+          body: {'user_id': userId, 'trade': value});
       print(response.body);
       var jsonResponse = response.body;
 
@@ -542,6 +540,25 @@ class RemoteApi {
     }
   }
 
+  Future<void> saveTrainingStatus(
+      {required String customerId,
+      required String userID,
+      required Map<String, dynamic> status}) async {
+    try {
+      Response response = await http.post(Uri.parse(Urls.getTraining), body: {
+        "user_id": userID,
+        "customer_id": customerId,
+        "Trainingcheckliststatus": status
+      });
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   Future<GetDairyData?> getDiaryData() async {
     String? userId = await _servicesStorage.getUserId();
 
@@ -750,16 +767,15 @@ class RemoteApi {
             "Accept": "application/json",
             "Content-Type": "application/json",
           },
-          body: json.encode(
-              {"job_id": jobId,
-                "deposit_amount": payment,
-                "status": status,
-              "deposit_amount_date" : date
-              }));
+          body: json.encode({
+            "job_id": jobId,
+            "deposit_amount": payment,
+            "status": status,
+            "deposit_amount_date": date
+          }));
 
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
-
 
       return addProjectResponseFromJson(response.body);
     } catch (e) {
