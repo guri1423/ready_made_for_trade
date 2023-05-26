@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-
 
 class UploadLogoPage extends StatefulWidget {
   const UploadLogoPage({Key? key}) : super(key: key);
@@ -41,10 +41,66 @@ class _UploadLogoPageState extends State<UploadLogoPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: () {
-          Navigator.pop(context);
-        },
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () {},
+                child: extraLongButton(context, 'GET A PROFESSIONAL LOGO')),
+          ),
+          BottomToolsForInsidePage(
+            onBackPress: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView(
+          children: [
+            Container(
+              height: 250,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: CustomColors.primeColour,
+                  borderRadius: BorderRadius.circular(5)),
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: SizedBox(
+                        height: 40,
+                        child: smallButton(
+                            context, 'UPLOAD', CustomColors.primeColour, 50)),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: SizedBox(
+                        height: 40,
+                        child: smallButton(
+                            context, 'DELETE', CustomColors.greyButton, 50)),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
       ),
     );
   }
