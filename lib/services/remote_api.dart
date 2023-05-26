@@ -13,6 +13,7 @@ import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dar
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/model/get_user_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/add_reminder.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
@@ -496,6 +497,32 @@ class RemoteApi {
     }
     return null;
   }
+
+  Future<AddProjectResponse?> addReminder(
+      AddReminderModel model) async {
+
+
+    try {
+      final response = await http.post(
+        Uri.parse(Urls.setReminder),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: json.encode(model.toJson()), // Encode the model to JSON string
+      );
+
+      debugPrint(response.body);
+      var jsonResponse = json.decode(response.body);
+      debugPrint('json response $jsonResponse');
+      return addProjectResponseFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return null;
+  }
+
+
 
   Future<GetEssentialsData?> getAllEssentials() async {
     try {

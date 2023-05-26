@@ -8,6 +8,7 @@ import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/pages/edit_trades.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TradeDetails extends StatefulWidget {
   DatumTrade tradeData;
@@ -57,16 +58,30 @@ class _TradeDetailsState extends State<TradeDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png')),
+                  Expanded(child: GestureDetector(
+                      onTap: (){
+                        makePhoneCall(widget.tradeData.mobileNumber!);
+                      },
+                      child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
 
-                  Expanded(child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/small_icons/001-email.png')),
+                  Expanded(child: GestureDetector(
+                      onTap: (){
+
+                        sendEmail(widget.tradeData.emailAddress!);
+
+                      },
+                      child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/small_icons/001-email.png'))),
                 ],
               ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png')),
+                  Expanded(child: GestureDetector(
+                      onTap: (){
+                        sendWhatsAppMessage(widget.tradeData.mobileNumber!);
+                      },
+                      child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png'))),
 
                   const Expanded(child: SizedBox())
                 ],
@@ -88,5 +103,49 @@ class _TradeDetailsState extends State<TradeDetails> {
 
 
     );
+
+
   }
+  void makePhoneCall(String phoneNumber) async {
+    final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    if (await canLaunch(telUri.toString())) {
+      await launch(telUri.toString());
+    } else {
+      throw 'Could not launch phone call';
+    }
+  }
+
+
+  void sendEmail(String emailAddress) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: emailAddress,
+    );
+
+    if (await canLaunch(emailUri.toString())) {
+      await launch(emailUri.toString());
+    } else {
+      throw 'Could not launch email';
+    }
+  }
+
+
+  void sendWhatsAppMessage(String phoneNumber) async {
+    final Uri whatsappUri = Uri(
+      scheme: 'whatsapp',
+      path: 'send',
+      queryParameters: {'phone': phoneNumber},
+    );
+
+    if (await canLaunch(whatsappUri.toString())) {
+      await launch(whatsappUri.toString());
+    } else {
+      throw 'Could not launch WhatsApp';
+    }
+  }
+
+
+
+
 }

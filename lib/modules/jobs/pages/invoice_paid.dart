@@ -10,6 +10,7 @@ import 'package:ready_made_4_trade/modules/jobs/models/appointment_models.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/reminder_setup.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -229,26 +230,29 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       ),
 
                       Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration:  BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Text('   ${snapshot.data!.data.projectDescription!}',
-                                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(  // Wrap the Text widget with Flexible
+                                  child: Text(
+                                    '${snapshot.data!.data.projectDescription!}',
+                                    softWrap: true,
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          )
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
@@ -357,7 +361,8 @@ class _InvoicePaidState extends State<InvoicePaid> {
 
             return const Center(child: SingleChildScrollView());
           },
-        ));
+        )
+    );
   }
 
   Future<void> setReminder(BuildContext context) async {
@@ -399,7 +404,8 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       GestureDetector(
                           onTap: ()async{
 
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> AddJobsPage(customerId: widget.customerId.toString())));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderSetup(customerId: widget.customerId,
+                              jobId: widget.jobId, projectId: widget.projectId,)));
 
                           },
                           child: smallButton(context, 'YES', CustomColors.greyButton, 100)),

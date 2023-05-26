@@ -189,27 +189,31 @@ class _JobLivePageState extends State<JobLivePage> {
                     ),
 
                     Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Text('   ${snapshot.data!.data.projectDescription!}',
-                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(  // Wrap the Text widget with Flexible
+                                child: Text(
+                                  '${snapshot.data!.data.projectDescription!}',
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        )
+                        ),
+                      ),
                     ),
+
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
