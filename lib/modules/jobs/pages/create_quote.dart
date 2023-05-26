@@ -88,8 +88,8 @@ class _CreateQuoteState extends State<CreateQuote> {
             if (snapshot.hasData && snapshot.data != null) {
 
 
-              _projectTitle.text = snapshot.data!.data.projectTitle ?? '';
-              _projectDetails.text = snapshot.data!.data.projectDescription ?? '';
+              _projectTitle.text = snapshot.data!.data.projectTitle ?? _projectTitle.text;
+              _projectDetails.text = snapshot.data!.data.projectDescription ?? _projectDetails.text;
 
               return SingleChildScrollView(
                 child: Padding(

@@ -2,9 +2,11 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
+import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
@@ -15,7 +17,9 @@ class JobLivePage extends StatefulWidget {
   int? customerId;
   int? jobId;
 
-  JobLivePage({Key? key, required this.customerId, required this.jobId}) : super(key: key);
+  JobLivePage({Key? key, required this.customerId, required this.jobId, }) : super(key: key);
+
+
 
   @override
   State<JobLivePage> createState() => _JobLivePageState();
@@ -33,6 +37,7 @@ class _JobLivePageState extends State<JobLivePage> {
 
   RemoteApi _remoteApi = RemoteApi();
   String? vatValue;
+
 
   @override
   Widget build(BuildContext context) {
@@ -161,21 +166,24 @@ class _JobLivePageState extends State<JobLivePage> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height:  30,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Text('   ${snapshot.data!.data.projectTitle!}',
-                              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: Text('   ${snapshot.data!.data.projectTitle!}',
+                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ),
@@ -184,24 +192,27 @@ class _JobLivePageState extends State<JobLivePage> {
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height:  40,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text('   ${snapshot.data!.data.projectDescription!}',
-                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Text('   ${snapshot.data!.data.projectDescription!}',
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                     ),
 
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text('Material - \$${snapshot.data!.data.materialCost}',
                           style: TextStyle(
@@ -224,17 +235,26 @@ class _JobLivePageState extends State<JobLivePage> {
                     SizedBox(height: 20,),
 
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
 
 
-                        Text('Total Price - \$${snapshot.data!.data.totalPrice}',
+                        if(snapshot.data!.data.isVat! == '1' )
+                          Text(
+                            'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Dongle Regular',
+                                color: CustomColors.blueButton,
+                                fontWeight: FontWeight.bold),
+                          ) else  Text(
+                          'Total - \$${snapshot.data!.data.totalPrice!}',
                           style: TextStyle(
                               fontSize: 16,
-
+                              fontFamily: 'Dongle Regular',
                               color: CustomColors.blueButton,
-                              fontWeight: FontWeight.bold
-                          ),),
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(width: 10,),
                         Text('          ',
                           style: TextStyle(
@@ -262,10 +282,9 @@ class _JobLivePageState extends State<JobLivePage> {
                           height: 50,
                           width: 170,
                           child: Center(
-                            child: Text('Paid - \$${snapshot.data!.data.depositAmount}',
+                            child: Text('Paid - \$${snapshot.data!.data.depositAmount ?? '0'}',
                               style: TextStyle(
                                   fontSize: 16,
-                                  fontFamily:'Dongle',
                                   color: CustomColors.blueButton,
                                   fontWeight: FontWeight.bold
                               ),),
@@ -278,35 +297,39 @@ class _JobLivePageState extends State<JobLivePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
-                            },
-                            child: smallButton(context, 'PREVIEW', CustomColors.skyblue, 170)),
-                        smallButton(context, 'SAVE', CustomColors.skyblue, 170),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
 
-                    GestureDetector(
-                      onTap: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewJobQuote()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        Expanded(
+                          child: GestureDetector(
+                              onTap: (){
 
-                          smallButton(context, 'RESEND', CustomColors.blueButton, 170),
-                          GestureDetector(
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
+                              },
+                              child: smallButton(context, 'PREVIEW', CustomColors.skyblue, 170)),
+                        ),
+
+                        SizedBox(width: 20,),
+
+                        if(int.parse(snapshot.data!.data.depositAmount ?? '0') <= int.parse(snapshot.data!.data.totalPrice!) )
+
+                          Expanded(
+                            child: GestureDetector(
+
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
+                                },
+                                child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                          ) else  Expanded(
+                            child: GestureDetector(
 
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoicePaid(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
                               },
-                              child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                              child: smallButton(context, 'FINAL INVOICE', CustomColors.blueButton, 170)),
+                          )
 
-                        ],
-                      ),
-                    )
+                      ],
+                    ),
+
 
 
 
@@ -375,13 +398,49 @@ class _JobLivePageState extends State<JobLivePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
-                        onTap: (){
-                          _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Live Job');
+                        onTap: ()async{
+                          AddProjectResponse? model = await  _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid',_date.text);
+
+                          if(model != null){
+                            Fluttertoast.showToast(
+                                msg: model.message!,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+
+                            Navigator.pop(context);
+                            setState(() {
+
+                            });
+
+                          }
+
+                          else{
+
+                            Fluttertoast.showToast(
+                                msg: 'Something went wrong',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+
+                          }
                         },
                         child: smallButton(context, 'SAVE', CustomColors.greyButton, 100)),
                     GestureDetector(
                         onTap: (){
+                          _totalPrice.clear();
+                          _date.clear();
                           Navigator.pop(context);
+
+                          setState(() {
+
+                          });
                         },
                         child: smallButton(context, 'DELETE', CustomColors.yellow, 100)),
                   ],
@@ -393,4 +452,7 @@ class _JobLivePageState extends State<JobLivePage> {
       },
     );
   }
+
+
+
 }

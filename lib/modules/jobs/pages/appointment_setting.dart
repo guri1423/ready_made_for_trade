@@ -158,15 +158,20 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       child: Icon(Icons.close_outlined)),
                 ],
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  'APPOINTMENT SETTING',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Montserrat',
-                      color: CustomColors.blueButton,
-                      fontWeight: FontWeight.bold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'APPOINTMENT SETTING',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Montserrat',
+                          color: CustomColors.blueButton,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
               Row(

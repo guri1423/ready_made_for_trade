@@ -104,8 +104,15 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
                           },
                           child: Container(
                             height: 40,
-                            color: CustomColors.primeColour,
-                            child: Image.asset('assets/images/Edit Customer.png'),
+
+                            decoration: BoxDecoration(
+                              color: CustomColors.primeColour,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Image.asset('assets/images/small_icons/019-edit.png'),
+                            ),
                           ),
                         ),
                       ],

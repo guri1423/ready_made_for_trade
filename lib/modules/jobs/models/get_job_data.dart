@@ -67,7 +67,7 @@ class JobData {
   String? userLogo;
   String? filePath;
   String? address;
-  int? remaining;
+  dynamic remaining;
 
   JobData({
     this.id,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/job_live_page.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -14,11 +15,15 @@ class PreviewAfterDeposit extends StatefulWidget {
   int? jobId;
   int? customerId;
   int? projectId;
-   PreviewAfterDeposit({Key? key, required this.jobId, required this.customerId, required this.projectId}) : super(key: key);
+   PreviewAfterDeposit({Key? key, required this.jobId, required this.customerId, required this.projectId, this.isComingFromInvoicePaid = false}) : super(key: key);
+
+  final bool isComingFromInvoicePaid;
 
   @override
   State<PreviewAfterDeposit> createState() => _PreviewAfterDepositState();
 }
+
+
 
 RemoteApi _remoteApi = RemoteApi();
 
@@ -42,7 +47,18 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
           GestureDetector(
               onTap: () {
 
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(customerId: widget.customerId, jobId: widget.jobId)));
+                if(widget.isComingFromInvoicePaid){
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoicePaid(customerId: widget.customerId, jobId: widget.jobId, projectId: widget.projectId, isComingFromReceipt: true,)));
+
+                }
+                else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(customerId: widget.customerId, jobId: widget.jobId)));
+                }
+
+
+
+
 
               },
               child: smallButton(
@@ -203,7 +219,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data.vat}',
+                                  '\$ ${snapshot.data!.data.totalIncVat}',
                                   style: style,
                                 ),
                               ],
@@ -243,7 +259,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data.depositAmount}',
+                                  '\$ ${snapshot.data!.data.remaining}',
                                   style: style,
                                 ),
                               ],
@@ -254,19 +270,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // const Text(
-                      //   'Lorem ipsum dolor sit amet, consectetur adipiscing '
-                      //   'elit, sed do eiusmod tempor incididunt ut labore et '
-                      //   'dolore magna aliqua. Ut enim ad minim veniam, quis '
-                      //   'nostrud exercitation ullamco laboris nisi ut aliquip ex '
-                      //   'ea commodo consequat',
-                      //   style: TextStyle(
-                      //     fontSize: 14,
-                      //     fontFamily: 'Dongle Regular',
-                      //     height: 1.5,
-                      //     color: CustomColors.greyButton,
-                      //   ),
-                      // ),
+
                     ],
                   ),
                 ),

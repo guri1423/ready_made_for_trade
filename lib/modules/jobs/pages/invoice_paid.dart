@@ -1,9 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
+import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/appointment_models.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -12,7 +18,9 @@ class InvoicePaid extends StatefulWidget {
   int? jobId;
   int? customerId;
   int? projectId;
- InvoicePaid({Key? key, required this.jobId, required this.customerId, required this.projectId}) : super(key: key);
+ InvoicePaid({Key? key, required this.jobId, required this.customerId, required this.projectId, this.isComingFromReceipt = false}) : super(key: key);
+
+  final bool isComingFromReceipt;
 
   @override
   State<InvoicePaid> createState() => _InvoicePaidState();
@@ -33,6 +41,18 @@ class _InvoicePaidState extends State<InvoicePaid> {
   StorageServices _storageServices = StorageServices();
 
   String? vatValue;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      debugPrint(widget.isComingFromReceipt.toString());
+      if (widget.isComingFromReceipt) {
+        setReminder(context);
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -185,129 +205,141 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
-                        height: 40,
-                        child: customTextFieldForm(context,
-                            controller: _projectTitle,
-                            hintText: 'Project Title'),
+                      Padding(
+                          padding:  EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration:  BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text('   ${snapshot.data!.data.projectTitle!}',
+                                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
                       ),
-                      const SizedBox(
-                        height: 10,
+
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration:  BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text('   ${snapshot.data!.data.projectDescription!}',
+                                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
                       ),
-                      SizedBox(
-                          height: 200,
-                          child: customTextFieldForm(context,
-                              controller: _projectDetails,
-                              hintText: 'Project Details')),
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Material - \$${snapshot.data!.data.materialCost!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Labour - \$${snapshot.data!.data.labourCost!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Total - \$${snapshot.data!.data.totalPrice!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ),
-
-                          Text(
-                            '                 ',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ),
-
-
-
-                        ],
-                      ),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            child: GestureDetector(
-                                onTap: () {
+                          Column(
+                            children: [
+                              Text(
+                                'Material - \$${snapshot.data!.data.materialCost!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Labour - \$${snapshot.data!.data.labourCost!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
 
-                                },
-                                child: smallButton(context, 'SAVE',
-                                    CustomColors.skyblue, 170)),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                                onTap: () {
+                          Column(
+                            children: [
+                              if(snapshot.data!.data.isVat! == '1' )
+                                Text(
+                                  'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Dongle Regular',
+                                      color: CustomColors.blueButton,
+                                      fontWeight: FontWeight.bold),
+                                ) else  Text(
+                                'Total - \$${snapshot.data!.data.totalPrice!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
 
-                                },
-                                child: smallButton(context, 'PREVIEW',
-                                    CustomColors.skyblue, 170)),
+                              SizedBox(height: 10,),
+
+                              Text(
+                                'Paid - \$${snapshot.data!.data.depositAmount!}                 ',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
+
+
                         ],
                       ),
+
+
+
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+
+
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: GestureDetector(
-                                  onTap: () async {
 
-                                  },
-                                  child: smallButton(context, 'RESEND',
-                                      CustomColors.blueButton, 170)),
-                            ),
+                            GestureDetector(
+                                onTap: () {
 
-                            const SizedBox(
-                              width: 20,
-                            ),
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(
+                                      jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId,isComingFromInvoicePaid: true,)));
 
-                            Expanded(
-                              child: GestureDetector(
-                                  onTap: () {
-
-                                  },
-                                  child: smallButton(context, 'SEND RECEIPT',
-                                      CustomColors.blueButton, 170)),
-                            ),
+                                },
+                                child: smallButton(context, 'SEND RECEIPT',
+                                    CustomColors.blueButton, 170)),
 
                           ],
                         ),
@@ -326,5 +358,68 @@ class _InvoicePaidState extends State<InvoicePaid> {
             return const Center(child: SingleChildScrollView());
           },
         ));
+  }
+
+  Future<void> setReminder(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          title: Container(
+            width: 600,
+            decoration: BoxDecoration(
+              color: CustomColors.primeColour,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 100,),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('SET A SERVICE REMINDER',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: CustomColors.white,
+                            fontWeight: FontWeight.bold
+                        ),),
+                    ],
+                  ),
+
+                  SizedBox(height: 100,),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                          onTap: ()async{
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> AddJobsPage(customerId: widget.customerId.toString())));
+
+                          },
+                          child: smallButton(context, 'YES', CustomColors.greyButton, 100)),
+                      GestureDetector(
+                          onTap: (){
+
+                            Navigator.pop(context);
+
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>  HomePage()));
+                          },
+                          child: smallButton(context, 'NO', CustomColors.yellow, 100)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

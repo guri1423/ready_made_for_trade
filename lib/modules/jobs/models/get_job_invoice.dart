@@ -69,7 +69,7 @@ class JobInvoiceData {
   String? userLogo;
   String? filePath;
   String? customerAddress;
-  int? remaining;
+  dynamic remaining;
 
   JobInvoiceData({
     this.id,
@@ -141,8 +141,8 @@ class JobInvoiceData {
     depositAmount: json["deposit_amount"],
     isJobConfirm: json["is_job_confirm"],
     status: json["status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] != null ? DateTime.parse(json["created_at"]) : null,
+    updatedAt: json["updated_at"] != null ? DateTime.parse(json["updated_at"]) : null,
     customerName: json["customer_name"],
     userName: json["user_name"],
     userLogo: json["user_logo"],

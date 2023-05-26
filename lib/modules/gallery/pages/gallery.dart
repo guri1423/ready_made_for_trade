@@ -58,19 +58,36 @@ class _GalleryPageState extends State<GalleryPage> {
                   if (snapshot.hasData) {
                     return Expanded(
                       child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: snapshot.data!.data.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 10.0,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Image.network(
-                                '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}');
-                          }),
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: snapshot.data!.data.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 10.0,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          int reversedIndex = snapshot.data!.data.length - 1 - index;
+                          return GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    child: Image.network(
+                                      '${snapshot.data!.data[reversedIndex].filePath}/${snapshot.data!.data[reversedIndex].image}',
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Image.network(
+                              '${snapshot.data!.data[reversedIndex].filePath}/${snapshot.data!.data[reversedIndex].image}',
+                            ),
+                          );
+                        },
+                      ),
+
                     );
                   }
                   if (snapshot.hasError) {

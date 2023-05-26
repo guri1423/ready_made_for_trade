@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
+import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
@@ -40,6 +41,7 @@ class _DepositRequestedState extends State<DepositRequested> {
   StorageServices _storageServices = StorageServices();
 
   String? vatValue;
+
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +212,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             'Material - \$${snapshot.data!.data.materialCost!}',
@@ -235,9 +237,18 @@ class _DepositRequestedState extends State<DepositRequested> {
                       ),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+
+                          if(snapshot.data!.data.isVat! == '1' )
                           Text(
+                            'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Dongle Regular',
+                                color: CustomColors.blueButton,
+                                fontWeight: FontWeight.bold),
+                          ) else  Text(
                             'Total - \$${snapshot.data!.data.totalPrice!}',
                             style: TextStyle(
                                 fontSize: 16,
@@ -279,7 +290,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                             width: 170,
                             child: Center(
                               child: Text(
-                                'Paid - \$ ',
+                                'Paid - \$ ${snapshot.data!.data.depositAmount ?? '0'}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -422,9 +433,39 @@ class _DepositRequestedState extends State<DepositRequested> {
                   children: [
                     Expanded(
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: ()async{
 
-                            _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid');
+                          AddProjectResponse? model = await  _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid',_date.text);
+
+                          if(model != null){
+                            Fluttertoast.showToast(
+                                msg: model.message!,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+
+                           Navigator.pop(context);
+                            setState(() {
+
+                            });
+
+                          }
+
+                          else{
+
+                            Fluttertoast.showToast(
+                                msg: 'Something went wrong',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+
+                          }
 
 
 
@@ -438,7 +479,14 @@ class _DepositRequestedState extends State<DepositRequested> {
                     Expanded(
                         child: GestureDetector(
                           onTap: (){
+                            _totalPrice.clear();
+                            _date.clear();
                             Navigator.pop(context);
+
+                            setState(() {
+
+                            });
+
                           },
                           child: smallButton(
                               context, 'DELETE', CustomColors.yellow, 100),

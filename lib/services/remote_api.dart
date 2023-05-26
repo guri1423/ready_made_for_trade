@@ -724,8 +724,8 @@ class RemoteApi {
     return null;
   }
 
-  Future<JobAgreeResponse?> addPayment(
-      String payment, String jobId, String status) async {
+  Future<AddProjectResponse?> addPayment(
+      String payment, String jobId, String status, String date) async {
     try {
       final response = await http.post(Uri.parse(Urls.addPayment),
           headers: {
@@ -733,14 +733,17 @@ class RemoteApi {
             "Content-Type": "application/json",
           },
           body: json.encode(
-              {"job_id": jobId, "deposit_amount": payment, "status": status}));
+              {"job_id": jobId,
+                "deposit_amount": payment,
+                "status": status,
+              "deposit_amount_date" : date
+              }));
 
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
 
-      JobAgreeResponse returnResponse = JobAgreeResponse.fromJson(jsonResponse);
 
-      return returnResponse;
+      return addProjectResponseFromJson(response.body);
     } catch (e) {
       debugPrint(e.toString());
     }
