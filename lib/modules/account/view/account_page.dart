@@ -89,7 +89,12 @@ class _AccountPageState extends State<AccountPage> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AskExpertPage()));
+                },
                 child: extraLongButton(context, 'ASK AN EXPERT',
                     color: CustomColors.yellow),
               ),
