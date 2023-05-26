@@ -339,15 +339,19 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: CustomColors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Image.asset('assets/images/support.png'),
-                )),
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: CustomColors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                  )),
+            ),
             const SizedBox(
               width: 30,
             ),
@@ -357,16 +361,16 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
               children: [
                 Text(
                     '${data[index].title!} ${data[index].firstName} ${data[index].lastName!}',
-                    style: theme.textTheme.titleLarge),
+                    style: theme.textTheme.titleMedium),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('${data[index].nickname}',
-                    style: theme.textTheme.titleLarge),
+                Text('"${data[index].nickname}"',
+                    style: theme.textTheme.titleMedium),
                 const SizedBox(
                   height: 4,
                 ),
-                Text(data[index].trades!, style: theme.textTheme.titleMedium),
+                Text(data[index].trades!, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
               ],
             ),
           ],
@@ -390,15 +394,19 @@ Widget searchTradeResult(context, List<DatumTrade> data, int index) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: CustomColors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Image.asset('assets/images/support.png'),
-                )),
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: CustomColors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                  )),
+            ),
             const SizedBox(
               width: 30,
             ),
@@ -450,7 +458,10 @@ Widget tradeDetails(context, DatumTrade tradeData) {
                       borderRadius: BorderRadius.circular(10),
                       color: CustomColors.white,
                     ),
-                    child: Image.asset('assets/images/support.png')),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                    )),
               ),
               Padding(
                 padding:

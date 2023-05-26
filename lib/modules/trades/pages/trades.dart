@@ -65,12 +65,18 @@ class _TradesPageState extends State<TradesPage> {
         ),
       ),
       bottomNavigationBar: BottomToolsForInsidePage(
-        onBackPress: _searchTrades.text.isNotEmpty
-            ? () {
-                _searchTrades.clear();
-                BlocProvider.of<SearchTradesCubit>(context).getTrades();
-              }
-            : null,
+        onBackPress: (){
+
+          BlocProvider.of<SearchTradesCubit>(context).getTrades();
+        }
+
+
+        // _searchTrades.text.isNotEmpty
+        //     ? () {
+        //         _searchTrades.clear();
+        //
+        //       }
+        //     : null,
       ),
       body: BlocBuilder<SearchTradesCubit, SearchTradesState>(
         builder: (context, state) {
@@ -93,7 +99,7 @@ class _TradesPageState extends State<TradesPage> {
                                           const AddTradesPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,
@@ -175,6 +181,7 @@ class _TradesPageState extends State<TradesPage> {
                           )))
                           .toList(),
                       onChanged: (val){
+                        BlocProvider.of<SearchTradesCubit>(context).filterTrades(val.toString());
 
                       },
                     ),
@@ -225,7 +232,7 @@ class _TradesPageState extends State<TradesPage> {
                                           const AddTradesPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,
@@ -328,7 +335,7 @@ class _TradesPageState extends State<TradesPage> {
                                           const AddTradesPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,
@@ -350,61 +357,70 @@ class _TradesPageState extends State<TradesPage> {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButtonFormField2(
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                            ),
-                            buttonHeight: 49,
-                            buttonWidth: MediaQuery.of(context).size.width,
-                            buttonDecoration: BoxDecoration(
-                              color: CustomColors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                color: CustomColors.textFieldBorderColor,
-                                width: 1,
-                              ),
-                            ),
-                            itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                            itemHeight:
-                                MediaQuery.of(context).size.height * 0.056,
-                            icon: const Padding(
-                              padding: EdgeInsets.only(right: 10),
-                              child: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: CustomColors.primeColour,
-                              ),
-                            ),
-                            iconOnClick: const Padding(
-                              padding: EdgeInsets.only(right: 10),
-                              child: Icon(
-                                Icons.keyboard_arrow_up,
-                                color: CustomColors.primeColour,
-                              ),
-                            ),
-                            hint: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              child: Text(
-                                'Trade',
-                                style: theme.textTheme.titleMedium!.copyWith(
-                                    color: CustomColors.textFieldTextColour),
-                              ),
-                            ),
-                            items: [],
-                          ),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField2(
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
+                      ),
+                      buttonHeight: 49,
+                      buttonWidth: MediaQuery.of(context).size.width,
+                      buttonDecoration: BoxDecoration(
+                        color: CustomColors.white,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: CustomColors.textFieldBorderColor,
+                          width: 1,
                         ),
                       ),
-                    ],
+                      itemPadding: EdgeInsets.symmetric(horizontal: 15),
+                      itemHeight:
+                      MediaQuery.of(context).size.height * 0.056,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: CustomColors.primeColour,
+                        ),
+                      ),
+                      iconOnClick: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.keyboard_arrow_up,
+                          color: CustomColors.primeColour,
+                        ),
+                      ),
+                      hint: Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          'Trade',
+                          style: theme.textTheme.titleMedium!.copyWith(
+                              color: CustomColors.textFieldTextColour),
+                        ),
+                      ),
+                      items: tradeType
+                          .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Text(
+                              item.toString(),
+                              style:
+                              TextStyle(color: CustomColors.blackText),
+                            ),
+                          )))
+                          .toList(),
+                      onChanged: (val){
+                        BlocProvider.of<SearchTradesCubit>(context).filterTrades(val.toString());
+
+                      },
+                    ),
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -437,6 +453,146 @@ class _TradesPageState extends State<TradesPage> {
             return Column(
               children: [
                 const Center(child: Text('No Result Found')),
+              ],
+            );
+          }
+          if (state is FilterTradesSuccess) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const AddTradesPage()));
+                            },
+                            child: Image.asset(
+                              'assets/images/updated_images/add-friend 1.png',
+                              height: 35,
+                              width: 35,
+                              fit: BoxFit.contain,
+                            )),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                            child: customerSearchBarWidget(
+                              context,
+                              onTap: () {
+                                BlocProvider.of<SearchTradesCubit>(context)
+                                    .searchTrades(_searchTrades.text);
+                              },
+                              hintText: 'Search Contacts',
+                              theme: theme,
+                              controller: _searchTrades,
+                            ))
+                      ],
+                    ),
+                  ),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField2(
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
+                      ),
+                      buttonHeight: 49,
+                      buttonWidth: MediaQuery.of(context).size.width,
+                      buttonDecoration: BoxDecoration(
+                        color: CustomColors.white,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          color: CustomColors.textFieldBorderColor,
+                          width: 1,
+                        ),
+                      ),
+                      itemPadding: EdgeInsets.symmetric(horizontal: 15),
+                      itemHeight:
+                      MediaQuery.of(context).size.height * 0.056,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: CustomColors.primeColour,
+                        ),
+                      ),
+                      iconOnClick: const Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.keyboard_arrow_up,
+                          color: CustomColors.primeColour,
+                        ),
+                      ),
+                      hint: Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          'Trade',
+                          style: theme.textTheme.titleMedium!.copyWith(
+                              color: CustomColors.textFieldTextColour),
+                        ),
+                      ),
+                      items: tradeType
+                          .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Text(
+                              item.toString(),
+                              style:
+                              TextStyle(color: CustomColors.blackText),
+                            ),
+                          )))
+                          .toList(),
+                      onChanged: (val){
+                        BlocProvider.of<SearchTradesCubit>(context).filterTrades(val.toString());
+
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: state.model!.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TradeDetails(
+                                            tradeData:
+                                            state.model!.data[index])));
+                              },
+                              child: searchTradeResult(
+                                  context, state.model!.data, index));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          if (state is FilterTradesEmpty) {
+            return Column(
+              children: const [
+                Center(child: Text('No Result Found')),
               ],
             );
           }

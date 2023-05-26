@@ -201,6 +201,24 @@ class RemoteApi {
     }
   }
 
+  Future<GetAllTrades?> filterTrades(String? value) async {
+    String? userId = await _servicesStorage.getUserId();
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.filterTrades), body: {
+            'user_id' : userId,
+            'trade': value});
+      print(response.body);
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return getAllTradesFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
   Future<GetCustomerModel?> getSearchCustomer(String? search) async {
     try {
       Response response = await http

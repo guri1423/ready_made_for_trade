@@ -186,7 +186,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         'Trade',
-                        style: theme.textTheme.titleMedium!
+                        style: theme.textTheme.titleSmall!
                             .copyWith(color: CustomColors.textFieldTextColour),
                       ),
                     ),
@@ -198,21 +198,15 @@ class _AddTradesPageState extends State<AddTradesPage> {
                                   const EdgeInsets.symmetric(horizontal: 5),
                               child: Text(
                                 item.toString(),
-                                style: TextStyle(color: CustomColors.blackText),
+                                style: theme.textTheme.titleSmall!
+                                  .copyWith(color: CustomColors.textFieldTextColour),
                               ),
                             )))
                         .toList(),
                     onChanged: (val) {},
                   ),
                 ),
-                SizedBox(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    child: customTextFieldForm(
-                      context,
-                      controller: _trades,
-                      hintText: 'Trades',
-                    )),
+
                 const SizedBox(
                   height: 15,
                 ),

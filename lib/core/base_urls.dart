@@ -11,6 +11,7 @@ class Urls{
   static const addTrades = "${baseUrl}AddTrade";
   static const getGalleryImages = "${baseUrl}CameraImageGet";
   static const getSearchTrades = "${baseUrl}TradeSearch";
+  static const filterTrades = "${baseUrl}TradeFilter";
   static const getSearchCustomer = "${baseUrl}searchcustomer";
   static const getAllProjects = "${baseUrl}GetProject";
   static const getAllMaterials = "${baseUrl}GetMaterials";

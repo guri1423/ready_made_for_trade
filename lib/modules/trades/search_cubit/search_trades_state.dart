@@ -42,3 +42,26 @@ class SearchTradesEmpty extends SearchTradesState {
   @override
   List<Object> get props => [];
 }
+
+class FilterTradesInitial extends SearchTradesState {
+  @override
+  List<Object> get props => [];
+}
+
+class FilterTradesSuccess extends SearchTradesState {
+  GetAllTrades? model;
+  FilterTradesSuccess(this.model);
+  @override
+  List<Object> get props => [];
+}
+
+class FilterTradesEmpty extends SearchTradesState {
+  @override
+  List<Object> get props => [];
+}
+
+class FilterTradesFailure extends SearchTradesState {
+  @override
+  List<Object> get props => [];
+}
+

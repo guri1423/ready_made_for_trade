@@ -57,16 +57,16 @@ class _TradeDetailsState extends State<TradeDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/Phone Icon.png')),
+                  Expanded(child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png')),
 
-                  Expanded(child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/Email Icon.png')),
+                  Expanded(child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/small_icons/001-email.png')),
                 ],
               ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/whatsapp.png')),
+                  Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png')),
 
                   const Expanded(child: SizedBox())
                 ],
@@ -76,7 +76,7 @@ class _TradeDetailsState extends State<TradeDetails> {
                   onTap: (){
                Navigator.push(context, MaterialPageRoute(builder: (context)=>  EditTradesPage(tradeData: widget.tradeData,)));
                   },
-                  child: customisedButton(context, 'EDIT TRADES PERSON', CustomColors.blueButton, 'assets/images/Edit Customer.png')),
+                  child: customisedButton(context, 'EDIT TRADES PERSON', CustomColors.blueButton, 'assets/images/small_icons/002-editing.png')),
 
 
 

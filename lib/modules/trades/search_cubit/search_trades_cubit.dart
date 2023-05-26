@@ -30,4 +30,19 @@ class SearchTradesCubit extends Cubit<SearchTradesState> {
       emit(SearchTradesSuccess(model));
     }
   }
+
+  filterTrades(String value)async{
+    emit(FilterTradesInitial());
+
+    GetAllTrades? model = await _api.filterTrades(value);
+    if (model!.message.contains('Data Not Found')) {
+      emit(FilterTradesEmpty());
+    } else {
+      emit(FilterTradesSuccess(model));
+    }
+
+  }
+
+
+
 }

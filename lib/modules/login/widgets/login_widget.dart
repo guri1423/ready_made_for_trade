@@ -59,7 +59,10 @@ Widget customisedButton(context, String title, Color colour,String image ){
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Image.asset(image),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Image.asset(image),
+            ),
             SizedBox(width: 12,),
             Center(child: Text(title,
               style: TextStyle(
