@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 
-Widget diaryWidget(context, List<DairyData> data, int index) {
+Widget diaryWidget(context, List<DiaryData> data, int index) {
   ThemeData theme = Theme.of(context);
 
   return Container(
@@ -16,15 +16,19 @@ Widget diaryWidget(context, List<DairyData> data, int index) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: CustomColors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Image.asset('assets/images/support.png'),
-              )),
+          SizedBox(
+            height: 60,
+            width: 60,
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: CustomColors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                )),
+          ),
           const SizedBox(
             width: 20,
           ),
@@ -33,13 +37,13 @@ Widget diaryWidget(context, List<DairyData> data, int index) {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                  data[index].projectTitle ?? 'No Title' ,
+                  data[index].projectName ?? 'No Title' ,
                   style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
               const SizedBox(
                 height: 2,
               ),
-              Text(data[index].projectDescription ?? 'No Description',
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
+              // Text(data[index].p ?? 'No Description',
+              //     style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
 
             ],
           ),

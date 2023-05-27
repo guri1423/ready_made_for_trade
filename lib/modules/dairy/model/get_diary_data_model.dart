@@ -9,18 +9,18 @@ GetDairyData getDairyDataFromJson(String str) => GetDairyData.fromJson(json.deco
 String getDairyDataToJson(GetDairyData data) => json.encode(data.toJson());
 
 class GetDairyData {
-  List<DairyData> data;
+  List<DiaryData> data;
   String message;
   bool status;
 
   GetDairyData({
-   required this.data,
-   required this.message,
-   required this.status,
+  required  this.data,
+  required  this.message,
+  required  this.status,
   });
 
   factory GetDairyData.fromJson(Map<String, dynamic> json) => GetDairyData(
-    data: List<DairyData>.from(json["data"].map((x) => DairyData.fromJson(x))),
+    data: List<DiaryData>.from(json["data"].map((x) => DiaryData.fromJson(x))),
     message: json["message"],
     status: json["status"],
   );
@@ -32,62 +32,62 @@ class GetDairyData {
   };
 }
 
-class DairyData {
-  int? userId;
-  int? customerId;
-  int? date;
-  int? month;
-  int? year;
-  String? minutes;
-  String? hours;
-  String? projectTitle;
-  String? projectDescription;
-  int? projectId;
-  String? status;
+class DiaryData {
+  int? id;
+  String? userId;
+  String? customerId;
+  String? jobId;
+  String? appointmentId;
+  String? category;
+  String? projectName;
+  DateTime? date;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   String? customerName;
+  String? userName;
 
-  DairyData({
+  DiaryData({
+    this.id,
     this.userId,
     this.customerId,
+    this.jobId,
+    this.appointmentId,
+    this.category,
+    this.projectName,
     this.date,
-    this.month,
-    this.year,
-    this.minutes,
-    this.hours,
-    this.projectTitle,
-    this.projectDescription,
-    this.projectId,
-    this.status,
+    this.createdAt,
+    this.updatedAt,
     this.customerName,
+    this.userName,
   });
 
-  factory DairyData.fromJson(Map<String, dynamic> json) => DairyData(
+  factory DiaryData.fromJson(Map<String, dynamic> json) => DiaryData(
+    id: json["id"],
     userId: json["user_id"],
     customerId: json["customer_id"],
-    date: json["date"],
-    month: json["month"],
-    year: json["year"],
-    minutes: json["minutes"],
-    hours: json["hours"],
-    projectTitle: json["project_title"],
-    projectDescription: json["project_description"],
-    projectId: json["project_id"],
-    status: json["status"],
+    jobId: json["job_id"],
+    appointmentId: json["appointment_id"],
+    category: json["category"],
+    projectName: json["project_name"],
+    date: DateTime.parse(json["date"]),
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
     customerName: json["customer_name"],
+    userName: json["user_name"],
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "user_id": userId,
     "customer_id": customerId,
-    "date": date,
-    "month": month,
-    "year": year,
-    "minutes": minutes,
-    "hours": hours,
-    "project_title": projectTitle,
-    "project_description": projectDescription,
-    "project_id": projectId,
-    "status": status,
+    "job_id": jobId,
+    "appointment_id": appointmentId,
+    "category": category,
+    "project_name": projectName,
+    "date": date!.toIso8601String(),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
     "customer_name": customerName,
+    "user_name": userName,
   };
 }
