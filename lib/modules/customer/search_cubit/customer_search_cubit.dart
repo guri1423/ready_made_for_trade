@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 
@@ -15,8 +13,7 @@ class CustomerSearchCubit extends Cubit<CustomerSearchState> {
   getCustomer() async {
     emit(CustomerLoading());
     GetCustomerModel? model = await _api.getCustomers();
-
-    if (model!= null) {
+    if (model != null) {
       emit(CustomerSuccess(model));
     } else {
       emit(CustomerEmpty());

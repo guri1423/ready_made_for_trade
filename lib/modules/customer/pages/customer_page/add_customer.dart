@@ -1,11 +1,13 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
+import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search_cubit.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
@@ -20,6 +22,8 @@ class AddCustomerPage extends StatefulWidget {
 
 class _AddCustomerPageState extends State<AddCustomerPage> {
   bool isFormError = false;
+  bool phoneValidationError = false;
+  bool emailValidationError = false;
 
   bool formValidate() {
     final FormState? form = _formKey.currentState;
@@ -134,31 +138,25 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
                       child: SizedBox(
-                          height: 62,
-                          child: customTextFieldAddCustomer(context,
-                              controller: _postalCode,
-                              hintText: 'Postal Code',
-                              validator: (value) =>
-                                  postalCodeValidator(value))),
+                          height: 40,
+                          child: customTextFieldAddCustomer(
+                            context,
+                            controller: _postalCode,
+                            hintText: 'Postal Code',
+                          )),
                     ),
                     const SizedBox(
                       width: 24,
                     ),
                     Expanded(
-                        child: Column(
-                      children: [
-                        SizedBox(
+                        child: SizedBox(
                             height: 40,
                             child: longButton(
-                                context, 'LOOK UP', CustomColors.primeColour)),
-                        const SizedBox(
-                          height: 22,
-                        )
-                      ],
-                    ))
+                                context, 'LOOK UP', CustomColors.primeColour)))
                   ],
                 ),
                 const SizedBox(
@@ -176,23 +174,46 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                    height: 62,
+                    height: phoneValidationError ? 62 : 40,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(context,
                         controller: _mobileNo,
-                        hintText: 'Mobile No',
-                        validator: (value) => mobilNumberValidator(value))),
+                        hintText: 'Mobile No', validator: (value) {
+                      String? error = mobilNumberValidator(value);
+                      if (error != null) {
+                        setState(() {
+                          phoneValidationError = true;
+                        });
+                      } else {
+                        setState(() {
+                          phoneValidationError = false;
+                        });
+                      }
+                      return error;
+                    })),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-                    height: 62,
+                    height: emailValidationError ? 62 : 40,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(
                       context,
                       controller: _email,
                       hintText: 'Email',
-                      validator: (value) => validateEmail(value!),
+                      validator: (value) {
+                        String? error = validateEmail(value!);
+                        if (error != null) {
+                          setState(() {
+                            emailValidationError = true;
+                          });
+                        } else {
+                          setState(() {
+                            emailValidationError = false;
+                          });
+                        }
+                        return error;
+                      },
                     )),
                 const SizedBox(
                   height: 15,
@@ -211,7 +232,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                           focusedBorder: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        buttonHeight: 49,
+                        buttonHeight: 40,
                         buttonWidth: MediaQuery.of(context).size.width,
                         buttonDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -317,6 +338,9 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                                   const SnackBar(
                                       content:
                                           Text('Response added successfully')));
+
+                              BlocProvider.of<CustomerSearchCubit>(context)
+                                  .getCustomer();
                               Navigator.pop(context);
                             } else {
                               Fluttertoast.showToast(
@@ -369,10 +393,16 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
 }
 
 Widget customTextFieldForm(context,
-    {required TextEditingController controller, required String hintText,bool isBig = false}) {
+    {required TextEditingController controller,
+    required String hintText,
+    bool isBig = false}) {
   return TextFormField(
     controller: controller,
-    maxLines: hintText.contains('Project Details') ? 20 : isBig?10:1,
+    maxLines: hintText.contains('Project Details')
+        ? 20
+        : isBig
+            ? 10
+            : 1,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
@@ -447,6 +477,12 @@ Widget customTextFieldAddCustomer(context,
         .textTheme
         .titleSmall!
         .copyWith(color: CustomColors.black),
+    keyboardType: hintText.contains('Postal Code')
+        ? TextInputType.phone
+        : TextInputType.emailAddress,
+    inputFormatters: hintText.contains('Postal Code')
+        ? [FilteringTextInputFormatter.digitsOnly]
+        : [],
     decoration: InputDecoration(
       counterText: "",
       hintText: hintText,
