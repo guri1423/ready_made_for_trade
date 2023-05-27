@@ -16,6 +16,7 @@ class Urls{
   static const getAllProjects = "${baseUrl}GetProject";
   static const getAllMaterials = "${baseUrl}GetMaterials";
   static const getChecklist = "${baseUrl}GetChecklist";
+  static const updateChecklist = "${baseUrl}UserChecklist";
   static const getFinanceInsuranceList = "${baseUrl}FinanceInsuranceList";
   static const createProject = "${baseUrl}CreateProject";
   static const editCustomer = "${baseUrl}EditCustomer";

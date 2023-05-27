@@ -298,6 +298,19 @@ class RemoteApi {
     }
   }
 
+  Future<void> updateChecklistStatus(
+      {required String userID, required Map<String, dynamic> status}) async {
+    try {
+      Response response = await http.post(Uri.parse(Urls.saveTrainingStatus),
+          body: {"user_id": userID, "checkliststatus": status.toString()});
+
+      var jsonResponse = response.body;
+      debugPrint(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   Future<GetFinanceAndInsurance?> getFinanceAndInsurance(String? type) async {
     try {
       Map<String, String> headers = {

@@ -3,6 +3,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class ChecklistPage extends StatefulWidget {
@@ -13,12 +14,23 @@ class ChecklistPage extends StatefulWidget {
 }
 
 RemoteApi _remoteApi = RemoteApi();
-
+String? userId;
+final StorageServices _storageServices = StorageServices();
 bool isChecked = false;
 
 List<bool> _isCheckedList = List.generate(1000, (_) => false);
 
 class _ChecklistPageState extends State<ChecklistPage> {
+  getUserId() async {
+    userId = await _storageServices.getUserId();
+  }
+
+  @override
+  void initState() {
+    getUserId();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +92,16 @@ class _ChecklistPageState extends State<ChecklistPage> {
                               value: _isCheckedList[index],
                               onChanged: (bool? value) {
                                 setState(() {
-                                  _isCheckedList[index] = !_isCheckedList[index];
+                                  _isCheckedList[index] =
+                                      !_isCheckedList[index];
+                                  if (userId != null) {
+                                    _remoteApi.updateChecklistStatus(
+                                        userID: userId!,
+                                        status: {
+                                          "$index":
+                                              getStatus(_isCheckedList[index])
+                                        });
+                                  }
                                 });
                               },
                             ),
@@ -106,5 +127,13 @@ class _ChecklistPageState extends State<ChecklistPage> {
         ),
       ),
     );
+  }
+}
+
+String getStatus(bool status) {
+  if (status) {
+    return "1";
+  } else {
+    return "0";
   }
 }
