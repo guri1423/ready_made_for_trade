@@ -19,18 +19,18 @@ class _TrainingsPageState extends State<TrainingsPage> {
   String? userId;
   final StorageServices _storageServices = StorageServices();
 
-  List<bool> _isCheckedList = List.generate(1000, (_) => false);
+  final List<bool> _isCheckedList = List.generate(1000, (_) => false);
 
   getUserId() async {
     userId = await _storageServices.getUserId();
+    BlocProvider.of<TrainingCubit>(context)
+        .getAllTrainings(userID: userId ?? '');
   }
 
   @override
   void initState() {
     super.initState();
     getUserId();
-
-    BlocProvider.of<TrainingCubit>(context).getAllTrainings();
   }
 
   @override
@@ -74,6 +74,25 @@ class _TrainingsPageState extends State<TrainingsPage> {
                     shrinkWrap: true,
                     itemCount: state.model!.data.length,
                     itemBuilder: (BuildContext context, int index) {
+                      String jsonString =
+                          state.trainingStatus!.data.checkTrainingstatus;
+
+                      Map<int, int> map = {};
+
+                      jsonString =
+                          jsonString.substring(1, jsonString.length - 1);
+
+                      List<String> keyValuePairs = jsonString.split(':');
+
+                      for (int i = 0; i < keyValuePairs.length; i += 2) {
+                        int key = int.parse(keyValuePairs[i].trim());
+                        int value = int.parse(keyValuePairs[i + 1].trim());
+                        map[key] = value;
+                      }
+                      // if (map.containsKey(index) && map[index] == 1) {
+                      //   _isCheckedList[index] = !_isCheckedList[index];
+                      // }
+                      _isCheckedList[index] = map[index] == 1 ? true : false;
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

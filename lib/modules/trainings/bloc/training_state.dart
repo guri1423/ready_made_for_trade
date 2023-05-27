@@ -15,9 +15,10 @@ class TrainingLoading extends TrainingState {
 }
 
 class TrainingSuccess extends TrainingState {
-
   GetAllTrainings? model;
-  TrainingSuccess(this.model);
+  UserTrainingStatus? trainingStatus;
+
+  TrainingSuccess(this.model, this.trainingStatus);
 
   @override
   List<Object> get props => [];

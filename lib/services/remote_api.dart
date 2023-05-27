@@ -23,6 +23,7 @@ import 'package:ready_made_4_trade/modules/receipts/models/receipts_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/add_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trainings/models/get_trainings_model.dart';
+import 'package:ready_made_4_trade/modules/trainings/models/training_status_model.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 
 import '../core/base_urls.dart';
@@ -498,10 +499,7 @@ class RemoteApi {
     return null;
   }
 
-  Future<AddProjectResponse?> addReminder(
-      AddReminderModel model) async {
-
-
+  Future<AddProjectResponse?> addReminder(AddReminderModel model) async {
     try {
       final response = await http.post(
         Uri.parse(Urls.setReminder),
@@ -521,8 +519,6 @@ class RemoteApi {
     }
     return null;
   }
-
-
 
   Future<GetEssentialsData?> getAllEssentials() async {
     try {
@@ -567,16 +563,35 @@ class RemoteApi {
     }
   }
 
+  Future<UserTrainingStatus?> getTrainingsStatus({
+    required String userID,
+  }) async {
+    try {
+      Response response =
+          await http.post(Uri.parse(Urls.getTrainingsStatus), body: {
+        "user_id": userID,
+      });
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return userTrainingStatusFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
   Future<void> saveTrainingStatus(
       {required String customerId,
       required String userID,
       required Map<String, dynamic> status}) async {
     try {
-      Response response = await http.post(Uri.parse(Urls.getTraining), body: {
-        "user_id": userID,
-        "customer_id": customerId,
-        "Trainingcheckliststatus": status
-      });
+      Response response = await http.post(Uri.parse(Urls.saveTrainingStatus),
+          body: {
+            "user_id": userID,
+            "Trainingcheckliststatus": status.toString()
+          });
 
       var jsonResponse = response.body;
 
