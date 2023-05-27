@@ -93,13 +93,16 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                 crossAxisSpacing: 10.0,
                               ),
                               itemBuilder: (BuildContext context, int index) {
+                                final reversedIndex = state.model!.data.length - 1 - index;
+
                                 return Image.network(
-                                  '${state.model!.data[index].filePath}/${state.model!.data[index].image}',
+                                  '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
                                 );
                               },
                             ),
                           ),
                         ),
+
 
                         GestureDetector(
                           onTap: () {
@@ -138,44 +141,25 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: GridView.builder(
+                          child: SingleChildScrollView(
+                            child: GridView.builder(
                               shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
+                              physics: const ClampingScrollPhysics(),
                               itemCount: state.model!.data.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10.0,
                                 crossAxisSpacing: 10.0,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _isCheckedList[index] =
-                                          !_isCheckedList[index];
-                                      if (_isCheckedList[index]) {
-                                        _imageList!.add(
-                                            state.model!.data[index].image!);
-                                      } else {
-                                        int? indexVal = _imageList?.indexOf(
-                                            state.model!.data[index].image!);
-                                        if (indexVal != null) {
-                                          _imageList!.removeAt(indexVal);
-                                        }
-                                      }
-                                    });
-                                  },
-                                  child: Stack(children: <Widget>[
-                                    Image.network(
-                                        '${state.model!.data[index].filePath}/${state.model!.data[index].image!}'),
-                                    Checkbox(
-                                      value: _isCheckedList[index],
-                                      onChanged: (bool? value) {},
-                                    ),
-                                  ]),
+                                final reversedIndex = state.model!.data.length - 1 - index;
+
+                                return Image.network(
+                                  '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
                                 );
-                              }),
+                              },
+                            ),
+                          ),
                         ),
                         GestureDetector(
                           onTap: () async {
@@ -256,7 +240,7 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
       });
     }).catchError((e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(
           'Try again',

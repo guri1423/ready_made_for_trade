@@ -71,8 +71,9 @@ class _LoginState extends State<Login> {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Login successful')));
               _servicesStorage.setUserLoggedIn('true');
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BottomNavigation()));
+
+
+         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigation()), (route) => false);
             } else {
               Fluttertoast.showToast(
                   msg: response != null

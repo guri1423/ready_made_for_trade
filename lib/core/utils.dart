@@ -13,8 +13,7 @@ dynamic validationTxtField(value){
 }
 
 String? postalCodeValidator(String? value){
-  if (value!.replaceAll(RegExp(r'[^0-9]'), '').length !=
-      10) {
+  if (value!.replaceAll(RegExp(r'[^0-9]'), '').length <= 10) {
     return 'Postal Code must be 10 digits long';
   }
 

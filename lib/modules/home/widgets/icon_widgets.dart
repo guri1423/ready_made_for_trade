@@ -255,7 +255,7 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                     child: Image.asset('assets/images/user.png')),
               ),
               SizedBox(
-                width: 220,
+                width: 210,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -287,7 +287,10 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                                   model: data,
                                 )));
                   },
-                  child: Image.asset('assets/images/Edit Customer.png'))
+                  child: SizedBox(
+                      height: 50,
+                      width: 46,
+                      child: Image.asset('assets/images/small_icons/002-editing.png')))
             ],
           ),
           Row(

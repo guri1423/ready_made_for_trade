@@ -143,7 +143,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                       hintText: 'Nick Name',
                     )),
                 const SizedBox(
-                  height: 15,
+                  height: 8,
                 ),
                 DropdownButtonHideUnderline(
                   child: DropdownButtonFormField2(
@@ -208,7 +208,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                 ),
 
                 const SizedBox(
-                  height: 15,
+                  height: 8,
                 ),
                 SizedBox(
                     height: 62,
@@ -217,6 +217,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                         controller: _mobileNo,
                         hintText: 'Mobile No',
                         validator: (value) => mobilNumberValidator(value))),
+
                 SizedBox(
                     height: 62,
                     width: MediaQuery.of(context).size.width,

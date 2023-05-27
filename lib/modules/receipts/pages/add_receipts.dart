@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -8,14 +6,12 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
-import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/modules/receipts/models/receipts_model.dart';
 import 'package:ready_made_4_trade/modules/receipts/pages/receipts.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:http/http.dart' as http;
-
 import '../../home/widgets/common_widgets.dart';
 
 
@@ -111,7 +107,7 @@ class _AddReceiptsState extends State<AddReceipts> {
               ),
 
               SizedBox(
-                  height: 54,
+                  height: 60,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -139,17 +135,17 @@ class _AddReceiptsState extends State<AddReceipts> {
                         itemHeight:
                         MediaQuery.of(context).size.height *
                             0.056,
-                        icon: Padding(
+                        icon: const Padding(
                           padding:
-                          const EdgeInsets.only(right: 2),
+                          EdgeInsets.only(right: 2),
                           child: Icon(
                             Icons.arrow_drop_down,
                             color: CustomColors.primeColour,
                           ),
                         ),
-                        iconOnClick: Padding(
+                        iconOnClick: const Padding(
                           padding:
-                          const EdgeInsets.only(right: 2),
+                          EdgeInsets.only(right: 2),
                           child: Icon(
                             Icons.arrow_drop_up,
                             color: CustomColors.primeColour,
@@ -182,9 +178,9 @@ class _AddReceiptsState extends State<AddReceipts> {
                                   horizontal: 5),
                               child: Text(
                                 item.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: CustomColors
-                                        .blackText),
+                                        .textFieldTextColour),
                               ),
                             )))
                             .toList(),
@@ -194,7 +190,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                   )),
 
               SizedBox(
-                  height: 54,
+                  height: 60,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -222,17 +218,17 @@ class _AddReceiptsState extends State<AddReceipts> {
                         itemHeight:
                         MediaQuery.of(context).size.height *
                             0.056,
-                        icon: Padding(
+                        icon: const Padding(
                           padding:
-                          const EdgeInsets.only(right: 2),
+                          EdgeInsets.only(right: 2),
                           child: Icon(
                             Icons.arrow_drop_down,
                             color: CustomColors.primeColour,
                           ),
                         ),
-                        iconOnClick: Padding(
+                        iconOnClick: const Padding(
                           padding:
-                          const EdgeInsets.only(right: 2),
+                          EdgeInsets.only(right: 2),
                           child: Icon(
                             Icons.arrow_drop_up,
                             color: CustomColors.primeColour,
@@ -265,9 +261,9 @@ class _AddReceiptsState extends State<AddReceipts> {
                                   horizontal: 5),
                               child: Text(
                                 item.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: CustomColors
-                                        .blackText),
+                                        .textFieldTextColour),
                               ),
                             )))
                             .toList(),
@@ -277,7 +273,9 @@ class _AddReceiptsState extends State<AddReceipts> {
                   )),
 
               customTextFieldForm(context, controller: _amount, hintText: 'Amount'),
+
               SizedBox(height: 10,),
+
               customTextFieldForm(context, controller: _date, hintText: 'Date'),
 
               SizedBox(height: 30,),

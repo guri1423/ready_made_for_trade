@@ -96,7 +96,7 @@ class _CustomersPageState extends State<CustomersPage> {
                                           const AddCustomerPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,
@@ -175,7 +175,7 @@ class _CustomersPageState extends State<CustomersPage> {
                                           const AddCustomerPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,
@@ -257,7 +257,7 @@ class _CustomersPageState extends State<CustomersPage> {
                                           const AddCustomerPage()));
                             },
                             child: Image.asset(
-                              'assets/images/add-friend.png',
+                              'assets/images/updated_images/add-friend 1.png',
                               height: 35,
                               width: 35,
                               fit: BoxFit.contain,

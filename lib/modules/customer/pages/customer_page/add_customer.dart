@@ -154,7 +154,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                             height: 40,
                             child: longButton(
                                 context, 'LOOK UP', CustomColors.primeColour)),
-                        SizedBox(
+                        const SizedBox(
                           height: 22,
                         )
                       ],
@@ -222,15 +222,15 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                             color: CustomColors.white),
                         itemPadding: EdgeInsets.symmetric(horizontal: 15),
                         itemHeight: MediaQuery.of(context).size.height * 0.056,
-                        icon: Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                        icon: const Padding(
+                          padding: EdgeInsets.only(right: 10),
                           child: Icon(
                             Icons.arrow_drop_down,
                             color: CustomColors.primeColour,
                           ),
                         ),
-                        iconOnClick: Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                        iconOnClick: const Padding(
+                          padding: EdgeInsets.only(right: 10),
                           child: Icon(
                             Icons.arrow_drop_up,
                             color: CustomColors.primeColour,
