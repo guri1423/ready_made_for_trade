@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                         child: Container(
-                          height: 40,
+                          height: 45,
                           width: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -213,14 +213,16 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               SizedBox(
                                   height: 40,
-                                  child: Image.asset(images[index])),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 2),
+                                    child: Image.asset(images[index]),
+                                  )),
                               Text(
                                 iconNames[index],
                                 style: const TextStyle(
                                     color: CustomColors.primeColour,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    fontFamily: "Dongle"),
+                                    fontSize: 12,),
                               )
                             ],
                           ),
