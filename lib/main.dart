@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/theme.dart';
+import 'package:ready_made_4_trade/modules/account/cubit/edit_website_text/edit_website_text_cubit.dart';
 import 'package:ready_made_4_trade/modules/bottom_nav/view/bottom_navigation.dart';
 import 'package:ready_made_4_trade/modules/check_list/cubit/check_list_cubit.dart';
 import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search_cubit.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<SearchTradesCubit>(
             create: (_) => SearchTradesCubit(),
+          ),
+          BlocProvider<EditWebsiteTextCubit>(
+            create: (_) => EditWebsiteTextCubit(),
           ),
           BlocProvider<CustomerSearchCubit>(
             create: (_) => CustomerSearchCubit(),
@@ -103,7 +107,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body:  Center(
+      body: Center(
           child: SpinKitCircle(
         color: CustomColors.primeColour,
         size: 50.0,

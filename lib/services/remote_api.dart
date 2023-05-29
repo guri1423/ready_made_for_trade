@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
@@ -865,6 +865,24 @@ class RemoteApi {
     } catch (e) {
       debugPrint('Error occurred while uploading file: $e');
       return false;
+    }
+  }
+
+  Future<GetWebsiteTextModel?> getWebsiteText() async {
+    String? userId = await _servicesStorage.getUserId();
+
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.getWebsiteText), body: {'user_id': userId});
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+
+      return getWebsiteTextModelFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
     }
   }
 }

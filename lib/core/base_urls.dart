@@ -1,6 +1,4 @@
-
-class Urls{
-
+class Urls {
   static const baseUrl = "https://readymade4trade.omkatech.in/api/";
   static const login = "${baseUrl}login";
   static const fetchUser = "${baseUrl}getuserdata";
@@ -43,5 +41,5 @@ class Urls{
   static const getJobList = "${baseUrl}GetJobReceipt";
   static const setReminder = "${baseUrl}SetReminder";
   static const addLogo = "${baseUrl}UpdateLogo";
+  static const getWebsiteText = "${baseUrl}GetWebsiteText";
 }
-
