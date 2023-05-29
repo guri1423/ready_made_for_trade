@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class UploadLogoPage extends StatefulWidget {
@@ -11,6 +15,36 @@ class UploadLogoPage extends StatefulWidget {
 }
 
 class _UploadLogoPageState extends State<UploadLogoPage> {
+  final RemoteApi remoteApi = RemoteApi();
+  File? imageFile;
+  bool isLoading = false;
+
+  Future<File?> pickImageFromGallery() async {
+    setState(() {
+      isLoading = true;
+    });
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      imageFile = File(pickedImage.path);
+      bool status = await remoteApi.uploadLogo(file: imageFile!);
+      if (status) {
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+
+      return imageFile;
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,46 +93,69 @@ class _UploadLogoPageState extends State<UploadLogoPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: ListView(
+        child: Stack(
           children: [
-            Container(
-              height: 250,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: CustomColors.primeColour,
-                  borderRadius: BorderRadius.circular(5)),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Row(
+            ListView(
               children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                        height: 40,
-                        child: smallButton(
-                            context, 'UPLOAD', CustomColors.primeColour, 50)),
-                  ),
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: CustomColors.primeColour,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: imageFile != null
+                      ? Center(
+                          child: Image.file(imageFile!),
+                        )
+                      : const SizedBox.shrink(),
                 ),
                 const SizedBox(
-                  width: 20,
+                  height: 24,
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                        height: 40,
-                        child: smallButton(
-                            context, 'DELETE', CustomColors.greyButton, 50)),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          pickImageFromGallery();
+                        },
+                        child: SizedBox(
+                            height: 40,
+                            child: smallButton(context, 'UPLOAD',
+                                CustomColors.primeColour, 50)),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            imageFile = null;
+                          });
+                        },
+                        child: SizedBox(
+                            height: 40,
+                            child: smallButton(context, 'DELETE',
+                                CustomColors.greyButton, 50)),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
               ],
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            Visibility(
+              visible: isLoading,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: CustomColors.white,
+                ),
+              ),
+            )
           ],
         ),
       ),

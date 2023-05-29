@@ -16,6 +16,10 @@ class _AddRemaindersPageState extends State<AddRemaindersPage> {
   final TextEditingController _quoteDays = TextEditingController();
   final TextEditingController _depositDays = TextEditingController();
   final TextEditingController _invoiceDays = TextEditingController();
+  final TextEditingController inbox1 = TextEditingController();
+  final TextEditingController inbox2 = TextEditingController();
+  final TextEditingController inbox3 = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +138,13 @@ class _AddRemaindersPageState extends State<AddRemaindersPage> {
                   ],
                 ),
                 sizedBox,
-                customContainerSettings(context),
+                customTextFieldForm(
+                  context,
+                  controller: inbox1,
+                  isBig: true,
+                  hintText: '',
+                ),
+                sizedBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -146,7 +156,13 @@ class _AddRemaindersPageState extends State<AddRemaindersPage> {
                   ],
                 ),
                 sizedBox,
-                customContainerSettings(context),
+                customTextFieldForm(
+                  context,
+                  controller: inbox2,
+                  isBig: true,
+                  hintText: '',
+                ),
+                sizedBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -158,7 +174,13 @@ class _AddRemaindersPageState extends State<AddRemaindersPage> {
                   ],
                 ),
                 sizedBox,
-                customContainerSettings(context),
+                customTextFieldForm(
+                  context,
+                  controller: inbox3,
+                  isBig: true,
+                  hintText: '',
+                ),
+                sizedBox,
                 Row(
                   children: [
                     Expanded(

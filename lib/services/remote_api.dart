@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
@@ -837,5 +839,32 @@ class RemoteApi {
       debugPrint(e.toString());
     }
     return null;
+  }
+
+  Future<bool> uploadLogo({
+    required File file,
+  }) async {
+    String? userId = await _servicesStorage.getUserId();
+
+    var request = http.MultipartRequest('POST', Uri.parse(Urls.addLogo));
+
+    request.files.add(await http.MultipartFile.fromPath('logo', file.path));
+
+    request.fields['user_id'] = userId ?? '';
+
+    try {
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        debugPrint('File uploaded successfully');
+        return true;
+      } else {
+        debugPrint('File upload failed with status ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Error occurred while uploading file: $e');
+      return false;
+    }
   }
 }
