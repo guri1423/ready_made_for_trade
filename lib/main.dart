@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/theme.dart';
 import 'package:ready_made_4_trade/modules/bottom_nav/view/bottom_navigation.dart';
+import 'package:ready_made_4_trade/modules/check_list/cubit/check_list_cubit.dart';
 import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search_cubit.dart';
 import 'package:ready_made_4_trade/modules/essentials/bloc/essential_bloc_cubit.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/finance_insurance_cubit/finanace_insurance_cubit.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<FinanaceInsuranceCubit>(
             create: (_) => FinanaceInsuranceCubit(),
+          ),
+          BlocProvider<CheckListCubit>(
+            create: (_) => CheckListCubit(),
           ),
           BlocProvider<MaterialCubit>(
             create: (_) => MaterialCubit(),

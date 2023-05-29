@@ -301,7 +301,7 @@ class RemoteApi {
   Future<void> updateChecklistStatus(
       {required String userID, required Map<String, dynamic> status}) async {
     try {
-      Response response = await http.post(Uri.parse(Urls.saveTrainingStatus),
+      Response response = await http.post(Uri.parse(Urls.updateChecklist),
           body: {"user_id": userID, "checkliststatus": status.toString()});
 
       var jsonResponse = response.body;
