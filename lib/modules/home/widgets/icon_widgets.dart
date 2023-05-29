@@ -231,98 +231,103 @@ Widget viewCustomerJobs(context) {
 
 Widget viewCustomerDetails(context, DatumCustomer data) {
   ThemeData theme = Theme.of(context);
-  return Container(
-    decoration: BoxDecoration(
-        color: CustomColors.blueButton,
-        borderRadius: BorderRadius.circular(10)),
+  return SizedBox(
+    width: MediaQuery.of(context).size.width,
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(2.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: CustomColors.blueButton,
+            borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: CustomColors.white,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: CustomColors.white,
+                        ),
+                        child: Image.asset('assets/images/user.png')),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Mr ${data.firstName} ${data.lastName}',
+                              softWrap: true, style: theme.textTheme.titleLarge),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text('${data.emailAddress}\n' '${data.mobileNumber} ',
+                              style: theme.textTheme.titleSmall),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text('${data.address}',
+                              style: theme.textTheme.titleSmall),
+                        ],
+                      ),
                     ),
-                    child: Image.asset('assets/images/user.png')),
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditCustomerPage(
+                                      model: data,
+                                    )));
+                      },
+                      child: SizedBox(
+                          height: 50,
+                          width: 46,
+                          child: Image.asset('assets/images/small_icons/002-editing.png')))
+                ],
               ),
-              SizedBox(
-                width: 210,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
                     children: [
-                      Text('Mr ${data.firstName} ${data.lastName}',
-                          softWrap: true, style: theme.textTheme.titleLarge),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('${data.emailAddress}\n' '${data.mobileNumber} ',
-                          style: theme.textTheme.titleSmall),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('${data.address}',
-                          style: theme.textTheme.titleSmall),
+                      Text('1', style: theme.textTheme.titleLarge),
+                      Text('PENDING', style: theme.textTheme.titleSmall),
                     ],
                   ),
-                ),
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditCustomerPage(
-                                  model: data,
-                                )));
-                  },
-                  child: SizedBox(
-                      height: 50,
-                      width: 46,
-                      child: Image.asset('assets/images/small_icons/002-editing.png')))
+                  Column(
+                    children: [
+                      Text('1', style: theme.textTheme.titleLarge),
+                      Text('DEPOSITS', style: theme.textTheme.titleSmall),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('1', style: theme.textTheme.titleLarge),
+                      Text('ACTIVE', style: theme.textTheme.titleSmall),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('1', style: theme.textTheme.titleLarge),
+                      Text('COMPLETED', style: theme.textTheme.titleSmall),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Text('1', style: theme.textTheme.titleLarge),
-                  Text('PENDING', style: theme.textTheme.titleSmall),
-                ],
-              ),
-              Column(
-                children: [
-                  Text('1', style: theme.textTheme.titleLarge),
-                  Text('DEPOSITS', style: theme.textTheme.titleSmall),
-                ],
-              ),
-              Column(
-                children: [
-                  Text('1', style: theme.textTheme.titleLarge),
-                  Text('ACTIVE', style: theme.textTheme.titleSmall),
-                ],
-              ),
-              Column(
-                children: [
-                  Text('1', style: theme.textTheme.titleLarge),
-                  Text('COMPLETED', style: theme.textTheme.titleSmall),
-                ],
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     ),
   );

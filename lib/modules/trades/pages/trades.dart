@@ -605,6 +605,7 @@ class _TradesPageState extends State<TradesPage> {
     );
   }
 }
+
 List<String> tradeType = [
   'Brick Layer',
   'Builder',

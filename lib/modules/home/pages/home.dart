@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   File? _image1;
   final RemoteApi apiServices = RemoteApi();
   final StorageServices _servicesStorage = StorageServices();
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -43,6 +44,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
+
+    const SizedBox sizedBox = SizedBox(height: 8);
+
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
@@ -81,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
 
                     if(state is HomeSuccess){
-                      return jobsContainer(context, state.model!.data);
+                      return jobsContainer(context,state.model!.data);
                     }
 
                     if(state is HomeLoading){

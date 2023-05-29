@@ -55,31 +55,28 @@ Widget customisedButton(context, String title, Color colour,String image ){
           color: colour,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start, // Aligns the children to the start (left corner)
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Image.asset(image),
-              ),
-              SizedBox(width: 10), // Adds some spacing between the image and text
-              Expanded(
-                child: Center(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'Dongle Regular',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start, // Aligns the children to the start (left corner)
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Image.asset(image),
+            ),
+          // Adds some spacing between the image and text
+            Expanded(
+              child: Center(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Dongle Regular',
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     ),

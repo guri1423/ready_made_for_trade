@@ -34,6 +34,8 @@ class _AddTradesPageState extends State<AddTradesPage> {
 
   bool isFormError = false;
 
+  String? tradesValue;
+
   bool formValidate() {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
@@ -147,64 +149,70 @@ class _AddTradesPageState extends State<AddTradesPage> {
                 ),
                 DropdownButtonHideUnderline(
                   child: DropdownButtonFormField2(
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      focusedErrorBorder: InputBorder.none,
-                    ),
-                    buttonHeight: 45,
-                    buttonWidth: MediaQuery.of(context).size.width,
-                    buttonDecoration: BoxDecoration(
-                      color: CustomColors.white,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: CustomColors.textFieldBorderColor,
-                        width: 1,
+                      decoration: const InputDecoration(
+                        iconColor: CustomColors.white,
+                        isDense: true,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
                       ),
-                    ),
-                    itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                    itemHeight: MediaQuery.of(context).size.height * 0.056,
-                    icon: const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: CustomColors.primeColour,
+                      buttonHeight: 40,
+                      buttonWidth: 40,
+                      buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: CustomColors.textFldBorder,
+                            width: 1,
+                          ),
+                          color: CustomColors.white
                       ),
-                    ),
-                    iconOnClick: const Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Icon(
-                        Icons.keyboard_arrow_up,
-                        color: CustomColors.primeColour,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 10),
+                      itemHeight: MediaQuery.of(context).size.height * 0.056,
+                      icon: Padding(
+                        padding: const EdgeInsets.only(right: 2),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          color: CustomColors.primeColour,
+                        ),
                       ),
-                    ),
-                    hint: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        'Trade',
-                        style: theme.textTheme.titleSmall!
-                            .copyWith(color: CustomColors.textFieldTextColour),
+                      iconOnClick: Padding(
+                        padding: const EdgeInsets.only(right: 2),
+                        child: Icon(
+                          Icons.arrow_drop_up,
+                          color: CustomColors.primeColour,
+                        ),
                       ),
-                    ),
-                    items: tradeType
-                        .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                item.toString(),
-                                style: theme.textTheme.titleSmall!
-                                  .copyWith(color: CustomColors.textFieldTextColour),
-                              ),
-                            )))
-                        .toList(),
-                    onChanged: (val) {},
-                  ),
+                      hint: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Trades',
+                          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                        ),
+                      ),
+                      value: tradesValue,
+                      onChanged: (value) {
+                        setState(() {
+                          tradesValue = value as String;
+                        });
+                      },
+                      items: tradeType
+                          .map((item) => DropdownMenuItem(
+                          value: item,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Text(
+                              item.toString(),
+                              style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          )))
+                          .toList(),
+                      validator: (value) {
+                        return validationDropField(value);
+                      }),
                 ),
 
                 const SizedBox(
@@ -249,7 +257,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                                     first_name: _firstName.text,
                                     last_name: _lastName.text,
                                     nickname: _nickName.text,
-                                    trades: _trades.text,
+                                    trades: tradesValue,
                                     mobile_number: _mobileNo.text,
                                     email_address: _email.text,
                                     user_email: email,

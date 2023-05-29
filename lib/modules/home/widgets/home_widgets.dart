@@ -45,6 +45,9 @@ List<String> iconNames = [
   'TRAINING'
 ];
 
+
+
+
 Widget jobsContainer(context, UserData userModel) {
   final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
   final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
@@ -72,14 +75,14 @@ Widget jobsContainer(context, UserData userModel) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(userModel.fullName,
+                      Text(userModel.fullName!,
                           softWrap: true,
                           style: theme.textTheme.titleLarge!.copyWith(
                             color: CustomColors.primeColour,
                             fontWeight: FontWeight.normal,
                           )),
                       sizedBox,
-                      Text(userModel.businessName,
+                      Text(userModel.businessName!,
                           style: theme.textTheme.titleMedium!.copyWith(
                             color: CustomColors.primeColour,
                           )),
@@ -112,6 +115,7 @@ Widget jobsContainer(context, UserData userModel) {
             SizedBox(
               height: 15,
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -132,14 +136,14 @@ Widget jobsContainer(context, UserData userModel) {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          userModel.status!,
+                          userModel.statusCounts![0].noCount!,
                           style:
                               Theme.of(context).textTheme.titleLarge!.copyWith(
                                     color: CustomColors.primeColour,
                                   ),
                         ),
                         Text(
-                          'JOBS QUOTED',
+                          userModel.statusCounts![0].title!,
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -184,13 +188,21 @@ Widget jobsContainer(context, UserData userModel) {
                 ),
                 Image.asset('assets/images/right direction.png'),
               ],
-            )
+            ),
+
           ],
         ),
       ),
     ),
   );
 }
+
+
+
+
+
+
+
 String getMonthFromDate(String dateString) {
   DateTime dateTime = DateFormat('yyyy-MM-dd').parse(dateString);
   String month = DateFormat.MMMM().format(dateTime);

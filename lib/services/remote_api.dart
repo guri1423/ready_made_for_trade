@@ -191,9 +191,13 @@ class RemoteApi {
   }
 
   Future<GetAllTrades?> getSearchTrades(String? search) async {
+    String? userId = await _servicesStorage.getUserId();
     try {
       Response response = await http
-          .post(Uri.parse(Urls.getSearchTrades), body: {'key': search});
+          .post(Uri.parse(Urls.getSearchTrades),
+        body: {'key': search,
+            'user_id': userId
+          });
       print(response.body);
       var jsonResponse = response.body;
 
