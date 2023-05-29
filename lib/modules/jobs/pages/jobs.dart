@@ -76,30 +76,45 @@ class _JobsPageState extends State<JobsPage> {
                 ),
               ),
               SizedBox(height: 15),
-              ListView.builder(
-                physics: const ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: jobList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: extraLongButton(context, jobList[index]),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        SizedBox(
-                          width: 40,
-                          child: extraLongButton(context, '200'),
-                        ),
-                      ],
-                    ),
-                  );
+              FutureBuilder(
+                future: apiServices.getJobStatus(),
+
+                builder: (context,snapshot) {
+                  if(snapshot.hasData){
+                    return ListView.builder(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: extraLongButton(context, snapshot.data!.data[index].title!),
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              SizedBox(
+                                width: 40,
+                                child: extraLongButton(context, snapshot.data!.data[index].noCount!),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }
+
+                  if(snapshot.hasError){
+                    return const Center(child: Text('Something went wrong'));
+                  }
+
+                  return const Center(child: CircularProgressIndicator());
                 },
+
               ),
             ],
           ),

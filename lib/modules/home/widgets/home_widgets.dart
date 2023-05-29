@@ -116,79 +116,85 @@ Widget jobsContainer(context, UserData userModel) {
               height: 15,
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset('assets/images/Path 8242.png'),
-                SizedBox(
-                  height: 65,
-                  width: 150,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: CustomColors.greyButton,
-                        // set the border color here
-                        width: 1.0, // set the border width here
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          userModel.statusCounts![0].noCount!,
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    color: CustomColors.primeColour,
-                                  ),
-                        ),
-                        Text(
-                          userModel.statusCounts![0].title!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: CustomColors.primeColour),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 65,
-                  width: 150,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: CustomColors.greyButton,
-                        // set the border color here
-                        width: 1.0, // set the border width here
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          '18',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: CustomColors.primeColour),
-                        ),
-                        Text(
-                          'JOBS WON',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: CustomColors.primeColour),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Image.asset('assets/images/right direction.png'),
-              ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              onPressed: () {
+              },
+              icon: Image.asset('assets/images/Path 8242.png'),
             ),
+            SizedBox(
+              height: 65,
+              width: 150,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: CustomColors.greyButton,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      userModel.statusCounts![0].noCount!,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: CustomColors.primeColour,
+                      ),
+                    ),
+                    Text(
+                      userModel.statusCounts![0].title!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: CustomColors.primeColour),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 65,
+              width: 150,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: CustomColors.greyButton,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      '18',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: CustomColors.primeColour),
+                    ),
+                    Text(
+                      'JOBS WON',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: CustomColors.primeColour),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: Image.asset('assets/images/right direction.png'),
+            ),
+          ],
+        ),
 
           ],
         ),

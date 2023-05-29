@@ -18,6 +18,7 @@ import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_reminder.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
+import 'package:ready_made_4_trade/modules/jobs/models/get_job_status.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
 import 'package:ready_made_4_trade/modules/login/model/login_response.dart';
 import 'package:ready_made_4_trade/modules/material/models/get_materials_model.dart';
@@ -869,6 +870,25 @@ class RemoteApi {
     } catch (e) {
       debugPrint('Error occurred while uploading file: $e');
       return false;
+    }
+  }
+
+  Future<GetJobStatus?> getJobStatus() async {
+
+    String? userId = await _servicesStorage.getUserId();
+
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.getJobStatus), body: {'user_id': userId});
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+
+      return getJobStatusFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
     }
   }
 

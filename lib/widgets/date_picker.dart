@@ -22,7 +22,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         DateTime? pickedDate = await showDatePicker(
             context: context,
             initialDate: DateTime.now().add(Duration(days: 2)),
-            firstDate: DateTime.now().add(Duration(days: 2)), lastDate: DateTime(2050)
+            firstDate: DateTime(2023), lastDate: DateTime(2050)
         );
         if (pickedDate != null) {
           String formattedDate = DateFormat('MM/dd/yyyy').format(
@@ -46,7 +46,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(userPickDate??'Pickup Date (mm/dd/yyyy)',
+            Text(userPickDate??'Select Date (mm/dd/yyyy)',
               style: TextStyle(
                   fontSize: 16,
                   color: CustomColors.black

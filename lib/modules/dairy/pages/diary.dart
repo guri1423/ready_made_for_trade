@@ -3,10 +3,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/core/list/list.dart';
+import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/widgets/dairy_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+
+import '../../../widgets/date_picker.dart';
 
 class DiaryPage extends StatefulWidget {
   const DiaryPage({Key? key}) : super(key: key);
@@ -18,6 +22,8 @@ class DiaryPage extends StatefulWidget {
 class _DiaryPageState extends State<DiaryPage> {
 
   final RemoteApi _remoteApi = RemoteApi();
+
+  String? filterValue;
 
 
   @override
@@ -63,53 +69,70 @@ class _DiaryPageState extends State<DiaryPage> {
                   Expanded(
                     child: DropdownButtonHideUnderline(
                       child: DropdownButtonFormField2(
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          focusedErrorBorder: InputBorder.none,
-                        ),
-                        buttonHeight: 49,
-                        buttonWidth: MediaQuery.of(context).size.width,
-                        buttonDecoration: BoxDecoration(
-                          color: CustomColors.white,
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: CustomColors.textFieldBorderColor,
-                            width: 1,
+                          decoration: const InputDecoration(
+                            iconColor: CustomColors.white,
+                            isDense: true,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
                           ),
-                        ),
-                        itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                        itemHeight:
-                        MediaQuery.of(context).size.height * 0.056,
-                        icon: const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: CustomColors.primeColour,
+                          buttonHeight: 50,
+                          buttonWidth: 40,
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: CustomColors.textFldBorder,
+                                width: 1,
+                              ),
+                              color: CustomColors.white
                           ),
-                        ),
-                        iconOnClick: const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(
-                            Icons.keyboard_arrow_up,
-                            color: CustomColors.primeColour,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          icon: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: CustomColors.primeColour,
+                            ),
                           ),
-                        ),
-                        hint: Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Filter',
-                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: CustomColors.textFieldTextColour),
+                          iconOnClick: const Padding(
+                            padding: EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: CustomColors.primeColour,
+                            ),
                           ),
-                        ),
-                        items: [],
-                      ),
+                          hint: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              'Filter',
+                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            ),
+                          ),
+                          value: filterValue,
+                          onChanged: (value) {
+                            setState(() {
+                              filterValue = value;
+                            });
+                          },
+                          items: dairyFilterList
+                              .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  item.toString(),
+                                  style:
+                                  TextStyle(color: CustomColors.blackText),
+                                ),
+                              )))
+                              .toList(),
+                          validator: (value) {
+                            return validationDropField(value);
+                          }),
                     ),
                   ),
                   SizedBox(width: 10,),
@@ -119,66 +142,7 @@ class _DiaryPageState extends State<DiaryPage> {
                 ],
               ),
 
-              Row(
-                children: [
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButtonFormField2(
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          focusedErrorBorder: InputBorder.none,
-                        ),
-                        buttonHeight: 49,
-                        buttonWidth: MediaQuery.of(context).size.width,
-                        buttonDecoration: BoxDecoration(
-                          color: CustomColors.white,
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: CustomColors.textFieldBorderColor,
-                            width: 1,
-                          ),
-                        ),
-                        itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                        itemHeight:
-                        MediaQuery.of(context).size.height * 0.056,
-                        icon: const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: CustomColors.primeColour,
-                          ),
-                        ),
-                        iconOnClick: const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(
-                            Icons.keyboard_arrow_up,
-                            color: CustomColors.primeColour,
-                          ),
-                        ),
-                        hint: Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Date',
-                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: CustomColors.textFieldTextColour),
-                          ),
-                        ),
-                        items: [],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10,),
-                  SizedBox(
-                      height: 40, width: 40,
-                      child: Image.asset('assets/images/updated_images/030-counting.png'))
-                ],
-              ),
+               CustomDatePicker(),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,

@@ -4,12 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 
+import '../../trainings/models/training_status_model.dart';
+
 Widget diaryWidget(context, List<DiaryData> data, int index) {
+
+  Color resultColor;
+
+  if (data[index].category == 'Appointment') {
+    resultColor = CustomColors.blueButton;
+  } else if (data[index].category == 'Reminder') {
+    resultColor = CustomColors.yellow;
+  } else {
+    resultColor = CustomColors.skyblue;
+  }
   ThemeData theme = Theme.of(context);
 
   return Container(
     decoration: BoxDecoration(
-        color: CustomColors.blueButton,
+
+        color: resultColor,
         borderRadius: BorderRadius.circular(5)),
     child: Padding(
       padding: const EdgeInsets.all(10.0),

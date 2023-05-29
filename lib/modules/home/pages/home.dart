@@ -33,12 +33,22 @@ class _HomePageState extends State<HomePage> {
   final RemoteApi apiServices = RemoteApi();
   final StorageServices _servicesStorage = StorageServices();
   int _currentIndex = 0;
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     BlocProvider.of<HomeCubit>(context).getUserData();
+    _pageController = PageController(initialPage: 0);
 
+  }
+
+
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -86,7 +96,141 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
 
                     if(state is HomeSuccess){
-                      return jobsContainer(context,state.model!.data);
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.45,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            state.model!.data.fullName!,
+                                            softWrap: true,
+                                            style: theme.textTheme.titleLarge!.copyWith(
+                                              color: CustomColors.primeColour,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                          sizedBox,
+                                          Text(
+                                            state.model!.data.businessName!,
+                                            style: theme.textTheme.titleMedium!.copyWith(
+                                              color: CustomColors.primeColour,
+                                            ),
+                                          ),
+                                          sizedBox,
+                                          Text(
+                                            getMonthFromDate(state.model!.data.businessTradingDate.toString()),
+                                            style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                          ),
+                                          sizedBox,
+                                          Text(
+                                            '£ 16,543',
+                                            style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 80,
+                                      width: 140,
+                                      child: Container(
+                                        child: Image.network(
+                                          '${state.model!.data.filePath}/${state.model!.data.logo}',
+                                          fit: BoxFit.fill,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          _pageController.previousPage(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.ease,
+                                          );
+                                        },
+                                        icon: Image.asset('assets/images/Path 8242.png'),
+                                      ),
+                                      ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: state.model!.data.statusCounts!.length,
+                                        itemBuilder: (context, index) {
+                                          return SizedBox(
+                                            height: 65,
+                                            width: 150,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: CustomColors.greyButton,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Text(
+                                                    state.model!.data.statusCounts![index].noCount!,
+                                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                                      color: CustomColors.primeColour,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    state.model!.data.statusCounts![index].title!,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(color: CustomColors.primeColour),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          _pageController.nextPage(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.ease,
+                                          );
+                                        },
+                                        icon: Image.asset('assets/images/right direction.png'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
                     }
 
                     if(state is HomeLoading){
@@ -94,6 +238,8 @@ class _HomePageState extends State<HomePage> {
                     }
 
                     if(state is HomeFailure){
+
+                      return const Center(child: Text('Something went wrong'));
 
                     }
 

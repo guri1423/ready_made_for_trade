@@ -43,4 +43,5 @@ class Urls {
   static const addLogo = "${baseUrl}UpdateLogo";
   static const getWebsiteText = "${baseUrl}GetWebsiteText";
   static const updateWebsiteText = "${baseUrl}UpdateWebsiteText";
+  static const getJobStatus = "${baseUrl}GetAllJobByStatus";
 }

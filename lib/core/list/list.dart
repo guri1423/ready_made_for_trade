@@ -25,7 +25,11 @@ final List<String>categoryList = [
 
 ];
 
+
+
 final List<String> vatList =[ 'YES', 'NO' ];
+
+final List<String> dairyFilterList =[ 'Appointment Set', 'Reminder', 'Job Start Date', 'Job End Date'];
 
 
 final List<int> hoursList = [
