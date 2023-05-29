@@ -885,4 +885,17 @@ class RemoteApi {
       return null;
     }
   }
+
+  Future<void> updateWebsiteText({required EditWebsiteData textModel}) async {
+    try {
+      Response response = await http.post(Uri.parse(Urls.updateWebsiteText),
+          body: textModel.toJson());
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

@@ -17,6 +17,10 @@ class EditWebsiteTextLoaded extends EditWebsiteTextState {
 
 class EditWebsiteTextFailure extends EditWebsiteTextState {}
 
-class EditWebsiteTextUpdateLoading extends EditWebsiteTextState {}
+class EditWebsiteTextUpdateLoading extends EditWebsiteTextState {
+  const EditWebsiteTextUpdateLoading({required this.data});
+
+  final GetWebsiteTextModel data;
+}
 
 class EditWebsiteTextUpdateSuccessful extends EditWebsiteTextState {}

@@ -4,7 +4,7 @@ GetWebsiteTextModel getWebsiteTextModelFromJson(String str) =>
     GetWebsiteTextModel.fromJson(jsonDecode(str));
 
 class GetWebsiteTextModel {
-  final Data? data;
+  final EditWebsiteData? data;
   final String message;
   final bool status;
 
@@ -16,15 +16,16 @@ class GetWebsiteTextModel {
 
   factory GetWebsiteTextModel.fromJson(Map<String, dynamic> json) {
     return GetWebsiteTextModel(
-      data: json['data'] != null ? Data.fromJson(json['data']) : null,
+      data:
+          json['data'] != null ? EditWebsiteData.fromJson(json['data']) : null,
       message: json['message'],
       status: json['status'],
     );
   }
 }
 
-class Data {
-  final int id;
+class EditWebsiteData {
+  final int? id;
   final String userId;
   final String homeTitle;
   final String homeDescription;
@@ -33,11 +34,11 @@ class Data {
   final String servicesTitle;
   final String servicesDescription;
   final String themeColours;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  Data({
-    required this.id,
+  EditWebsiteData({
+    this.id,
     required this.userId,
     required this.homeTitle,
     required this.homeDescription,
@@ -46,12 +47,12 @@ class Data {
     required this.servicesTitle,
     required this.servicesDescription,
     required this.themeColours,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory EditWebsiteData.fromJson(Map<String, dynamic> json) {
+    return EditWebsiteData(
       id: json['id'],
       userId: json['user_id'],
       homeTitle: json['home_title'],
@@ -64,5 +65,18 @@ class Data {
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': userId,
+      'home_title': homeTitle,
+      'home_description': homeDescription,
+      'about_title': aboutTitle,
+      'about_description': aboutDescription,
+      'services_title': servicesTitle,
+      'services_description': servicesDescription,
+      'theme_colours': themeColours,
+    };
   }
 }

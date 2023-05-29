@@ -86,6 +86,16 @@ class _EditWebsitePageState extends State<EditWebsitePage> {
               if (state is EditWebsiteTextLoaded) {
                 return loadedBody(state.data);
               }
+              if (state is EditWebsiteTextUpdateLoading) {
+                return Stack(
+                  children: [
+                    loadedBody(state.data),
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                );
+              }
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -263,7 +273,19 @@ class _EditWebsitePageState extends State<EditWebsitePage> {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<EditWebsiteTextCubit>(context)
+                      .updateWebsiteText(
+                          editData: EditWebsiteData(
+                              userId: model.data!.userId,
+                              homeTitle: homeTitle.text,
+                              homeDescription: homeMsg.text,
+                              aboutTitle: about.text,
+                              aboutDescription: aboutMsg.text,
+                              servicesTitle: service.text,
+                              servicesDescription: serviceMsg.text,
+                              themeColours: 'red'));
+                },
                 child: SizedBox(
                     height: 40,
                     child: smallButton(

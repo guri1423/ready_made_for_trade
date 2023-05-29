@@ -8,14 +8,31 @@ part 'edit_website_text_state.dart';
 class EditWebsiteTextCubit extends Cubit<EditWebsiteTextState> {
   EditWebsiteTextCubit() : super(EditWebsiteTextInitial());
   final RemoteApi remoteApi = RemoteApi();
+  GetWebsiteTextModel? data;
 
   getWebsiteText() async {
     emit(EditWebsiteTextInitial());
-    GetWebsiteTextModel? data = await remoteApi.getWebsiteText();
-    if(data != null){
-      emit(EditWebsiteTextLoaded(data: data));
-    }else{
+    data = await remoteApi.getWebsiteText();
+    if (data != null) {
+      emit(EditWebsiteTextLoaded(data: data!));
+    } else {
       emit(EditWebsiteTextFailure());
     }
+  }
+
+  updateWebsiteText({required EditWebsiteData editData}) async {
+    emit(EditWebsiteTextUpdateLoading(data: data!));
+    await remoteApi.updateWebsiteText(textModel: editData);
+    data = await remoteApi.getWebsiteText();
+    if (data != null) {
+      emit(EditWebsiteTextLoaded(data: data!));
+    } else {
+      emit(EditWebsiteTextFailure());
+    }
+    /* if (data != null) {
+      emit(EditWebsiteTextLoaded(data: data));
+    } else {
+      emit(EditWebsiteTextFailure());
+    }*/
   }
 }

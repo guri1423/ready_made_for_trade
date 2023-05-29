@@ -42,4 +42,5 @@ class Urls {
   static const setReminder = "${baseUrl}SetReminder";
   static const addLogo = "${baseUrl}UpdateLogo";
   static const getWebsiteText = "${baseUrl}GetWebsiteText";
+  static const updateWebsiteText = "${baseUrl}UpdateWebsiteText";
 }
