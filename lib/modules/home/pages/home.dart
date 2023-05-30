@@ -32,24 +32,25 @@ class _HomePageState extends State<HomePage> {
   File? _image1;
   final RemoteApi apiServices = RemoteApi();
   final StorageServices _servicesStorage = StorageServices();
-  int _currentIndex = 0;
-  late PageController _pageController;
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     BlocProvider.of<HomeCubit>(context).getUserData();
-    _pageController = PageController(initialPage: 0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _attachScrollController();
+    });
 
   }
 
 
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+  void _attachScrollController() {
+    _scrollController = ScrollController();
+    setState(() {}); // Trigger a rebuild to attach the ScrollController
   }
+
+
   @override
   Widget build(BuildContext context) {
     final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
@@ -164,68 +165,147 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                Flexible(
+
+                                Container(
+                                  height: 60,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          _pageController.previousPage(
-                                            duration: Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        },
-                                        icon: Image.asset('assets/images/Path 8242.png'),
-                                      ),
-                                      ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: state.model!.data.statusCounts!.length,
-                                        itemBuilder: (context, index) {
-                                          return SizedBox(
-                                            height: 65,
-                                            width: 150,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: CustomColors.greyButton,
-                                                  width: 1.0,
+                                      GestureDetector(
+                                          onTap: (){
+                                            _scrollController.animateTo(
+                                              _scrollController.offset - 150, // Adjust the scroll distance as needed
+                                              curve: Curves.ease,
+                                              duration: Duration(milliseconds: 300),
+                                            );
+
+                                          },
+                                          child: Image.asset('assets/images/Path 8242.png')),
+                                      Flexible(
+                                        fit: FlexFit.loose,
+                                        child: ListView.builder(
+                                            controller: _scrollController,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: state.model!.data.statusCounts!.length,
+                                            itemBuilder: (context, int index){
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                            child: SizedBox(
+                                              height: 65,
+                                              width: 120,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: CustomColors.greyButton,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
-                                                borderRadius: BorderRadius.circular(10),
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  Text(
-                                                    state.model!.data.statusCounts![index].noCount!,
-                                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                                      color: CustomColors.primeColour,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      state.model!.data.statusCounts![index].noCount!,
+                                                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                                        color: CustomColors.primeColour,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    state.model!.data.statusCounts![index].title!,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall!
-                                                        .copyWith(color: CustomColors.primeColour),
-                                                  ),
-                                                ],
+                                                    Text(
+                                                      state.model!.data.statusCounts![index].title!,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall!
+                                                          .copyWith(color: CustomColors.primeColour),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );
-                                        },
+                                        }),
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          _pageController.nextPage(
-                                            duration: Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                        },
-                                        icon: Image.asset('assets/images/right direction.png'),
-                                      ),
+                                      GestureDetector(
+                                          onTap: (){
+
+                                            _scrollController.animateTo(
+                                              _scrollController.offset + 150, // Adjust the scroll distance as needed
+                                              curve: Curves.ease,
+                                              duration: Duration(milliseconds: 300),
+                                            );
+
+                                          },
+                                          child: Image.asset('assets/images/right direction.png')),
                                     ],
                                   ),
-                                ),
+                                )
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                //   children: [
+                                //     Image.asset('assets/images/Path 8242.png'),
+                                //     SizedBox(
+                                //       height: 65,
+                                //       width: 150,
+                                //       child: Container(
+                                //         decoration: BoxDecoration(
+                                //           border: Border.all(
+                                //             color: CustomColors.greyButton,
+                                //             width: 1.0,
+                                //           ),
+                                //           borderRadius: BorderRadius.circular(10),
+                                //         ),
+                                //         child: Column(
+                                //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                //           children: [
+                                //             Text(
+                                //               state.model!.data.statusCounts![0].noCount!,
+                                //               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                //                 color: CustomColors.primeColour,
+                                //               ),
+                                //             ),
+                                //             Text(
+                                //               state.model!.data.statusCounts![0].title!,
+                                //               style: Theme.of(context)
+                                //                   .textTheme
+                                //                   .titleSmall!
+                                //                   .copyWith(color: CustomColors.primeColour),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       height: 65,
+                                //       width: 150,
+                                //       child: Container(
+                                //         decoration: BoxDecoration(
+                                //           border: Border.all(
+                                //             color: CustomColors.greyButton,
+                                //             width: 1.0,
+                                //           ),
+                                //           borderRadius: BorderRadius.circular(10),
+                                //         ),
+                                //         child: Column(
+                                //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                //           children: [
+                                //             Text(
+                                //               state.model!.data.statusCounts![1].noCount!,
+                                //               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                //                 color: CustomColors.primeColour,
+                                //               ),
+                                //             ),
+                                //             Text(
+                                //               state.model!.data.statusCounts![1].title!,
+                                //               style: Theme.of(context)
+                                //                   .textTheme
+                                //                   .titleSmall!
+                                //                   .copyWith(color: CustomColors.primeColour),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     Image.asset('assets/images/right direction.png'),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),

@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/modules/bottom_nav/view/bottom_navigation.dar
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/login/model/login_model.dart';
 import 'package:ready_made_4_trade/modules/login/model/login_response.dart';
+import 'package:ready_made_4_trade/modules/login/pages/forgot_password.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 
@@ -28,6 +29,31 @@ class _LoginState extends State<Login> {
 
   bool _isLoading = false;
   bool _obscureText = true;
+  bool? _checkBox = false;
+
+  getEmailAndPass() async {
+
+    _username.text = await _servicesStorage.getEmail() ?? "";
+    _password.text = await _servicesStorage.getPassword() ?? "";
+    debugPrint(await _servicesStorage.getPassword());
+    debugPrint(await _servicesStorage.getEmail());
+    if (await _servicesStorage.getPassword() != null) {
+      setState(() {
+        _checkBox = true;
+      });
+    } else {
+      setState(() {
+        _checkBox = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getEmailAndPass();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,56 +80,68 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
-      bottomNavigationBar: GestureDetector(
-          onTap: () async {
-            setState(() {
-              _isLoading = true;
-            });
-
-            LoginResponseModel? response = await apiServices.userLogin(
-                LoginRequestModal(
-                    email: _username.text, password: _password.text));
-
-            debugPrint(response.toString());
-            if (response != null && response.status == true) {
-              _servicesStorage.setEmail(response.data.email!);
-              _servicesStorage.setUserId(response.data.id!.toString());
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Login successful')));
-              _servicesStorage.setUserLoggedIn('true');
-
-
-         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigation()), (route) => false);
-            } else {
-              Fluttertoast.showToast(
-                  msg: response != null
-                      ? response.message
-                      : 'Please check your credentials',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 2,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-
-              setState(() {
-                _isLoading = false;
-              });
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  height: 40,
-                  width: 180,
-                  child: longButton(context, 'NEXT', CustomColors.blueButton),
-                ),
-              ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword()));
+              },
+              child: Text('Forgot Password',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(color : CustomColors.blueButton),),
             ),
-          )),
+
+            GestureDetector(
+              onTap: () async {
+                await _servicesStorage.setEmail(_username.text);
+                await _servicesStorage.setPassword(_password.text);
+                setState(() {
+                  _isLoading = true;
+                });
+
+                LoginResponseModel? response = await apiServices.userLogin(
+                    LoginRequestModal(
+                        email: _username.text, password: _password.text));
+
+                debugPrint(response.toString());
+                if (response != null && response.status == true) {
+
+                 await _servicesStorage.setUserId(response.data.id!.toString());
+                 await _servicesStorage.setUserLoggedIn('true');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Login successful')));
+
+
+
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigation()), (route) => false);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: response != null
+                          ? response.message
+                          : 'Please check your credentials',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+
+                  setState(() {
+                    _isLoading = false;
+                  });
+                }
+              },
+              child: SizedBox(
+                height: 40,
+                width: 180,
+                child: longButton(context, 'NEXT', CustomColors.blueButton),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Stack(
         children: <Widget>[
           SingleChildScrollView(
@@ -166,6 +204,37 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+
+                Row(
+                  children: [
+                    Checkbox(
+                      checkColor: CustomColors.primeColour,
+                      activeColor: CustomColors.white,
+                      value: _checkBox,
+                      onChanged: (value) {
+
+                        _checkBox =! _checkBox!;
+
+                        setState(() {
+
+
+
+                          if(_checkBox == true){
+
+                          }else {
+                            _servicesStorage.removeEmailAndPass();
+                          }
+
+                        });
+
+                      },
+                    ),
+                    Text('Remember Me',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color : CustomColors.blueButton),)
+                  ],
+                ),
+
+
                 const SizedBox(
                   height: 59,
                 ),

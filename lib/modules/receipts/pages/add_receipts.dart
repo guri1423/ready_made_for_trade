@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
@@ -12,6 +13,7 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:http/http.dart' as http;
+import 'package:ready_made_4_trade/widgets/date_picker.dart';
 import '../../home/widgets/common_widgets.dart';
 
 
@@ -276,7 +278,7 @@ class _AddReceiptsState extends State<AddReceipts> {
 
               SizedBox(height: 10,),
 
-              customTextFieldForm(context, controller: _date, hintText: 'Date'),
+              CustomDatePicker(),
 
               SizedBox(height: 30,),
 
@@ -312,7 +314,7 @@ class _AddReceiptsState extends State<AddReceipts> {
     request.fields["job"] = jobValue!;
     request.fields["category"] = categoryValue!;
     request.fields["amount"] = _amount.text;
-    request.fields["date"] = _date.text;
+    request.fields["date"] = BlocProvider.of<PickupDateCubit>(context).getPickupDate();;
 
     final file = await http.MultipartFile.fromPath('image', widget.image!.path);
     request.files.add(file);

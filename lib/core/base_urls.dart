@@ -1,6 +1,7 @@
 class Urls {
   static const baseUrl = "https://readymade4trade.omkatech.in/api/";
   static const login = "${baseUrl}login";
+  static const changePassword = "${baseUrl}forgotpassword";
   static const fetchUser = "${baseUrl}getuserdata";
   static const fetchCustomer = "${baseUrl}GetCustomer";
   static const fetchJobs = "${baseUrl}GetJob";

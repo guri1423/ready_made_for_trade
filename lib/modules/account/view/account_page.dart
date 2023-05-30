@@ -54,7 +54,8 @@ class _AccountPageState extends State<AccountPage> {
         padding: const EdgeInsets.all(20.0),
         child: GestureDetector(
             onTap: () {
-              _servicesStorage.clearStorage();
+
+              _servicesStorage.setUserLoggedIn('false');
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const Login()),

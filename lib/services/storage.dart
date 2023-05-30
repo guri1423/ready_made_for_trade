@@ -11,12 +11,25 @@ class StorageServices{
   setEmail(String email)async{
     await storage.write(key: Strings.emailKey, value: email);
   }
+
+  setPassword(String password)async{
+    await storage.write(key: Strings.passwordKey, value: password);
+  }
+  removeEmailAndPass()async{
+    await storage.delete(key: Strings.emailKey);
+    await storage.delete(key: Strings.passwordKey);
+  }
   setUserLoggedIn(String val)async{
     await storage.write(key: Strings.loggedKey, value: val);
   }
 
   Future<String?> getEmail()async{
     return await storage.read(key: Strings.emailKey);
+
+  }
+
+  Future<String?> getPassword()async{
+    return await storage.read(key: Strings.passwordKey);
 
   }
 
