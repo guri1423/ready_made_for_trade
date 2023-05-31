@@ -180,9 +180,12 @@ class _AddReceiptsState extends State<AddReceipts> {
                                   horizontal: 5),
                               child: Text(
                                 item.toString(),
-                                style: const TextStyle(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
                                     color: CustomColors
-                                        .textFieldTextColour),
+                                        .black),
                               ),
                             )))
                             .toList(),
@@ -263,9 +266,12 @@ class _AddReceiptsState extends State<AddReceipts> {
                                   horizontal: 5),
                               child: Text(
                                 item.toString(),
-                                style: const TextStyle(
-                                    color: CustomColors
-                                        .textFieldTextColour),
+                                  style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                  color: CustomColors
+                                      .black),
                               ),
                             )))
                             .toList(),

@@ -62,8 +62,6 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data!.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  print("this is jdskfljf ___${snapshot.data!.data[0].projectImages}");
-                  print("this is whatndfnsnfalanfl ___${snapshot.data!.data.last.projectImages}");
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: Row(
@@ -112,7 +110,7 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(2.0),
+                              padding: const EdgeInsets.all(6.0),
                               child: Image.asset('assets/images/small_icons/019-edit.png'),
                             ),
                           ),

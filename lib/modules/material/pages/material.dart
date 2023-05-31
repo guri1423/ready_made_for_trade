@@ -36,21 +36,23 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 80,
-        elevation: 0,
+        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 160,
+              height: 75,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -59,7 +61,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
             SizedBox(
               height: 30,
               width: 30,
-              child: Image.asset('assets/images/02 Notification.png'),
+              child: Image.asset('assets/images/updated_images/012-bell.png'),
             ),
           ],
         ),
@@ -120,27 +122,31 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.network(
-                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}'),
-                                  const SizedBox(
-                                    height: 5,
+                                  SizedBox(
+                                    height : 100,
+                                    child: Image.network(
+                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
+                                      fit: BoxFit.fitHeight,),
                                   ),
-                                  Text(
-                                    state.model!.data[index].materialName!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            color: CustomColors.primeColour),
-                                    textAlign: TextAlign.center,
+
+                                  Flexible(
+                                    flex: 2,
+                                    child: Text(
+                                      state.model!.data[index].materialName!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                          color: CustomColors.primeColour),
+                                    ),
                                   )
                                 ],
                               ),
                             ),
-                          ),
+                          )
                         );
                       })
                 ],
@@ -198,18 +204,27 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.network(
-                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}'),
-                                  Flexible(
-                                    flex: 2,
-                                    child: Text(
-                                      state.model!.data[index].materialName!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                              color: CustomColors.primeColour),
-                                    ),
+                                  SizedBox(
+                                    height : 100,
+                                    child: Image.network(
+                                        '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
+                                    fit: BoxFit.fitHeight,),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        flex: 2,
+                                        child: Text(
+                                          state.model!.data[index].materialName!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                                  color: CustomColors.primeColour),
+                                        ),
+                                      ),
+                                    ],
                                   )
                                 ],
                               ),

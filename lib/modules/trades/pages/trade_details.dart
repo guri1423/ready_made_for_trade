@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
@@ -64,6 +63,8 @@ class _TradeDetailsState extends State<TradeDetails> {
                       },
                       child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
 
+                  SizedBox(width: 20,),
+
                   Expanded(child: GestureDetector(
                       onTap: (){
 
@@ -82,6 +83,8 @@ class _TradeDetailsState extends State<TradeDetails> {
                         sendWhatsAppMessage(widget.tradeData.mobileNumber!);
                       },
                       child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png'))),
+
+                  SizedBox(width: 20,),
 
                   const Expanded(child: SizedBox())
                 ],

@@ -450,13 +450,13 @@ Widget tradeDetails(context, DatumTrade tradeData) {
         color: CustomColors.blueButton,
         borderRadius: BorderRadius.circular(10)),
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 height: 100,
@@ -471,31 +471,33 @@ Widget tradeDetails(context, DatumTrade tradeData) {
                       child: Image.asset('assets/images/updated_images/Materials 1.png'),
                     )),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Mr ${tradeData.firstName} ${tradeData.lastName}',
-                        style: theme.textTheme.titleLarge),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('"${tradeData.nickname!}"',
-                        style: theme.textTheme.titleSmall),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                        '${tradeData.emailAddress!} \n ${tradeData.mobileNumber} ',
-                        style: theme.textTheme.titleSmall),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text('${tradeData.trades}',
-                        style: theme.textTheme.titleSmall),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric( horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Mr ${tradeData.firstName} ${tradeData.lastName}',
+                          style: theme.textTheme.titleLarge),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('"${tradeData.nickname!}"',
+                          style: theme.textTheme.titleLarge),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                          '${tradeData.emailAddress!} \n ${tradeData.mobileNumber} ',
+                          style: theme.textTheme.titleSmall),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('${tradeData.trades}',
+                          style: theme.textTheme.titleSmall),
+                    ],
+                  ),
                 ),
               ),
             ],

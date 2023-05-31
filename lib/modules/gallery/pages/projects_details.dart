@@ -74,13 +74,15 @@ class _ProjectsDetailsPageState extends State<ProjectsDetailsPage> {
               }),
             ),
 
-            Spacer(),
+            const Spacer(),
 
             extraLongButton(context, 'PROJECTS'),
 
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
 
-            Text(widget.model!.projectTitle!, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.primeColour),)
+            Text(widget.model!.projectTitle!, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.primeColour),),
+
+            const SizedBox(height: 10,),
 
           ],
         ),

@@ -59,7 +59,7 @@ Widget customisedButton(context, String title, Color colour,String image ){
           mainAxisAlignment: MainAxisAlignment.start, // Aligns the children to the start (left corner)
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.all(6),
               child: Image.asset(image),
             ),
           // Adds some spacing between the image and text

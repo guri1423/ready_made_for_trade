@@ -86,7 +86,7 @@ class _TradesPageState extends State<TradesPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -322,7 +322,7 @@ class _TradesPageState extends State<TradesPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -462,7 +462,7 @@ class _TradesPageState extends State<TradesPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

@@ -2,7 +2,9 @@
 
     package="com.example.ready_made_4_trade">
     <uses-permission android:name="android.permission.INTERNET"/>
-   <application
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
         android:label="ready_made_4_trade"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

@@ -95,8 +95,22 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 final reversedIndex = state.model!.data.length - 1 - index;
 
-                                return Image.network(
-                                  '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                return GestureDetector(
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          child: Image.network(
+                                            '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Image.network(
+                                    '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                  ),
                                 );
                               },
                             ),
@@ -154,8 +168,22 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 final reversedIndex = state.model!.data.length - 1 - index;
 
-                                return Image.network(
-                                  '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                return GestureDetector(
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          child: Image.network(
+                                            '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Image.network(
+                                    '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                  ),
                                 );
                               },
                             ),

@@ -12,7 +12,9 @@ Widget viewFinanceAndInsurance(context, List<FinanceAndInsuranceData> data) {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            launchUrlString(data[index].link);
+            launchUrlString(data[index].link,
+                mode: LaunchMode.externalApplication);
+
           },
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
