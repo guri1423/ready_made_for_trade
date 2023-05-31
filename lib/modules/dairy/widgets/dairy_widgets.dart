@@ -50,6 +50,12 @@ Widget diaryWidget(context, List<DiaryData> data, int index) {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
+                  data[index].customerName ?? 'No Title' ,
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
                   data[index].projectName ?? 'No Title' ,
                   style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
               const SizedBox(
@@ -63,12 +69,12 @@ Widget diaryWidget(context, List<DiaryData> data, int index) {
 
           Spacer(),
 
-          Column(
-            children: [
-              Text(data[index].date.toString(),
-              style: theme.textTheme.titleSmall,),
-            ],
-          )
+          // Column(
+          //   children: [
+          //     Text(data[index].date.toString(),
+          //     style: theme.textTheme.titleSmall,),
+          //   ],
+          // )
         ],
       ),
     ),

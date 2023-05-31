@@ -141,8 +141,11 @@ class _DiaryPageState extends State<DiaryPage> {
                                         horizontal: 5),
                                     child: Text(
                                       item.toString(),
-                                      style: TextStyle(
-                                          color: CustomColors.blackText),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                          color: CustomColors.black),
                                     ),
                                   )))
                               .toList(),
@@ -155,23 +158,35 @@ class _DiaryPageState extends State<DiaryPage> {
                     width: 10,
                   ),
                   SizedBox(
-                      height: 40,
+                      height: 35,
                       width: 40,
                       child: Image.asset(
                           'assets/images/updated_images/029-list.png'))
                 ],
               ),
-              CustomDatePicker(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('01/05/22',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(color: CustomColors.primeColour)),
+                  Expanded(child: CustomDatePicker()),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                      height: 35,
+                      width: 40,
+                      child: Image.asset(
+                          'assets/images/updated_images/diary.png'))
                 ],
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Text('01/05/22',
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .titleLarge!
+              //             .copyWith(color: CustomColors.primeColour)),
+              //   ],
+              // ),
               const SizedBox(
                 height: 10,
               ),
