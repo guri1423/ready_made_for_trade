@@ -5,7 +5,6 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
-import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/widgets/dairy_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -62,8 +61,8 @@ class _DiaryPageState extends State<DiaryPage> {
             ],
           ),
         ),
-        bottomNavigationBar:  BottomToolsForInsidePage(
-          onBackPress: (){
+        bottomNavigationBar: BottomToolsForInsidePage(
+          onBackPress: () {
             BlocProvider.of<DairyCubit>(context).getDiaryData();
           },
         ),
@@ -125,9 +124,13 @@ class _DiaryPageState extends State<DiaryPage> {
                           ),
                           value: filterValue,
                           onChanged: (value) {
-                            BlocProvider.of<DairyCubit>(context).getDiaryFilterData(value, BlocProvider.of<PickupDateCubit>(context).getPickupDate());
+                            BlocProvider.of<DairyCubit>(context)
+                                .getDiaryFilterData(
+                                    value as String ,
+                                    BlocProvider.of<PickupDateCubit>(context)
+                                        .getPickupDate());
                             setState(() {
-                              filterValue = value;
+                              filterValue = value as String?;
                             });
                           },
                           items: dairyFilterList
@@ -173,10 +176,8 @@ class _DiaryPageState extends State<DiaryPage> {
                 height: 10,
               ),
               BlocBuilder<DairyCubit, DairyState>(
-
                 builder: (context, state) {
-
-                  if(state is DairySuccess){
+                  if (state is DairySuccess) {
                     return Expanded(
                       child: SingleChildScrollView(
                         child: ListView.builder(
@@ -195,13 +196,11 @@ class _DiaryPageState extends State<DiaryPage> {
                     );
                   }
 
-                  if(state is DairyLoading){
+                  if (state is DairyLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
-
                   return const Center(child: CircularProgressIndicator());
-
                 },
               )
             ],

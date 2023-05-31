@@ -12,7 +12,6 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import '../../../../../services/remote_api.dart';
 
 class CustomersPage extends StatefulWidget {
-
   const CustomersPage({Key? key, this.isComingFromJob = false})
       : super(key: key);
 
@@ -120,7 +119,7 @@ class _CustomersPageState extends State<CustomersPage> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: state.model!.data!.length,
+                        itemCount: state.model!.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                               onTap: () {
@@ -130,18 +129,16 @@ class _CustomersPageState extends State<CustomersPage> {
                                       MaterialPageRoute(
                                           builder: (context) => AddJobsPage(
                                                 customerId: state
-                                                    .model!.data![index].id
+                                                    .model!.data[index].id
                                                     .toString(),
-                                                model:
-                                                    state.model!.data![index],
+                                                model: state.model!.data[index],
                                               )));
                                 } else {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ViewDetails(
-                                              data:
-                                                  state.model!.data![index])));
+                                              data: state.model!.data[index])));
                                 }
                               },
                               child: customerPage(
@@ -202,7 +199,7 @@ class _CustomersPageState extends State<CustomersPage> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: state.model!.data!.length,
+                        itemCount: state.model!.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                               onTap: () {
@@ -212,15 +209,14 @@ class _CustomersPageState extends State<CustomersPage> {
                                       MaterialPageRoute(
                                           builder: (context) => AddJobsPage(
                                               customerId: state
-                                                  .model!.data![index].id!
+                                                  .model!.data[index].id!
                                                   .toString())));
                                 } else {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ViewDetails(
-                                              data:
-                                                  state.model!.data![index])));
+                                              data: state.model!.data[index])));
                                 }
                               },
                               child: customerSearchResult(
