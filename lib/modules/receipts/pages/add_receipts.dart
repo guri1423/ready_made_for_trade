@@ -185,7 +185,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                                     .titleSmall!
                                     .copyWith(
                                     color: CustomColors
-                                        .black),
+                                        .black,fontSize: 10),
                               ),
                             )))
                             .toList(),
@@ -271,7 +271,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                                   .titleSmall!
                                   .copyWith(
                                   color: CustomColors
-                                      .black),
+                                      .black,fontSize: 10),
                               ),
                             )))
                             .toList(),
