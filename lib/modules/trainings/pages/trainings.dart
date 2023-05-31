@@ -89,49 +89,52 @@ class _TrainingsPageState extends State<TrainingsPage> {
                         int value = int.parse(keyValuePairs[i + 1].trim());
                         map[key] = value;
                       }
-                      // if (map.containsKey(index) && map[index] == 1) {
-                      //   _isCheckedList[index] = !_isCheckedList[index];
-                      // }
+                      if (map.containsKey(index) && map[index] == 1) {
+                        _isCheckedList[index] = _isCheckedList[index];
+                      }
                       _isCheckedList[index] = map[index] == 1 ? true : false;
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                launchUrlString(
-                                    state.model!.data[index].videoLink!);
-                              },
-                              child: extraLongButton(
-                                  context, state.model!.data[index].title!),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  launchUrlString(
+                                      state.model!.data[index].videoLink!);
+                                },
+                                child: extraLongButton(
+                                    context, state.model!.data[index].title!),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Transform.scale(
-                            scale: 1.5,
-                            child: Checkbox(
-                              checkColor: CustomColors.primeColour,
-                              activeColor: CustomColors.white,
-                              value: _isCheckedList[index],
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  _isCheckedList[index] =
-                                      !_isCheckedList[index];
-                                  if (userId != null) {
-                                    BlocProvider.of<TrainingCubit>(context)
-                                        .storeTrainingUpdate(status: {
-                                      "$index": getStatus(_isCheckedList[index])
-                                    }, userID: userId!, customerId: userId!);
-                                  }
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Transform.scale(
+                              scale: 1.5,
+                              child: Checkbox(
+                                checkColor: CustomColors.primeColour,
+                                activeColor: CustomColors.white,
+                                value: _isCheckedList[index],
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isCheckedList[index] =
+                                        !_isCheckedList[index];
+                                    if (userId != null) {
+                                      BlocProvider.of<TrainingCubit>(context)
+                                          .storeTrainingUpdate(status: {
+                                        "$index": getStatus(_isCheckedList[index])
+                                      }, userID: userId!, customerId: userId!);
+                                    }
 
-                                  // print(_isCheckedList[index]);
-                                });
-                              },
+                                    // print(_isCheckedList[index]);
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     }));
           }

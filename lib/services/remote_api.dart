@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:ready_made_4_trade/modules/account/model/setup_cmpany_model.dart';
 import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
@@ -41,8 +42,7 @@ class RemoteApi {
   Future<LoginResponseModel?> userLogin(LoginRequestModal model) async {
     try {
       final response =
-          await http.post(Uri.parse(Urls.login),
-              body: model.toJson());
+          await http.post(Uri.parse(Urls.login), body: model.toJson());
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -57,8 +57,7 @@ class RemoteApi {
   Future<AddCustomerResponse?> changePassword(ChangePasswordModal model) async {
     try {
       final response =
-      await http.post(Uri.parse(Urls.changePassword),
-          body: model.toJson());
+          await http.post(Uri.parse(Urls.changePassword), body: model.toJson());
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -211,11 +210,8 @@ class RemoteApi {
   Future<GetAllTrades?> getSearchTrades(String? search) async {
     String? userId = await _servicesStorage.getUserId();
     try {
-      Response response = await http
-          .post(Uri.parse(Urls.getSearchTrades),
-        body: {'key': search,
-            'user_id': userId
-          });
+      Response response = await http.post(Uri.parse(Urls.getSearchTrades),
+          body: {'key': search, 'user_id': userId});
       print(response.body);
       var jsonResponse = response.body;
 
@@ -664,14 +660,8 @@ class RemoteApi {
     debugPrint('User ID ${userId.toString()}');
 
     try {
-      Response response = await http
-          .post(Uri.parse(Urls.getDiaryData), body: {
-            'user_id': userId,
-            'status': status,
-             'date' : date
-
-      });
-
+      Response response = await http.post(Uri.parse(Urls.getDiaryData),
+          body: {'user_id': userId, 'status': status, 'date': date});
 
       var jsonResponse = response.body;
 
@@ -917,7 +907,6 @@ class RemoteApi {
   }
 
   Future<GetJobStatus?> getJobStatus() async {
-
     String? userId = await _servicesStorage.getUserId();
 
     try {
@@ -957,6 +946,36 @@ class RemoteApi {
     try {
       Response response = await http.post(Uri.parse(Urls.updateWebsiteText),
           body: textModel.toJson());
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<GetCompanyInfo?> getCompanyInfo() async {
+    String? userId = await _servicesStorage.getUserId();
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.getCompanyInfo), body: {'user_id': userId});
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return getCompanyInfoFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> updateCompanyInfo(
+      {required SetupCompanyData setupCompanyData}) async {
+    try {
+      Response response = await http.post(Uri.parse(Urls.updateCompanyInfo),
+          body: setupCompanyData.toJson());
 
       var jsonResponse = response.body;
 

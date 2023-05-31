@@ -45,4 +45,7 @@ class Urls {
   static const getWebsiteText = "${baseUrl}GetWebsiteText";
   static const updateWebsiteText = "${baseUrl}UpdateWebsiteText";
   static const getJobStatus = "${baseUrl}GetAllJobByStatus";
+  static const getCompanyInfo = "${baseUrl}GetSetUpCompanyInfos";
+  static const updateCompanyInfo = "${baseUrl}UpdateSetUpCompanyInfos";
 }
+

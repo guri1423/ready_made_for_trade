@@ -108,7 +108,7 @@ class _AccountPageState extends State<AccountPage> {
 }
 
 List<String> settingList = [
-  'SET UP COMAPNY INFO',
+  'SET UP COMPANY INFO',
   'EDIT WEBSITE TEXT',
   'UPLOAD LOGO',
   'QUOTE & INVOICE TERMS',
