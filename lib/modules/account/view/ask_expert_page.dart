@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class AskExpertPage extends StatefulWidget {
@@ -13,6 +14,8 @@ class AskExpertPage extends StatefulWidget {
 
 class _AskExpertPageState extends State<AskExpertPage> {
   final TextEditingController messageController = TextEditingController();
+  bool isLoading = false;
+  final RemoteApi remoteApi = RemoteApi();
 
   @override
   Widget build(BuildContext context) {
@@ -51,64 +54,89 @@ class _AskExpertPageState extends State<AskExpertPage> {
           Navigator.pop(context);
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView(
-          children: [
-            Text(
-              'ASK AN EXPERT',
-              style: theme.textTheme.titleLarge!
-                  .copyWith(color: CustomColors.primeColour),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            customTextFieldForm(
-              context,
-              controller: messageController,
-              isBig: true,
-              hintText:
-                  'Message one of our trusted experts who will help run through your options',
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: ListView(
               children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                        height: 40,
-                        child: smallButton(
-                            context, 'SEND', CustomColors.primeColour, 50)),
-                  ),
+                Text(
+                  'ASK AN EXPERT',
+                  style: theme.textTheme.titleLarge!
+                      .copyWith(color: CustomColors.primeColour),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  width: 20,
+                  height: 10,
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                        height: 40,
-                        child: smallButton(
-                            context, 'DELETE', CustomColors.greyButton, 50)),
-                  ),
+                customTextFieldForm(
+                  context,
+                  controller: messageController,
+                  isBig: true,
+                  hintText:
+                      'Message one of our trusted experts who will help run through your options',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          await remoteApi
+                              .askExpert(message: messageController.text)
+                              .then((value) {
+                            setState(() {
+                              messageController.clear();
+                              isLoading = false;
+                            });
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Your request submitted")));
+                        },
+                        child: SizedBox(
+                            height: 40,
+                            child: smallButton(
+                                context, 'SEND', CustomColors.primeColour, 50)),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: SizedBox(
+                            height: 40,
+                            child: smallButton(context, 'DELETE',
+                                CustomColors.greyButton, 50)),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                GestureDetector(
+                  onTap: () async {},
+                  child: extraLongButton(context, 'REQUEST A CALLBACK',
+                      color: CustomColors.primeColour),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 15,
+          ),
+          Visibility(
+            visible: isLoading,
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: extraLongButton(context, 'REQUEST A CALLBACK',
-                  color: CustomColors.primeColour),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

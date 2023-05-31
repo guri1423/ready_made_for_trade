@@ -984,4 +984,23 @@ class RemoteApi {
       debugPrint(e.toString());
     }
   }
+
+  Future<void> askExpert({required String message}) async {
+    String? userId = await _servicesStorage.getUserId();
+    try {
+      Response response = await http.post(Uri.parse(Urls.askExpert),
+          body: {
+            'user_id': userId,
+            'message': message,
+            'user_name': 'kunal',
+            'category': 'ww'
+          });
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }

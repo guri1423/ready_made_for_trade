@@ -47,5 +47,6 @@ class Urls {
   static const getJobStatus = "${baseUrl}GetAllJobByStatus";
   static const getCompanyInfo = "${baseUrl}GetSetUpCompanyInfos";
   static const updateCompanyInfo = "${baseUrl}UpdateSetUpCompanyInfos";
+  static const askExpert = "${baseUrl}AskanExpertInsert";
 }
 
