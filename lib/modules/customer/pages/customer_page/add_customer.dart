@@ -429,7 +429,7 @@ Widget customTextFieldForm(context,
       hintText: hintText,
       contentPadding: hintText.contains('Project Details')
           ? const EdgeInsets.only(top: 10, left: 10)
-          : const EdgeInsets.only(top: 2, left: 10),
+          : isBig?const EdgeInsets.only(top:16,left: 10):const EdgeInsets.only(top: 2, left: 10),
       hintStyle: Theme.of(context)
           .textTheme
           .titleSmall!
