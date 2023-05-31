@@ -58,9 +58,7 @@ Widget diaryWidget(context, List<DiaryData> data, int index) {
               Text(
                   data[index].projectName ?? 'No Title' ,
                   style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
-              const SizedBox(
-                height: 2,
-              ),
+
               // Text(data[index].p ?? 'No Description',
               //     style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
 
