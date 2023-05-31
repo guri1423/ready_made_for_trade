@@ -171,72 +171,74 @@ class _HomePageState extends State<HomePage> {
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                          onTap: (){
-                                            _scrollController.animateTo(
-                                              _scrollController.offset - 150, // Adjust the scroll distance as needed
-                                              curve: Curves.ease,
-                                              duration: Duration(milliseconds: 300),
-                                            );
-
-                                          },
-                                          child: Image.asset('assets/images/Path 8242.png')),
+                                        onTap: () {
+                                          _scrollController.animateTo(
+                                            _scrollController.offset - 150, // Adjust the scroll distance as needed
+                                            curve: Curves.ease,
+                                            duration: Duration(milliseconds: 300),
+                                          );
+                                        },
+                                        child: Image.asset('assets/images/Path 8242.png'),
+                                      ),
                                       Flexible(
                                         fit: FlexFit.loose,
                                         child: ListView.builder(
-                                            controller: _scrollController,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: state.model!.data.statusCounts!.length,
-                                            itemBuilder: (context, int index){
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                                            child: SizedBox(
-                                              height: 65,
-                                              width: 120,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: CustomColors.greyButton,
-                                                    width: 1.0,
+                                          controller: _scrollController,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: state.model!.data.statusCounts!.length,
+                                          itemBuilder: (context, int index) {
+                                            final item = state.model!.data.statusCounts![index];
+                                            return Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                              child: SizedBox(
+                                                height: 65,
+                                                width: 120,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: CustomColors.greyButton,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius: BorderRadius.circular(10),
                                                   ),
-                                                  borderRadius: BorderRadius.circular(10),
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Text(
-                                                      state.model!.data.statusCounts![index].noCount!,
-                                                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                                        color: CustomColors.primeColour,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Text(
+                                                        item.noCount!,
+                                                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                                          color: CustomColors.primeColour,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      state.model!.data.statusCounts![index].title!,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall!
-                                                          .copyWith(color: CustomColors.primeColour),
-                                                    ),
-                                                  ],
+                                                      Text(
+                                                        item.title!,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall!
+                                                            .copyWith(color: CustomColors.primeColour),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        }),
+                                            );
+                                          },
+                                        ),
                                       ),
                                       GestureDetector(
-                                          onTap: (){
-
-                                            _scrollController.animateTo(
-                                              _scrollController.offset + 150, // Adjust the scroll distance as needed
-                                              curve: Curves.ease,
-                                              duration: Duration(milliseconds: 300),
-                                            );
-
-                                          },
-                                          child: Image.asset('assets/images/right direction.png')),
+                                        onTap: () {
+                                          _scrollController.animateTo(
+                                            _scrollController.offset + 150, // Adjust the scroll distance as needed
+                                            curve: Curves.ease,
+                                            duration: Duration(milliseconds: 300),
+                                          );
+                                        },
+                                        child: Image.asset('assets/images/right direction.png'),
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
+
                                 // Row(
                                 //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 //   children: [

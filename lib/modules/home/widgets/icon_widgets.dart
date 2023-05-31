@@ -57,16 +57,16 @@ Widget customerPage(context, List<DatumCustomer>? data, int index) {
                 const SizedBox(
                   height: 2,
                 ),
-                Text('ACTIVE JOBS: ${data[index].status}',
+                Text('ACTIVE JOBS: ${data[index].statusCounts!.confirmJob}',
                     style: theme.textTheme.titleSmall),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('PENDING JOBS: 3', style: theme.textTheme.titleSmall),
+                Text('PENDING JOBS: ${data[index].statusCounts!.createQuotes}', style: theme.textTheme.titleSmall),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('COMPLETED JOBS JOBS: 5',
+                Text('COMPLETED JOBS JOBS: ${data[index].statusCounts!.sendFinalInvoice}',
                     style: theme.textTheme.titleSmall),
               ],
             ),

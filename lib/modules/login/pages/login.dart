@@ -136,7 +136,7 @@ class _LoginState extends State<Login> {
               child: SizedBox(
                 height: 40,
                 width: 180,
-                child: longButton(context, 'NEXT', CustomColors.blueButton),
+                child: longButton(context, 'LOGIN', CustomColors.blueButton),
               ),
             ),
           ],

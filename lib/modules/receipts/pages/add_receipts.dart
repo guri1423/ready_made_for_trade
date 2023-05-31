@@ -314,7 +314,7 @@ class _AddReceiptsState extends State<AddReceipts> {
     request.fields["job"] = jobValue!;
     request.fields["category"] = categoryValue!;
     request.fields["amount"] = _amount.text;
-    request.fields["date"] = BlocProvider.of<PickupDateCubit>(context).getPickupDate();;
+    request.fields["date"] = BlocProvider.of<PickupDateCubit>(context).getPickupDate();
 
     final file = await http.MultipartFile.fromPath('image', widget.image!.path);
     request.files.add(file);

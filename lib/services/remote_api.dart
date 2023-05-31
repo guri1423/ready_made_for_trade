@@ -658,6 +658,32 @@ class RemoteApi {
     }
   }
 
+  Future<GetDairyData?> getDiaryFilterData(String? status, String? date) async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.getDiaryData), body: {
+            'user_id': userId,
+            'status': status,
+             'date' : date
+
+      });
+
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+
+      return getDairyDataFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
   Future<GetJobList?> getJobListReceipts() async {
     String? userId = await _servicesStorage.getUserId();
 

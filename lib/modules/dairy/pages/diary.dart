@@ -1,10 +1,10 @@
-
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
+import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/widgets/dairy_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -20,15 +20,18 @@ class DiaryPage extends StatefulWidget {
 }
 
 class _DiaryPageState extends State<DiaryPage> {
-
   final RemoteApi _remoteApi = RemoteApi();
 
   String? filterValue;
 
+  @override
+  void initState() {
+    BlocProvider.of<DairyCubit>(context).getDiaryData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(
@@ -59,7 +62,11 @@ class _DiaryPageState extends State<DiaryPage> {
             ],
           ),
         ),
-        bottomNavigationBar: const BottomToolsForInsidePage(),
+        bottomNavigationBar:  BottomToolsForInsidePage(
+          onBackPress: (){
+            BlocProvider.of<DairyCubit>(context).getDiaryData();
+          },
+        ),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: Column(
@@ -87,10 +94,10 @@ class _DiaryPageState extends State<DiaryPage> {
                                 color: CustomColors.textFldBorder,
                                 width: 1,
                               ),
-                              color: CustomColors.white
-                          ),
+                              color: CustomColors.white),
                           itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          itemHeight:
+                              MediaQuery.of(context).size.height * 0.056,
                           icon: const Padding(
                             padding: EdgeInsets.only(right: 2),
                             child: Icon(
@@ -109,80 +116,93 @@ class _DiaryPageState extends State<DiaryPage> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'Filter',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: CustomColors.textFieldTextColour),
                             ),
                           ),
                           value: filterValue,
                           onChanged: (value) {
+                            BlocProvider.of<DairyCubit>(context).getDiaryFilterData(value, BlocProvider.of<PickupDateCubit>(context).getPickupDate());
                             setState(() {
                               filterValue = value;
                             });
                           },
                           items: dairyFilterList
                               .map((item) => DropdownMenuItem(
-                              value: item,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  item.toString(),
-                                  style:
-                                  TextStyle(color: CustomColors.blackText),
-                                ),
-                              )))
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                          color: CustomColors.blackText),
+                                    ),
+                                  )))
                               .toList(),
                           validator: (value) {
                             return validationDropField(value);
                           }),
                     ),
                   ),
-                  SizedBox(width: 10,),
                   SizedBox(
-                     height: 40, width: 40,
-                      child: Image.asset('assets/images/updated_images/029-list.png'))
+                    width: 10,
+                  ),
+                  SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Image.asset(
+                          'assets/images/updated_images/029-list.png'))
                 ],
               ),
-
-               CustomDatePicker(),
-
+              CustomDatePicker(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                      '01/05/22',
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.primeColour)),
+                  Text('01/05/22',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: CustomColors.primeColour)),
                 ],
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              BlocBuilder<DairyCubit, DairyState>(
 
-              const SizedBox(height: 10,),
+                builder: (context, state) {
 
-              Expanded(
-                child: SingleChildScrollView(
-                  child: FutureBuilder<GetDairyData?>(
-                    future: _remoteApi.getDiaryData(),
-                    builder: (context, snapshot){
-                     if(snapshot.hasData){
-                       return ListView.builder(
-                         physics: NeverScrollableScrollPhysics(),
-                         shrinkWrap: true,
-                         itemCount: snapshot.data!.data.length,
-                         itemBuilder: (BuildContext context, int index) {
-                           return Padding(
-                             padding: const EdgeInsets.only(bottom: 25),
-                             child: diaryWidget(context, snapshot.data!.data, index),
-                           );
-                         },
+                  if(state is DairySuccess){
+                    return Expanded(
+                      child: SingleChildScrollView(
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.model!.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 25),
+                              child: diaryWidget(
+                                  context, state.model!.data, index),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
 
-                       );
-                     }
-                     if(snapshot.hasError){
-                       return const Center(child: CircularProgressIndicator());
-                     }
+                  if(state is DairyLoading){
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-                     return const Center(child: CircularProgressIndicator());
-                    },
 
-                  ),
-                ),
+                  return const Center(child: CircularProgressIndicator());
+
+                },
               )
             ],
           ),

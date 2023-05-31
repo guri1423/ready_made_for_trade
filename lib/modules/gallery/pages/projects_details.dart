@@ -17,20 +17,26 @@ class ProjectsDetailsPage extends StatefulWidget {
 }
 
 class _ProjectsDetailsPageState extends State<ProjectsDetailsPage> {
+
   @override
   Widget build(BuildContext context) {
+    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 10,),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 8 * oneLogicalPixelInPhysicalPixels,
+            ),
+            SizedBox(
+              width: 160,
+              height: 75,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -39,7 +45,7 @@ class _ProjectsDetailsPageState extends State<ProjectsDetailsPage> {
             SizedBox(
               height: 30,
               width: 30,
-              child: Image.asset('assets/images/02 Notification.png'),
+              child: Image.asset('assets/images/updated_images/012-bell.png'),
             ),
           ],
         ),

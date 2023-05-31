@@ -67,7 +67,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     );
   }
   String changeDateToString(DateTime dateTime){
-    return  DateFormat('MM/dd/yyyy').format(dateTime);
+    return  DateFormat('yyyy/MM/dd').format(dateTime);
   }
 }
 
