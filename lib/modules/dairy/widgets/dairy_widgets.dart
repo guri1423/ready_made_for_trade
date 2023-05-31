@@ -53,7 +53,7 @@ Widget diaryWidget(context, List<DiaryData> data, int index) {
                   data[index].customerName ?? 'No Title' ,
                   style: theme.textTheme.titleLarge!.copyWith(fontSize: 18)),
               const SizedBox(
-                height: 2,
+                height: 6,
               ),
               Text(
                   data[index].projectName ?? 'No Title' ,
