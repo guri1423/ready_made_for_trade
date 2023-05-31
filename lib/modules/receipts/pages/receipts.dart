@@ -142,6 +142,9 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                           },
                           child: extraLongButton(context, 'ADD RECEIPTS'),
                         ),
+                        SizedBox(
+                          height: 16,
+                        ),
                       ],
                     ),
                   );
@@ -216,6 +219,7 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                           },
                           child: extraLongButton(context, 'SEND RECEIPTS'),
                         ),
+                        SizedBox(height: 16,),
                       ],
                     ),
                   );
