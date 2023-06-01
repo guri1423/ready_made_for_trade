@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -91,8 +92,27 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
               SizedBox(height: 10,),
 
-              Text('CONFIRM JOB #001',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.blueText)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text('CONFIRM JOB #001',
+                          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.blueText)),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                    },
+                    child: const Icon(
+                      Icons.close_outlined,
+                      size: 30,
+                      color: CustomColors.primeColour,
+                    ),
+                  ),
+                ],
+              ),
 
               SizedBox(height: 15,),
 
@@ -255,7 +275,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
                       width: 60,
                       child: customTextFieldForm(
                           context,
-                          controller: _yearEnd, hintText: ' YY')),
+                          controller: _yearEnd, hintText: 'YYYY')),
                   const SizedBox(
                     width: 5,
                   ),
@@ -574,7 +594,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
                       width: 60,
                       child: customTextFieldForm(
                           context,
-                          controller: _year, hintText: ' YY')),
+                          controller: _year, hintText: 'YYYY')),
                   const SizedBox(
                     width: 5,
                   ),

@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
@@ -105,13 +106,26 @@ class _QuoteSentState extends State<QuoteSent> {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            'JOB #${snapshot.data!.data.quoteId} - QUOTE SENT',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
+                          Expanded(
+                            child: Text(
+                              'JOB #${snapshot.data!.data.quoteId} - QUOTE SENT',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Dongle Regular',
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                            },
+                            child: const Icon(
+                              Icons.close_outlined,
+                              size: 30,
+                              color: CustomColors.primeColour,
+                            ),
                           ),
                         ],
                       ),

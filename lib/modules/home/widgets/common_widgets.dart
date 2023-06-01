@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/trades/search_cubit/search_trades_cubit.dart';
@@ -71,6 +72,58 @@ Widget textField(context, TextEditingController controller, String hint,
     ),
   );
 }
+
+class DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    final hint = 'DD/MM/YYYY';
+    final hintLength = hint.length;
+
+    if (newValue.text == hint && newValue.selection.baseOffset == hintLength + 1) {
+      return newValue;
+    }
+
+    if (newValue.text.isNotEmpty && newValue.selection.baseOffset >= hintLength) {
+      final formattedValue = _formatDate(newValue.text);
+      return TextEditingValue(
+        text: formattedValue,
+        selection: TextSelection.collapsed(
+          offset: formattedValue.length,
+        ),
+      );
+    }
+
+    return newValue;
+  }
+
+  String _formatDate(String value) {
+    final formattedValue = StringBuffer();
+    final pattern = RegExp(r'^(\d{0,2})(\d{0,2})(\d{0,4})');
+
+    pattern.allMatches(value).forEach((match) {
+      final day = match.group(1);
+      final month = match.group(2);
+      final year = match.group(3);
+
+      if (day != null && day.isNotEmpty) {
+        formattedValue.write(day);
+      }
+
+      if (month != null && month.isNotEmpty) {
+        formattedValue.write('/$month');
+      }
+
+      if (year != null && year.isNotEmpty) {
+        formattedValue.write('/$year');
+      }
+    });
+
+    return formattedValue.toString();
+  }
+}
+
+
+
 
 Widget searchTextField(context, TextEditingController controller, String hint,
     double width, double height) {

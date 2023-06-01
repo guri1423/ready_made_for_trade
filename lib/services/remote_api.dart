@@ -848,6 +848,21 @@ class RemoteApi {
     }
   }
 
+  Future<AddCustomerResponse?> deleteJob(String jobId) async {
+    try {
+      final response = await http.post(Uri.parse(Urls.deleteJob),
+          body: {"job_id": jobId});
+
+      debugPrint(response.body);
+      var jsonResponse = json.decode(response.body);
+      debugPrint('json respONSE ${jsonResponse}');
+      return addCustomerResponseFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return null;
+  }
+
   Future<JobAgreeResponse?> jobAgreed(JobAgreedModel model) async {
     debugPrint(model.toJson().toString());
 

@@ -110,13 +110,25 @@ class _InvoicePaidState extends State<InvoicePaid> {
                             vertical: 5, horizontal: 12),
                         child: Row(
                           children: [
-                            Text(
-                              'JOB #${snapshot.data!.data.quoteId} - INVOICE PAID',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Dongle Regular',
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Text(
+                                'JOB #${snapshot.data!.data.quoteId} - INVOICE PAID',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                              },
+                              child: const Icon(
+                                Icons.close_outlined,
+                                size: 30,
+                                color: CustomColors.primeColour,
+                              ),
                             ),
                           ],
                         ),

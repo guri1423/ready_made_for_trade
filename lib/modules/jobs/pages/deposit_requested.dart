@@ -6,6 +6,7 @@ import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
@@ -98,13 +99,26 @@ class _DepositRequestedState extends State<DepositRequested> {
                             vertical: 5, horizontal: 12),
                         child: Row(
                           children: [
-                            Text(
-                              'JOB #${snapshot.data!.data.quoteId} - DEPOSIT REQUESTED',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Dongle Regular',
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Text(
+                                'JOB #${snapshot.data!.data.quoteId} - DEPOSIT REQUESTED',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                              },
+                              child: const Icon(
+                                Icons.close_outlined,
+                                size: 30,
+                                color: CustomColors.primeColour,
+                              ),
                             ),
                           ],
                         ),
@@ -424,8 +438,8 @@ class _DepositRequestedState extends State<DepositRequested> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    textField(context, _totalPrice, 'Total Price', 120, 50),
-                    textField(context, _date, 'DD/MM/YY', 120, 50),
+                    textField(context, _totalPrice, 'Total Price', 100, 50),
+                    textField(context, _date, 'DD/MM/YYYY', 130, 50),
                   ],
                 ),
                 const SizedBox(height: 20),

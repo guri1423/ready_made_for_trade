@@ -131,7 +131,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                   child: ListView.builder(
                     itemCount: snapshot.data!.data?.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
-                      return viewCustomerJobs(context, snapshot.data!.data![index]);
+                      return viewCustomerJobs(context, snapshot.data!.data![index], index);
                     },
                   ),
                 );

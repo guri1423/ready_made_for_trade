@@ -63,11 +63,13 @@ Widget customerPage(context, List<DatumCustomer>? data, int index) {
                 const SizedBox(
                   height: 2,
                 ),
-                Text('PENDING JOBS: ${data[index].statusCounts!.createQuotes}', style: theme.textTheme.titleSmall),
+                Text('PENDING JOBS: ${data[index].statusCounts!.createQuotes}',
+                    style: theme.textTheme.titleSmall),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('COMPLETED JOBS JOBS: ${data[index].statusCounts!.sendFinalInvoice}',
+                Text(
+                    'COMPLETED JOBS JOBS: ${data[index].statusCounts!.sendFinalInvoice}',
                     style: theme.textTheme.titleSmall),
               ],
             ),
@@ -96,7 +98,7 @@ Future<void> handlingOnTap(
 
   if (status!.status == true) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Customer details edited successfully')));
+        const SnackBar(content: Text('Customer details deleted successfully')));
     BlocProvider.of<CustomerSearchCubit>(context).getCustomer();
   } else {
     Fluttertoast.showToast(
@@ -110,7 +112,31 @@ Future<void> handlingOnTap(
   }
 }
 
+
+Future<void> deleteJobs(
+    RemoteApi _api, JobsDatum data, int index, context) async {
+  AddCustomerResponse? status =
+
+  await _api.deleteJob(data.id.toString());
+
+  if (status!.status == true) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Customer details deleted successfully')));
+
+  } else {
+    Fluttertoast.showToast(
+        msg: status.message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 2,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+}
+
 Widget customerSearchResult(context, List<DatumCustomer>? data, int index) {
+  RemoteApi _api = RemoteApi();
   ThemeData theme = Theme.of(context);
   TextStyle style = const TextStyle(
       fontSize: 10,
@@ -153,24 +179,31 @@ Widget customerSearchResult(context, List<DatumCustomer>? data, int index) {
                 const SizedBox(
                   height: 2,
                 ),
-                Text('ACTIVE JOBS: ${data[index].status}',
+                Text('ACTIVE JOBS: ${data[index].statusCounts!.confirmJob}',
                     style: theme.textTheme.titleSmall),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('PENDING JOBS: 3', style: theme.textTheme.titleSmall),
+                Text('PENDING JOBS: ${data[index].statusCounts!.createQuotes}',
+                    style: theme.textTheme.titleSmall),
                 const SizedBox(
                   height: 2,
                 ),
-                Text('COMPLETED JOBS JOBS: 5',
+                Text(
+                    'COMPLETED JOBS JOBS: ${data[index].statusCounts!.sendFinalInvoice}',
                     style: theme.textTheme.titleSmall),
               ],
             ),
             const Spacer(),
-            const Icon(
-              Icons.delete_forever_outlined,
-              color: CustomColors.white,
-              size: 30.0,
+            GestureDetector(
+              onTap: () async {
+                await handlingOnTap(_api, data, index, context);
+              },
+              child: const Icon(
+                Icons.delete_forever_outlined,
+                color: CustomColors.white,
+                size: 30.0,
+              ),
             )
           ],
         ),
@@ -179,7 +212,8 @@ Widget customerSearchResult(context, List<DatumCustomer>? data, int index) {
   );
 }
 
-Widget viewCustomerJobs(context,  JobsDatum data) {
+Widget viewCustomerJobs(context, JobsDatum data, int index) {
+  RemoteApi _api = RemoteApi();
   ThemeData theme = Theme.of(context);
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -203,30 +237,40 @@ Widget viewCustomerJobs(context,  JobsDatum data) {
                   ),
                   child: Image.asset('assets/images/home-icon-silhouette.png')),
             ),
-
-            SizedBox(width: 15,),
-
+            SizedBox(
+              width: 15,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(data.projectTitle != null ? data.projectTitle! : '', style: theme.textTheme.titleLarge),
-                  SizedBox(height: 5,),
+                  Text(data.projectTitle != null ? data.projectTitle! : '',
+                      style: theme.textTheme.titleLarge),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    data.jobStartFullDate != null ? 'Job start date -${data.jobStartFullDate.toString()}' : '',
+                    data.jobStartFullDate != null
+                        ? 'Job start date -${data.jobStartFullDate.toString()}'
+                        : '',
                     style: theme.textTheme.titleLarge,
                   ),
-
-                  SizedBox(height: 5,),
-
+                  SizedBox(
+                    height: 5,
+                  ),
                 ],
               ),
             ),
-            Icon(
-              Icons.delete_forever_outlined,
-              color: CustomColors.white,
-              size: 24.0,
+            GestureDetector(
+              onTap: () {
+                deleteJobs(_api, data, index, context);
+              },
+              child: Icon(
+                Icons.delete_forever_outlined,
+                color: CustomColors.white,
+                size: 24.0,
+              ),
             )
           ],
         ),
@@ -266,13 +310,14 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                   ),
                   Expanded(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Mr ${data.firstName} ${data.lastName}',
-                              softWrap: true, style: theme.textTheme.titleLarge),
+                              softWrap: true,
+                              style: theme.textTheme.titleLarge),
                           SizedBox(
                             height: 10,
                           ),
@@ -301,7 +346,8 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                       child: SizedBox(
                           height: 35,
                           width: 40,
-                          child: Image.asset('assets/images/small_icons/002-editing.png')))
+                          child: Image.asset(
+                              'assets/images/small_icons/002-editing.png')))
                 ],
               ),
               Row(
@@ -365,7 +411,8 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
-                    child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                    child: Image.asset(
+                        'assets/images/updated_images/Materials 1.png'),
                   )),
             ),
             const SizedBox(
@@ -386,7 +433,9 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(data[index].trades!, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.normal)),
+                Text(data[index].trades!,
+                    style: theme.textTheme.titleMedium!
+                        .copyWith(fontWeight: FontWeight.normal)),
               ],
             ),
           ],
@@ -420,7 +469,8 @@ Widget searchTradeResult(context, List<DatumTrade> data, int index) {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(4),
-                    child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                    child: Image.asset(
+                        'assets/images/updated_images/Materials 1.png'),
                   )),
             ),
             const SizedBox(
@@ -476,13 +526,13 @@ Widget tradeDetails(context, DatumTrade tradeData) {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Image.asset('assets/images/updated_images/Materials 1.png'),
+                      child: Image.asset(
+                          'assets/images/updated_images/Materials 1.png'),
                     )),
               ),
               Expanded(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric( horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

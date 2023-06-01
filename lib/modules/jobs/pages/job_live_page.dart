@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
@@ -91,12 +92,24 @@ class _JobLivePageState extends State<JobLivePage> {
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                       child: Row(
                         children: [
-                          Text('JOB #${snapshot.data!.data.quoteId} - JOB LIVE',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold
-                            ),),
+                          Expanded(
+                            child: Text('JOB #${snapshot.data!.data.quoteId} - JOB LIVE',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold
+                              ),),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                            },
+                            child: const Icon(
+                              Icons.close_outlined,
+                              size: 30,
+                              color: CustomColors.primeColour,
+                            ),
+                          ),
                         ],
                       ),
                     ),

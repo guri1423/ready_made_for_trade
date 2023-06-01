@@ -22,6 +22,7 @@ class Urls {
   static const editCustomer = "${baseUrl}EditCustomer";
   static const editTrade = "${baseUrl}TradeEdit";
   static const deleteCustomer = "${baseUrl}CustomerDelete";
+  static const deleteJob = "${baseUrl}deletejob";
   static const editProject = "${baseUrl}EditProject";
   static const searchFinanceInsurance = "${baseUrl}SearchFinanceInsurance";
   static const searchMaterials = "${baseUrl}SearchMaterials";
