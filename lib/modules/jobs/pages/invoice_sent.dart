@@ -99,7 +99,7 @@ class _InvoiceSentState extends State<InvoiceSent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
-                Text('Material - \$5,000',
+                Text('Material - \£5,000',
                   style: TextStyle(
                       fontSize: 16,
                       fontFamily:'Dongle Regular',
@@ -107,7 +107,7 @@ class _InvoiceSentState extends State<InvoiceSent> {
                       fontWeight: FontWeight.bold
                   ),),
 
-                Text('Labour - \$5,000',
+                Text('Labour - \£5,000',
                   style: TextStyle(
                       fontSize: 16,
                       fontFamily:'Dongle Regular',
@@ -153,7 +153,7 @@ class _InvoiceSentState extends State<InvoiceSent> {
                   height: 50,
                   width: 170,
                   child: Center(
-                    child: Text('Paid - \$5,000',
+                    child: Text('Paid - \£5,000',
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily:'Dongle Regular',

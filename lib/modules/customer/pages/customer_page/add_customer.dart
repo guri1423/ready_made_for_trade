@@ -283,8 +283,11 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                                       horizontal: 15),
                                   child: Text(
                                     item,
-                                    style: TextStyle(
-                                        color: CustomColors.blackText),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                        color: CustomColors.black),
                                   ),
                                 )))
                             .toList(),
@@ -398,6 +401,9 @@ Widget customTextFieldForm(context,
     required String hintText,
     bool isBig = false}) {
   return TextFormField(
+    keyboardType: controller.text == 'Mobile No' || controller.text == 'Amount' || hintText.contains('Cost')
+        ? TextInputType.phone
+        : TextInputType.emailAddress,
     controller: controller,
     maxLines: hintText.contains('Project Details')
         ? 20
@@ -478,7 +484,7 @@ Widget customTextFieldAddCustomer(context,
         .textTheme
         .titleSmall!
         .copyWith(color: CustomColors.black),
-    keyboardType: hintText.contains('Postal Code')
+    keyboardType: hintText.contains('Postal Code') || hintText.contains('Mobile No') || hintText.contains ('Amount')
         ? TextInputType.phone
         : TextInputType.emailAddress,
     inputFormatters: hintText.contains('Postal Code')

@@ -189,7 +189,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data.totalPrice}',
+                                  '\£ ${snapshot.data!.data.totalPrice}',
                                   style: style,
                                 ),
                               ],
@@ -210,7 +210,7 @@ class _SendDepositState extends State<SendDeposit> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '\$ ${snapshot.data!.data.totalIncVat}',
+                                    '\£ ${snapshot.data!.data.totalIncVat}',
                                     style: style,
                                   ),
                                 ],
@@ -235,7 +235,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data.remaining}',
+                                  '\£ ${snapshot.data!.data.remaining}',
                                   style: style,
                                 ),
                               ],

@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
@@ -108,15 +109,20 @@ class _CreateQuoteState extends State<CreateQuote> {
                                   .copyWith(color: CustomColors.primeColour),
                             ),
                           ),
-                          const Icon(
-                            Icons.close_outlined,
-                            size: 30,
-                            color: CustomColors.primeColour,
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                            },
+                            child: const Icon(
+                              Icons.close_outlined,
+                              size: 30,
+                              color: CustomColors.primeColour,
+                            ),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         child: viewJobQuote(context,
                             model: JobData(
                                 customerName: snapshot.data!.data.customerName,
@@ -170,7 +176,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,9 +254,12 @@ class _CreateQuoteState extends State<CreateQuote> {
                                                         horizontal: 5),
                                                 child: Text(
                                                   item.toString(),
-                                                  style: const TextStyle(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
                                                       color: CustomColors
-                                                          .blackText),
+                                                          .black),
                                                 ),
                                               )))
                                           .toList(),
@@ -270,7 +279,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                         ],
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

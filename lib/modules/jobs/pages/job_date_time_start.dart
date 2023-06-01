@@ -100,22 +100,13 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                       SizedBox(height: 10,),
 
                       Text('JOB #${snapshot.data!.data.quoteId!}',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily:'Dongle',
-                            color: CustomColors.blueButton,
-                            fontWeight: FontWeight.bold
-                        ),),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.blueText)),
 
                       SizedBox(height: 15,),
 
-                      const Text('JOB START DATE',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily:'Dongle',
-                            color: CustomColors.blueButton,
-                            fontWeight: FontWeight.bold
-                        ),),
+                       Text('JOB START DATE',
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.blueText)
+                       ),
 
                       SizedBox(height: 15,),
 
@@ -273,7 +264,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                               width: 60,
                               child: customTextFieldForm(
                                   context,
-                                  controller: _yearEnd, hintText: ' YY')),
+                                  controller: _yearEnd, hintText: 'YYYY')),
                           const SizedBox(
                             width: 5,
                           ),
@@ -431,13 +422,8 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
 
                       const SizedBox(height: 40,),
 
-                      const Text('JOB END DATE',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily:'Dongle',
-                            color: CustomColors.blueButton,
-                            fontWeight: FontWeight.bold
-                        ),),
+                      Text('JOB END DATE',
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.blueText)),
 
                       const SizedBox(height: 15,),
 
@@ -597,7 +583,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                               width: 60,
                               child: customTextFieldForm(
                                   context,
-                                  controller: _year, hintText: ' YY')),
+                                  controller: _year, hintText: 'YYYY')),
                           const SizedBox(
                             width: 5,
                           ),

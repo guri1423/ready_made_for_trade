@@ -116,7 +116,7 @@ class _QuoteSentState extends State<QuoteSent> {
                         ],
                       ),
                       Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: CustomColors.primeColour,
@@ -247,7 +247,7 @@ class _QuoteSentState extends State<QuoteSent> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,20 +267,20 @@ class _QuoteSentState extends State<QuoteSent> {
                           if(snapshot.data!.data.vat == 'YES')Expanded(
                             child: SizedBox(
                               height: 40,
-                              child: Center(child: Text('Total Inc Vat: \$${snapshot.data!.data.totalIncVat!}',
+                              child: Center(child: Text('Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
                                 style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
                             ),
                           ) else Expanded(
                             child: SizedBox(
                               height: 40,
-                              child: Center(child: Text('Total: \$${snapshot.data!.data.totalPrice!}',
+                              child: Center(child: Text('Total: \£${snapshot.data!.data.totalPrice!}',
                                 style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
                             ),
                           )
                         ],
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -340,7 +340,7 @@ class _QuoteSentState extends State<QuoteSent> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

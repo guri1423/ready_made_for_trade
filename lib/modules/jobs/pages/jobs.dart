@@ -3,6 +3,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/customers.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_status.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/all_jobs.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 import '../../../services/remote_api.dart';
@@ -85,24 +86,29 @@ class _JobsPageState extends State<JobsPage> {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 15),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Expanded(
-                                  child: extraLongButton(context,
-                                      snapshot.data!.data[index].title!),
-                                ),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: 40,
-                                  child: extraLongButton(context,
-                                      snapshot.data!.data[index].noCount!),
-                                ),
-                              ],
+                          return GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AllJobs(status:  snapshot.data!.data[index].title,)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 15),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Expanded(
+                                    child: extraLongButton(context,
+                                        snapshot.data!.data[index].title!),
+                                  ),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                    child: extraLongButton(context,
+                                        snapshot.data!.data[index].noCount!),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },

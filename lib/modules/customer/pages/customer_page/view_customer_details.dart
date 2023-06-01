@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
+import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 import '../../../home/pages/icon_models/jobs_model.dart';
@@ -20,21 +21,34 @@ class ViewDetails extends StatefulWidget {
 }
 
 class _ViewDetailsState extends State<ViewDetails> {
+
+
+  RemoteApi _remoteApi = RemoteApi();
+
   @override
   Widget build(BuildContext context) {
+    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
+
+    const SizedBox sizedBox = SizedBox(height: 8);
+
+    ThemeData theme = Theme.of(context);
     return Scaffold(
 
 
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 10,),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 8 * oneLogicalPixelInPhysicalPixels,
+            ),
+            SizedBox(
+              width: 160,
+              height: 75,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -43,7 +57,7 @@ class _ViewDetailsState extends State<ViewDetails> {
             SizedBox(
               height: 30,
               width: 30,
-              child: Image.asset('assets/images/02 Notification.png'),
+              child: Image.asset('assets/images/updated_images/012-bell.png'),
             ),
           ],
         ),
@@ -60,18 +74,32 @@ class _ViewDetailsState extends State<ViewDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/Phone Icon.png')),
+                  Expanded(child: GestureDetector(
+                      onTap: (){
 
-                  Expanded(child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/Email Icon.png')),
+                      },
+                      child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
+
+                  SizedBox(width: 30,),
+
+                  Expanded(child: GestureDetector(
+                      onTap: (){
+
+
+
+                      },
+                      child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/small_icons/001-email.png'))),
                 ],
               ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/whatsapp.png')),
+                  Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png')),
 
-                  Expanded(child: customisedButton(context, 'REMINDER', CustomColors.blueButton, 'assets/images/Book Appointment.png')),
+                  SizedBox(width: 30,),
+
+                  Expanded(child: customisedButton(context, 'REMINDER', CustomColors.blueButton, 'assets/images/small_icons/004-appointment.png')),
                 ],
               ),
 
@@ -79,7 +107,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>  AddJobsPage(customerId: widget.data.id.toString(),)));
                   },
-                  child: extraLongButton(context, 'START A NEW JOB')),
+                  child: customisedButton(context, 'START A NEW JOB', CustomColors.blueButton, 'assets/images/small_icons/003-add.png' )),
 
               SizedBox(height: 15,),
 
@@ -90,7 +118,28 @@ class _ViewDetailsState extends State<ViewDetails> {
 
 
 
-              viewCustomerJobs(context),
+          FutureBuilder<JobsModel?>(
+            future: _remoteApi.getJobsOnCustomerBasis(widget.data.id.toString()),
+            builder: (BuildContext context, AsyncSnapshot<JobsModel?> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Something went wrong'));
+              } else if (snapshot.hasData && snapshot.data != null) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height *0.40,
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.data?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      return viewCustomerJobs(context, snapshot.data!.data![index]);
+                    },
+                  ),
+                );
+              } else {
+                return const Center(child: Text('No data available'));
+              }
+            },
+          ),
             ],
           ),
         ),

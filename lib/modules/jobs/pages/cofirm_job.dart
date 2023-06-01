@@ -92,22 +92,12 @@ class _ConfirmJobState extends State<ConfirmJob> {
               SizedBox(height: 10,),
 
               Text('CONFIRM JOB #001',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontFamily:'Dongle',
-                    color: CustomColors.blueButton,
-                    fontWeight: FontWeight.bold
-                ),),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: CustomColors.blueText)),
 
               SizedBox(height: 15,),
 
               Text('JOB START DATE',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontFamily:'Dongle',
-                    color: CustomColors.blueButton,
-                    fontWeight: FontWeight.bold
-                ),),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.blueText),),
 
               SizedBox(height: 15,),
 
@@ -424,12 +414,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
               SizedBox(height: 40,),
 
               Text('JOB END DATE',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontFamily:'Dongle',
-                    color: CustomColors.blueButton,
-                    fontWeight: FontWeight.bold
-                ),),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.blueText),),
 
               SizedBox(height: 15,),
 
@@ -537,15 +522,15 @@ class _ConfirmJobState extends State<ConfirmJob> {
                           ),
                           itemPadding: EdgeInsets.symmetric(horizontal: 5),
                           itemHeight: MediaQuery.of(context).size.height * 0.056,
-                          icon: Padding(
-                            padding: const EdgeInsets.only(right: 2),
+                          icon: const Padding(
+                            padding: EdgeInsets.only(right: 2),
                             child: Icon(
                               Icons.arrow_drop_down,
                               color: CustomColors.primeColour,
                             ),
                           ),
-                          iconOnClick: Padding(
-                            padding: const EdgeInsets.only(right: 2),
+                          iconOnClick: const Padding(
+                            padding: EdgeInsets.only(right: 2),
                             child: Icon(
                               Icons.arrow_drop_up,
                               color: CustomColors.primeColour,
@@ -808,8 +793,6 @@ class _ConfirmJobState extends State<ConfirmJob> {
                                 fontSize: 16.0);
 
                           }
-
-
 
                         },
 

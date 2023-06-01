@@ -193,7 +193,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\$ ${snapshot.data!.data.totalPrice}',
+                                  '\£ ${snapshot.data!.data.totalPrice}',
                                   style: style,
                                 ),
                               ],
@@ -214,7 +214,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '\$ ${snapshot.data!.data.totalIncVat}',
+                                    '\£ ${snapshot.data!.data.totalIncVat}',
                                     style: style,
                                   ),
                                 ],

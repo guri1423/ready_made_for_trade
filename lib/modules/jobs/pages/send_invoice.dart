@@ -149,7 +149,7 @@ class _SendInvoicePageState extends State<SendInvoicePage> {
 
                           Spacer(),
 
-                          Text('\$ 5000',
+                          Text('\£ 5000',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontFamily:'Dongle',
@@ -209,7 +209,7 @@ class _SendInvoicePageState extends State<SendInvoicePage> {
 
                           Spacer(),
 
-                          Text('\$ 5000',
+                          Text('\£ 5000',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontFamily:'Dongle',
@@ -239,7 +239,7 @@ class _SendInvoicePageState extends State<SendInvoicePage> {
 
                           Spacer(),
 
-                          Text('\$ 5000',
+                          Text('\£ 5000',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontFamily:'Dongle',

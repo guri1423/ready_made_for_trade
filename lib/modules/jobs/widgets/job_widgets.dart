@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/account/view/add_reminders_page.dart';
 import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
@@ -67,7 +68,7 @@ Widget viewJobQuote(context, {JobData? model}) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DiaryPage()));
+                                  builder: (context) => AddRemaindersPage()));
                         },
                         child: Image.asset(
                           'assets/images/Book Appointment.png',

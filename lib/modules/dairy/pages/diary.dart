@@ -130,7 +130,7 @@ class _DiaryPageState extends State<DiaryPage> {
                                     BlocProvider.of<PickupDateCubit>(context)
                                         .getPickupDate());
                             setState(() {
-                              filterValue = value as String?;
+                              filterValue = value;
                             });
                           },
                           items: dairyFilterList

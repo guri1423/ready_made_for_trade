@@ -11,6 +11,7 @@ import 'package:ready_made_4_trade/modules/trades/models/search_trades_model.dar
 import 'package:ready_made_4_trade/services/remote_api.dart';
 
 import '../pages/icon_models/customer_model.dart';
+import '../pages/icon_models/jobs_model.dart';
 
 Widget customerPage(context, List<DatumCustomer>? data, int index) {
   RemoteApi _api = RemoteApi();
@@ -178,7 +179,7 @@ Widget customerSearchResult(context, List<DatumCustomer>? data, int index) {
   );
 }
 
-Widget viewCustomerJobs(context) {
+Widget viewCustomerJobs(context,  JobsDatum data) {
   ThemeData theme = Theme.of(context);
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -190,7 +191,7 @@ Widget viewCustomerJobs(context) {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
               height: 100,
@@ -202,20 +203,25 @@ Widget viewCustomerJobs(context) {
                   ),
                   child: Image.asset('assets/images/home-icon-silhouette.png')),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text('Title', style: theme.textTheme.titleLarge),
-                SizedBox(
-                  height: 5,
-                ),
-                Text('Address', style: theme.textTheme.titleSmall),
-                Text('ACTIVE JOBS: ', style: theme.textTheme.titleSmall),
-                Text('PENDING JOBS: 3', style: theme.textTheme.titleSmall),
-                Text('COMPLETED JOBS JOBS: 5',
-                    style: theme.textTheme.titleSmall),
-              ],
+
+            SizedBox(width: 15,),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(data.projectTitle != null ? data.projectTitle! : '', style: theme.textTheme.titleLarge),
+                  SizedBox(height: 5,),
+                  Text(
+                    data.jobStartFullDate != null ? 'Job start date -${data.jobStartFullDate.toString()}' : '',
+                    style: theme.textTheme.titleLarge,
+                  ),
+
+                  SizedBox(height: 5,),
+
+                ],
+              ),
             ),
             Icon(
               Icons.delete_forever_outlined,
@@ -277,6 +283,8 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                           ),
                           Text('${data.address}',
                               style: theme.textTheme.titleSmall),
+                          Text('${data.postCode}',
+                              style: theme.textTheme.titleSmall),
                         ],
                       ),
                     ),
@@ -291,8 +299,8 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                                     )));
                       },
                       child: SizedBox(
-                          height: 50,
-                          width: 46,
+                          height: 35,
+                          width: 40,
                           child: Image.asset('assets/images/small_icons/002-editing.png')))
                 ],
               ),

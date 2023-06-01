@@ -125,6 +125,50 @@ class RemoteApi {
     }
   }
 
+  Future<JobsModel?> getJobsOnStatusBasis(String? status) async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+    try {
+      Response response =
+      await http.post(Uri.parse(Urls.getJobs), body:
+      {'user_id': userId,
+      'status': status,
+      }
+
+      );
+      print(response.body);
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return jobsModelFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<JobsModel?> getJobsOnCustomerBasis(String? customerId) async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+    try {
+      Response response =
+      await http.post(Uri.parse(Urls.fetchJobs), body: {
+        'user_id': userId,
+       'customer_id': customerId
+      });
+      print(response.body);
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return jobsModelFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
   Future<AddCustomerResponse?> addCustomer(AddCustomerModel model) async {
     debugPrint(model.toJson().toString());
     try {

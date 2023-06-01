@@ -109,6 +109,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           ],
                         ),
                       ),
+                      SizedBox(height: 5,),
                       Container(
                         decoration: BoxDecoration(
                             color: CustomColors.primeColour,
@@ -215,7 +216,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            'Material - \$${snapshot.data!.data.materialCost!}',
+                            'Material - \£${snapshot.data!.data.materialCost!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
@@ -223,7 +224,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Labour - \$${snapshot.data!.data.labourCost!}',
+                            'Labour - \£${snapshot.data!.data.labourCost!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
@@ -242,14 +243,14 @@ class _DepositRequestedState extends State<DepositRequested> {
 
                           if(snapshot.data!.data.isVat! == '1' )
                           Text(
-                            'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
+                            'Total INC VAT - \£${snapshot.data!.data.totalIncVat!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
                                 color: CustomColors.blueButton,
                                 fontWeight: FontWeight.bold),
                           ) else  Text(
-                            'Total - \$${snapshot.data!.data.totalPrice!}',
+                            'Total - \£${snapshot.data!.data.totalPrice!}',
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Dongle Regular',
@@ -290,7 +291,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                             width: 170,
                             child: Center(
                               child: Text(
-                                'Paid - \$ ${snapshot.data!.data.depositAmount ?? '0'}',
+                                'Paid - \£ ${snapshot.data!.data.depositAmount ?? '0'}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',

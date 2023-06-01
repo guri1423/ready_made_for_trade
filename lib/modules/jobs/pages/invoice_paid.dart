@@ -263,7 +263,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                           Column(
                             children: [
                               Text(
-                                'Material - \$${snapshot.data!.data.materialCost!}',
+                                'Material - \£${snapshot.data!.data.materialCost!}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -274,7 +274,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                 height: 10,
                               ),
                               Text(
-                                'Labour - \$${snapshot.data!.data.labourCost!}',
+                                'Labour - \£${snapshot.data!.data.labourCost!}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -288,14 +288,14 @@ class _InvoicePaidState extends State<InvoicePaid> {
                             children: [
                               if(snapshot.data!.data.isVat! == '1' )
                                 Text(
-                                  'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
+                                  'Total INC VAT - \£${snapshot.data!.data.totalIncVat!}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Dongle Regular',
                                       color: CustomColors.blueButton,
                                       fontWeight: FontWeight.bold),
                                 ) else  Text(
-                                'Total - \$${snapshot.data!.data.totalPrice!}',
+                                'Total - \£${snapshot.data!.data.totalPrice!}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -306,7 +306,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                               SizedBox(height: 10,),
 
                               Text(
-                                'Paid - \$${snapshot.data!.data.depositAmount!}                 ',
+                                'Paid - \£${snapshot.data!.data.depositAmount!}                 ',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',

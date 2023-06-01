@@ -328,7 +328,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       width: 60,
                       child: customTextFieldForm(
                           context,
-                          controller: _year, hintText: ' YY')),
+                          controller: _year, hintText: 'YYYY')),
                   const SizedBox(
                     width: 5,
                   ),

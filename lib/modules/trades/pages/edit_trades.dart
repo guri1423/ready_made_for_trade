@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -67,6 +68,8 @@ class _EditTradesPageState extends State<EditTradesPage> {
     _email = TextEditingController()
       ..text = widget.tradeData.emailAddress ?? "";
   }
+
+  String? tradesValue;
 
   @override
   void initState() {
@@ -165,14 +168,73 @@ class _EditTradesPageState extends State<EditTradesPage> {
                 const SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    child: customTextFieldForm(
-                      context,
-                      controller: _trades,
-                      hintText: 'Trades',
-                    )),
+               DropdownButtonHideUnderline(
+              child: DropdownButtonFormField2(
+                  decoration: const InputDecoration(
+                    iconColor: CustomColors.white,
+                    isDense: true,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                  ),
+                  buttonHeight: 40,
+                  buttonWidth: 40,
+                  buttonDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: CustomColors.textFldBorder,
+                        width: 1,
+                      ),
+                      color: CustomColors.white
+                  ),
+                  itemPadding: EdgeInsets.symmetric(horizontal: 10),
+                  itemHeight: MediaQuery.of(context).size.height * 0.056,
+                  icon: Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: Icon(
+                      Icons.arrow_drop_down,
+                      color: CustomColors.primeColour,
+                    ),
+                  ),
+                  iconOnClick: Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: Icon(
+                      Icons.arrow_drop_up,
+                      color: CustomColors.primeColour,
+                    ),
+                  ),
+                  hint: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Trades',
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                    ),
+                  ),
+                  value: tradesValue,
+                  onChanged: (value) {
+                    setState(() {
+                      tradesValue = value as String;
+                    });
+                  },
+                  items: tradeType
+                      .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          item.toString(),
+                          style:
+                          Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.black),
+                        ),
+                      )))
+                      .toList(),
+                  validator: (value) {
+                    return validationDropField(value);
+                  }),
+            ),
                 const SizedBox(
                   height: 15,
                 ),
