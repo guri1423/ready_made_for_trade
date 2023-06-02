@@ -111,12 +111,7 @@ class _TradeDetailsState extends State<TradeDetails> {
   }
   void makePhoneCall(String phoneNumber) async {
     final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
-
-    if (await canLaunch(telUri.toString())) {
-      await launch(telUri.toString());
-    } else {
-      throw 'Could not launch phone call';
-    }
+    await launch(telUri.toString());
   }
 
 
@@ -126,11 +121,7 @@ class _TradeDetailsState extends State<TradeDetails> {
       path: emailAddress,
     );
 
-    if (await canLaunch(emailUri.toString())) {
-      await launch(emailUri.toString());
-    } else {
-      throw 'Could not launch email';
-    }
+    await launch(emailUri.toString());
   }
 
 
@@ -141,11 +132,7 @@ class _TradeDetailsState extends State<TradeDetails> {
       queryParameters: {'phone': phoneNumber},
     );
 
-    if (await canLaunch(whatsappUri.toString())) {
-      await launch(whatsappUri.toString());
-    } else {
-      throw 'Could not launch WhatsApp';
-    }
+    await launch(whatsappUri.toString());
   }
 
 

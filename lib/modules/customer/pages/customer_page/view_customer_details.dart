@@ -98,9 +98,14 @@ class _ViewDetailsState extends State<ViewDetails> {
                   SizedBox(width: 30,),
 
                   Expanded(child: GestureDetector(
-                      onTap: (){
+                      onTap: ()async{
 
+                        final Uri emailUri = Uri(
+                          scheme: 'mailto',
+                          path: widget.data.emailAddress,
+                        );
 
+                        await launch(emailUri.toString());
 
                       },
                       child: customisedButton(context, 'EMAIL', CustomColors.blueButton, 'assets/images/small_icons/001-email.png'))),
@@ -164,10 +169,7 @@ class _ViewDetailsState extends State<ViewDetails> {
   }
   void launchPhoneCall() async {
     const phoneNumber = 'tel:12345678909';
-    if (await canLaunch(phoneNumber)) {
-      await launch(phoneNumber);
-    } else {
-      print('Cannot launch phone call');
-    }
+    final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+    await launch(telUri.toString());
   }
 }
