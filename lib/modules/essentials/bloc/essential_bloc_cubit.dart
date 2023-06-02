@@ -10,41 +10,29 @@ class EssentialBlocCubit extends Cubit<EssentialBlocState> {
 
   RemoteApi _remoteApi = RemoteApi();
 
-  getAllMaterials() async{
+  getAllMaterials() async {
     emit(EssentialBlocLoading());
 
     GetEssentialsData? model = await _remoteApi.getAllEssentials();
 
-    if(model != null){
+    if (model != null) {
       emit(EssentialBlocSuccess(model));
-    }
-    else{
+    } else {
       emit(EssentialBlocFailure());
     }
-
-
-
-
   }
-
 
   getSearchEssential(String? search) async {
     emit(EssentialSearchLoading());
 
     GetEssentialsData? status = await _remoteApi.getSearchEssentials(search);
 
-    if (status != null) {
-
-      if (status.message.contains('Data Not Found')) {
-        emit(EssentialSearchEmpty());
-      } else{
-        emit(EssentialSearchSuccess(status));
-      }
-
+    if (status == null) {
+      emit(EssentialSearchEmpty());
+    } else if (status.message.contains('Data Not Found')) {
+      emit(EssentialSearchEmpty());
     } else {
-      emit(EssentialSearchFailure());
+      emit(EssentialSearchSuccess(status));
     }
   }
-
-
 }

@@ -24,7 +24,7 @@ class SearchTradesCubit extends Cubit<SearchTradesState> {
     emit(TradesLoading());
     GetAllTrades? model = await _api.getSearchTrades(controller);
 
-    if (model!.message == 'Data Not Found') {
+    if (model == null || model.message == 'Data Not Found') {
       emit(SearchTradesEmpty());
     } else {
       emit(SearchTradesSuccess(model));
@@ -35,7 +35,7 @@ class SearchTradesCubit extends Cubit<SearchTradesState> {
     emit(FilterTradesInitial());
 
     GetAllTrades? model = await _api.filterTrades(value);
-    if (model!.message.contains('Data Not Found')) {
+    if (model == null ||  model.message.contains('Data Not Found')) {
       emit(FilterTradesEmpty());
     } else {
       emit(FilterTradesSuccess(model));

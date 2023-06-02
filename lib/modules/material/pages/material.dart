@@ -246,6 +246,9 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
           if (state is MaterialFailure) {
             return const Center(child: Text('Something went Wrong'));
           }
+          if (state is MaterialSearchEmpty) {
+            return const Center(child: Text('Not found'));
+          }
           return const Center(child: CircularProgressIndicator());
         },
       ),

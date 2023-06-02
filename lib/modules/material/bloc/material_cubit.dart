@@ -10,37 +10,27 @@ class MaterialCubit extends Cubit<MaterialPageState> {
 
   RemoteApi _remoteApi = RemoteApi();
 
-  getMaterials() async{
+  getMaterials() async {
     emit(MaterialLoading());
 
     GetAllMaterials? model = await _remoteApi.getAllMaterials();
 
-    if(model != null){
+    if (model != null) {
       emit(MaterialSuccess(model));
-    }
-
-    else{
+    } else {
       emit(MaterialFailure());
     }
-
-
   }
 
-
-  getMaterialSearch(String search) async{
+  getMaterialSearch(String search) async {
     emit(MaterialSearchLoading());
 
     GetAllMaterials? model = await _remoteApi.getSearchMaterials(search);
 
-    if(model != null){
+    if (model != null) {
       emit(MaterialSearchSuccess(model));
-    }
-
-    else{
+    } else {
       emit(MaterialSearchEmpty());
     }
-
   }
-
-
 }
