@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/account/cubit/upload_logo/upload_logo_cubit.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -28,21 +30,16 @@ class _UploadLogoPageState extends State<UploadLogoPage> {
 
     if (pickedImage != null) {
       imageFile = File(pickedImage.path);
-      bool status = await remoteApi.uploadLogo(file: imageFile!);
-      if (status) {
-        setState(() {
-          isLoading = false;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-
-      return imageFile;
+      BlocProvider.of<UploadLogoCubit>(context).uploadNewLogo(imageFile!);
     }
 
     return null;
+  }
+
+  @override
+  void initState() {
+    BlocProvider.of<UploadLogoCubit>(context).getOldLogo();
+    super.initState();
   }
 
   @override
@@ -91,73 +88,96 @@ class _UploadLogoPageState extends State<UploadLogoPage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                Container(
-                  height: 250,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: CustomColors.primeColour,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: imageFile != null
-                      ? Center(
-                          child: Image.file(imageFile!),
-                        )
-                      : const SizedBox.shrink(),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          pickImageFromGallery();
-                        },
-                        child: SizedBox(
-                            height: 40,
-                            child: smallButton(context, 'UPLOAD',
-                                CustomColors.primeColour, 50)),
+      body: BlocBuilder<UploadLogoCubit, UploadLogoState>(
+        builder: (context, state) {
+          if (state is UploadLogoLoaded) {
+            return contentBody(state.oldLogoLink);
+          }
+          if (state is UploadNewLogoLoaded) {
+            return contentBody(null);
+          }
+          if (state is UploadLogoFailure || state is UploadNewLogoFailure) {
+            return const Center(
+              child: Text('something went wrong!'),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget contentBody(String? imageLink) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Stack(
+        children: [
+          ListView(
+            children: [
+              Container(
+                height: 250,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: CustomColors.primeColour,
+                    borderRadius: BorderRadius.circular(5)),
+                child: imageFile != null
+                    ? Center(
+                        child: Image.file(imageFile!),
+                      )
+                    : Center(
+                        child: Image.network(imageLink!),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            imageFile = null;
-                          });
-                        },
-                        child: SizedBox(
-                            height: 40,
-                            child: smallButton(context, 'DELETE',
-                                CustomColors.greyButton, 50)),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
-            Visibility(
-              visible: isLoading,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  color: CustomColors.white,
-                ),
               ),
-            )
-          ],
-        ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        pickImageFromGallery();
+                      },
+                      child: SizedBox(
+                          height: 40,
+                          child: smallButton(
+                              context, 'UPLOAD', CustomColors.primeColour, 50)),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          imageFile = null;
+                        });
+                      },
+                      child: SizedBox(
+                          height: 40,
+                          child: smallButton(
+                              context, 'DELETE', CustomColors.greyButton, 50)),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+          Visibility(
+            visible: isLoading,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: CustomColors.white,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
