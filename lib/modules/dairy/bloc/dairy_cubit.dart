@@ -31,11 +31,13 @@ class DairyCubit extends Cubit<DairyState> {
     debugPrint(date.toString());
     debugPrint(status.toString());
 
-    emit(DairyFilterLoading());
-
     GetDairyData? model = await _remoteApi.getDiaryFilterData(status, date);
 
-    if(model != null){
+    if(model!.message == "No Data Found"){
+      emit(DairyFilterEmpty());
+
+    }
+    if(model.message == "Data Get Successful!"){
       emit(DairyFilterSuccess(model));
     }
     else{

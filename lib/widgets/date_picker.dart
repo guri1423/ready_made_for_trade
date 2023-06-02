@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 
 class CustomDatePicker extends StatefulWidget {
   const CustomDatePicker({Key? key}) : super(key: key);
@@ -14,7 +15,15 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  String ? userPickDate;
+  String? userPickDate;
+  late PickupDateCubit _pickupDateCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _pickupDateCubit = BlocProvider.of<PickupDateCubit>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,13 +34,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             firstDate: DateTime(2023), lastDate: DateTime(2050)
         );
         if (pickedDate != null) {
-          String formattedDate = DateFormat('MM/dd/yyyy').format(
+          String formattedDate = DateFormat('yyyy/MM/dd/').format(
               pickedDate);
           BlocProvider.of<PickupDateCubit>(context).setPickupDate(formattedDate);
           setState(() {
             userPickDate = formattedDate;
+            BlocProvider.of<DairyCubit>(context).getDiaryFilterData('', formattedDate);
           });
         }
+
       },
       child: Container(
         height: 52,
@@ -77,6 +88,7 @@ class PickupDateCubit extends Cubit<String>{
 
   setPickupDate(String pickupDate){
     emit(pickupDate);
+
 
   }
   String getPickupDate(){

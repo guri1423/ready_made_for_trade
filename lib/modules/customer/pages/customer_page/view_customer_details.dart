@@ -9,6 +9,7 @@ import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../home/pages/icon_models/jobs_model.dart';
 
@@ -75,7 +76,21 @@ class _ViewDetailsState extends State<ViewDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(child: GestureDetector(
-                      onTap: (){
+                      onTap: () async{
+
+                         launchPhoneCall();
+                        // final Uri url = Uri(
+                        //   scheme: 'tel',
+                        //   path: widget.data.mobileNumber
+                        // );
+                        //
+                        // if( await canLaunchUrl(url)){
+                        //   await launchUrl(url);
+                        // }
+                        // else{
+                        //   print('cannot launch url');
+                        // }
+
 
                       },
                       child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
@@ -129,9 +144,9 @@ class _ViewDetailsState extends State<ViewDetails> {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height *0.40,
                   child: ListView.builder(
-                    itemCount: snapshot.data!.data?.length ?? 0,
+                    itemCount: snapshot.data!.data.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
-                      return viewCustomerJobs(context, snapshot.data!.data![index], index);
+                      return viewCustomerJobs(context, snapshot.data!.data[index], index);
                     },
                   ),
                 );
@@ -146,5 +161,13 @@ class _ViewDetailsState extends State<ViewDetails> {
       ),
       bottomNavigationBar: const BottomToolsForInsidePage(),
     );
+  }
+  void launchPhoneCall() async {
+    const phoneNumber = 'tel:12345678909';
+    if (await canLaunch(phoneNumber)) {
+      await launch(phoneNumber);
+    } else {
+      print('Cannot launch phone call');
+    }
   }
 }

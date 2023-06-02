@@ -74,9 +74,9 @@ class _AllJobsState extends State<AllJobs> {
                     } else if (snapshot.hasData && snapshot.data != null) {
                       return Expanded(
                         child: ListView.builder(
-                          itemCount: snapshot.data!.data?.length ?? 0,
+                          itemCount: snapshot.data!.data.length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
-                            return viewCustomerJobs(context, snapshot.data!.data![index], index);
+                            return viewCustomerJobs(context, snapshot.data!.data[index], index);
                           },
                         ),
                       );

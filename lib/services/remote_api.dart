@@ -699,6 +699,7 @@ class RemoteApi {
   }
 
   Future<GetDairyData?> getDiaryFilterData(String? status, String? date) async {
+
     String? userId = await _servicesStorage.getUserId();
 
     debugPrint('User ID ${userId.toString()}');

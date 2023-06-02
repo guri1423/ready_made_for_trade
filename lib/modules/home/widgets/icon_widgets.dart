@@ -245,23 +245,23 @@ Widget viewCustomerJobs(context, JobsDatum data, int index) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(data.projectTitle != null ? data.projectTitle! : '',
-                      style: theme.textTheme.titleLarge),
+                  Text(data.projectTitle != null ? data.projectTitle! : 'Data not available',
+                      style: theme.textTheme.titleMedium),
+                  Text(data.customerName != null ? data.customerName! : '',
+                      style: theme.textTheme.titleMedium),
+                  Text(data.address != null ? data.address! : '',
+                      style: theme.textTheme.titleMedium),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    data.jobStartFullDate != null
-                        ? 'Job start date -${data.jobStartFullDate.toString()}'
-                        : '',
-                    style: theme.textTheme.titleLarge,
-                  ),
+
                   SizedBox(
                     height: 5,
                   ),
                 ],
               ),
             ),
+
             GestureDetector(
               onTap: () {
                 deleteJobs(_api, data, index, context);
@@ -355,25 +355,25 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                 children: [
                   Column(
                     children: [
-                      Text('1', style: theme.textTheme.titleLarge),
+                      Text(data.statusCounts!.createQuotes!.toString(), style: theme.textTheme.titleLarge),
                       Text('PENDING', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text('1', style: theme.textTheme.titleLarge),
+                      Text(data.statusCounts!.depositPaid!.toString(), style: theme.textTheme.titleLarge),
                       Text('DEPOSITS', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text('1', style: theme.textTheme.titleLarge),
+                      Text(data.statusCounts!.confirmJob.toString(), style: theme.textTheme.titleLarge),
                       Text('ACTIVE', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text('1', style: theme.textTheme.titleLarge),
+                      Text(data.statusCounts!.finalInvoice.toString(), style: theme.textTheme.titleLarge),
                       Text('COMPLETED', style: theme.textTheme.titleSmall),
                     ],
                   ),

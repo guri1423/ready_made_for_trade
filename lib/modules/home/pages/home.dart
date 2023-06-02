@@ -136,12 +136,12 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           sizedBox,
                                           Text(
-                                            getMonthFromDate(state.model!.data.businessTradingDate.toString()),
+                                            state.model!.data.currentMonth.toString(),
                                             style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                           ),
                                           sizedBox,
                                           Text(
-                                            '£ 16,543',
+                                            '£ ${state.model!.data.currentMonthPrice.toString()}',
                                             style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
                                           ),
                                         ],

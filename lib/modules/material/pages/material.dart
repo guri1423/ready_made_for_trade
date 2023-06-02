@@ -117,8 +117,9 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: CustomColors.white),
+                              borderRadius: BorderRadius.circular(10),
+                              color: CustomColors.white,
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -126,27 +127,29 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height : 100,
+                                    height: 100,
                                     child: Image.network(
                                       '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
-                                      fit: BoxFit.fitHeight,),
-                                  ),
-
-                                  Flexible(
-                                    flex: 2,
-                                    child: Text(
-                                      state.model!.data[index].materialName!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                          color: CustomColors.primeColour),
+                                      fit: BoxFit.fitHeight,
                                     ),
-                                  )
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          state.model!.data[index].materialName!,
+                                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
                           )
+
                         );
                       })
                 ],
@@ -196,8 +199,9 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: CustomColors.white),
+                              borderRadius: BorderRadius.circular(10),
+                              color: CustomColors.white,
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -205,31 +209,29 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height : 100,
+                                    height: 100,
                                     child: Image.network(
-                                        '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
-                                    fit: BoxFit.fitHeight,),
+                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
+                                      fit: BoxFit.fitHeight,
+                                    ),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Flexible(
-                                        flex: 2,
+                                      Expanded(
                                         child: Text(
                                           state.model!.data[index].materialName!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium!
-                                              .copyWith(
-                                                  color: CustomColors.primeColour),
+                                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
+                          )
+
                         );
                       })
                 ],

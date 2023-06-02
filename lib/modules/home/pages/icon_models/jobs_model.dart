@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final jobsModel = jobsModelFromJson(jsonString);
+
 import 'dart:convert';
 
 JobsModel jobsModelFromJson(String str) => JobsModel.fromJson(json.decode(str));
@@ -5,26 +9,24 @@ JobsModel jobsModelFromJson(String str) => JobsModel.fromJson(json.decode(str));
 String jobsModelToJson(JobsModel data) => json.encode(data.toJson());
 
 class JobsModel {
-  List<JobsDatum>? data;
-  String? message;
-  bool? status;
+  List<JobsDatum> data;
+  String message;
+  bool status;
 
   JobsModel({
-    this.data,
-    this.message,
-    this.status,
+   required this.data,
+   required this.message,
+   required this.status,
   });
 
   factory JobsModel.fromJson(Map<String, dynamic> json) => JobsModel(
-    data: json["data"] != null
-        ? List<JobsDatum>.from(json["data"].map((x) => JobsDatum.fromJson(x)))
-        : null,
+    data: List<JobsDatum>.from(json["data"].map((x) => JobsDatum.fromJson(x))),
     message: json["message"],
     status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
-    "data": data != null ? List<dynamic>.from(data!.map((x) => x.toJson())) : null,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
     "message": message,
     "status": status,
   };
@@ -62,6 +64,10 @@ class JobsDatum {
   DateTime? depositAmountDate;
   String? isJobConfirm;
   String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? address;
+  String? customerName;
 
   JobsDatum({
     this.id,
@@ -95,6 +101,10 @@ class JobsDatum {
     this.depositAmountDate,
     this.isJobConfirm,
     this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.address,
+    this.customerName,
   });
 
   factory JobsDatum.fromJson(Map<String, dynamic> json) => JobsDatum(
@@ -117,19 +127,24 @@ class JobsDatum {
     jobStartDate: json["Job_start_date"],
     jobStartMonth: json["job_start_month"],
     jobStartYear: json["job_start_year"],
-    jobEndDate: json["Job_end_date"],
-    jobEndMonth: json["job_end_month"],
-    jobEndYear: json["job_end_year"],
-    jobStartHourse: json["job_start_hourse"],
-    jobStartMinutes: json["job_start_minutes"],
-    jobEndHourse: json["job_end_hourse"],
-    jobEndMinutes: json["job_end_minutes"],
-    depositAmount: json["deposit_amount"],
-    requestDepositAmount: json["request_deposit_amount"],
+    jobEndDate: json["Job_end_date"] ?? "",
+    jobEndMonth: json["job_end_month"] ?? "",
+    jobEndYear: json["job_end_year"] ?? "",
+    jobStartHourse: json["job_start_hourse"] ?? "",
+    jobStartMinutes: json["job_start_minutes"] ?? "",
+    jobEndHourse: json["job_end_hourse"] ?? "",
+    jobEndMinutes: json["job_end_minutes"] ?? "",
+    depositAmount: json["deposit_amount"] ?? "",
+    requestDepositAmount: json["request_deposit_amount"] ?? "",
     depositAmountDate: json["deposit_amount_date"] != null ? DateTime.parse(json["deposit_amount_date"]) : null,
-    isJobConfirm: json["is_job_confirm"],
-    status: json["status"],
+    isJobConfirm: json["is_job_confirm"] ?? "",
+    status: json["status"] ?? "",
+    createdAt: json["created_at"] != null ? DateTime.parse(json["created_at"]) : null,
+    updatedAt: json["updated_at"] != null ? DateTime.parse(json["updated_at"]) : null,
+    address: json["address"] ?? "",
+    customerName: json["customer_name"] ?? "",
   );
+
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -146,8 +161,8 @@ class JobsDatum {
     "total_inc_vat": totalIncVat,
     "customer_id": customerId,
     "user_id": userId,
-    "Job_start_full_date": jobStartFullDate?.toIso8601String(),
-    "Job_end_full_date": jobEndFullDate?.toIso8601String(),
+    "Job_start_full_date": jobStartFullDate!.toIso8601String(),
+    "Job_end_full_date": jobEndFullDate!.toIso8601String(),
     "Job_start_date": jobStartDate,
     "job_start_month": jobStartMonth,
     "job_start_year": jobStartYear,
@@ -160,10 +175,12 @@ class JobsDatum {
     "job_end_minutes": jobEndMinutes,
     "deposit_amount": depositAmount,
     "request_deposit_amount": requestDepositAmount,
-    "deposit_amount_date": depositAmountDate != null
-        ? "${depositAmountDate!.year.toString().padLeft(4, '0')}-${depositAmountDate!.month.toString().padLeft(2, '0')}-${depositAmountDate!.day.toString().padLeft(2, '0')}"
-        : null,
+    "deposit_amount_date": "${depositAmountDate!.year.toString().padLeft(4, '0')}-${depositAmountDate!.month.toString().padLeft(2, '0')}-${depositAmountDate!.day.toString().padLeft(2, '0')}",
     "is_job_confirm": isJobConfirm,
     "status": status,
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
+    "address": address,
+    "customer_name": customerName,
   };
 }
