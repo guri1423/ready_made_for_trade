@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/check_list/cubit/check_list_cubit.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
@@ -25,7 +26,8 @@ List<bool> _isCheckedList = List.generate(1000, (_) => false);
 class _ChecklistPageState extends State<ChecklistPage> {
   getUserId() async {
     userId = await _storageServices.getUserId();
-    BlocProvider.of<CheckListCubit>(context).getAllChecklist();
+    BlocProvider.of<CheckListCubit>(context)
+        .getAllChecklist(userID: userId ?? "");
   }
 
   @override
@@ -70,9 +72,9 @@ class _ChecklistPageState extends State<ChecklistPage> {
         child: BlocBuilder<CheckListCubit, CheckListState>(
           builder: (context, CheckListState state) {
             if (state is CheckListLoaded) {
-              return loadedBody(state.data);
+              return loadedBody(state.data, state.checklistStatus);
             }
-            if (state is CheckListUpdateLoading) {
+            /*if (state is CheckListUpdateLoading) {
               return Stack(
                 children: [
                   loadedBody(state.data),
@@ -83,7 +85,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
                   )
                 ],
               );
-            }
+            }*/
             if (state is CheckListFailure) {
               return const Center(
                 child: Text("something went wrong!"),
@@ -100,20 +102,41 @@ class _ChecklistPageState extends State<ChecklistPage> {
     );
   }
 
-  Widget loadedBody(GetChecklist data) {
+  Widget loadedBody(GetChecklist data, UserChecklistStatus checklistStatus) {
     return ListView.builder(
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
         itemCount: data.data.length,
         itemBuilder: (BuildContext context, int index) {
-          Map<int, String> map = {};
+          Map<String, String> map = {};
+          String jsonString = checklistStatus.data.checkliststatus;
+          jsonString = jsonString.replaceAll('{', '').replaceAll('}', '');
+
+          List<String> keyValuePairs = jsonString.split(',');
+          for (var keyValuePair in keyValuePairs) {
+            List<String> parts = keyValuePair.trim().split(':');
+            if (parts.length == 2) {
+              String key = parts[0].trim();
+              String value = parts[1].trim();
+              map[key] = value;
+            }
+          }
+          if (map.containsKey(data.data[index].id.toString()) &&
+              map[data.data[index].id.toString()] != null &&
+              map[data.data[index].id.toString()] == "1") {
+            _isCheckedList[data.data[index].id!] = true;
+          } else {
+            _isCheckedList[data.data[index].id!] = false;
+          }
+
+          /*Map<int, String> map = {};
           for (int i = 0; i < data.data.length; i++) {
             int key = data.data[i].id!;
             String value = data.data[i].status!;
             map[key] = value;
           }
-          _isCheckedList[index] =
-              map[data.data[index].id!] == "1" ? true : false;
+          _isCheckedList[data.data[index].id!] =
+              map[data.data[index].id!] == "1" ? true : false;*/
           return Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Row(
@@ -126,19 +149,23 @@ class _ChecklistPageState extends State<ChecklistPage> {
                   width: 12,
                 ),
                 Transform.scale(
-                  scale: 1.5,
+                  scale: 2.35,
                   child: Checkbox(
                     checkColor: CustomColors.primeColour,
                     activeColor: CustomColors.white,
-                    value: _isCheckedList[index],
+                    value: _isCheckedList[data.data[index].id!],
                     onChanged: (bool? value) {
                       setState(() {
-                        _isCheckedList[index] = !_isCheckedList[index];
+                        _isCheckedList[data.data[index].id!] =
+                            !_isCheckedList[data.data[index].id!];
+                        map[data.data[index].id!.toString()] =
+                            getStatus(_isCheckedList[data.data[index].id!]);
                         if (userId != null) {
                           BlocProvider.of<CheckListCubit>(context)
-                              .updateCheckListStatus(userId: userId!, status: {
-                            "$index": getStatus(_isCheckedList[index])
-                          });
+                              .updateCheckListStatus(
+                            status: map,
+                            userId: userId!,
+                          );
                         }
                       });
                     },

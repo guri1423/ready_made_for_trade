@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 
 part 'check_list_state.dart';
@@ -10,25 +11,29 @@ class CheckListCubit extends Cubit<CheckListState> {
   final RemoteApi _remoteApi = RemoteApi();
   GetChecklist? data;
 
-  getAllChecklist() async {
+  getAllChecklist({
+    required String userID,
+  }) async {
     emit(CheckListInitial());
     data = await _remoteApi.getChecklist();
     if (data != null) {
-      emit(CheckListLoaded(data: data!));
+      getChecklistStatus(userID: userID, model: data!);
     } else {
       emit(CheckListFailure());
     }
   }
 
+  void getChecklistStatus(
+      {required String userID, required GetChecklist model}) async {
+    UserChecklistStatus? checklistStatus =
+        await _remoteApi.getUserChecklistStatus(userID: userID);
+    emit(CheckListLoaded(data: data!, checklistStatus: checklistStatus!));
+  }
+
   updateCheckListStatus(
       {required String userId, required Map<String, dynamic> status}) async {
-    emit(CheckListUpdateLoading(data: data!));
+    // emit(CheckListUpdateLoading(data: data!));
     await _remoteApi.updateChecklistStatus(userID: userId, status: status);
-    data = await _remoteApi.getChecklist();
-    if (data != null) {
-      emit(CheckListLoaded(data: data!));
-    } else {
-      emit(CheckListFailure());
-    }
+    getAllChecklist(userID: userId);
   }
 }

@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:ready_made_4_trade/modules/account/model/setup_cmpany_model.dart';
 import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/essentials/models/get_essentails_model.dart';
@@ -130,13 +131,10 @@ class RemoteApi {
 
     debugPrint('User ID ${userId.toString()}');
     try {
-      Response response =
-      await http.post(Uri.parse(Urls.getJobs), body:
-      {'user_id': userId,
-      'status': status,
-      }
-
-      );
+      Response response = await http.post(Uri.parse(Urls.getJobs), body: {
+        'user_id': userId,
+        'status': status,
+      });
       print(response.body);
       var jsonResponse = response.body;
 
@@ -153,11 +151,8 @@ class RemoteApi {
 
     debugPrint('User ID ${userId.toString()}');
     try {
-      Response response =
-      await http.post(Uri.parse(Urls.fetchJobs), body: {
-        'user_id': userId,
-       'customer_id': customerId
-      });
+      Response response = await http.post(Uri.parse(Urls.fetchJobs),
+          body: {'user_id': userId, 'customer_id': customerId});
       print(response.body);
       var jsonResponse = response.body;
 
@@ -356,6 +351,25 @@ class RemoteApi {
 
       debugPrint(jsonResponse);
       return getChecklistFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<UserChecklistStatus?> getUserChecklistStatus({
+    required String userID,
+  }) async {
+    try {
+      Response response =
+          await http.post(Uri.parse(Urls.getUserChecklist), body: {
+        "user_id": userID,
+      });
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return userChecklistStatusFromJson(response.body);
     } catch (e) {
       debugPrint(e.toString());
       return null;
@@ -699,7 +713,6 @@ class RemoteApi {
   }
 
   Future<GetDairyData?> getDiaryFilterData(String? status, String? date) async {
-
     String? userId = await _servicesStorage.getUserId();
 
     debugPrint('User ID ${userId.toString()}');
@@ -851,8 +864,8 @@ class RemoteApi {
 
   Future<AddCustomerResponse?> deleteJob(String jobId) async {
     try {
-      final response = await http.post(Uri.parse(Urls.deleteJob),
-          body: {"job_id": jobId});
+      final response =
+          await http.post(Uri.parse(Urls.deleteJob), body: {"job_id": jobId});
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -1048,13 +1061,12 @@ class RemoteApi {
   Future<void> askExpert({required String message}) async {
     String? userId = await _servicesStorage.getUserId();
     try {
-      Response response = await http.post(Uri.parse(Urls.askExpert),
-          body: {
-            'user_id': userId,
-            'message': message,
-            'user_name': 'kunal',
-            'category': 'ww'
-          });
+      Response response = await http.post(Uri.parse(Urls.askExpert), body: {
+        'user_id': userId,
+        'message': message,
+        'user_name': 'kunal',
+        'category': 'ww'
+      });
 
       var jsonResponse = response.body;
 

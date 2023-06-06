@@ -286,8 +286,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(
-                                        color: CustomColors.black),
+                                        .copyWith(color: CustomColors.black),
                                   ),
                                 )))
                             .toList(),
@@ -401,7 +400,9 @@ Widget customTextFieldForm(context,
     required String hintText,
     bool isBig = false}) {
   return TextFormField(
-    keyboardType: controller.text == 'Mobile No' || controller.text == 'Amount' || hintText.contains('Cost')
+    keyboardType: controller.text == 'Mobile No' ||
+            controller.text == 'Amount' ||
+            hintText.contains('Cost')
         ? TextInputType.phone
         : TextInputType.emailAddress,
     controller: controller,
@@ -415,7 +416,7 @@ Widget customTextFieldForm(context,
         .titleSmall!
         .copyWith(color: CustomColors.black),
     onChanged: (value) {
-      if ( hintText == 'Amount') {
+      if (hintText == 'Amount') {
         // Remove any non-digit characters from the input
         String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
         // Parse the cleaned value as an integer
@@ -435,7 +436,9 @@ Widget customTextFieldForm(context,
       hintText: hintText,
       contentPadding: hintText.contains('Project Details')
           ? const EdgeInsets.only(top: 10, left: 10)
-          : isBig?const EdgeInsets.only(top:16,left: 10):const EdgeInsets.only(top: 2, left: 10),
+          : isBig
+              ? const EdgeInsets.only(top: 16, left: 10)
+              : const EdgeInsets.only(top: 2, left: 10),
       hintStyle: Theme.of(context)
           .textTheme
           .titleSmall!
@@ -484,12 +487,12 @@ Widget customTextFieldAddCustomer(context,
         .textTheme
         .titleSmall!
         .copyWith(color: CustomColors.black),
-    keyboardType: hintText.contains('Postal Code') || hintText.contains('Mobile No') || hintText.contains ('Amount')
+    keyboardType: hintText.contains('Mobile No') || hintText.contains('Amount')
         ? TextInputType.phone
         : TextInputType.emailAddress,
-    inputFormatters: hintText.contains('Postal Code')
-        ? [FilteringTextInputFormatter.digitsOnly]
-        : [],
+    // inputFormatters: hintText.contains('Postal Code')
+    //     ? [FilteringTextInputFormatter.digitsOnly]
+    //     : [],
     decoration: InputDecoration(
       counterText: "",
       hintText: hintText,

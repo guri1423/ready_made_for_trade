@@ -74,25 +74,30 @@ class _TrainingsPageState extends State<TrainingsPage> {
                     shrinkWrap: true,
                     itemCount: state.model!.data.length,
                     itemBuilder: (BuildContext context, int index) {
+                      Map<String, String> map = {};
                       String jsonString =
                           state.trainingStatus!.data.checkTrainingstatus;
-
-                      Map<int, int> map = {};
-
                       jsonString =
-                          jsonString.substring(1, jsonString.length - 1);
+                          jsonString.replaceAll('{', '').replaceAll('}', '');
 
-                      List<String> keyValuePairs = jsonString.split(':');
+                      List<String> keyValuePairs = jsonString.split(',');
+                      for (var keyValuePair in keyValuePairs) {
+                        List<String> parts = keyValuePair.trim().split(':');
+                        if (parts.length == 2) {
+                          String key = parts[0].trim();
+                          String value = parts[1].trim();
+                          map[key] = value;
+                        }
+                      }
+                      if (map.containsKey(
+                              state.model!.data[index].id.toString()) &&
+                          map[state.model!.data[index].id.toString()] != null &&
+                          map[state.model!.data[index].id.toString()] == "1") {
+                        _isCheckedList[state.model!.data[index].id!] = true;
+                      } else {
+                        _isCheckedList[state.model!.data[index].id!] = false;
+                      }
 
-                      for (int i = 0; i < keyValuePairs.length; i += 2) {
-                        int key = int.parse(keyValuePairs[i].trim());
-                        int value = int.parse(keyValuePairs[i + 1].trim());
-                        map[key] = value;
-                      }
-                      if (map.containsKey(index) && map[index] == 1) {
-                        _isCheckedList[index] = _isCheckedList[index];
-                      }
-                      _isCheckedList[index] = map[index] == 1 ? true : false;
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 15),
                         child: Row(
@@ -112,20 +117,28 @@ class _TrainingsPageState extends State<TrainingsPage> {
                               width: 12,
                             ),
                             Transform.scale(
-                              scale: 1.5,
+                              scale: 2.3,
                               child: Checkbox(
                                 checkColor: CustomColors.primeColour,
                                 activeColor: CustomColors.white,
-                                value: _isCheckedList[index],
+                                value: _isCheckedList[
+                                    state.model!.data[index].id!],
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isCheckedList[index] =
-                                        !_isCheckedList[index];
+                                    _isCheckedList[
+                                            state.model!.data[index].id!] =
+                                        !_isCheckedList[
+                                            state.model!.data[index].id!];
+                                    map[state.model!.data[index].id!
+                                            .toString()] =
+                                        getStatus(_isCheckedList[
+                                            state.model!.data[index].id!]);
                                     if (userId != null) {
                                       BlocProvider.of<TrainingCubit>(context)
-                                          .storeTrainingUpdate(status: {
-                                        "$index": getStatus(_isCheckedList[index])
-                                      }, userID: userId!, customerId: userId!);
+                                          .storeTrainingUpdate(
+                                              status: map,
+                                              userID: userId!,
+                                              customerId: userId!);
                                     }
 
                                     // print(_isCheckedList[index]);

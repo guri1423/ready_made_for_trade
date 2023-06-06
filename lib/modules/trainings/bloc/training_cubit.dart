@@ -14,8 +14,7 @@ class TrainingCubit extends Cubit<TrainingState> {
   getAllTrainings({
     required String userID,
   }) async {
-    emit(TrainingLoading());
-
+    emit(TrainingInitial());
     GetAllTrainings? model = await _remoteApi.getAllTrainings();
 
     if (model != null) {
@@ -38,6 +37,7 @@ class TrainingCubit extends Cubit<TrainingState> {
       required Map<String, dynamic> status}) async {
     await _remoteApi.saveTrainingStatus(
         userID: userID, customerId: customerId, status: status);
+
     getAllTrainings(userID: userID);
   }
 }
