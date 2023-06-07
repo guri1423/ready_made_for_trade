@@ -246,7 +246,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.65,
+                  width: MediaQuery.of(context).size.width * 0.70,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -278,7 +278,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                           ),
                         ),
                         iconOnClick: const Padding(
-                          padding: EdgeInsets.only(right: 10),
+                          padding: EdgeInsets.only(right: 5),
                           child: Icon(
                             Icons.arrow_drop_up,
                             color: CustomColors.primeColour,

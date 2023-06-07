@@ -222,7 +222,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.65,
+                  width: MediaQuery.of(context).size.width * 0.70,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -247,7 +247,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                         itemPadding: EdgeInsets.symmetric(horizontal: 15),
                         itemHeight: MediaQuery.of(context).size.height * 0.056,
                         icon: const Padding(
-                          padding: EdgeInsets.only(right: 10),
+                          padding: EdgeInsets.only(right: 5),
                           child: Icon(
                             Icons.arrow_drop_down,
                             color: CustomColors.primeColour,

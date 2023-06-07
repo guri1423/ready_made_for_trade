@@ -7,6 +7,7 @@ class Urls {
   static const fetchJobs = "${baseUrl}GetJob";
   static const getJobs = "${baseUrl}GetSingleStatusJobs";
   static const addCustomer = "${baseUrl}AddCustomer";
+  static const getUserChecklist = "${baseUrl}GetUserChecklist";
   static const getTrades = "${baseUrl}AllGetTrade";
   static const addTrades = "${baseUrl}AddTrade";
   static const getGalleryImages = "${baseUrl}CameraImageGet";

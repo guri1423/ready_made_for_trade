@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/check_list/cubit/check_list_cubit.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/youtube/pages/video_player.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -10,7 +11,7 @@ import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
 class ChecklistPage extends StatefulWidget {
-   ChecklistPage({Key? key}) : super(key: key);
+  const ChecklistPage({Key? key}) : super(key: key);
 
   @override
   State<ChecklistPage> createState() => _ChecklistPageState();
@@ -26,7 +27,8 @@ List<bool> _isCheckedList = List.generate(1000, (_) => false);
 class _ChecklistPageState extends State<ChecklistPage> {
   getUserId() async {
     userId = await _storageServices.getUserId();
-    BlocProvider.of<CheckListCubit>(context).getAllChecklist();
+    BlocProvider.of<CheckListCubit>(context)
+        .getAllChecklist(userID: userId ?? "");
   }
 
   @override
@@ -37,12 +39,10 @@ class _ChecklistPageState extends State<ChecklistPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.white,
         title: Row(
@@ -52,8 +52,8 @@ class _ChecklistPageState extends State<ChecklistPage> {
               width: 10,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 180,
+              height: 90,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -67,26 +67,15 @@ class _ChecklistPageState extends State<ChecklistPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomToolsForInsidePage(),
+      bottomNavigationBar:  BottomToolsForInsidePage(),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: BlocBuilder<CheckListCubit, CheckListState>(
           builder: (context, CheckListState state) {
             if (state is CheckListLoaded) {
-              return loadedBody(state.data);
+              return loadedBody(state.data, state.checklistStatus);
             }
-            if (state is CheckListUpdateLoading) {
-              return Stack(
-                children: [
-                  loadedBody(state.data),
-                  const Center(
-                    child: CircularProgressIndicator(
-                      color: CustomColors.white,
-                    ),
-                  )
-                ],
-              );
-            }
+
             if (state is CheckListFailure) {
               return const Center(
                 child: Text("something went wrong!"),
@@ -103,52 +92,86 @@ class _ChecklistPageState extends State<ChecklistPage> {
     );
   }
 
-  Widget loadedBody(GetChecklist data) {
+  Widget loadedBody(GetChecklist data, UserChecklistStatus checklistStatus) {
     return ListView.builder(
         physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
         itemCount: data.data.length,
         itemBuilder: (BuildContext context, int index) {
-          Map<int, String> map = {};
-          for (int i = 0; i < data.data.length; i++) {
-            int key = data.data[i].id!;
-            String value = data.data[i].status!;
-            map[key] = value;
+          Map<String, String> map = {};
+          String jsonString = checklistStatus.data.checkliststatus;
+          jsonString = jsonString.replaceAll('{', '').replaceAll('}', '');
+
+          List<String> keyValuePairs = jsonString.split(',');
+          for (var keyValuePair in keyValuePairs) {
+            List<String> parts = keyValuePair.trim().split(':');
+            if (parts.length == 2) {
+              String key = parts[0].trim();
+              String value = parts[1].trim();
+              map[key] = value;
+            }
           }
-          _isCheckedList[index] =
-              map[data.data[index].id!] == "1" ? true : false;
+          if (map.containsKey(data.data[index].id.toString()) &&
+              map[data.data[index].id.toString()] != null &&
+              map[data.data[index].id.toString()] == "1") {
+            _isCheckedList[data.data[index].id!] = true;
+          } else {
+            _isCheckedList[data.data[index].id!] = false;
+          }
           return Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context)=>
-                                videoPage(videolink: data,description: data,)));
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VideoPage(
+                                  videoLink: data.data[index].videolink ?? '',
+                                  description:
+                                  data.data[index].description ?? "",
+                                  url: data.data[index].url ?? '',
+                                )));
+                        setState(() {
+                          _isCheckedList[data.data[index].id!] = true;
+                          map[data.data[index].id!.toString()] =
+                              getStatus(_isCheckedList[data.data[index].id!]);
+                          if (userId != null) {
+                            BlocProvider.of<CheckListCubit>(context)
+                                .updateCheckListStatus(
+                              status: map,
+                              userId: userId!,
+                            );
+                          }
+                        });
                       },
-                      child: extraLongButton(
-                          context, data.data[index].checklistName!),
+                      child:
+                      extraLongButton(context, data.data[index].checklistName!),
                     )),
                 const SizedBox(
                   width: 12,
                 ),
                 Transform.scale(
-                  scale: 1.5,
+                  scale: 2.35,
                   child: Checkbox(
                     checkColor: CustomColors.primeColour,
                     activeColor: CustomColors.white,
-                    value: _isCheckedList[index],
+                    value: _isCheckedList[data.data[index].id!],
                     onChanged: (bool? value) {
                       setState(() {
-                        _isCheckedList[index] = !_isCheckedList[index];
+                        _isCheckedList[data.data[index].id!] =
+                        !_isCheckedList[data.data[index].id!];
+                        map[data.data[index].id!.toString()] =
+                            getStatus(_isCheckedList[data.data[index].id!]);
                         if (userId != null) {
                           BlocProvider.of<CheckListCubit>(context)
-                              .updateCheckListStatus(userId: userId!, status: {
-                            "$index": getStatus(_isCheckedList[index])
-                          });
+                              .updateCheckListStatus(
+                            status: map,
+                            userId: userId!,
+                          );
                         }
                       });
                     },

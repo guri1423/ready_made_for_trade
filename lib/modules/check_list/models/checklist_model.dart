@@ -1,7 +1,7 @@
-
 import 'dart:convert';
 
-GetChecklist getChecklistFromJson(String str) => GetChecklist.fromJson(json.decode(str));
+GetChecklist getChecklistFromJson(String str) =>
+    GetChecklist.fromJson(json.decode(str));
 
 String getChecklistToJson(GetChecklist data) => json.encode(data.toJson());
 
@@ -34,8 +34,9 @@ class Datum {
   String? checklistName;
   String? videolink;
   String? position;
-  String? description;
   String? status;
+  String? description;
+  String? url;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -44,8 +45,9 @@ class Datum {
     this.checklistName,
     this.videolink,
     this.position,
-    this.description,
     this.status,
+    this.description,
+    this.url,
     this.createdAt,
     this.updatedAt,
   });
@@ -57,6 +59,7 @@ class Datum {
     position: json["position"],
     status: json["status"],
     description: json["description"],
+    url: json["url"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -66,7 +69,6 @@ class Datum {
     "checklist_name": checklistName,
     "videolink": videolink,
     "position": position,
-    "description": description,
     "status": status,
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),

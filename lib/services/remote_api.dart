@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:ready_made_4_trade/modules/account/model/setup_cmpany_model.dart';
 import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/essentials/models/get_essentails_model.dart';
@@ -42,7 +43,7 @@ class RemoteApi {
   Future<LoginResponseModel?> userLogin(LoginRequestModal model) async {
     try {
       final response =
-          await http.post(Uri.parse(Urls.login), body: model.toJson());
+      await http.post(Uri.parse(Urls.login), body: model.toJson());
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -57,7 +58,7 @@ class RemoteApi {
   Future<AddCustomerResponse?> changePassword(ChangePasswordModal model) async {
     try {
       final response =
-          await http.post(Uri.parse(Urls.changePassword), body: model.toJson());
+      await http.post(Uri.parse(Urls.changePassword), body: model.toJson());
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -74,7 +75,7 @@ class RemoteApi {
     debugPrint(email);
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
+      await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
 
       var jsonResponse = response.body;
 
@@ -113,7 +114,7 @@ class RemoteApi {
     debugPrint('User ID ${userId.toString()}');
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchJobs), body: {'user_id': userId});
+      await http.post(Uri.parse(Urls.fetchJobs), body: {'user_id': userId});
       print(response.body);
       var jsonResponse = response.body;
 
@@ -130,13 +131,10 @@ class RemoteApi {
 
     debugPrint('User ID ${userId.toString()}');
     try {
-      Response response =
-      await http.post(Uri.parse(Urls.getJobs), body:
-      {'user_id': userId,
-      'status': status,
-      }
-
-      );
+      Response response = await http.post(Uri.parse(Urls.getJobs), body: {
+        'user_id': userId,
+        'status': status,
+      });
       print(response.body);
       var jsonResponse = response.body;
 
@@ -153,11 +151,8 @@ class RemoteApi {
 
     debugPrint('User ID ${userId.toString()}');
     try {
-      Response response =
-      await http.post(Uri.parse(Urls.fetchJobs), body: {
-        'user_id': userId,
-       'customer_id': customerId
-      });
+      Response response = await http.post(Uri.parse(Urls.fetchJobs),
+          body: {'user_id': userId, 'customer_id': customerId});
       print(response.body);
       var jsonResponse = response.body;
 
@@ -199,7 +194,7 @@ class RemoteApi {
     debugPrint('User ID ${userId.toString()}');
     try {
       Response response =
-          await http.post(Uri.parse(Urls.getTrades), body: {'user_id': userId});
+      await http.post(Uri.parse(Urls.getTrades), body: {'user_id': userId});
       var jsonResponse = json.decode(response.body);
 
       if (jsonResponse['message'].toString().contains('Not Found')) {
@@ -362,6 +357,25 @@ class RemoteApi {
     }
   }
 
+  Future<UserChecklistStatus?> getUserChecklistStatus({
+    required String userID,
+  }) async {
+    try {
+      Response response =
+      await http.post(Uri.parse(Urls.getUserChecklist), body: {
+        "user_id": userID,
+      });
+
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return userChecklistStatusFromJson(response.body);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
   Future<void> updateChecklistStatus(
       {required String userID, required Map<String, dynamic> status}) async {
     try {
@@ -432,7 +446,7 @@ class RemoteApi {
       }
 
       Response response =
-          await http.post(Uri.parse(Urls.createProject), body: requestBody);
+      await http.post(Uri.parse(Urls.createProject), body: requestBody);
 
       // InspectorController().addNewRequest(
       //   RequestDetails(
@@ -512,8 +526,8 @@ class RemoteApi {
 
   Future<AddProjectResponse?> editProject(
       {required List<String> imageList,
-      required String projectTitle,
-      required String projectId}) async {
+        required String projectTitle,
+        required String projectId}) async {
     debugPrint(imageList.toString());
 
     try {
@@ -527,7 +541,7 @@ class RemoteApi {
       }
 
       Response response =
-          await http.post(Uri.parse(Urls.editProject), body: requestBody);
+      await http.post(Uri.parse(Urls.editProject), body: requestBody);
 
       // InspectorController().addNewRequest(
       //   RequestDetails(
@@ -645,7 +659,7 @@ class RemoteApi {
   }) async {
     try {
       Response response =
-          await http.post(Uri.parse(Urls.getTrainingsStatus), body: {
+      await http.post(Uri.parse(Urls.getTrainingsStatus), body: {
         "user_id": userID,
       });
 
@@ -661,8 +675,8 @@ class RemoteApi {
 
   Future<void> saveTrainingStatus(
       {required String customerId,
-      required String userID,
-      required Map<String, dynamic> status}) async {
+        required String userID,
+        required Map<String, dynamic> status}) async {
     try {
       Response response = await http.post(Uri.parse(Urls.saveTrainingStatus),
           body: {
@@ -795,7 +809,7 @@ class RemoteApi {
       }
 
       Response response =
-          await http.post(Uri.parse(Urls.sendReceipt), body: requestBody);
+      await http.post(Uri.parse(Urls.sendReceipt), body: requestBody);
 
       var jsonResponse = response.body;
 
@@ -850,8 +864,8 @@ class RemoteApi {
 
   Future<AddCustomerResponse?> deleteJob(String jobId) async {
     try {
-      final response = await http.post(Uri.parse(Urls.deleteJob),
-          body: {"job_id": jobId});
+      final response =
+      await http.post(Uri.parse(Urls.deleteJob), body: {"job_id": jobId});
 
       debugPrint(response.body);
       var jsonResponse = json.decode(response.body);
@@ -1047,13 +1061,12 @@ class RemoteApi {
   Future<void> askExpert({required String message}) async {
     String? userId = await _servicesStorage.getUserId();
     try {
-      Response response = await http.post(Uri.parse(Urls.askExpert),
-          body: {
-            'user_id': userId,
-            'message': message,
-            'user_name': 'kunal',
-            'category': 'ww'
-          });
+      Response response = await http.post(Uri.parse(Urls.askExpert), body: {
+        'user_id': userId,
+        'message': message,
+        'user_name': 'kunal',
+        'category': 'ww'
+      });
 
       var jsonResponse = response.body;
 

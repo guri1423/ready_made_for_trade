@@ -16,9 +16,10 @@ class CheckListUpdateLoading extends CheckListState {
 }
 
 class CheckListLoaded extends CheckListState {
-  const CheckListLoaded({required this.data});
+  const CheckListLoaded({required this.data, required this.checklistStatus});
 
   final GetChecklist data;
+  final UserChecklistStatus checklistStatus;
 }
 
 class CheckListFailure extends CheckListState {}
