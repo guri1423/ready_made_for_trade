@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/customers.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
-import 'package:ready_made_4_trade/modules/jobs/models/get_job_status.dart';
+import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/all_jobs.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-
-import '../../../services/remote_api.dart';
 
 class JobsPage extends StatefulWidget {
   const JobsPage({Key? key}) : super(key: key);
@@ -16,14 +15,6 @@ class JobsPage extends StatefulWidget {
 }
 
 class _JobsPageState extends State<JobsPage> {
-  final RemoteApi apiServices = RemoteApi();
-
-  @override
-  void initState() {
-    apiServices.getJobs();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,52 +67,59 @@ class _JobsPageState extends State<JobsPage> {
                     child: extraLongButton(context, 'ADD A NEW JOB'),
                   ),
                 ),
-                SizedBox(height: 15),
-                FutureBuilder<GetJobStatus?>(
-                  future: apiServices.getJobStatus(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => AllJobs(status:  snapshot.data!.data[index].title,)));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 15),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: extraLongButton(context,
-                                        snapshot.data!.data[index].title!),
-                                  ),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  SizedBox(
-                                    width: 40,
-                                    child: extraLongButton(context,
-                                        snapshot.data!.data[index].noCount!),
-                                  ),
-                                ],
+                const SizedBox(height: 15),
+                BlocProvider<JobsCubit>(
+                  create: (BuildContext context) => JobsCubit()..loadAllJobs(),
+                  child: BlocBuilder<JobsCubit, JobsState>(
+                    builder: (BuildContext context, JobsState state) {
+                      if (state is JobsLoaded) {
+                        return ListView.builder(
+                          physics: const ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.jobStatus.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AllJobs(
+                                              status: state
+                                                  .jobStatus.data[index].title,
+                                            )));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: extraLongButton(context,
+                                          state.jobStatus.data[index].title!),
+                                    ),
+                                    const SizedBox(
+                                      width: 12,
+                                    ),
+                                    SizedBox(
+                                      width: 40,
+                                      child: extraLongButton(context,
+                                          state.jobStatus.data[index].noCount!),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    }
-
-                    if (snapshot.hasError) {
-                      return const Center(child: Text('Something went wrong'));
-                    }
-
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                ),
+                            );
+                          },
+                        );
+                      }
+                      if (state is JobsFailure) {
+                        return const Center(
+                            child: Text('Something went wrong'));
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  ),
+                )
               ],
             ),
           ),

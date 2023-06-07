@@ -17,15 +17,14 @@ class AddJobsPage extends StatefulWidget {
   String? customerId;
   DatumCustomer? model;
 
-  AddJobsPage({Key? key, required this.customerId, this.model}) : super(key: key);
+  AddJobsPage({Key? key, required this.customerId, this.model})
+      : super(key: key);
 
   @override
   State<AddJobsPage> createState() => _AddJobsPageState();
 }
 
 class _AddJobsPageState extends State<AddJobsPage> {
-
-
   final TextEditingController _date = TextEditingController();
   final TextEditingController _month = TextEditingController();
   final TextEditingController _year = TextEditingController();
@@ -33,17 +32,12 @@ class _AddJobsPageState extends State<AddJobsPage> {
   final TextEditingController _projectTitle = TextEditingController();
   final TextEditingController _projectDetails = TextEditingController();
 
-
-
   final RemoteApi _remoteApi = RemoteApi();
   final StorageServices _storageServices = StorageServices();
-
-
 
   @override
   void initState() {
     super.initState();
-
   }
 
   int? hoursValue;
@@ -53,9 +47,6 @@ class _AddJobsPageState extends State<AddJobsPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    debugPrint('Customer Id ${widget.customerId}');
-
     ThemeData theme = Theme.of(context);
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
@@ -90,16 +81,23 @@ class _AddJobsPageState extends State<AddJobsPage> {
           children: [
             GestureDetector(
               onTap: () async {
-
-
                 String? user_id = await _storageServices.getUserId();
 
-                AddAppointmentResponse? model =  await _remoteApi.addAppointment(AddAppointmentModel(userId: user_id , customerId: widget.customerId, date: dateValue.toString(),
-                  month: monthValue.toString(), year: _year.text, hours: hoursValue.toString(), minutes: minutesValue.toString(),
-                  projectTitle: _projectTitle.text, projectDescription: _projectDetails.text, status: 'Appointment Set',
+                AddAppointmentResponse? model =
+                    await _remoteApi.addAppointment(AddAppointmentModel(
+                  userId: user_id,
+                  customerId: widget.customerId,
+                  date: dateValue.toString(),
+                  month: monthValue.toString(),
+                  year: _year.text,
+                  hours: hoursValue.toString(),
+                  minutes: minutesValue.toString(),
+                  projectTitle: _projectTitle.text,
+                  projectDescription: _projectDetails.text,
+                  status: 'Appointment Set',
                 ));
 
-                if(model != null){
+                if (model != null) {
                   Fluttertoast.showToast(
                       msg: model.message!,
                       toastLength: Toast.LENGTH_SHORT,
@@ -109,14 +107,15 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       textColor: Colors.white,
                       fontSize: 16.0);
 
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>  CreateQuote(projectId: model.appointmentId,
-                        jobId: model.jobId, customerId: widget.customerId,)));
-
-                }
-
-                else{
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateQuote(
+                                projectId: model.appointmentId,
+                                jobId: model.jobId,
+                                customerId: widget.customerId,
+                              )));
+                } else {
                   Fluttertoast.showToast(
                       msg: 'Something went wrong',
                       toastLength: Toast.LENGTH_SHORT,
@@ -125,17 +124,16 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
-
                 }
-
-
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: extraLongButton(context, 'CREATE QUOTE'),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const BottomToolsForInsidePage(),
           ],
         ),
@@ -147,13 +145,14 @@ class _AddJobsPageState extends State<AddJobsPage> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children:  [
+                children: [
                   GestureDetector(
-                      onTap: (){
-
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>  CreateQuote(customerId: widget.customerId)));
-
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateQuote(
+                                    customerId: widget.customerId)));
                       },
                       child: Icon(Icons.close_outlined)),
                 ],
@@ -199,10 +198,10 @@ class _AddJobsPageState extends State<AddJobsPage> {
                                 color: CustomColors.textFldBorder,
                                 width: 1,
                               ),
-                              color: CustomColors.white
-                          ),
+                              color: CustomColors.white),
                           itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          itemHeight:
+                              MediaQuery.of(context).size.height * 0.056,
                           icon: Padding(
                             padding: const EdgeInsets.only(right: 2),
                             child: Icon(
@@ -221,7 +220,11 @@ class _AddJobsPageState extends State<AddJobsPage> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'DD',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: CustomColors.textFieldTextColour),
                             ),
                           ),
                           value: dateValue,
@@ -232,15 +235,16 @@ class _AddJobsPageState extends State<AddJobsPage> {
                           },
                           items: dateList
                               .map((item) => DropdownMenuItem(
-                              value: item,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  item.toString(),
-                                  style:
-                                  TextStyle(color: CustomColors.blackText),
-                                ),
-                              )))
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                          color: CustomColors.blackText),
+                                    ),
+                                  )))
                               .toList(),
                           validator: (value) {
                             return validationDropField(value);
@@ -272,10 +276,10 @@ class _AddJobsPageState extends State<AddJobsPage> {
                                 color: CustomColors.textFldBorder,
                                 width: 1,
                               ),
-                              color: CustomColors.white
-                          ),
+                              color: CustomColors.white),
                           itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          itemHeight:
+                              MediaQuery.of(context).size.height * 0.056,
                           icon: Padding(
                             padding: const EdgeInsets.only(right: 2),
                             child: Icon(
@@ -294,7 +298,11 @@ class _AddJobsPageState extends State<AddJobsPage> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'MM',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: CustomColors.textFieldTextColour),
                             ),
                           ),
                           value: monthValue,
@@ -305,15 +313,16 @@ class _AddJobsPageState extends State<AddJobsPage> {
                           },
                           items: monthList
                               .map((item) => DropdownMenuItem(
-                              value: item,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  item.toString(),
-                                  style:
-                                  TextStyle(color: CustomColors.blackText),
-                                ),
-                              )))
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                          color: CustomColors.blackText),
+                                    ),
+                                  )))
                               .toList(),
                           validator: (value) {
                             return validationDropField(value);
@@ -326,8 +335,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                   SizedBox(
                       height: 40,
                       width: 60,
-                      child: customTextFieldForm(
-                          context,
+                      child: customTextFieldForm(context,
                           controller: _year, hintText: 'YYYY')),
                   const SizedBox(
                     width: 5,
@@ -354,10 +362,10 @@ class _AddJobsPageState extends State<AddJobsPage> {
                                 color: CustomColors.textFldBorder,
                                 width: 1,
                               ),
-                              color: CustomColors.white
-                          ),
+                              color: CustomColors.white),
                           itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          itemHeight:
+                              MediaQuery.of(context).size.height * 0.056,
                           icon: const Padding(
                             padding: EdgeInsets.only(right: 2),
                             child: Icon(
@@ -376,7 +384,11 @@ class _AddJobsPageState extends State<AddJobsPage> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'hrs',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: CustomColors.textFieldTextColour),
                             ),
                           ),
                           value: hoursValue,
@@ -387,15 +399,16 @@ class _AddJobsPageState extends State<AddJobsPage> {
                           },
                           items: hoursList
                               .map((item) => DropdownMenuItem(
-                              value: item,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  item.toString(),
-                                  style:
-                                  TextStyle(color: CustomColors.blackText),
-                                ),
-                              )))
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                          color: CustomColors.blackText),
+                                    ),
+                                  )))
                               .toList(),
                           validator: (value) {
                             return validationDropField(value);
@@ -427,10 +440,10 @@ class _AddJobsPageState extends State<AddJobsPage> {
                                 color: CustomColors.textFldBorder,
                                 width: 1,
                               ),
-                              color: CustomColors.white
-                          ),
+                              color: CustomColors.white),
                           itemPadding: EdgeInsets.symmetric(horizontal: 10),
-                          itemHeight: MediaQuery.of(context).size.height * 0.056,
+                          itemHeight:
+                              MediaQuery.of(context).size.height * 0.056,
                           icon: Padding(
                             padding: const EdgeInsets.only(right: 2),
                             child: Icon(
@@ -449,7 +462,11 @@ class _AddJobsPageState extends State<AddJobsPage> {
                             padding: const EdgeInsets.only(left: 10),
                             child: Text(
                               'mins',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                      color: CustomColors.textFieldTextColour),
                             ),
                           ),
                           value: minutesValue,
@@ -460,22 +477,23 @@ class _AddJobsPageState extends State<AddJobsPage> {
                           },
                           items: minuteList
                               .map((item) => DropdownMenuItem(
-                              value: item,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  item.toString(),
-                                  style:
-                                  TextStyle(color: CustomColors.blackText),
-                                ),
-                              )))
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      item.toString(),
+                                      style: TextStyle(
+                                          color: CustomColors.blackText),
+                                    ),
+                                  )))
                               .toList(),
                           validator: (value) {
                             return validationDropField(value);
                           }),
                     ),
                   ),
-                 /* const SizedBox(
+                  /* const SizedBox(
                     width: 5,
                   ),
                   Expanded(
@@ -488,8 +506,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
               ),
               SizedBox(
                 height: 40,
-                child: customTextFieldForm(
-                    context,
+                child: customTextFieldForm(context,
                     controller: _projectTitle, hintText: 'Project Title'),
               ),
               const SizedBox(
@@ -497,11 +514,9 @@ class _AddJobsPageState extends State<AddJobsPage> {
               ),
               SizedBox(
                   height: 200,
-                  child: customTextFieldForm(
-                      context,
+                  child: customTextFieldForm(context,
                       controller: _projectDetails,
                       hintText: 'Project Details')),
-
             ],
           ),
         ));

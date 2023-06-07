@@ -9,8 +9,6 @@ import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
-import '../../../../../services/remote_api.dart';
-
 class CustomersPage extends StatefulWidget {
   const CustomersPage({Key? key, this.isComingFromJob = false})
       : super(key: key);
@@ -22,8 +20,6 @@ class CustomersPage extends StatefulWidget {
 }
 
 class _CustomersPageState extends State<CustomersPage> {
-  final RemoteApi apiServices = RemoteApi();
-
   TextEditingController _search = TextEditingController();
 
   @override
