@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/trainings/bloc/training_cubit.dart';
+import 'package:ready_made_4_trade/modules/youtube/pages/video_player.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class TrainingsPage extends StatefulWidget {
   const TrainingsPage({Key? key}) : super(key: key);
@@ -106,8 +106,36 @@ class _TrainingsPageState extends State<TrainingsPage> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  launchUrlString(
-                                      state.model!.data[index].videoLink!);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => VideoPage(
+                                                videoLink: state
+                                                        .model!
+                                                        .data[index]
+                                                        .videoLink ??
+                                                    '',
+                                                description: state
+                                                        .model!
+                                                        .data[index]
+                                                        .description ??
+                                                    "",
+                                              )));
+                                  setState(() {
+                                    _isCheckedList[
+                                        state.model!.data[index].id!] = true;
+                                    map[state.model!.data[index].id!
+                                            .toString()] =
+                                        getStatus(_isCheckedList[
+                                            state.model!.data[index].id!]);
+                                    if (userId != null) {
+                                      BlocProvider.of<TrainingCubit>(context)
+                                          .storeTrainingUpdate(
+                                              status: map,
+                                              userID: userId!,
+                                              customerId: userId!);
+                                    }
+                                  });
                                 },
                                 child: extraLongButton(
                                     context, state.model!.data[index].title!),

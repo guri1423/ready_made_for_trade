@@ -7,14 +7,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatefulWidget {
   final String videoLink;
-  final String url;
+  final String? url;
   final String description;
 
   const VideoPage(
-      {Key? key,
-      required this.videoLink,
-      required this.description,
-      required this.url})
+      {Key? key, required this.videoLink, required this.description, this.url})
       : super(key: key);
 
   @override
@@ -115,13 +112,14 @@ class _VideoPageState extends State<VideoPage> {
               ),
             ),
             const SizedBox(height: 40),
-            InkWell(
-              onTap: () {
-                launchUrlString(widget.url,
-                    mode: LaunchMode.externalApplication);
-              },
-              child: extraLongButton(context, "VISIT SITE"),
-            )
+            if (widget.url != null)
+              InkWell(
+                onTap: () {
+                  launchUrlString(widget.url ?? '',
+                      mode: LaunchMode.externalApplication);
+                },
+                child: extraLongButton(context, "VISIT SITE"),
+              )
           ],
         ),
       ),
