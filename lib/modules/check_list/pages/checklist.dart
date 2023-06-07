@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/modules/check_list/cubit/check_list_cubit.dar
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/youtube/pages/video_player.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -74,18 +75,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
             if (state is CheckListLoaded) {
               return loadedBody(state.data, state.checklistStatus);
             }
-            /*if (state is CheckListUpdateLoading) {
-              return Stack(
-                children: [
-                  loadedBody(state.data),
-                  const Center(
-                    child: CircularProgressIndicator(
-                      color: CustomColors.white,
-                    ),
-                  )
-                ],
-              );
-            }*/
+
             if (state is CheckListFailure) {
               return const Center(
                 child: Text("something went wrong!"),
@@ -128,23 +118,39 @@ class _ChecklistPageState extends State<ChecklistPage> {
           } else {
             _isCheckedList[data.data[index].id!] = false;
           }
-
-          /*Map<int, String> map = {};
-          for (int i = 0; i < data.data.length; i++) {
-            int key = data.data[i].id!;
-            String value = data.data[i].status!;
-            map[key] = value;
-          }
-          _isCheckedList[data.data[index].id!] =
-              map[data.data[index].id!] == "1" ? true : false;*/
           return Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                    child: extraLongButton(
-                        context, data.data[index].checklistName!)),
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VideoPage(
+                                  videoLink: data.data[index].videolink ?? '',
+                                  description:
+                                      data.data[index].description ?? "",
+                                  url: data.data[index].url ?? '',
+                                )));
+                    setState(() {
+                      _isCheckedList[data.data[index].id!] = true;
+                      map[data.data[index].id!.toString()] =
+                          getStatus(_isCheckedList[data.data[index].id!]);
+                      if (userId != null) {
+                        BlocProvider.of<CheckListCubit>(context)
+                            .updateCheckListStatus(
+                          status: map,
+                          userId: userId!,
+                        );
+                      }
+                    });
+                  },
+                  child:
+                      extraLongButton(context, data.data[index].checklistName!),
+                )),
                 const SizedBox(
                   width: 12,
                 ),

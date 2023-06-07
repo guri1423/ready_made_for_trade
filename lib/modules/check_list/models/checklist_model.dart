@@ -1,7 +1,7 @@
-
 import 'dart:convert';
 
-GetChecklist getChecklistFromJson(String str) => GetChecklist.fromJson(json.decode(str));
+GetChecklist getChecklistFromJson(String str) =>
+    GetChecklist.fromJson(json.decode(str));
 
 String getChecklistToJson(GetChecklist data) => json.encode(data.toJson());
 
@@ -17,16 +17,16 @@ class GetChecklist {
   });
 
   factory GetChecklist.fromJson(Map<String, dynamic> json) => GetChecklist(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    message: json["message"],
-    status: json["status"],
-  );
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        message: json["message"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    "message": message,
-    "status": status,
-  };
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "message": message,
+        "status": status,
+      };
 }
 
 class Datum {
@@ -35,6 +35,8 @@ class Datum {
   String? videolink;
   String? position;
   String? status;
+  String? description;
+  String? url;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -44,27 +46,31 @@ class Datum {
     this.videolink,
     this.position,
     this.status,
+    this.description,
+    this.url,
     this.createdAt,
     this.updatedAt,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    id: json["id"],
-    checklistName: json["checklist_name"],
-    videolink: json["videolink"],
-    position: json["position"],
-    status: json["status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        checklistName: json["checklist_name"],
+        videolink: json["videolink"],
+        position: json["position"],
+        status: json["status"],
+        description: json["description"],
+        url: json["url"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "checklist_name": checklistName,
-    "videolink": videolink,
-    "position": position,
-    "status": status,
-    "created_at": createdAt!.toIso8601String(),
-    "updated_at": updatedAt!.toIso8601String(),
-  };
+        "id": id,
+        "checklist_name": checklistName,
+        "videolink": videolink,
+        "position": position,
+        "status": status,
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
+      };
 }
