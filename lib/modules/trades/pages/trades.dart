@@ -39,7 +39,7 @@ class _TradesPageState extends State<TradesPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 160 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -49,8 +49,8 @@ class _TradesPageState extends State<TradesPage> {
               width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -162,7 +162,7 @@ class _TradesPageState extends State<TradesPage> {
                             const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           'Trade',
-                          style: theme.textTheme.titleMedium!.copyWith(
+                          style: theme.textTheme.titleSmall!.copyWith(
                               color: CustomColors.textFieldTextColour),
                         ),
                       ),

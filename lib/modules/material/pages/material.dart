@@ -50,7 +50,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 160 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -60,8 +60,8 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
               width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -121,45 +121,58 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                               mainAxisExtent: 135,
                           ),
                       itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                           /* launchUrlInChrome(state.model!.data[index].url!);*/
-                            launchUrlString(state.model!.data[index].url!);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: CustomColors.white),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height : 100,
+                        return Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: CustomColors.white),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height : 100,
+                                child: GestureDetector(
+                                  onTap: () async{
+                                    final chromeUrl = state.model!.data[index].url!;
+                                    if (await canLaunch(chromeUrl)) {
+                                      await launch(chromeUrl);
+                                    } else {
+                                      // Chrome is not installed. Fall back to the default URL launcher.
+                                      throw 'Could not launch $chromeUrl';
+                                    }
+                                    /* launchUrlInChrome(state.model!.data[index].url!);*/
+                                    /*launchUrlString(state.model!.data[index].url!);*/
+                                  },
                                   child: Image.network(
                                     '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.only(top: 7),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    state.model!.data[index].materialName!,
-                                    style:
-                                    TextStyle(color:CustomColors.primeColour,
-                                        fontSize: 3),
-                                    /*Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                        color: CustomColors.primeColour,
-                                        fontSize: 7),*/
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: Text(
+                                  state.model!.data[index].materialName!,
+                                  softWrap: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                      color: CustomColors.primeColour),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                             /* Text(
+                                state.model!.data[index].materialName!,
+                                softWrap: true,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                    color: CustomColors.primeColour,fontSize: 7),
+                              )*/
+                            ],
+                          ),
                         );
                       })
                 ],
@@ -223,18 +236,13 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                     fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        state.model!.data[index].materialName!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium!
-                                            .copyWith(
-                                                color: CustomColors.primeColour),
-                                      ),
-                                    ],
+                                  Text(
+                                    state.model!.data[index].materialName!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: CustomColors.primeColour),
                                   )
                                 ],
                               ),

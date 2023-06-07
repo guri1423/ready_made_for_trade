@@ -27,7 +27,7 @@ class _GalleryPageState extends State<GalleryPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 160 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -37,8 +37,8 @@ class _GalleryPageState extends State<GalleryPage> {
               width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

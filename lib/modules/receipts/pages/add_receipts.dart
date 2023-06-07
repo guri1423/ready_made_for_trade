@@ -71,8 +71,8 @@ class _AddReceiptsState extends State<AddReceipts> {
               width: 10,
             ),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

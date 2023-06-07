@@ -27,7 +27,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 160 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -37,8 +37,8 @@ class _AccountPageState extends State<AccountPage> {
               width: 40,
             ),
             SizedBox(
-              width: 170,
-              height: 40,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

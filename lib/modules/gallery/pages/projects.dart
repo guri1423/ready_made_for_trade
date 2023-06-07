@@ -25,7 +25,7 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -35,8 +35,8 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
               width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

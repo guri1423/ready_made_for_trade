@@ -42,7 +42,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
         elevation: 0,
         backgroundColor: Colors.white,
         title: Row(
@@ -52,8 +52,8 @@ class _ChecklistPageState extends State<ChecklistPage> {
               width: 10,
             ),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 135,
+              height: 45,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

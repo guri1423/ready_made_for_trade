@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/essentials/bloc/essential_bloc_cubit.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EssentialsPage extends StatefulWidget {
@@ -30,18 +31,18 @@ class _EssentialsPageState extends State<EssentialsPage> {
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
         appBar: AppBar(
-          toolbarHeight: 160 * oneLogicalPixelInPhysicalPixels,
+          toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
           backgroundColor: Colors.white,
           elevation: 0,
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: 8 * oneLogicalPixelInPhysicalPixels,
               ),
               SizedBox(
-                width: 160,
-                height: 75,
+                width: 135,
+                height: 45,
                 child: Image.asset(
                   'assets/images/final Logo.png',
                   fit: BoxFit.fill,
@@ -158,7 +159,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 3,
-                                mainAxisExtent: 160
+                                mainAxisExtent: 160,
                             ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
@@ -328,9 +329,22 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                   children: [
                                     SizedBox(
                                       height: 100,
-                                      child: Image.network(
-                                          '${state.model!.data[index].filePath!}/${state.model!.data[index].image}',
-                                        fit: BoxFit.fitHeight,),
+                                      child: GestureDetector(
+                                        onTap: () async{
+                                          final chromeUrl = state.model!.data[index].link!;
+                                          if (await canLaunch(chromeUrl)) {
+                                            await launch(chromeUrl);
+                                          } else {
+                                            // Chrome is not installed. Fall back to the default URL launcher.
+                                            throw 'Could not launch $chromeUrl';
+                                          }
+                                          /* launchUrlInChrome(state.model!.data[index].url!);*/
+                                          /*launchUrlString(state.model!.data[index].url!);*/
+                                        },
+                                        child: Image.network(
+                                            '${state.model!.data[index].filePath!}/${state.model!.data[index].image}',
+                                          fit: BoxFit.fitHeight,),
+                                      ),
                                     ),
                                     Text(
                                       state.model!.data[index].name!,
