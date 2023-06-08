@@ -1,14 +1,10 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/core/list/list.dart';
-import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
-import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/job_date_time_start.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_job_quote.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -22,7 +18,8 @@ class QuoteSent extends StatefulWidget {
   int? projectId;
   int? customerId;
 
-  QuoteSent({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
+  QuoteSent({Key? key, this.jobId, this.projectId, required this.customerId})
+      : super(key: key);
 
   @override
   State<QuoteSent> createState() => _QuoteSentState();
@@ -40,14 +37,12 @@ class _QuoteSentState extends State<QuoteSent> {
 
   String? vatValue;
 
-  String changeValue(String value){
+  String changeValue(String value) {
     debugPrint(value);
     debugPrint('vat val');
-    if(value == '1')
-     {
-       return 'YES';
-     }
-    else {
+    if (value == '1') {
+      return 'YES';
+    } else {
       return 'NO';
     }
   }
@@ -87,13 +82,11 @@ class _QuoteSentState extends State<QuoteSent> {
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-
-
               _projectTitle.text =
-                  snapshot.data!.data.projectTitle?? _projectTitle.text;
-              _projectDetails.text =  snapshot.data!.data.projectDescription ??
+                  snapshot.data!.data.projectTitle ?? _projectTitle.text;
+              _projectDetails.text = snapshot.data!.data.projectDescription ??
                   _projectDetails.text;
-              _vat.text =  snapshot.data!.data.vat ?? _vat.text;
+              _vat.text = snapshot.data!.data.vat ?? _vat.text;
               _materialCost.text =
                   snapshot.data!.data.materialCost ?? _materialCost.text;
               _labourCost.text =
@@ -116,10 +109,13 @@ class _QuoteSentState extends State<QuoteSent> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-
                           GestureDetector(
-                            onTap: (){
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                            onTap: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()),
+                                  (route) => false);
                             },
                             child: const Icon(
                               Icons.close_outlined,
@@ -168,8 +164,8 @@ class _QuoteSentState extends State<QuoteSent> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                  snapshot.data!.data
-                                                      .customerName!,
+                                                  snapshot
+                                                      .data!.data.customerName!,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleLarge!
@@ -177,8 +173,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                               const SizedBox(
                                                 height: 12,
                                               ),
-                                              Text(
-                                                  snapshot.data!.data.address!,
+                                              Text(snapshot.data!.data.address!,
                                                   style: style),
                                             ],
                                           ),
@@ -270,27 +265,49 @@ class _QuoteSentState extends State<QuoteSent> {
                             child: SizedBox(
                                 height: 40,
                                 child: Center(
-                                  child: Text('VAT: ${changeValue(snapshot.data!.data.isVat!)}',
-                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,),
-                                )
-                            ),
+                                  child: Text(
+                                    'VAT: ${changeValue(snapshot.data!.data.isVat!)}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: CustomColors.primeColour),
+                                  ),
+                                )),
                           ),
                           const SizedBox(
                             width: 20,
                           ),
-                          if(snapshot.data!.data.vat == 'YES')Expanded(
-                            child: SizedBox(
-                              height: 40,
-                              child: Center(child: Text('Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
-                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
-                            ),
-                          ) else Expanded(
-                            child: SizedBox(
-                              height: 40,
-                              child: Center(child: Text('Total: \£${snapshot.data!.data.totalPrice!}',
-                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour) ,)),
-                            ),
-                          )
+                          if (snapshot.data!.data.vat == 'YES')
+                            Expanded(
+                              child: SizedBox(
+                                height: 40,
+                                child: Center(
+                                    child: Text(
+                                  'Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          color: CustomColors.primeColour),
+                                )),
+                              ),
+                            )
+                          else
+                            Expanded(
+                              child: SizedBox(
+                                height: 40,
+                                child: Center(
+                                    child: Text(
+                                  'Total: \£${snapshot.data!.data.totalPrice!}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          color: CustomColors.primeColour),
+                                )),
+                              ),
+                            )
                         ],
                       ),
                       const SizedBox(
@@ -319,13 +336,14 @@ class _QuoteSentState extends State<QuoteSent> {
                                         customerId: widget.customerId,
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
-                                        vat: int.parse(snapshot.data!.data.isVat!),
+                                        vat: int.parse(
+                                            snapshot.data!.data.isVat!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
                                         jobId: widget.jobId,
-                                        status:  'Quote Sent'));
+                                        status: 'Quote Sent'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -375,7 +393,8 @@ class _QuoteSentState extends State<QuoteSent> {
                                           customerId: widget.customerId,
                                           materialCost: _materialCost.text,
                                           labourCost: _labourCost.text,
-                                          vat: int.parse(snapshot.data!.data.isVat!),
+                                          vat: int.parse(
+                                              snapshot.data!.data.isVat!),
                                           projectId: widget.projectId,
                                           projectTitle: _projectTitle.text,
                                           projectDescription:

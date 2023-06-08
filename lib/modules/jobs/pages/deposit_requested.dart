@@ -1,19 +1,13 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/core/list/list.dart';
-import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
-import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
-import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
-import 'package:ready_made_4_trade/modules/jobs/pages/preview_job_quote.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -22,7 +16,10 @@ class DepositRequested extends StatefulWidget {
   int? jobId;
   int? projectId;
   int? customerId;
-  DepositRequested({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
+
+  DepositRequested(
+      {Key? key, this.jobId, this.projectId, required this.customerId})
+      : super(key: key);
 
   @override
   State<DepositRequested> createState() => _DepositRequestedState();
@@ -42,7 +39,6 @@ class _DepositRequestedState extends State<DepositRequested> {
   StorageServices _storageServices = StorageServices();
 
   String? vatValue;
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +75,17 @@ class _DepositRequestedState extends State<DepositRequested> {
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-
               vatValue = snapshot.data!.data.vat ?? vatValue;
 
-              _projectTitle.text = snapshot.data!.data.projectTitle ?? _projectTitle.text;
-              _projectDetails.text =
-                  snapshot.data!.data.projectDescription ?? _projectDetails.text;
+              _projectTitle.text =
+                  snapshot.data!.data.projectTitle ?? _projectTitle.text;
+              _projectDetails.text = snapshot.data!.data.projectDescription ??
+                  _projectDetails.text;
               _vat.text = snapshot.data!.data.vat ?? _vat.text;
-              _materialCost.text = snapshot.data!.data.materialCost ?? _materialCost.text;
-              _labourCost.text = snapshot.data!.data.labourCost ?? _labourCost.text;
+              _materialCost.text =
+                  snapshot.data!.data.materialCost ?? _materialCost.text;
+              _labourCost.text =
+                  snapshot.data!.data.labourCost ?? _labourCost.text;
 
               return Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -109,10 +107,13 @@ class _DepositRequestedState extends State<DepositRequested> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
                             GestureDetector(
-                              onTap: (){
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                              onTap: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()),
+                                    (route) => false);
                               },
                               child: const Icon(
                                 Icons.close_outlined,
@@ -123,7 +124,9 @@ class _DepositRequestedState extends State<DepositRequested> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: CustomColors.primeColour,
@@ -160,8 +163,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                              snapshot
-                                                  .data!.data.customerName!,
+                                              snapshot.data!.data.customerName!,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge!
@@ -169,8 +171,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                           const SizedBox(
                                             height: 12,
                                           ),
-                                          Text(
-                                              snapshot.data!.data.address!,
+                                          Text(snapshot.data!.data.address!,
                                               style: style),
                                         ],
                                       ),
@@ -250,28 +251,27 @@ class _DepositRequestedState extends State<DepositRequested> {
                       SizedBox(
                         height: 10,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-
-                          if(snapshot.data!.data.isVat! == '1' )
-                          Text(
-                            'Total INC VAT - \£${snapshot.data!.data.totalIncVat!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ) else  Text(
-                            'Total - \£${snapshot.data!.data.totalPrice!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ),
-
+                          if (snapshot.data!.data.isVat! == '1')
+                            Text(
+                              'Total INC VAT - \£${snapshot.data!.data.totalIncVat!}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Dongle Regular',
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          else
+                            Text(
+                              'Total - \£${snapshot.data!.data.totalPrice!}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Dongle Regular',
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           Text(
                             '                 ',
                             style: TextStyle(
@@ -280,17 +280,11 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 color: CustomColors.blueButton,
                                 fontWeight: FontWeight.bold),
                           ),
-
-
-
                         ],
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
-
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -300,7 +294,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                               },
                               child: smallButton(context, 'ADD PAYMENT',
                                   CustomColors.blueButton, 170)),
-                           SizedBox(
+                          SizedBox(
                             height: 50,
                             width: 170,
                             child: Center(
@@ -325,24 +319,24 @@ class _DepositRequestedState extends State<DepositRequested> {
                               child: GestureDetector(
                                   onTap: () async {
                                     String? userId =
-                                    await _storageServices.getUserId();
+                                        await _storageServices.getUserId();
 
                                     debugPrint(widget.jobId.toString());
                                     debugPrint(userId.toString());
 
                                     AddQuoteResponse? model =
-                                    await _remoteApi.addQuote(AddQuoteModel(
-                                        userId: int.parse(userId!),
-                                        customerId: widget.customerId,
-                                        materialCost: _materialCost.text,
-                                        labourCost: _labourCost.text,
-                                        vat: 0,
-                                        projectId: widget.projectId,
-                                        projectTitle: _projectTitle.text,
-                                        projectDescription:
-                                        _projectDetails.text,
-                                        jobId: widget.jobId,
-                                        status:  'Deposit Requested'));
+                                        await _remoteApi.addQuote(AddQuoteModel(
+                                            userId: int.parse(userId!),
+                                            customerId: widget.customerId,
+                                            materialCost: _materialCost.text,
+                                            labourCost: _labourCost.text,
+                                            vat: 0,
+                                            projectId: widget.projectId,
+                                            projectTitle: _projectTitle.text,
+                                            projectDescription:
+                                                _projectDetails.text,
+                                            jobId: widget.jobId,
+                                            status: 'Deposit Requested'));
 
                                     if (model != null) {
                                       Fluttertoast.showToast(
@@ -367,11 +361,9 @@ class _DepositRequestedState extends State<DepositRequested> {
                                   child: smallButton(context, 'SAVE',
                                       CustomColors.skyblue, 170)),
                             ),
-
                             const SizedBox(
                               width: 20,
                             ),
-
                             Expanded(
                               child: GestureDetector(
                                   onTap: () {
@@ -379,18 +371,16 @@ class _DepositRequestedState extends State<DepositRequested> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ConfirmJob(
-                                              customerId: widget.customerId,
-                                              jobId: widget.jobId,
-                                            )));
+                                                  customerId: widget.customerId,
+                                                  jobId: widget.jobId,
+                                                )));
                                   },
                                   child: smallButton(context, 'DEPOSIT',
                                       CustomColors.blueButton, 170)),
                             ),
-
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -448,64 +438,54 @@ class _DepositRequestedState extends State<DepositRequested> {
                   children: [
                     Expanded(
                         child: GestureDetector(
-                          onTap: ()async{
+                      onTap: () async {
+                        AddProjectResponse? model = await _remoteApi.addPayment(
+                            _totalPrice.text,
+                            widget.jobId.toString(),
+                            'Deposit Paid',
+                            _date.text);
 
-                          AddProjectResponse? model = await  _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid',_date.text);
+                        if (model != null) {
+                          Fluttertoast.showToast(
+                              msg: model.message!,
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
 
-                          if(model != null){
-                            Fluttertoast.showToast(
-                                msg: model.message!,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-
-                           Navigator.pop(context);
-                            setState(() {
-
-                            });
-
-                          }
-
-                          else{
-
-                            Fluttertoast.showToast(
-                                msg: 'Something went wrong',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-
-                          }
-
-
-
-                          },
-                          child: smallButton(
-                              context, 'SAVE', CustomColors.greyButton, 100),
-                        )),
+                          Navigator.pop(context);
+                          setState(() {});
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: 'Something went wrong',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
+                      },
+                      child: smallButton(
+                          context, 'SAVE', CustomColors.greyButton, 100),
+                    )),
                     const SizedBox(
                       width: 20,
                     ),
                     Expanded(
                         child: GestureDetector(
-                          onTap: (){
-                            _totalPrice.clear();
-                            _date.clear();
-                            Navigator.pop(context);
+                      onTap: () {
+                        _totalPrice.clear();
+                        _date.clear();
+                        Navigator.pop(context);
 
-                            setState(() {
-
-                            });
-
-                          },
-                          child: smallButton(
-                              context, 'DELETE', CustomColors.yellow, 100),
-                        )),
+                        setState(() {});
+                      },
+                      child: smallButton(
+                          context, 'DELETE', CustomColors.yellow, 100),
+                    )),
                   ],
                 ),
               ],

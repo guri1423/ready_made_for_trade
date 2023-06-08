@@ -15,14 +15,13 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
-
-
 class CreateQuote extends StatefulWidget {
   int? jobId;
   int? projectId;
   String? customerId;
 
-  CreateQuote({Key? key, this.jobId, this.projectId, required this.customerId}) : super(key: key);
+  CreateQuote({Key? key, this.jobId, this.projectId, required this.customerId})
+      : super(key: key);
 
   @override
   State<CreateQuote> createState() => _CreateQuoteState();
@@ -40,14 +39,12 @@ class _CreateQuoteState extends State<CreateQuote> {
 
   String? vatValue;
 
-  int changeValue(String value){
-    if(value == 'YES')
+  int changeValue(String value) {
+    if (value == 'YES')
       return 1;
     else
       return 0;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +84,10 @@ class _CreateQuoteState extends State<CreateQuote> {
           future: _remoteApi.getJobData(widget.jobId.toString()),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
-
-
-              _projectTitle.text = snapshot.data!.data.projectTitle ?? _projectTitle.text;
-              _projectDetails.text = snapshot.data!.data.projectDescription ?? _projectDetails.text;
+              _projectTitle.text =
+                  snapshot.data!.data.projectTitle ?? _projectTitle.text;
+              _projectDetails.text = snapshot.data!.data.projectDescription ??
+                  _projectDetails.text;
 
               return SingleChildScrollView(
                 child: Padding(
@@ -110,8 +107,12 @@ class _CreateQuoteState extends State<CreateQuote> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
+                            onTap: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()),
+                                  (route) => false);
                             },
                             child: const Icon(
                               Icons.close_outlined,
@@ -212,16 +213,14 @@ class _CreateQuoteState extends State<CreateQuote> {
                                           MediaQuery.of(context).size.height *
                                               0.056,
                                       icon: const Padding(
-                                        padding:
-                                            EdgeInsets.only(right: 2),
+                                        padding: EdgeInsets.only(right: 2),
                                         child: Icon(
                                           Icons.arrow_drop_down,
                                           color: CustomColors.primeColour,
                                         ),
                                       ),
                                       iconOnClick: const Padding(
-                                        padding:
-                                            EdgeInsets.only(right: 2),
+                                        padding: EdgeInsets.only(right: 2),
                                         child: Icon(
                                           Icons.arrow_drop_up,
                                           color: CustomColors.primeColour,
@@ -258,8 +257,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                                       .textTheme
                                                       .titleSmall!
                                                       .copyWith(
-                                                      color: CustomColors
-                                                          .black),
+                                                          color: CustomColors
+                                                              .black),
                                                 ),
                                               )))
                                           .toList(),
@@ -291,7 +290,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => PreviewJobQuote(
-                                              customerId: int.parse(widget.customerId!),
+                                              customerId:
+                                                  int.parse(widget.customerId!),
                                               jobId: widget.jobId,
                                               projectId: widget.projectId,
                                             )));
@@ -315,7 +315,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                 AddQuoteResponse? model =
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
-                                        customerId: int.parse(widget.customerId!),
+                                        customerId:
+                                            int.parse(widget.customerId!),
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
                                         vat: changeValue(vatValue!),
@@ -323,7 +324,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
-                                        jobId: widget.jobId,status: 'Create Quotes'));
+                                        jobId: widget.jobId,
+                                        status: 'Create Quotes'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -379,7 +381,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                 AddQuoteResponse? model =
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
-                                        customerId: int.parse(widget.customerId!),
+                                        customerId:
+                                            int.parse(widget.customerId!),
                                         materialCost: _materialCost.text,
                                         labourCost: _labourCost.text,
                                         vat: changeValue(vatValue!),
@@ -387,7 +390,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         projectTitle: _projectTitle.text,
                                         projectDescription:
                                             _projectDetails.text,
-                                        jobId: widget.jobId,status: 'Create Quotes'));
+                                        jobId: widget.jobId,
+                                        status: 'Create Quotes'));
 
                                 if (model != null) {
                                   Fluttertoast.showToast(
@@ -405,7 +409,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => PreviewJobQuote(
-                                          customerId: int.parse(widget.customerId!),
+                                          customerId:
+                                              int.parse(widget.customerId!),
                                           projectId: widget.projectId,
                                           jobId: widget.jobId,
                                         ),
@@ -451,7 +456,7 @@ class _CreateQuoteState extends State<CreateQuote> {
               );
             }
 
-            if(snapshot.hasError){
+            if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong'));
             }
 
