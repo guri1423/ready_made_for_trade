@@ -31,7 +31,7 @@ class _AllJobsState extends State<AllJobs> {
 
 
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
@@ -41,8 +41,8 @@ class _AllJobsState extends State<AllJobs> {
               width: 8 * oneLogicalPixelInPhysicalPixels,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

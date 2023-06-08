@@ -45,17 +45,17 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 10,
+              width: 8,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

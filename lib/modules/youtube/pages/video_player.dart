@@ -46,18 +46,18 @@ class _VideoPageState extends State<VideoPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 55,
         elevation: 0,
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+             SizedBox(
+              width: 8,
             ),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -119,7 +119,7 @@ class _VideoPageState extends State<VideoPage> {
                       mode: LaunchMode.externalApplication);
                 },
                 child: extraLongButton(context, "VISIT SITE"),
-              )
+              ),
           ],
         ),
       ),

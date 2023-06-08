@@ -50,18 +50,18 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 8 * oneLogicalPixelInPhysicalPixels,
+              width: 8,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -143,12 +143,16 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                     /* launchUrlInChrome(state.model!.data[index].url!);*/
                                     /*launchUrlString(state.model!.data[index].url!);*/
                                   },
-                                  child: Image.network(
-                                    '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
-                                    fit: BoxFit.cover,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+                                    child: Image.network(
+                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
+                              SizedBox(height: 5),
                               Flexible(
                                 flex: 2,
                                 child: Text(
@@ -158,7 +162,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                       .textTheme
                                       .titleSmall!
                                       .copyWith(
-                                      color: CustomColors.primeColour),
+                                      color: CustomColors.primeColour,fontSize: 7),
                                   textAlign: TextAlign.center,
                                 ),
                               )

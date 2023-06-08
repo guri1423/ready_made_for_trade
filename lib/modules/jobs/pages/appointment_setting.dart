@@ -60,7 +60,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
         appBar: AppBar(
-          toolbarHeight: 90,
+          toolbarHeight: 55,
           elevation: 0,
           backgroundColor: Colors.white,
           title: Row(
@@ -70,8 +70,8 @@ class _AddJobsPageState extends State<AddJobsPage> {
                 width: 10,
               ),
               SizedBox(
-                width: 180,
-                height: 90,
+                width: 130,
+                height: 60,
                 child: Image.asset(
                   'assets/images/final Logo.png',
                   fit: BoxFit.fill,

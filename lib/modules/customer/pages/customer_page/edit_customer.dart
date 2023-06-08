@@ -89,18 +89,18 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: 8,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,

@@ -35,10 +35,11 @@ class BottomToolsForInsidePage extends StatelessWidget {
                   if (onBackPress != null) {
                     onBackPress!.call();
                   } else {
-                    Navigator.pushReplacement(
+                    Navigator.pop(context);
+                  /*  Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BottomNavigation()));
+                            builder: (context) =>  BottomNavigation()));*/
                     BlocProvider.of<NavigationCubit>(context)
                         .getNavBarItem(NavbarItem.Home);
                   }

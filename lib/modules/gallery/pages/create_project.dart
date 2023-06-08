@@ -54,18 +54,18 @@ class _CreateProjectState extends State<CreateProject> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 8 * oneLogicalPixelInPhysicalPixels,
+              width: 8 ,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -96,8 +96,8 @@ class _CreateProjectState extends State<CreateProject> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 20.0,
+                            crossAxisSpacing: 20.0,
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(

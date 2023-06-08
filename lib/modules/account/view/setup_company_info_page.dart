@@ -11,13 +11,14 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import '../cubit/setup_company/setup_company_info_cubit.dart';
 
 class SetupCompanyInfoPage extends StatefulWidget {
-  const SetupCompanyInfoPage({Key? key}) : super(key: key);
+ SetupCompanyInfoPage({Key? key}) : super(key: key);
 
   @override
   State<SetupCompanyInfoPage> createState() => _SetupCompanyInfoPageState();
 }
 
 class _SetupCompanyInfoPageState extends State<SetupCompanyInfoPage> {
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _title = TextEditingController();
   TextEditingController _firstName = TextEditingController();
@@ -52,18 +53,18 @@ class _SetupCompanyInfoPageState extends State<SetupCompanyInfoPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+             SizedBox(
+              width: 8,
             ),
             SizedBox(
-              width: 180,
-              height: 90,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -84,6 +85,7 @@ class _SetupCompanyInfoPageState extends State<SetupCompanyInfoPage> {
       ),
       body: BlocListener<SetupCompanyInfoCubit, SetupCompanyInfoState>(
         listener: (context, state) {
+          debugPrint(_firstName.text);
           if (state is SetupCompanyInfoLoaded) {
             _title = TextEditingController(text: state.data.title);
             _firstName = TextEditingController(text: state.data.firstName);
@@ -94,15 +96,12 @@ class _SetupCompanyInfoPageState extends State<SetupCompanyInfoPage> {
             email = TextEditingController(text: state.data.email);
             webAddress = TextEditingController(text: state.data.webAddress);
             companyName = TextEditingController(text: state.data.companyName);
-            companyNumber =
-                TextEditingController(text: state.data.companyNumber);
+            companyNumber = TextEditingController(text: state.data.companyNumber);
             vatNUmber = TextEditingController(text: state.data.vatNumber);
             sortCode = TextEditingController(text: state.data.sortCode);
             accountNum = TextEditingController(text: state.data.accountNumber);
-            insurancePolicy =
-                TextEditingController(text: state.data.insurancePolicyNumber);
-            accountEmailAddress =
-                TextEditingController(text: state.data.accountantEmailAddress);
+            insurancePolicy = TextEditingController(text: state.data.insurancePolicyNumber);
+            accountEmailAddress = TextEditingController(text: state.data.accountantEmailAddress);
           }
         },
         child: BlocBuilder<SetupCompanyInfoCubit, SetupCompanyInfoState>(

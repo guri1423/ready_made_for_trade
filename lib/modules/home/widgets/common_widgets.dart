@@ -270,7 +270,7 @@ Widget customerSearchBarWidget(context,
         onTap();
       },
       controller: controller,
-      style: theme.textTheme.titleSmall!.copyWith(color: CustomColors.black),
+      style: theme.textTheme.titleSmall!.copyWith(color: CustomColors.primeColour),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(top: 2, left: 10),
         hintText: hintText,

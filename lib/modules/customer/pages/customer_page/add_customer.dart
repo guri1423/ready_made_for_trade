@@ -65,18 +65,18 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 150 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              width: 10,
+             SizedBox(
+              width: 8,
             ),
             SizedBox(
-              width: 135,
-              height: 45,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -415,7 +415,7 @@ Widget customTextFieldForm(context,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
-        .copyWith(color: CustomColors.black),
+        .copyWith(color: CustomColors.primeColour),
     onChanged: (value) {
       if ( hintText == 'Amount') {
         // Remove any non-digit characters from the input
@@ -485,7 +485,7 @@ Widget customTextFieldAddCustomer(context,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
-        .copyWith(color: CustomColors.black),
+        .copyWith(color: CustomColors.primeColour),
     keyboardType: hintText.contains('Postal Code') || hintText.contains('Mobile No') || hintText.contains ('Amount')
         ? TextInputType.phone
         : TextInputType.emailAddress,

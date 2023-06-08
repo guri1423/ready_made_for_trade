@@ -62,20 +62,21 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
                 child: SizedBox(
-              width: 180,
-              height: 90,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
               ),
-            )),
+            )
+            ),
           ],
         ),
       ),
