@@ -160,6 +160,7 @@ class _SetupCompanyInfoPageState extends State<SetupCompanyInfoPage> {
                       hintText: 'First Name',
                     )),
               ),
+
               const SizedBox(
                 width: 16,
               ),
