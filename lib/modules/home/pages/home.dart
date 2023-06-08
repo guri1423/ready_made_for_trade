@@ -11,6 +11,7 @@ import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
 import 'package:ready_made_4_trade/modules/essentials/pages/essentials.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/pages/fAndI.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/gallery.dart';
+import 'package:ready_made_4_trade/modules/home/pages/home_image_page.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/jobs.dart';
 import 'package:ready_made_4_trade/modules/receipts/pages/receipts.dart';
 import 'package:ready_made_4_trade/modules/material/pages/material.dart';
@@ -465,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                homePageImage(context)
+               HomePageImages(),
               ],
             ),
           ),
