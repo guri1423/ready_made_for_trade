@@ -34,7 +34,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             firstDate: DateTime(2023), lastDate: DateTime(2050)
         );
         if (pickedDate != null) {
-          String formattedDate = DateFormat('yyyy/MM/dd/').format(
+          String formattedDate = DateFormat('yyyy/MM/dd').format(
               pickedDate);
           BlocProvider.of<PickupDateCubit>(context).setPickupDate(formattedDate);
           setState(() {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
-import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 import 'package:ready_made_4_trade/modules/dairy/widgets/dairy_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
@@ -140,7 +139,7 @@ class _DiaryPageState extends State<DiaryPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   SizedBox(
@@ -178,53 +177,45 @@ class _DiaryPageState extends State<DiaryPage> {
                           shrinkWrap: true,
                           itemCount: state.model!.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = state.model!.data[index];
+                            final sortedData = state.model!.data..sort((a, b) {
+                              final dateA = DateTime.parse(a.date.toString());
+                              final dateB = DateTime.parse(b.date.toString());
+                              return dateB.compareTo(dateA);
+                            });
+                            final item = sortedData[index];
                             final currentDate = DateTime.parse(item.date.toString());
-                            final formattedDate =
-                                '${currentDate.day}-${currentDate.month}-${currentDate.year}';
+                            final formattedDate = '${currentDate.day}-${currentDate.month}-${currentDate.year}';
 
-                            // Check if the current date is different from the previous date
-                            if (index == 0 ||
-                                currentDate.day != DateTime.parse(state.model!.data[index - 1].date.toString()).day ||
-                                currentDate.month != DateTime.parse(state.model!.data[index - 1].date.toString()).month ||
-                                currentDate.year != DateTime.parse(state.model!.data[index - 1].date.toString()).year) {
-                              // Find the indexes of diary widgets with the same date
-                              final indexesWithSameDate = <int>[index];
-                              for (int i = index + 1; i < state.model!.data.length; i++) {
-                                final nextItem = state.model!.data[i];
-                                final nextDate = DateTime.parse(nextItem.date.toString());
-                                if (currentDate.day == nextDate.day &&
-                                    currentDate.month == nextDate.month &&
-                                    currentDate.year == nextDate.year) {
-                                  indexesWithSameDate.add(i);
-                                } else {
-                                  break;
-                                }
-                              }
-
-                              return Column(
-                                children: [
+                            return Column(
+                              children: [
+                                if (index == 0 ||
+                                    currentDate.day !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).day ||
+                                    currentDate.month !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).month ||
+                                    currentDate.year !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).year)
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
                                         formattedDate,
-                                        style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.black)
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(color: CustomColors.black),
                                       ),
                                     ],
                                   ),
-                                  for (final idx in indexesWithSameDate)
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 20,top: 5),
-                                      child: diaryWidget(context, state.model!.data, idx),
-                                    ),
-                                ],
-                              );
-                            } else {
-                              return Container(); // Return an empty container if it's a repeated date
-                            }
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20, top: 5),
+                                  child: diaryWidget(context, sortedData, index),
+                                ),
+                              ],
+                            );
                           },
                         ),
+
                       ),
                     );
 
@@ -243,51 +234,42 @@ class _DiaryPageState extends State<DiaryPage> {
                           shrinkWrap: true,
                           itemCount: state.model!.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = state.model!.data[index];
+                            final sortedData = state.model!.data..sort((a, b) {
+                              final dateA = DateTime.parse(a.date.toString());
+                              final dateB = DateTime.parse(b.date.toString());
+                              return dateB.compareTo(dateA);
+                            });
+                            final item = sortedData[index];
                             final currentDate = DateTime.parse(item.date.toString());
-                            final formattedDate =
-                                '${currentDate.day}-${currentDate.month}-${currentDate.year}';
+                            final formattedDate = '${currentDate.day}-${currentDate.month}-${currentDate.year}';
 
-                            // Check if the current date is different from the previous date
-                            if (index == 0 ||
-                                currentDate.day != DateTime.parse(state.model!.data[index - 1].date.toString()).day ||
-                                currentDate.month != DateTime.parse(state.model!.data[index - 1].date.toString()).month ||
-                                currentDate.year != DateTime.parse(state.model!.data[index - 1].date.toString()).year) {
-                              // Find the indexes of diary widgets with the same date
-                              final indexesWithSameDate = <int>[index];
-                              for (int i = index + 1; i < state.model!.data.length; i++) {
-                                final nextItem = state.model!.data[i];
-                                final nextDate = DateTime.parse(nextItem.date.toString());
-                                if (currentDate.day == nextDate.day &&
-                                    currentDate.month == nextDate.month &&
-                                    currentDate.year == nextDate.year) {
-                                  indexesWithSameDate.add(i);
-                                } else {
-                                  break;
-                                }
-                              }
-
-                              return Column(
-                                children: [
+                            return Column(
+                              children: [
+                                if (index == 0 ||
+                                    currentDate.day !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).day ||
+                                    currentDate.month !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).month ||
+                                    currentDate.year !=
+                                        DateTime.parse(sortedData[index - 1].date.toString()).year)
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                          formattedDate,
-                                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.black)
+                                        formattedDate,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(color: CustomColors.black),
                                       ),
                                     ],
                                   ),
-                                  for (final idx in indexesWithSameDate)
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 20,top: 5),
-                                      child: diaryWidget(context, state.model!.data, idx),
-                                    ),
-                                ],
-                              );
-                            } else {
-                              return Container(); // Return an empty container if it's a repeated date
-                            }
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20, top: 5),
+                                  child: diaryWidget(context, sortedData, index),
+                                ),
+                              ],
+                            );
                           },
                         ),
                       ),
