@@ -196,6 +196,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 120,
                                                 child: Container(
                                                   decoration: BoxDecoration(
+                                                    color: CustomColors.blueButton,
                                                     border: Border.all(
                                                       color: CustomColors.greyButton,
                                                       width: 1.0,
@@ -207,16 +208,13 @@ class _HomePageState extends State<HomePage> {
                                                     children: [
                                                       Text(
                                                         item.noCount!,
-                                                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                                          color: CustomColors.primeColour,
-                                                        ),
+                                                        style: Theme.of(context).textTheme.titleLarge
                                                       ),
                                                       Text(
                                                         item.title!,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleSmall!
-                                                            .copyWith(color: CustomColors.primeColour),
                                                       ),
                                                     ],
                                                   ),
