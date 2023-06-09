@@ -70,7 +70,21 @@ class _ProjectsDetailsPageState extends State<ProjectsDetailsPage> {
 
 
                   ), itemBuilder: (BuildContext context, int index){
-                return Image.network('https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.projectImages![index]}');
+                return GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            child: Image.network(
+                              'https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.projectImages![index]}',
+                            ),
+                          );
+                        },
+                      );
+                    },
+
+                    child: Image.network('https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.projectImages![index]}'));
               }),
             ),
 

@@ -95,7 +95,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                       },
                       child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
 
-                  SizedBox(width: 30,),
+                  SizedBox(width: 20,),
 
                   Expanded(child: GestureDetector(
                       onTap: ()async{
@@ -117,7 +117,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                 children: [
                   Expanded(child: customisedButton(context, 'MESSAGE', CustomColors.blueButton, 'assets/images/small_icons/031-whatsapp.png')),
 
-                  SizedBox(width: 30,),
+                  SizedBox(width: 20,),
 
                   Expanded(child: customisedButton(context, 'REMINDER', CustomColors.blueButton, 'assets/images/small_icons/004-appointment.png')),
                 ],
@@ -138,7 +138,7 @@ class _ViewDetailsState extends State<ViewDetails> {
 
 
 
-          FutureBuilder<JobsModel?>(
+            FutureBuilder<JobsModel?>(
             future: _remoteApi.getJobsOnCustomerBasis(widget.data.id.toString()),
             builder: (BuildContext context, AsyncSnapshot<JobsModel?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
