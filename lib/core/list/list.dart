@@ -15,8 +15,8 @@ List<String> jobList = [
 
 
 final List<String>customerType = [
-  'CIS',
-  'General',
+  'CIS Customer',
+  'Private Customer',
 
 ];
 

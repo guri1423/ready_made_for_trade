@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 8,
@@ -80,26 +80,26 @@ class _LoginState extends State<Login> {
                 fit: BoxFit.fill,
               ),
             ),
-            SizedBox(
+            /*SizedBox(
               height: 30,
               width: 30,
               child: Image.asset('assets/images/updated_images/012-bell.png'),
-            ),
+            ),*/
           ],
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            GestureDetector(
+       /*     GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword()));
               },
               child: Text('Forgot Password',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(color : CustomColors.blueButton),),
-            ),
+            ),*/
 
             GestureDetector(
               onTap: () async {
@@ -120,10 +120,8 @@ class _LoginState extends State<Login> {
                  await _servicesStorage.setUserLoggedIn('true');
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Login successful')));
-
-
-
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigation()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => BottomNavigation()), (route) => false);
                 } else {
                   Fluttertoast.showToast(
                       msg: response != null
@@ -237,12 +235,33 @@ class _LoginState extends State<Login> {
 
                       },
                     ),
-                    Text('Remember Me',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color : CustomColors.blueButton),)
+                    Text(
+                      'Remember Me',
+                      style: TextStyle(fontSize: 14,
+                        color: Color.fromRGBO(39, 69, 89, 1),
+                      ),
+                    ),
+                    SizedBox(width: 85),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword()));
+                      },
+                      child: const Text(
+                        'Forgot Password',
+                        style: TextStyle(fontSize: 14,
+                          color: Color.fromRGBO(39, 69, 89, 1),
+                        ),
+                        /*Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: CustomColors.blueButton),*/
+                      ),
+                    ),
                   ],
                 ),
-
-
                 const SizedBox(
                   height: 59,
                 ),

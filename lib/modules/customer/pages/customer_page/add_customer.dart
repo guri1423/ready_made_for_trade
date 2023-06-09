@@ -108,7 +108,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                           controller: _title,
                           hintText: 'Title',
                         )),
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                     ),
                     Expanded(
@@ -150,7 +150,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                             hintText: 'Postal Code',
                           )),
                     ),
-                    const SizedBox(
+                     SizedBox(
                       width: 24,
                     ),
                     Expanded(
@@ -220,7 +220,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.50,
+                  width: MediaQuery.of(context).size.width * 0.70,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -261,7 +261,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Text(
-                            'CIS or General',
+                            'CIS Customer or Private Customer',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
