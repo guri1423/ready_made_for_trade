@@ -49,8 +49,8 @@ class _TradesPageState extends State<TradesPage> {
               width: 8,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
@@ -132,7 +132,7 @@ class _TradesPageState extends State<TradesPage> {
                         focusedBorder: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
                       ),
-                      buttonHeight: 49,
+                      buttonHeight: 37,
                       buttonWidth: MediaQuery.of(context).size.width,
                       buttonDecoration: BoxDecoration(
                         color: CustomColors.white,
@@ -164,7 +164,7 @@ class _TradesPageState extends State<TradesPage> {
                             const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           'Trade',
-                          style: theme.textTheme.titleMedium!.copyWith(
+                          style: theme.textTheme.titleSmall!.copyWith(
                               color: CustomColors.textFieldTextColour),
                         ),
                       ),

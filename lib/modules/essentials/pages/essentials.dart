@@ -5,6 +5,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/essentials/bloc/essential_bloc_cubit.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EssentialsPage extends StatefulWidget {
@@ -178,9 +179,20 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                   children: [
                                     SizedBox(
                                       height: 100,
-                                      child: Image.network(
-                                        '${state.model!.data[index].filePath!}/${state.model!.data[index].image}',
-                                        fit: BoxFit.fitHeight,
+                                      child: GestureDetector(
+                                        onTap: ()async{
+                                          final chromeUrl = state.model!.data[index].link!;
+                                          if (await canLaunch(chromeUrl)) {
+                                          await launch(chromeUrl);
+                                          } else {
+                                          // Chrome is not installed. Fall back to the default URL launcher.
+                                          throw 'Could not launch $chromeUrl';
+                                          }
+                                        },
+                                        child: Image.network(
+                                          '${state.model!.data[index].filePath!}/${state.model!.data[index].image}',
+                                          fit: BoxFit.fitHeight,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -195,7 +207,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                             .textTheme
                                             .titleMedium!
                                             .copyWith(
-                                                color: CustomColors.primeColour),
+                                                color: CustomColors.primeColour,fontSize: 7),
                                         textAlign: TextAlign.center,
                                       ),
                                     )

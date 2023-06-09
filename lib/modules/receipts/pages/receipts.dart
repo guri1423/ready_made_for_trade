@@ -109,7 +109,9 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                     );
                                   },
                                   child: Image.network(
-                                    '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
+                                    '${state.model!.data[reversedIndex].
+                                    filePath}/${state.model!.
+                                    data[reversedIndex].image}',fit: BoxFit.cover,
                                   ),
                                 );
                               },
@@ -165,8 +167,8 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                               gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
-                                mainAxisSpacing: 10.0,
-                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 20.0,
+                                crossAxisSpacing: 20.0,
                               ),
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
@@ -186,9 +188,10 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                                       }
                                     });
                                   },
-                                  child: Stack(children: <Widget>[
+                                  child: Stack(
+                                      children: <Widget>[
                                     Image.network(
-                                        '${state.model!.data[index].filePath}/${state.model!.data[index].image}'),
+                                        '${state.model!.data[index].filePath}/${state.model!.data[index].image}',fit: BoxFit.cover),
                                     Checkbox(
                                       value: _isCheckedList[index],
                                       onChanged: (bool? value) {},

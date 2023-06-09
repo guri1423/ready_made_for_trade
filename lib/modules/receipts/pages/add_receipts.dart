@@ -156,7 +156,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                         hint: Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            'JOB',
+                            'Job',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -242,7 +242,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                         hint: Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            'CATEGORY',
+                            'Category',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -280,7 +280,9 @@ class _AddReceiptsState extends State<AddReceipts> {
                         }),
                   )),
 
-              customTextFieldForm(context, controller: _amount, hintText: 'Amount'),
+              SizedBox(
+                  height: 40,
+                  child: customTextFieldForm(context, controller: _amount, hintText: 'Amount')),
 
               SizedBox(height: 10,),
 

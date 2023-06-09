@@ -109,7 +109,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                               crossAxisCount: 3,
-                              mainAxisExtent: 160),
+                              mainAxisExtent: 135),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
@@ -128,12 +128,26 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                 children: [
                                   SizedBox(
                                     height: 100,
-                                    child: Image.network(
-                                      '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
-                                      fit: BoxFit.fitHeight,
+                                    child: GestureDetector(
+                                      onTap: ()async{
+                                        final chromeUrl = state.model!.data[index].url!;
+                                        if (await canLaunch(chromeUrl)) {
+                                        await launch(chromeUrl);
+                                        } else {
+                                        // Chrome is not installed. Fall back to the default URL launcher.
+                                        throw 'Could not launch $chromeUrl';
+                                        }
+                                        /* launchUrlInChrome(state.model!.data[index].url!);*/
+                                        /*launchUrlString(state.model!.data[index].url!);*/
+                                      },
+                                      child: Image.network(
+                                        '${state.model!.data[index].filePath}/${state.model!.data[index].materialImage}',
+                                        fit: BoxFit.fitHeight,
+                                      ),
                                     ),
                                   ),
-                                  Row(
+                                  SizedBox(height: 5),
+                                 /* Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Expanded(
@@ -144,7 +158,20 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                                         ),
                                       ),
                                     ],
-                                  ),
+                                  ),*/
+                                  Flexible(
+                                    flex: 2,
+                                    child: Text(
+                                      state.model!.data[index].materialName!,
+                                      softWrap: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                          color: CustomColors.primeColour,fontSize: 7),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

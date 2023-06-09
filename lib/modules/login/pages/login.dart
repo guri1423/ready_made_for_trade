@@ -166,7 +166,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 292 * oneLogicalPixelInPhysicalPixels),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: textField(context, _username, 'Username', 390, 50),
+                  child: textField(context, _username, 'Email', 390, 50),
                 ),
                 SizedBox(
                   height: 59 * oneLogicalPixelInPhysicalPixels,
