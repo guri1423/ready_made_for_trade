@@ -68,8 +68,8 @@ class _GalleryPageState extends State<GalleryPage> {
                         itemCount: snapshot.data!.data.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          mainAxisSpacing: 10.0,
-                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 20.0,
+                          crossAxisSpacing: 20.0,
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           int reversedIndex = snapshot.data!.data.length - 1 - index;
@@ -87,7 +87,8 @@ class _GalleryPageState extends State<GalleryPage> {
                               );
                             },
                             child: Image.network(
-                              '${snapshot.data!.data[reversedIndex].filePath}/${snapshot.data!.data[reversedIndex].image}',
+                              '${snapshot.data!.data[reversedIndex].
+                              filePath}/${snapshot.data!.data[reversedIndex].image}', fit: BoxFit.cover,
                             ),
                           );
                         },

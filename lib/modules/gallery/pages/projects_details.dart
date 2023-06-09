@@ -64,13 +64,24 @@ class _ProjectsDetailsPageState extends State<ProjectsDetailsPage> {
                   itemCount: widget.model!.projectImages!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0,
-
-
-
+                    mainAxisSpacing: 20.0,
+                    crossAxisSpacing: 20.0,
                   ), itemBuilder: (BuildContext context, int index){
-                return Image.network('https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.projectImages![index]}');
+                return GestureDetector(
+                  onTap: (){
+                    showDialog(
+                        context: context,
+                        builder:  (BuildContext context){
+                          return Dialog(
+                            child: Image.network('https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.
+                            projectImages![index]}'),
+                          );
+                        },
+                    );
+                  },
+                  child: Image.network(
+                    'https://readymade4trade.omkatech.in/images/cameraimage/${widget.model!.projectImages![index]}', fit: BoxFit.cover,),
+                );
               }),
             ),
 
