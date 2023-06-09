@@ -47,7 +47,7 @@ Widget longButton(context, String title, Color colour ){
 
 Widget customisedButton(context, String title, Color colour,String image ){
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.symmetric(vertical: 5),
     child: SizedBox(
       height: 40,
       child: Container(
