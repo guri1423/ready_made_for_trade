@@ -29,18 +29,18 @@ class _AllJobsState extends State<AllJobs> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 8 * oneLogicalPixelInPhysicalPixels,
+              width: 8 ,
             ),
             SizedBox(
-              width: 160,
-              height: 75,
+              width: 130,
+              height: 60,
               child: Image.asset(
                 'assets/images/final Logo.png',
                 fit: BoxFit.fill,
