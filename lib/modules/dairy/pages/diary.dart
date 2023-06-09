@@ -133,7 +133,9 @@ class _DiaryPageState extends State<DiaryPage> {
                             )))
                             .toList(),
                         onChanged: (val){
-                          BlocProvider.of<DairyCubit>(context).getDiaryFilterData(val.toString(), '');
+                         setState(() {
+                           BlocProvider.of<DairyCubit>(context).getDiaryFilterData(val.toString(), '');
+                         });
 
                         },
                       ),
@@ -149,10 +151,11 @@ class _DiaryPageState extends State<DiaryPage> {
                           'assets/images/updated_images/029-list.png'))
                 ],
               ),
+
               Row(
                 children: [
-                  Expanded(child: CustomDatePicker()),
-                  SizedBox(
+                  const Expanded(child: CustomDatePicker()),
+                  const SizedBox(
                     width: 10,
                   ),
                   SizedBox(
@@ -215,7 +218,6 @@ class _DiaryPageState extends State<DiaryPage> {
                             );
                           },
                         ),
-
                       ),
                     );
 

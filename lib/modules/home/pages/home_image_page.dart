@@ -10,7 +10,7 @@ class HomePageImages extends StatefulWidget {
 }
 
 class _HomePageImagesState extends State<HomePageImages> {
-  late Future<HomeImage> images;
+
   Future<HomeImage> getImage() async {
     /* SharedPreferences prefs = await SharedPreferences.getInstance();*/
     http.Response response;
@@ -29,12 +29,7 @@ class _HomePageImagesState extends State<HomePageImages> {
       throw Exception('Failed to load album');
     }
   }
-  @override
-  void initState() {
-    images = getImage();
-    debugPrint(images.toString());
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<HomeImage?>(

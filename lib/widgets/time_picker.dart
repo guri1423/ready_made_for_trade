@@ -1,49 +1,44 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 
-class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({Key? key}) : super(key: key);
+class CustomTimePicker extends StatefulWidget {
+  const CustomTimePicker({Key? key}) : super(key: key);
 
   @override
-  _CustomDatePickerState createState() => _CustomDatePickerState();
+  _CustomTimePickerState createState() => _CustomTimePickerState();
 }
 
-class _CustomDatePickerState extends State<CustomDatePicker> {
-  String? userPickDate;
-  late PickupDateCubit _pickupDateCubit;
+class _CustomTimePickerState extends State<CustomTimePicker> {
+  String? userPickTime;
+  late PickupTimeCubit _pickupTimeCubit;
 
   @override
   void initState() {
     super.initState();
-    _pickupDateCubit = BlocProvider.of<PickupDateCubit>(context);
+    _pickupTimeCubit = BlocProvider.of<PickupTimeCubit>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        DateTime? pickedDate = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now().add(Duration(days: 2)),
-            firstDate: DateTime(2023), lastDate: DateTime(2050)
+        TimeOfDay? pickedTime = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now(),
         );
-        if (pickedDate != null) {
-          String formattedDate = DateFormat('yyyy/MM/dd').format(
-              pickedDate);
-          BlocProvider.of<PickupDateCubit>(context).setPickupDate(formattedDate);
+        if (pickedTime != null) {
+          String formattedTime =
+          DateFormat.Hm().format(DateTime.now().toLocal().add(Duration(hours: pickedTime.hour, minutes: pickedTime.minute)));
+          BlocProvider.of<PickupTimeCubit>(context).setPickupTime(formattedTime);
           setState(() {
-            userPickDate = formattedDate;
+            userPickTime = formattedTime;
             debugPrint('bloc called');
-            BlocProvider.of<DairyCubit>(context).getDiaryFilterData('', formattedDate);
+            BlocProvider.of<DairyCubit>(context).getDiaryFilterData('', formattedTime);
           });
         }
-
       },
       child: Container(
         height: 52,
@@ -58,9 +53,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              userPickDate ?? 'Select Date',
+              userPickTime ?? 'Select Time',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: userPickDate != null ? CustomColors.black : CustomColors.textFieldTextColour,
+                color: userPickTime != null ? CustomColors.black : CustomColors.textFieldTextColour,
               ),
             ),
             Spacer(),
@@ -80,22 +75,16 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     );
   }
-  String changeDateToString(DateTime dateTime){
-    return  DateFormat('yyyy/MM/dd').format(dateTime);
-  }
 }
 
+class PickupTimeCubit extends Cubit<String> {
+  PickupTimeCubit() : super("n");
 
-class PickupDateCubit extends Cubit<String>{
-  PickupDateCubit() : super("n");
-
-  setPickupDate(String pickupDate){
-    emit(pickupDate);
-
-
+  setPickupTime(String pickupTime) {
+    emit(pickupTime);
   }
-  String getPickupDate(){
+
+  String getPickupTime() {
     return state;
   }
-
 }

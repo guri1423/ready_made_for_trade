@@ -746,7 +746,8 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            textField(context, _amount, 'Deposit Amount', 170, 50),
+                            Expanded(child: customTextFieldForm(context, controller: _amount, hintText: 'Deposit Amount')),
+                            Expanded(child: Container())
 
 
 

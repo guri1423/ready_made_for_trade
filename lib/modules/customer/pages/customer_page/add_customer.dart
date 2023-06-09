@@ -395,35 +395,39 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
   }
 }
 
-Widget customTextFieldForm(context,
+
+
+
+Widget customTextFieldForm(BuildContext context,
     {required TextEditingController controller,
-    required String hintText,
-    bool isBig = false}) {
+      required String hintText,
+      bool isBig = false}) {
   return TextFormField(
     keyboardType: controller.text == 'Mobile No' ||
-            controller.text == 'Amount' ||
-            hintText.contains('Cost')
+        controller.text == 'Amount' ||
+        hintText.contains('Cost')
         ? TextInputType.phone
         : TextInputType.emailAddress,
     controller: controller,
     maxLines: hintText.contains('Project Details')
         ? 20
         : isBig
-            ? 10
-            : 1,
+        ? 10
+        : 1,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
         .copyWith(color: CustomColors.black),
     onChanged: (value) {
-      if (hintText == 'Amount') {
+      if (hintText == 'Amount' || hintText.contains('Cost')) {
         // Remove any non-digit characters from the input
         String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
         // Parse the cleaned value as an integer
         int? number = int.tryParse(cleanValue);
         if (number != null) {
-          // Format the number with commas
-          String formattedNumber = NumberFormat.decimalPattern().format(number);
+          // Format the number with commas and add the pound sign
+          String formattedNumber =
+              '£' + NumberFormat.decimalPattern().format(number);
           // Update the TextField value with the formatted number
           controller.value = TextEditingValue(
             text: formattedNumber,
@@ -433,12 +437,14 @@ Widget customTextFieldForm(context,
       }
     },
     decoration: InputDecoration(
-      hintText: hintText,
+      hintText: hintText.contains('Cost')
+          ? '£  $hintText'
+          : hintText,
       contentPadding: hintText.contains('Project Details')
-          ? const EdgeInsets.only(top: 10, left: 10)
+          ? const EdgeInsets.only(top: 20, left: 10)
           : isBig
-              ? const EdgeInsets.only(top: 16, left: 10)
-              : const EdgeInsets.only(top: 2, left: 10),
+          ? const EdgeInsets.only(top: 16, left: 10)
+          : const EdgeInsets.only(top: 2, left: 10),
       hintStyle: Theme.of(context)
           .textTheme
           .titleSmall!
@@ -472,6 +478,7 @@ Widget customTextFieldForm(context,
     ),
   );
 }
+
 
 Widget customTextFieldAddCustomer(context,
     {required TextEditingController controller,

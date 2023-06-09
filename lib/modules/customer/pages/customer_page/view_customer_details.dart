@@ -149,7 +149,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height *0.40,
                   child: ListView.builder(
-                    itemCount: snapshot.data!.data.length ?? 0,
+                    itemCount: snapshot.data!.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return viewCustomerJobs(context, snapshot.data!.data[index], index);
                     },

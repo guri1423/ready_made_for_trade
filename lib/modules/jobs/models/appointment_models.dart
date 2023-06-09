@@ -6,14 +6,11 @@ class AddAppointmentModel{
   AddAppointmentModel({
     required this.userId,
     required this.customerId,
-    required this.date,
-    required this.month,
-    required this.year,
-    required this.hours,
-    required this.minutes,
     required this.projectTitle,
     required this.projectDescription,
-    required this.status
+    required this.status,
+    required this.fullDate,
+    required this.fullTime
 
 
 
@@ -22,14 +19,11 @@ class AddAppointmentModel{
 
   String? userId;
   String? customerId;
-  String? date;
-  String? month;
-  String? year;
-  String? hours;
-  String? minutes;
   String? projectTitle;
   String? projectDescription;
   String? status;
+  dynamic fullDate;
+  dynamic fullTime;
 
 
 
@@ -38,11 +32,8 @@ class AddAppointmentModel{
 
     "user_id": userId,
     "customer_id": customerId,
-    "date": date,
-    "month": month,
-    "year": year,
-    "hours": hours,
-    "minutes": minutes,
+    "full_time": fullTime,
+    "full_date": fullDate,
     "project_title": projectTitle,
     "project_description": projectDescription,
     "status": status,

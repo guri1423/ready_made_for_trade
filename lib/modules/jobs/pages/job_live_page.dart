@@ -17,8 +17,9 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 class JobLivePage extends StatefulWidget {
   int? customerId;
   int? jobId;
+  int? projectId;
 
-  JobLivePage({Key? key, required this.customerId, required this.jobId, }) : super(key: key);
+  JobLivePage({Key? key, required this.customerId, required this.jobId, this.projectId }) : super(key: key);
 
 
 
@@ -167,7 +168,7 @@ class _JobLivePageState extends State<JobLivePage> {
                                 ),
                               ],
                             ),
-                            Text('Show Costs on quote',
+                            const Text('Show Costs on quote',
                                 style: TextStyle(
                                     fontSize: 10,
                                     fontFamily: 'Dongle',

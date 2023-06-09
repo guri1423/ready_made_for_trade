@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/account/view/add_reminders_page.dart';
-import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
-import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
-import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 
 Widget viewJobQuote(context, {JobData? model}) {
+  bool? value = true;
   TextStyle style = Theme.of(context).textTheme.titleSmall!.copyWith();
   return Container(
     decoration: BoxDecoration(
@@ -85,7 +83,7 @@ Widget viewJobQuote(context, {JobData? model}) {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children:  const [
               Text(
                 'Show Costs on quote',
                 style: TextStyle(
@@ -94,7 +92,7 @@ Widget viewJobQuote(context, {JobData? model}) {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              Checkbox(value: true, onChanged: (val) {})
+
             ],
           ),
         ],

@@ -158,39 +158,44 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: GridView.builder(
+                          child: GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
                               itemCount: state.model!.data.length,
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10.0,
                                 crossAxisSpacing: 10.0,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                final reversedIndex = state.model!.data.length - 1 - index;
-
                                 return GestureDetector(
-                                  onTap: (){
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Dialog(
-                                          child: Image.network(
-                                            '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
-                                          ),
-                                        );
-                                      },
-                                    );
+                                  onTap: () {
+                                    setState(() {
+                                      _isCheckedList[index] =
+                                      !_isCheckedList[index];
+                                      if (_isCheckedList[index]) {
+                                        _imageList!
+                                            .add(state.model!.data[index].image!);
+                                      } else {
+                                        int? indexVal = _imageList?.indexOf(
+                                            state.model!.data[index].image!);
+                                        if (indexVal != null) {
+                                          _imageList!.removeAt(indexVal);
+                                        }
+                                      }
+                                    });
                                   },
-                                  child: Image.network(
-                                    '${state.model!.data[reversedIndex].filePath}/${state.model!.data[reversedIndex].image}',
-                                  ),
+                                  child: Stack(children: <Widget>[
+                                    Image.network(
+                                        '${state.model!.data[index].filePath}/${state.model!.data[index].image}'),
+                                    Checkbox(
+                                      value: _isCheckedList[index],
+                                      onChanged: (bool? value) {},
+                                    ),
+                                  ]),
                                 );
-                              },
-                            ),
-                          ),
+                              }),
                         ),
                         GestureDetector(
                           onTap: () async {

@@ -102,9 +102,9 @@ class _AddReceiptsState extends State<AddReceipts> {
                       image: FileImage(widget.image!)
                   ),
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: Color(0xffdbdbdb),
+                  border: Border.all(color: const Color(0xffdbdbdb),
                     width: 1.50,),
-                  color: Color(0xfff6f6f6),
+                  color: const Color(0xfff6f6f6),
                 ),
               ),
 
@@ -133,7 +133,7 @@ class _AddReceiptsState extends State<AddReceipts> {
                             ),
                             color: CustomColors.white),
                         itemPadding:
-                        EdgeInsets.symmetric(horizontal: 5),
+                        const EdgeInsets.symmetric(horizontal: 5),
                         itemHeight:
                         MediaQuery.of(context).size.height *
                             0.056,
@@ -319,7 +319,7 @@ class _AddReceiptsState extends State<AddReceipts> {
     request.fields["user_id"] = userId!;
     request.fields["job"] = jobValue!;
     request.fields["category"] = categoryValue!;
-    request.fields["amount"] = _amount.text;
+    request.fields["amount"] = extractNumericValue(_amount.text);
     request.fields["date"] = BlocProvider.of<PickupDateCubit>(context).getPickupDate();
 
     final file = await http.MultipartFile.fromPath('image', widget.image!.path);
@@ -334,7 +334,7 @@ class _AddReceiptsState extends State<AddReceipts> {
       response.stream.transform(utf8.decoder).listen((value) async {
         debugPrint(value);
 
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(
           'Your response has been added successfully',
@@ -354,7 +354,7 @@ class _AddReceiptsState extends State<AddReceipts> {
       });
     }).catchError((e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(
           'Try again',

@@ -4,6 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/trades/search_cubit/search_trades_cubit.dart';
 
+
+String extractNumericValue(String value) {
+  // Remove any commas and pound signs from the value
+  String numericValue = value.replaceAll(',', '').replaceAll('£', '');
+  return numericValue;
+}
+
 Widget extraLongButton(context, String title,
     {bool isShowIcon = false, Color color = CustomColors.primeColour}) {
   return SizedBox(

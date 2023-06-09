@@ -3,6 +3,7 @@ import 'package:ready_made_4_trade/modules/home/pages/icon_models/jobs_model.dar
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/create_quote.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/job_date_time_start.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/job_live_page.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/quote_sent.dart';
@@ -149,5 +150,56 @@ void navigateUserBasedOnStatus({
                     projectId: projectId,
                   )));
       break;
+    case 'Deposit Requested':
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmJob(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+                projectId: projectId,
+              )));
+      break;
+    case 'Final Invoice Paid':
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => InvoicePaid(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+                projectId: projectId,
+              )));
+      break;
+    case 'Live Job':
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => JobLivePage(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+                projectId: projectId,
+              )));
+      break;
+    case 'Send Final Invoice':
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => InvoicePaid(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+                projectId: projectId,
+              )));
+      break;
+    case 'Job Complete':
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => InvoicePaid(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+                projectId: projectId,
+              )));
+      break;
+
   }
 }

@@ -37,6 +37,7 @@ class _QuoteSentState extends State<QuoteSent> {
 
   String? vatValue;
 
+
   String changeValue(String value) {
     debugPrint(value);
     debugPrint('vat val');
@@ -391,8 +392,8 @@ class _QuoteSentState extends State<QuoteSent> {
                                       await _remoteApi.addQuote(AddQuoteModel(
                                           userId: int.parse(userId!),
                                           customerId: widget.customerId,
-                                          materialCost: _materialCost.text,
-                                          labourCost: _labourCost.text,
+                                          materialCost: extractNumericValue(_materialCost.text),
+                                          labourCost: extractNumericValue(_labourCost.text),
                                           vat: int.parse(
                                               snapshot.data!.data.isVat!),
                                           projectId: widget.projectId,

@@ -18,7 +18,8 @@ import 'job_live_page.dart';
 class ConfirmJob extends StatefulWidget {
   int? jobId;
   int? customerId;
-   ConfirmJob({Key? key, required this.jobId, required this.customerId}) : super(key: key);
+  int? projectId;
+   ConfirmJob({Key? key, required this.jobId, required this.customerId, this.projectId}) : super(key: key);
 
   @override
   State<ConfirmJob> createState() => _ConfirmJobState();

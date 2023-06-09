@@ -39,6 +39,7 @@ class _CreateQuoteState extends State<CreateQuote> {
 
   String? vatValue;
 
+
   int changeValue(String value) {
     if (value == 'YES')
       return 1;
@@ -116,7 +117,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                             },
                             child: const Icon(
                               Icons.close_outlined,
-                              size: 30,
+                              size: 26,
                               color: CustomColors.primeColour,
                             ),
                           ),
@@ -203,8 +204,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                           borderRadius:
                                               BorderRadius.circular(4),
                                           border: Border.all(
-                                            color: CustomColors.textFldBorder,
-                                            width: 1,
+                                            color: CustomColors.textFieldBorderColor,
                                           ),
                                           color: CustomColors.white),
                                       itemPadding:
@@ -317,8 +317,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         userId: int.parse(userId!),
                                         customerId:
                                             int.parse(widget.customerId!),
-                                        materialCost: _materialCost.text,
-                                        labourCost: _labourCost.text,
+                                        materialCost: extractNumericValue(_materialCost.text),
+                                        labourCost: extractNumericValue(_labourCost.text),
                                         vat: changeValue(vatValue!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,
