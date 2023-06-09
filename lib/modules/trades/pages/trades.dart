@@ -39,14 +39,14 @@ class _TradesPageState extends State<TradesPage> {
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
-        toolbarHeight: 200 * oneLogicalPixelInPhysicalPixels,
+        toolbarHeight: 55,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 8 * oneLogicalPixelInPhysicalPixels,
+              width: 8,
             ),
             SizedBox(
               width: 160,
