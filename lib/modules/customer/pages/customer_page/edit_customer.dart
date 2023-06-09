@@ -25,6 +25,8 @@ class EditCustomerPage extends StatefulWidget {
 }
 
 class _EditCustomerPageState extends State<EditCustomerPage> {
+  bool phoneValidationError = false;
+  bool emailValidationError = false;
 
   bool isFormError = false;
 
@@ -203,30 +205,52 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                    height: 62,
+                    height: phoneValidationError ? 62 : 40,
                     width: MediaQuery.of(context).size.width,
-                    child: customTextFieldAddCustomer(
-                        context,
+                    child: customTextFieldAddCustomer(context,
                         controller: _mobileNo,
-                        hintText: 'Mobile No',
-                        validator: (value) => mobilNumberValidator(value))),
+                        hintText: 'Mobile No', validator: (value) {
+                          String? error = mobilNumberValidator(value);
+                          if (error != null) {
+                            setState(() {
+                              phoneValidationError = true;
+                            });
+                          } else {
+                            setState(() {
+                              phoneValidationError = false;
+                            });
+                          }
+                          return error;
+                        })),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-                    height: 62,
+                    height: emailValidationError ? 62 : 40,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(
                       context,
                       controller: _email,
                       hintText: 'Email',
-                      validator: (value) => validateEmail(value!),
+                      validator: (value) {
+                        String? error = validateEmail(value!);
+                        if (error != null) {
+                          setState(() {
+                            emailValidationError = true;
+                          });
+                        } else {
+                          setState(() {
+                            emailValidationError = false;
+                          });
+                        }
+                        return error;
+                      },
                     )),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width *0.50,
+                  width: MediaQuery.of(context).size.width *0.70,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -268,7 +292,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                         hint: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Text(
-                            'CIS or General',
+                            'CIS Customer or Private Customer',
                             style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
                           ),
                         ),
