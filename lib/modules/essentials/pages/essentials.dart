@@ -159,7 +159,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
                                 crossAxisCount: 3,
-                                mainAxisExtent: 160
+                                mainAxisExtent: 135,
                             ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
@@ -172,7 +172,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   color: CustomColors.white),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 14),
+                                padding:  EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +205,7 @@ class _EssentialsPageState extends State<EssentialsPage> {
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium!
+                                            .titleSmall!
                                             .copyWith(
                                                 color: CustomColors.primeColour,fontSize: 7),
                                         textAlign: TextAlign.center,

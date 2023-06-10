@@ -45,7 +45,12 @@ class _JobsPageState extends State<JobsPage> {
             ],
           ),
         ),
-        bottomNavigationBar: const BottomToolsForInsidePage(),
+        bottomNavigationBar:  BottomToolsForInsidePage(
+            onBackPress: (){
+              Navigator.pop(context);
+              /*BlocProvider.of<SearchTradesCubit>(context).getTrades();*/
+            }
+        ),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           child: SingleChildScrollView(

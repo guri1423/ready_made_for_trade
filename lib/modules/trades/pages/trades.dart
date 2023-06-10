@@ -66,8 +66,8 @@ class _TradesPageState extends State<TradesPage> {
       ),
       bottomNavigationBar: BottomToolsForInsidePage(
         onBackPress: (){
-
-          BlocProvider.of<SearchTradesCubit>(context).getTrades();
+          Navigator.pop(context);
+          /*BlocProvider.of<SearchTradesCubit>(context).getTrades();*/
         }
 
 

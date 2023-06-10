@@ -250,7 +250,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                   height: 15,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width *0.70,
+                  width: MediaQuery.of(context).size.width * 0.70,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField2(
                         decoration: const InputDecoration(
@@ -263,7 +263,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                           focusedBorder: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        buttonHeight: 49,
+                        buttonHeight: 40,
                         buttonWidth: MediaQuery.of(context).size.width,
                         buttonDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -271,19 +271,18 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                               color: CustomColors.textFldBorder,
                               width: 1,
                             ),
-                            color: CustomColors.white
-                        ),
+                            color: CustomColors.white),
                         itemPadding: EdgeInsets.symmetric(horizontal: 15),
                         itemHeight: MediaQuery.of(context).size.height * 0.056,
-                        icon: Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                        icon: const Padding(
+                          padding: EdgeInsets.only(right: 10),
                           child: Icon(
                             Icons.arrow_drop_down,
                             color: CustomColors.primeColour,
                           ),
                         ),
-                        iconOnClick: Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                        iconOnClick: const Padding(
+                          padding: EdgeInsets.only(right: 10),
                           child: Icon(
                             Icons.arrow_drop_up,
                             color: CustomColors.primeColour,
@@ -293,7 +292,11 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Text(
                             'CIS Customer or Private Customer',
-                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                color: CustomColors.textFieldTextColour),
                           ),
                         ),
                         value: customerTypeValue,
@@ -306,12 +309,14 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                             .map((item) => DropdownMenuItem(
                             value: item,
                             child: Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15),
                               child: Text(
                                 item,
-                                style:
-                                TextStyle(color: CustomColors.blackText),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: CustomColors.black),
                               ),
                             )))
                             .toList(),
