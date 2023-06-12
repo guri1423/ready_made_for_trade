@@ -9,6 +9,7 @@ import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/search_trades_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../pages/icon_models/customer_model.dart';
 import '../pages/icon_models/jobs_model.dart';
@@ -134,7 +135,10 @@ Future<void> deleteJobs(
         fontSize: 16.0);
   }
 }
-
+void makePhoneCall(String phoneNumber) async {
+  final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+  await launch(telUri.toString());
+}
 Widget customerSearchResult(context, List<DatumCustomer>? data, int index) {
   RemoteApi _api = RemoteApi();
   ThemeData theme = Theme.of(context);
@@ -401,19 +405,29 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 100,
-              width: 100,
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: CustomColors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Image.asset(
-                        'assets/images/updated_images/Materials 1.png'),
-                  )),
+            GestureDetector(
+              onTap: (){
+                makePhoneCall(data[index].mobileNumber!);
+   /*             makePhoneCall(widget.tradeData.mobileNumber!);*/
+              },
+              child: SizedBox(
+                height: 100,
+                width: 100,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: CustomColors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: GestureDetector(
+                        child: Image.asset(
+                            'assets/images/small_icons/005-phone-call.png',
+                          color: Colors.black,
+                        ),
+                      ),
+                    )),
+              ),
             ),
             const SizedBox(
               width: 30,

@@ -415,7 +415,7 @@ Widget customTextFieldForm(BuildContext context,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
-        .copyWith(color: CustomColors.black),
+        .copyWith(color: CustomColors.primeColour),
     onChanged: (value) {
       if (hintText == 'Amount' ||
           hintText.contains('Cost') ||
@@ -490,7 +490,7 @@ Widget customTextFieldAddCustomer(context,
     style: Theme.of(context)
         .textTheme
         .titleSmall!
-        .copyWith(color: CustomColors.black),
+        .copyWith(color: CustomColors.primeColour),
     keyboardType: hintText.contains('Mobile No') || hintText.contains('Amount')
         ? TextInputType.phone
         : TextInputType.emailAddress,

@@ -35,6 +35,7 @@ class Datum {
   String? videoLink;
   String? description;
   String? position;
+  String? url;
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -45,6 +46,7 @@ class Datum {
     this.videoLink,
     this.description,
     this.position,
+    this.url,
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -56,6 +58,7 @@ class Datum {
     videoLink: json["video_link"],
     description: json["description"],
     position: json["position"],
+    url: json["url"],
     status: json["status"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),

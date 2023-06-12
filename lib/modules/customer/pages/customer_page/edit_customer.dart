@@ -246,8 +246,8 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                         return error;
                       },
                     )),
-                const SizedBox(
-                  height: 15,
+               SizedBox(
+                  height: 10,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.70,
@@ -268,7 +268,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                         buttonDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
-                              color: CustomColors.textFldBorder,
+                              color: CustomColors.textFieldTextColour,
                               width: 1,
                             ),
                             color: CustomColors.white),

@@ -61,7 +61,9 @@ class _TradeDetailsState extends State<TradeDetails> {
                       onTap: (){
                         makePhoneCall(widget.tradeData.mobileNumber!);
                       },
-                      child: customisedButton(context, 'CALL', CustomColors.blueButton, 'assets/images/small_icons/005-phone-call.png'))),
+                      child: customisedButton(context,
+                          'CALL', CustomColors.blueButton,
+                          'assets/images/small_icons/005-phone-call.png'))),
 
                   SizedBox(width: 20,),
 

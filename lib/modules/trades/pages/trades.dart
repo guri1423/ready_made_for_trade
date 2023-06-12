@@ -202,8 +202,7 @@ class _TradesPageState extends State<TradesPage> {
                                             tradeData:
                                                 state.model!.data[index])));
                               },
-                              child:
-                                  tradePage(context, state.model!.data, index));
+                              child: tradePage(context, state.model!.data, index));
                         },
                       ),
                     ),

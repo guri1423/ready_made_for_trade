@@ -4,7 +4,7 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/model/finance_insurnace_model.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-Widget viewFinanceAndInsurance(context, List<FinanceAndInsuranceData> data) {
+Widget viewFinanceAndInsurance(context, List<Datum> data) {
   ThemeData theme = Theme.of(context);
   return Expanded(
     child: ListView.builder(
@@ -14,7 +14,6 @@ Widget viewFinanceAndInsurance(context, List<FinanceAndInsuranceData> data) {
           onTap: () {
             launchUrlString(data[index].link,
                 mode: LaunchMode.externalApplication);
-
           },
           child: Padding(
             padding: const EdgeInsets.only(bottom: 15),
@@ -40,16 +39,42 @@ Widget viewFinanceAndInsurance(context, List<FinanceAndInsuranceData> data) {
                                 color: CustomColors.white,
                               ),
                               child: Image.network(
-                                  '${data[index].filePath}/${data[index].image}')),
+                                  '${data[index].filePath}/${data[index].image}'),
+                          ),
                         ),
-                        Padding(
+                       /* Padding(
                           padding: const EdgeInsets.only(top: 40, left: 20),
                           child: Text(data[index].category,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
                                   .copyWith(
-                                      color: CustomColors.primeColour)),
+                                      color: CustomColors.primeColour),
+                          ),
+                        ),*/
+                        Column(
+                          children: [
+                             Padding(
+                              padding: const EdgeInsets.only(top: 40, left: 20),
+                              child: Text(data[index].category,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                      color: CustomColors.primeColour),
+                          ),
+                        ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 8, left: 20),
+                              child: Text(data[index].categoryTwo,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                    color: CustomColors.primeColour,fontSize: 10),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

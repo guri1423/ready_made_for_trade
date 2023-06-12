@@ -120,6 +120,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
                                                         .data[index]
                                                         .description ??
                                                     "",
+                                            url: state.model!.data[index].url ?? '',
                                               )));
                                   setState(() {
                                     _isCheckedList[
