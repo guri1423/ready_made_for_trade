@@ -11,6 +11,7 @@ import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
 import 'package:ready_made_4_trade/modules/essentials/pages/essentials.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/pages/fAndI.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/gallery.dart';
+import 'package:ready_made_4_trade/modules/home/model/home_image_model.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home_image_page.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/jobs.dart';
 import 'package:ready_made_4_trade/modules/receipts/pages/receipts.dart';
@@ -18,6 +19,7 @@ import 'package:ready_made_4_trade/modules/material/pages/material.dart';
 import 'package:ready_made_4_trade/modules/trades/pages/trades.dart';
 import 'package:ready_made_4_trade/modules/trainings/pages/trainings.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/home_widgets.dart';
+import 'package:ready_made_4_trade/modules/youtube/pages/video_player.dart';
 import '../../../services/remote_api.dart';
 import '../../../services/storage.dart';
 import 'package:http/http.dart' as http;
@@ -30,6 +32,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  HomeImage? model;
   File? _image1;
   final RemoteApi apiServices = RemoteApi();
   final StorageServices _servicesStorage = StorageServices();
@@ -50,7 +53,6 @@ class _HomePageState extends State<HomePage> {
     _scrollController = ScrollController();
     setState(() {}); // Trigger a rebuild to attach the ScrollController
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,14 +139,33 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model!.data.currentMonth.toString(),
+                                            state.model!.data.currentMonth!,
+                                            /* getMonthFromDate(state.model!.data.businessTradingDate.toString()),*/
                                             style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                           ),
-                                          sizedBox,
+                                          /*   sizedBox,
                                           Text(
-                                            '£ ${state.model!.data.currentMonthPrice.toString()}',
-                                            style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                            state.model!.data.currentMonthPrice.toString(),
+                                             getMonthFromDate(state.model!.data.businessTradingDate.toString()),
+                                            style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                          ),*/
+                                          sizedBox,
+                                          Row(
+                                            children: [
+                                              Text('£', style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                state.model!.data.currentMonthPrice.toString(),
+                                                /* getMonthFromDate(state.model!.data.businessTradingDate.toString()),*/
+                                                style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                              ),
+                                            ],
                                           ),
+                                          /*Text(
+                                            '£ 16,543',
+                                            style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                          ),*/
                                         ],
                                       ),
                                     ),
@@ -196,7 +217,6 @@ class _HomePageState extends State<HomePage> {
                                                 width: 120,
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                    color: CustomColors.blueButton,
                                                     border: Border.all(
                                                       color: CustomColors.greyButton,
                                                       width: 1.0,
@@ -208,13 +228,16 @@ class _HomePageState extends State<HomePage> {
                                                     children: [
                                                       Text(
                                                         item.noCount!,
-                                                        style: Theme.of(context).textTheme.titleLarge
+                                                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                                                          color: CustomColors.primeColour,
+                                                        ),
                                                       ),
                                                       Text(
                                                         item.title!,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleSmall!
+                                                            .copyWith(color: CustomColors.primeColour),
                                                       ),
                                                     ],
                                                   ),
@@ -452,9 +475,9 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 iconNames[index],
                                 style: const TextStyle(
-                                    color: CustomColors.primeColour,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,),
+                                  color: CustomColors.primeColour,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,),
                               )
                             ],
                           ),
@@ -464,7 +487,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-               HomePageImages(),
+                HomePageImages(),
               ],
             ),
           ),

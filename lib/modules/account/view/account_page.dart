@@ -22,6 +22,9 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(
       backgroundColor: CustomColors.bodyColor,
       appBar: AppBar(
@@ -31,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             SizedBox(
+            SizedBox(
               width: 8,
             ),
             SizedBox(

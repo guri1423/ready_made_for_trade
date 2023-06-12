@@ -163,7 +163,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 292 * oneLogicalPixelInPhysicalPixels),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: textField(context, _username, 'Email', 390, 50),
+                  child: textField(context, _username, 'Email Address', 390, 50),
                 ),
                 SizedBox(
                   height: 59 * oneLogicalPixelInPhysicalPixels,
@@ -238,7 +238,7 @@ class _LoginState extends State<Login> {
                         color: Color.fromRGBO(39, 69, 89, 1),
                       ),
                     ),
-                    SizedBox(width: 85),
+                    SizedBox(width: 150),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

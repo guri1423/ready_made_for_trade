@@ -176,7 +176,7 @@ class _TradesPageState extends State<TradesPage> {
                             child: Text(
                               item.toString(),
                               style:
-                              TextStyle(color: CustomColors.blackText),
+                              Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.primeColour),
                             ),
                           )))
                           .toList(),
@@ -300,8 +300,8 @@ class _TradesPageState extends State<TradesPage> {
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: Text(
                                 'Trade',
-                                style: theme.textTheme.titleMedium!.copyWith(
-                                    color: CustomColors.textFieldTextColour),
+                                style: theme.textTheme.titleSmall!.copyWith(
+                                    color: CustomColors.primeColour),
                               ),
                             ),
                             items: [],
@@ -412,7 +412,7 @@ class _TradesPageState extends State<TradesPage> {
                             child: Text(
                               item.toString(),
                               style:
-                              TextStyle(color: CustomColors.blackText),
+                              Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
                             ),
                           )))
                           .toList(),
@@ -552,7 +552,7 @@ class _TradesPageState extends State<TradesPage> {
                             child: Text(
                               item.toString(),
                               style:
-                              TextStyle(color: CustomColors.blackText),
+                              Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
                             ),
                           )))
                           .toList(),

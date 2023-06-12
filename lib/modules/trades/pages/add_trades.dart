@@ -164,7 +164,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                       buttonDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                            color: CustomColors.textFldBorder,
+                            color: CustomColors.textFieldBorderColor,
                             width: 1,
                           ),
                           color: CustomColors.white
@@ -189,7 +189,8 @@ class _AddTradesPageState extends State<AddTradesPage> {
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           'Trades',
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
+                          style: Theme.of(context).
+                          textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
                         ),
                       ),
                       value: tradesValue,
@@ -202,7 +203,7 @@ class _AddTradesPageState extends State<AddTradesPage> {
                           .map((item) => DropdownMenuItem(
                           value: item,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            padding: EdgeInsets.symmetric(horizontal: 5),
                             child: Text(
                               item.toString(),
                               style:
@@ -219,15 +220,17 @@ class _AddTradesPageState extends State<AddTradesPage> {
                   height: 8,
                 ),
                 SizedBox(
-                    height: 62,
+                    height: 40,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(context,
                         controller: _mobileNo,
                         hintText: 'Mobile No',
                         validator: (value) => mobilNumberValidator(value))),
-
+                 SizedBox(
+                  height: 13,
+                ),
                 SizedBox(
-                    height: 62,
+                    height: 40,
                     width: MediaQuery.of(context).size.width,
                     child: customTextFieldAddCustomer(
                       context,
