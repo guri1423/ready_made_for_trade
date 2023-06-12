@@ -70,9 +70,6 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 8,
-            ),
-            SizedBox(
               width: 130,
               height: 60,
               child: Image.asset(

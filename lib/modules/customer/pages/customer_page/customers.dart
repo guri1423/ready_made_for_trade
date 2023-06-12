@@ -30,7 +30,6 @@ class _CustomersPageState extends State<CustomersPage> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-
     final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     final double oneLogicalPixelInPhysicalPixels = 1 / devicePixelRatio;
     return Scaffold(

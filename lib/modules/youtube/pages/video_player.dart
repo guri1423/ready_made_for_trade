@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -69,6 +70,18 @@ class _VideoPageState extends State<VideoPage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomToolsForInsidePage(
+          onBackPress: (){
+            Navigator.pop(context);
+            /*BlocProvider.of<SearchTradesCubit>(context).getTrades();*/
+          }
+        // _searchTrades.text.isNotEmpty
+        //     ? () {
+        //         _searchTrades.clear();
+        //
+        //       }
+        //     : null,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
