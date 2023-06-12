@@ -5,7 +5,8 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 
 class CustomTimePicker extends StatefulWidget {
-  const CustomTimePicker({Key? key}) : super(key: key);
+  const CustomTimePicker({Key? key, this.isMandate = true}) : super(key: key);
+  final bool isMandate;
 
   @override
   _CustomTimePickerState createState() => _CustomTimePickerState();
@@ -24,56 +25,64 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        TimeOfDay? pickedTime = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now(),
-        );
-        if (pickedTime != null) {
-          String formattedTime =
-          DateFormat.Hm().format(DateTime.now().toLocal().add(Duration(hours: pickedTime.hour, minutes: pickedTime.minute)));
-          BlocProvider.of<PickupTimeCubit>(context).setPickupTime(formattedTime);
-          setState(() {
-            userPickTime = formattedTime;
-            debugPrint('bloc called');
-            BlocProvider.of<DairyCubit>(context).getDiaryFilterData('', formattedTime);
-          });
-        }
-      },
-      child: Container(
-        height: 52,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(color: CustomColors.textFieldBorderColor, width: 1),
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              userPickTime ?? 'Select Time',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: userPickTime != null ? CustomColors.black : CustomColors.textFieldTextColour,
+        onTap: () async {
+          TimeOfDay? pickedTime = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          if (pickedTime != null) {
+            String formattedTime = DateFormat.Hm().format(DateTime.now()
+                .toLocal()
+                .add(Duration(
+                    hours: pickedTime.hour, minutes: pickedTime.minute)));
+            BlocProvider.of<PickupTimeCubit>(context)
+                .setPickupTime(formattedTime);
+            setState(() {
+              userPickTime = formattedTime;
+              debugPrint('bloc called');
+              BlocProvider.of<DairyCubit>(context)
+                  .getDiaryFilterData('', formattedTime);
+            });
+          }
+        },
+        child: Container(
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+            border:
+                Border.all(color: CustomColors.textFieldBorderColor, width: 1),
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                userPickTime ?? 'Select Time',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: userPickTime != null
+                          ? CustomColors.black
+                          : CustomColors.textFieldTextColour,
+                    ),
               ),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '*',
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  color: Colors.red,
+              Spacer(),
+              Visibility(
+                visible: widget.isMandate,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '*',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      )
-
-    );
+            ],
+          ),
+        ));
   }
 }
 

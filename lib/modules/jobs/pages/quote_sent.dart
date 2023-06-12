@@ -37,7 +37,6 @@ class _QuoteSentState extends State<QuoteSent> {
 
   String? vatValue;
 
-
   String changeValue(String value) {
     debugPrint(value);
     debugPrint('vat val');
@@ -279,23 +278,10 @@ class _QuoteSentState extends State<QuoteSent> {
                           const SizedBox(
                             width: 20,
                           ),
-                          if (snapshot.data!.data.vat == 'YES')
-                            Expanded(
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                    child: Text(
-                                  'Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(
-                                          color: CustomColors.primeColour),
-                                )),
-                              ),
-                            )
-                          else
-                            Expanded(
+                          Visibility(
+                            visible: changeValue(snapshot.data!.data.isVat!)
+                                .contains('YES'),
+                            replacement: Expanded(
                               child: SizedBox(
                                 height: 40,
                                 child: Center(
@@ -308,7 +294,22 @@ class _QuoteSentState extends State<QuoteSent> {
                                           color: CustomColors.primeColour),
                                 )),
                               ),
-                            )
+                            ),
+                            child: Expanded(
+                              child: SizedBox(
+                                height: 40,
+                                child: Center(
+                                    child: Text(
+                                  'Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          color: CustomColors.primeColour),
+                                )),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -392,8 +393,10 @@ class _QuoteSentState extends State<QuoteSent> {
                                       await _remoteApi.addQuote(AddQuoteModel(
                                           userId: int.parse(userId!),
                                           customerId: widget.customerId,
-                                          materialCost: extractNumericValue(_materialCost.text),
-                                          labourCost: extractNumericValue(_labourCost.text),
+                                          materialCost: extractNumericValue(
+                                              _materialCost.text),
+                                          labourCost: extractNumericValue(
+                                              _labourCost.text),
                                           vat: int.parse(
                                               snapshot.data!.data.isVat!),
                                           projectId: widget.projectId,

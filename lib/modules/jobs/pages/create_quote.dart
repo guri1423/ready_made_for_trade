@@ -117,7 +117,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                             },
                             child: const Icon(
                               Icons.close_outlined,
-                              size: 26,
+                              size: 22,
                               color: CustomColors.primeColour,
                             ),
                           ),

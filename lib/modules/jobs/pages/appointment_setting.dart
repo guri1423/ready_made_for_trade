@@ -60,7 +60,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-           SizedBox(
+              SizedBox(
                 width: 8,
               ),
               SizedBox(
@@ -92,9 +92,11 @@ class _AddJobsPageState extends State<AddJobsPage> {
                   customerId: widget.customerId,
                   projectTitle: _projectTitle.text,
                   projectDescription: _projectDetails.text,
-                  status: 'Appointment Set', fullDate: BlocProvider.of<PickupDateCubit>(context).getPickupDate(),
-                      fullTime: BlocProvider.of<PickupTimeCubit>(context).getPickupTime(),
-
+                  status: 'Appointment Set',
+                  fullDate:
+                      BlocProvider.of<PickupDateCubit>(context).getPickupDate(),
+                  fullTime:
+                      BlocProvider.of<PickupTimeCubit>(context).getPickupTime(),
                 ));
 
                 if (model != null) {
@@ -175,10 +177,18 @@ class _AddJobsPageState extends State<AddJobsPage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:  const [
-                  Expanded(child: CustomDatePicker()),
-                  SizedBox(width: 10,),
-                  Expanded(child: CustomTimePicker())
+                children: const [
+                  Expanded(
+                      child: CustomDatePicker(
+                    isMandate: false,
+                  )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: CustomTimePicker(
+                    isMandate: false,
+                  ))
                 ],
               ),
               const SizedBox(
