@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                            state.model!.data.fullName!,
+                                            state.model?.data?.fullName ?? '',
                                             softWrap: true,
                                             style: theme.textTheme.titleLarge!.copyWith(
                                               color: CustomColors.primeColour,
@@ -132,40 +132,31 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model!.data.businessName!,
+                                            state.model?.data?.businessName ?? '',
                                             style: theme.textTheme.titleMedium!.copyWith(
                                               color: CustomColors.primeColour,
                                             ),
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model!.data.currentMonth!,
-                                            /* getMonthFromDate(state.model!.data.businessTradingDate.toString()),*/
+                                            state.model?.data?.currentMonth ?? '',
                                             style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                           ),
-                                          /*   sizedBox,
-                                          Text(
-                                            state.model!.data.currentMonthPrice.toString(),
-                                             getMonthFromDate(state.model!.data.businessTradingDate.toString()),
-                                            style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
-                                          ),*/
                                           sizedBox,
-                                          Row(
-                                            children: [
-                                              Text('£', style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                state.model!.data.currentMonthPrice.toString(),
-                                                /* getMonthFromDate(state.model!.data.businessTradingDate.toString()),*/
-                                                style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
-                                              ),
-                                            ],
-                                          ),
-                                          /*Text(
-                                            '£ 16,543',
-                                            style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
-                                          ),*/
+                                          if (state.model?.data?.currentMonthPrice != null)
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '£',
+                                                  style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  state.model!.data!.currentMonthPrice.toString(),
+                                                  style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                                ),
+                                              ],
+                                            ),
                                         ],
                                       ),
                                     ),
@@ -173,10 +164,12 @@ class _HomePageState extends State<HomePage> {
                                       height: 80,
                                       width: 140,
                                       child: Container(
-                                        child: Image.network(
-                                          '${state.model!.data.filePath}/${state.model!.data.logo}',
+                                        child: state.model?.data?.logo != null
+                                            ? Image.network(
+                                          '${state.model!.data!.filePath}/${state.model!.data!.logo}',
                                           fit: BoxFit.fill,
-                                        ),
+                                        )
+                                            : SizedBox(), // Show an empty SizedBox if logo is null
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                         ),
@@ -184,6 +177,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
+
                                 SizedBox(
                                   height: 15,
                                 ),

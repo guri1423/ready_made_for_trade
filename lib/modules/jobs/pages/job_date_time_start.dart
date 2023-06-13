@@ -113,7 +113,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                             jobEndDate: endDateValue.toString(),
                             jobEndMonth: endMonthValue.toString(),
                             jobEndYear: _yearEnd.text,
-                            depositAmount: _amount.text,
+                            depositAmount: extractNumericValue(_amount.text),
                             jobStartHours: hoursValue.toString(),
                             jobStartMinutes: minutesValue.toString(),
                             jobEndHours: endHoursValue.toString(),

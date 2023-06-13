@@ -438,7 +438,7 @@ Widget customTextFieldForm(BuildContext context,
       }
     },
     decoration: InputDecoration(
-      hintText: hintText.contains('Cost') ? '£  $hintText' : hintText,
+      hintText: hintText.contains('Cost') || hintText.contains('Amount')? '£  $hintText' : hintText,
       contentPadding: hintText.contains('Project Details')
           ? const EdgeInsets.only(top: 20, left: 10)
           : isBig

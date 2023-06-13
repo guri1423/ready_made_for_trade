@@ -4,6 +4,7 @@ import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/appointment_setting.dart';
+import 'package:ready_made_4_trade/modules/jobs/pages/reminder_setup.dart';
 import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -78,7 +79,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                               CustomColors.blueButton,
                               'assets/images/small_icons/005-phone-call.png'))),
                   SizedBox(
-                    width: 16,
+                    width: 10,
                   ),
                   Expanded(
                       child: GestureDetector(
@@ -107,14 +108,19 @@ class _ViewDetailsState extends State<ViewDetails> {
                           CustomColors.blueButton,
                           'assets/images/small_icons/031-whatsapp.png')),
                   SizedBox(
-                    width: 16,
+                    width: 10,
                   ),
                   Expanded(
-                      child: customisedButton(
-                          context,
-                          'REMINDER',
-                          CustomColors.blueButton,
-                          'assets/images/small_icons/004-appointment.png')),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderSetup(jobId: 11, customerId: widget.data.id, projectId: 11)));
+                        },
+                        child: customisedButton(
+                            context,
+                            'REMINDER',
+                            CustomColors.blueButton,
+                            'assets/images/small_icons/004-appointment.png'),
+                      )),
                 ],
               ),
               GestureDetector(

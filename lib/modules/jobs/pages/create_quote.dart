@@ -96,8 +96,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                   child: Column(
                     children: [
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
+                        children: [
                           Expanded(
                             child: Text(
                               'JOB #${snapshot.data!.data.quoteId!} - QUOTE NEEDED',
@@ -117,7 +116,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                             },
                             child: const Icon(
                               Icons.close_outlined,
-                              size: 22,
+                              size: 30,
                               color: CustomColors.primeColour,
                             ),
                           ),
@@ -383,8 +382,8 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         userId: int.parse(userId!),
                                         customerId:
                                             int.parse(widget.customerId!),
-                                        materialCost: _materialCost.text,
-                                        labourCost: _labourCost.text,
+                                        materialCost: extractNumericValue(_materialCost.text),
+                                        labourCost: extractNumericValue(_labourCost.text),
                                         vat: changeValue(vatValue!),
                                         projectId: widget.projectId,
                                         projectTitle: _projectTitle.text,

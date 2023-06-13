@@ -44,7 +44,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             SizedBox(
