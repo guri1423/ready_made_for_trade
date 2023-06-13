@@ -385,7 +385,7 @@ class _ReminderSetupState extends State<ReminderSetup> {
                             width: 60,
                             child: customTextFieldForm(
                                 context,
-                                controller: _year, hintText: ' YY')),
+                                controller: _year, hintText: 'YYYY')),
                         const SizedBox(
                           width: 5,
                         ),

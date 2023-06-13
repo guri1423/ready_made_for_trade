@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
+import 'package:ready_made_4_trade/modules/customer/pages/customer_page/reminder_customer.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
@@ -113,7 +114,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                   Expanded(
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderSetup(jobId: 11, customerId: widget.data.id, projectId: 11)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderCustomer()));
                         },
                         child: customisedButton(
                             context,
