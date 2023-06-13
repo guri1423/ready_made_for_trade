@@ -279,34 +279,36 @@ class _QuoteSentState extends State<QuoteSent> {
                             width: 20,
                           ),
                           Visibility(
-                            visible: changeValue(snapshot.data!.data.isVat!)
-                                .contains('YES'),
+                            visible: snapshot.data?.data.isVat == '0',
                             replacement: Expanded(
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                    child: Text(
-                                  'Total: \£${snapshot.data!.data.totalPrice!}',
+                                child: SizedBox(
+                              height: 40,
+                              child: Center(
+                                child: Text(
+                                  'Total Inc Vat: £${snapshot.data?.data.totalIncVat ?? ''}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
                                       .copyWith(
-                                          color: CustomColors.primeColour),
-                                )),
+                                        color: CustomColors.primeColour,
+                                      ),
+                                ),
                               ),
-                            ),
+                            )),
                             child: Expanded(
                               child: SizedBox(
                                 height: 40,
                                 child: Center(
-                                    child: Text(
-                                  'Total Inc Vat: \£${snapshot.data!.data.totalIncVat!}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(
-                                          color: CustomColors.primeColour),
-                                )),
+                                  child: Text(
+                                    'Total: £${snapshot.data?.data.totalPrice ?? ''}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          color: CustomColors.primeColour,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           )
@@ -336,8 +338,10 @@ class _QuoteSentState extends State<QuoteSent> {
                                     await _remoteApi.addQuote(AddQuoteModel(
                                         userId: int.parse(userId!),
                                         customerId: widget.customerId,
-                                        materialCost: extractNumericValue(_materialCost.text),
-                                        labourCost: extractNumericValue(_labourCost.text),
+                                        materialCost: extractNumericValue(
+                                            _materialCost.text),
+                                        labourCost: extractNumericValue(
+                                            _labourCost.text),
                                         vat: int.parse(
                                             snapshot.data!.data.isVat!),
                                         projectId: widget.projectId,
