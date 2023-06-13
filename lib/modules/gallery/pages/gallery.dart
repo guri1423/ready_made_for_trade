@@ -68,8 +68,9 @@ class _GalleryPageState extends State<GalleryPage> {
                         itemCount: snapshot.data!.data.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          mainAxisSpacing: 20.0,
-                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 10.0,
+                          mainAxisExtent: 120
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           int reversedIndex = snapshot.data!.data.length - 1 - index;

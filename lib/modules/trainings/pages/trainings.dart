@@ -44,7 +44,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           SizedBox(
+            SizedBox(
               width: 8,
             ),
             SizedBox(
@@ -99,7 +99,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
                       }
 
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -120,7 +120,9 @@ class _TrainingsPageState extends State<TrainingsPage> {
                                                         .data[index]
                                                         .description ??
                                                     "",
-                                            url: state.model!.data[index].url ?? '',
+                                                url: state.model!.data[index]
+                                                        .url ??
+                                                    '',
                                               )));
                                   setState(() {
                                     _isCheckedList[
@@ -147,32 +149,39 @@ class _TrainingsPageState extends State<TrainingsPage> {
                             ),
                             Transform.scale(
                               scale: 2.3,
-                              child: Checkbox(
-                                checkColor: CustomColors.primeColour,
-                                activeColor: CustomColors.white,
-                                value: _isCheckedList[
-                                    state.model!.data[index].id!],
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _isCheckedList[
-                                            state.model!.data[index].id!] =
-                                        !_isCheckedList[
-                                            state.model!.data[index].id!];
-                                    map[state.model!.data[index].id!
-                                            .toString()] =
-                                        getStatus(_isCheckedList[
-                                            state.model!.data[index].id!]);
-                                    if (userId != null) {
-                                      BlocProvider.of<TrainingCubit>(context)
-                                          .storeTrainingUpdate(
-                                              status: map,
-                                              userID: userId!,
-                                              customerId: userId!);
-                                    }
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                  unselectedWidgetColor: Colors.white,
+                                ),
+                                child: Checkbox(
+                                  checkColor: CustomColors.primeColour,
+                                  activeColor: Colors.transparent,
+                                  fillColor: MaterialStateProperty.all(
+                                      CustomColors.white),
+                                  value: _isCheckedList[
+                                      state.model!.data[index].id!],
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isCheckedList[
+                                              state.model!.data[index].id!] =
+                                          !_isCheckedList[
+                                              state.model!.data[index].id!];
+                                      map[state.model!.data[index].id!
+                                              .toString()] =
+                                          getStatus(_isCheckedList[
+                                              state.model!.data[index].id!]);
+                                      if (userId != null) {
+                                        BlocProvider.of<TrainingCubit>(context)
+                                            .storeTrainingUpdate(
+                                                status: map,
+                                                userID: userId!,
+                                                customerId: userId!);
+                                      }
 
-                                    // print(_isCheckedList[index]);
-                                  });
-                                },
+                                      // print(_isCheckedList[index]);
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                           ],

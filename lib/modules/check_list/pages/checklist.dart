@@ -48,7 +48,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             SizedBox(
+            SizedBox(
               width: 8,
             ),
             SizedBox(
@@ -119,7 +119,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
             _isCheckedList[data.data[index].id!] = false;
           }
           return Padding(
-            padding: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -156,25 +156,34 @@ class _ChecklistPageState extends State<ChecklistPage> {
                 ),
                 Transform.scale(
                   scale: 2.35,
-                  child: Checkbox(
-                    checkColor: CustomColors.primeColour,
-                    activeColor: CustomColors.white,
-                    value: _isCheckedList[data.data[index].id!],
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _isCheckedList[data.data[index].id!] =
-                            !_isCheckedList[data.data[index].id!];
-                        map[data.data[index].id!.toString()] =
-                            getStatus(_isCheckedList[data.data[index].id!]);
-                        if (userId != null) {
-                          BlocProvider.of<CheckListCubit>(context)
-                              .updateCheckListStatus(
-                            status: map,
-                            userId: userId!,
-                          );
-                        }
-                      });
-                    },
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      unselectedWidgetColor: Colors.white,
+                    ),
+                    child: Checkbox(
+                      checkColor: CustomColors.primeColour,
+                      activeColor: CustomColors.white,
+                      focusColor: CustomColors.white,
+                      value: _isCheckedList[data.data[index].id!],
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isCheckedList[data.data[index].id!] =
+                              !_isCheckedList[data.data[index].id!];
+                          map[data.data[index].id!.toString()] =
+                              getStatus(_isCheckedList[data.data[index].id!]);
+                          if (userId != null) {
+                            BlocProvider.of<CheckListCubit>(context)
+                                .updateCheckListStatus(
+                              status: map,
+                              userId: userId!,
+                            );
+                          }
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.0),
+                          side: BorderSide.none),
+                    ),
                   ),
                 ),
               ],
