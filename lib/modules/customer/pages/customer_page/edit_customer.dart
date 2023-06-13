@@ -164,30 +164,25 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
                       child: SizedBox(
-                          height: 62,
+                          height: 40,
                           child: customTextFieldAddCustomer(
-                              context,
-                              controller: _postalCode,
-                              hintText: 'Postal Code',
-                              validator: (value) =>
-                                  postalCodeValidator(value))),
+                            context,
+                            controller: _postalCode,
+                            hintText: 'Postal Code',
+                          )),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 24,
                     ),
                     Expanded(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height: 40,
-                                child: longButton(
-                                    context, 'LOOK UP', CustomColors.primeColour)),
-                            SizedBox(height: 22,)
-                          ],
-                        ))
+                        child: SizedBox(
+                            height: 38,
+                            child: longButton(
+                                context, 'LOOK UP', CustomColors.primeColour)))
                   ],
                 ),
                 const SizedBox(

@@ -112,10 +112,11 @@ class _AccountPageState extends State<AccountPage> {
 
 List<String> settingList = [
   'SET UP COMPANY INFO',
-  'EDIT WEBSITE TEXT',
+  'GET A WEBSITE',
   'UPLOAD LOGO',
   'QUOTE & INVOICE TERMS',
   'ADD REMINDERS',
+  'SALES'
 ];
 
 Widget? navigateToNextPage(int index) {

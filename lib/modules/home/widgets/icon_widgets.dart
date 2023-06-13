@@ -419,11 +419,11 @@ Widget tradePage(context, List<DatumTrade> data, int index) {
                       color: CustomColors.white,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding:  EdgeInsets.all(25.0),
                       child: GestureDetector(
                         child: Image.asset(
                             'assets/images/small_icons/005-phone-call.png',
-                          color: Colors.black,
+                          color: CustomColors.primeColour,
                         ),
                       ),
                     )),

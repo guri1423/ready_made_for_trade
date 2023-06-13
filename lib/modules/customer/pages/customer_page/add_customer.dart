@@ -155,9 +155,10 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                     ),
                     Expanded(
                         child: SizedBox(
-                            height: 40,
+                            height: 38,
                             child: longButton(
-                                context, 'LOOK UP', CustomColors.primeColour)))
+                                context, 'LOOK UP',
+                                CustomColors.primeColour))),
                   ],
                 ),
                 const SizedBox(
