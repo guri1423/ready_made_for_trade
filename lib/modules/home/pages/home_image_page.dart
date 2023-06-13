@@ -41,7 +41,8 @@ class _HomePageImagesState extends State<HomePageImages> {
             height: MediaQuery.of(context).size.height * 0.16,
             width: MediaQuery.of(context).size.width,
             child: Image.network(
-              snapshot.data!.data.url,
+              '${snapshot.data!.data.filePath}/${snapshot.data!.data.image}',
+             /* snapshot.data!.data.filePath,*/
               fit: BoxFit.fill,
             ),
           );
