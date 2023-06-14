@@ -63,7 +63,8 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
         bottomNavigationBar: BottomToolsForInsidePage(
           onBackPress: () {
-            BlocProvider.of<DairyCubit>(context).getDiaryData();
+            Navigator.pop(context);
+            /*BlocProvider.of<DairyCubit>(context).getDiaryData();*/
           },
         ),
         body: Padding(
@@ -84,7 +85,7 @@ class _DiaryPageState extends State<DiaryPage> {
                           focusedBorder: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        buttonHeight: 49,
+                        buttonHeight: 40,
                         buttonWidth: MediaQuery.of(context).size.width,
                         buttonDecoration: BoxDecoration(
                           color: CustomColors.white,
@@ -128,7 +129,7 @@ class _DiaryPageState extends State<DiaryPage> {
                               child: Text(
                                 item.toString(),
                                 style:
-                                TextStyle(color: CustomColors.blackText),
+                                TextStyle(color: CustomColors.primeColour,fontSize: 10),
                               ),
                             )))
                             .toList(),

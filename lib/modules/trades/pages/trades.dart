@@ -69,8 +69,6 @@ class _TradesPageState extends State<TradesPage> {
           Navigator.pop(context);
           /*BlocProvider.of<SearchTradesCubit>(context).getTrades();*/
         }
-
-
         // _searchTrades.text.isNotEmpty
         //     ? () {
         //         _searchTrades.clear();
@@ -606,12 +604,30 @@ class _TradesPageState extends State<TradesPage> {
 }
 
 List<String> tradeType = [
-  'Brick Layer',
-  'Builder',
-  'Carpet Layer',
+  'Air conditioning engineer',
+  'Bricklayer',
+  'Brick mason',
+  'Carpenter',
+  'Concrete worker',
+  'Demolition worker',
+  'Drywaller',
   'Electrician',
-  "Kitchen/Bathroom fitter",
+  'Fencer',
+  'Flooring specialist',
+  'Gardner',
+  'General labourer',
+  'Glazier',
+  'Groundworker',
+  'Heating engineer',
+  'Insulation worker',
   'Landscaper',
+  'Mastic sealer',
+  'Painter and decorator',
+ ' Plasterer',
   'Plumber',
-  'Scaffolder'
+  'Roofer',
+  'Scaffolder',
+  'Steel fixer',
+  'Tiler',
+  'Welder',
 ];
