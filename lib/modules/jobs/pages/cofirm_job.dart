@@ -785,14 +785,14 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
 
                           if(model != null){
-                            Fluttertoast.showToast(
+                            /*Fluttertoast.showToast(
                                 msg: model.message,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 2,
                                 backgroundColor: Colors.green,
                                 textColor: Colors.white,
-                                fontSize: 16.0);
+                                fontSize: 16.0);*/
 
 
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(
@@ -804,14 +804,14 @@ class _ConfirmJobState extends State<ConfirmJob> {
 
                           else{
 
-                            Fluttertoast.showToast(
+                         /*   Fluttertoast.showToast(
                                 msg: 'Something went wrong',
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 2,
                                 backgroundColor: Colors.red,
                                 textColor: Colors.white,
-                                fontSize: 16.0);
+                                fontSize: 16.0);*/
 
                           }
 

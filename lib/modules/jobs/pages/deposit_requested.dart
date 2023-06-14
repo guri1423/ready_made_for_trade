@@ -339,23 +339,23 @@ class _DepositRequestedState extends State<DepositRequested> {
                                             status: 'Deposit Requested'));
 
                                     if (model != null) {
-                                      Fluttertoast.showToast(
+                                     /* Fluttertoast.showToast(
                                           msg: model.message!,
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,
                                           timeInSecForIosWeb: 2,
                                           backgroundColor: Colors.green,
                                           textColor: Colors.white,
-                                          fontSize: 16.0);
+                                          fontSize: 16.0);*/
                                     } else {
-                                      Fluttertoast.showToast(
+                                     /* Fluttertoast.showToast(
                                           msg: 'Something went wrong',
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,
                                           timeInSecForIosWeb: 2,
                                           backgroundColor: Colors.red,
                                           textColor: Colors.white,
-                                          fontSize: 16.0);
+                                          fontSize: 16.0);*/
                                     }
                                   },
                                   child: smallButton(context, 'SAVE',
@@ -446,26 +446,26 @@ class _DepositRequestedState extends State<DepositRequested> {
                             _date.text);
 
                         if (model != null) {
-                          Fluttertoast.showToast(
+                          /*Fluttertoast.showToast(
                               msg: model.message!,
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 2,
                               backgroundColor: Colors.green,
                               textColor: Colors.white,
-                              fontSize: 16.0);
+                              fontSize: 16.0);*/
 
                           Navigator.pop(context);
                           setState(() {});
                         } else {
-                          Fluttertoast.showToast(
+                          /*Fluttertoast.showToast(
                               msg: 'Something went wrong',
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 2,
                               backgroundColor: Colors.red,
                               textColor: Colors.white,
-                              fontSize: 16.0);
+                              fontSize: 16.0);*/
                         }
                       },
                       child: smallButton(

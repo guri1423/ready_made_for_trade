@@ -100,14 +100,14 @@ class _AddJobsPageState extends State<AddJobsPage> {
                 ));
 
                 if (model != null) {
-                  Fluttertoast.showToast(
+                  /*Fluttertoast.showToast(
                       msg: model.message!,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 2,
                       backgroundColor: Colors.green,
                       textColor: Colors.white,
-                      fontSize: 16.0);
+                      fontSize: 16.0);*/
 
                   Navigator.push(
                       context,
@@ -118,14 +118,14 @@ class _AddJobsPageState extends State<AddJobsPage> {
                                 customerId: widget.customerId,
                               )));
                 } else {
-                  Fluttertoast.showToast(
+                  /*Fluttertoast.showToast(
                       msg: 'Something went wrong',
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 2,
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
-                      fontSize: 16.0);
+                      fontSize: 16.0);*/
                 }
               },
               child: Padding(
