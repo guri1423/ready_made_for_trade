@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/create_project.dart';
+import 'package:ready_made_4_trade/modules/gallery/pages/delete_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/projects.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
@@ -9,7 +10,8 @@ import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import '../../home/widgets/common_widgets.dart';
 
 class GalleryPage extends StatefulWidget {
-  const GalleryPage({Key? key}) : super(key: key);
+  GetGalleryImages? id;
+   GalleryPage({Key? key}) : super(key: key);
 
   @override
   State<GalleryPage> createState() => _GalleryPageState();
@@ -54,9 +56,23 @@ class _GalleryPageState extends State<GalleryPage> {
       ),
       bottomNavigationBar: const BottomToolsForInsidePage(),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+        padding:  EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DeletePage(id: widget.id,)));
+                  },
+                    child: Icon(Icons.delete,
+                      color: CustomColors.primeColour,
+                      size: 25),
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
             FutureBuilder<GetGalleryImages?>(
                 future: apiServices.getGalleryImages(),
                 builder: (BuildContext context, snapshot) {

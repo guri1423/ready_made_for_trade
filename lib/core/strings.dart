@@ -7,6 +7,6 @@ class Strings{
   static const passwordKey = "User Password";
   static const userIdKey = "User Id";
   static const loggedKey = "loggedInReadyForMade";
-
+  static const IdKey = "Id";
 
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:ready_made_4_trade/modules/account/model/get_website_model.dart';
 import 'package:ready_made_4_trade/modules/account/model/setup_cmpany_model.dart';
 import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
@@ -238,6 +239,21 @@ class RemoteApi {
       print(response.body);
       var jsonResponse = response.body;
 
+      debugPrint(jsonResponse);
+      return getGalleryImagesFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+  Future<GetGalleryImages?> deleteImages() async{
+    String? Id = await _servicesStorage.getId();
+    debugPrint('User ID ${Id.toString()}');
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.deleteCameraImages), body: {'id': Id});
+      print(response.body);
+      var jsonResponse = response.body;
       debugPrint(jsonResponse);
       return getGalleryImagesFromJson(jsonResponse);
     } catch (e) {
@@ -1073,6 +1089,16 @@ class RemoteApi {
       debugPrint(jsonResponse);
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+  Future<Getwebsite?> getwebsite()async{
+    try{
+      Response response = await http.get(Uri.parse(Urls.getawebSite));
+      var jsonResponse = response.body;
+      return getwebsiteFromJson(jsonResponse);
+    }catch(e){
+      debugPrint(e.toString());
+      return null;
     }
   }
 }

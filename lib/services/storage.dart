@@ -37,10 +37,16 @@ class StorageServices{
     await storage.write(key: Strings.userIdKey, value: id);
   }
 
-
-
   Future<String?>getUserId()async{
     return await storage.read(key: Strings.userIdKey);
+  }
+
+  setId(String id)async{
+    await storage.write(key: Strings.IdKey, value: id);
+  }
+
+  Future<String?>getId()async{
+    return await storage.read(key: Strings.IdKey);
   }
 
   Future<String?>getLoggedInStatus()async{

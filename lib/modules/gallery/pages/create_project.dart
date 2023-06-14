@@ -147,7 +147,6 @@ class _CreateProjectState extends State<CreateProject> {
                 onTap: () async {
                   if (widget.isComingFromEditProject) {
                     debugPrint('coming from edit project');
-
                     AddProjectResponse? response =
                         await apiServices.editProject(
                             imageList: _imageList!,

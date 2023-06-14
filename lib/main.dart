@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/theme.dart';
 import 'package:ready_made_4_trade/modules/account/cubit/edit_website_text/edit_website_text_cubit.dart';
+import 'package:ready_made_4_trade/modules/account/cubit/get_a_website/get_a_website_cubit.dart';
 import 'package:ready_made_4_trade/modules/account/cubit/setup_company/setup_company_info_cubit.dart';
 import 'package:ready_made_4_trade/modules/account/cubit/upload_logo/upload_logo_cubit.dart';
 import 'package:ready_made_4_trade/modules/bottom_nav/view/bottom_navigation.dart';
@@ -63,6 +64,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<MaterialCubit>(
             create: (_) => MaterialCubit(),
           ),
+         /* BlocProvider<WebSiteCubit>(
+            create: (_)=> WebSiteCubit(),
+          ),*/
+
           BlocProvider<HomeCubit>(
             create: (_) => HomeCubit(),
           ),

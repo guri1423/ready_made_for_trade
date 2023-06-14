@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/account/view/add_reminders_page.dart';
 import 'package:ready_made_4_trade/modules/account/view/ask_expert_page.dart';
-import 'package:ready_made_4_trade/modules/account/view/edit_website_page.dart';
+import 'package:ready_made_4_trade/modules/account/view/get_a_website.dart';
 import 'package:ready_made_4_trade/modules/account/view/quote_invoice_terms_page.dart';
 import 'package:ready_made_4_trade/modules/account/view/setup_company_info_page.dart';
 import 'package:ready_made_4_trade/modules/account/view/upload_logo_page.dart';
@@ -125,7 +125,7 @@ Widget? navigateToNextPage(int index) {
       return SetupCompanyInfoPage();
 
     case 1:
-      return EditWebsitePage();
+      return GetWebsitePage();
 
     case 2:
       return UploadLogoPage();
