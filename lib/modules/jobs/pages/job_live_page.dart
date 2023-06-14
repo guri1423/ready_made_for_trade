@@ -420,14 +420,14 @@ class _JobLivePageState extends State<JobLivePage> {
                           AddProjectResponse? model = await  _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid',_date.text);
 
                           if(model != null){
-                            Fluttertoast.showToast(
+                           /* Fluttertoast.showToast(
                                 msg: model.message!,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 2,
                                 backgroundColor: Colors.green,
                                 textColor: Colors.white,
-                                fontSize: 16.0);
+                                fontSize: 16.0);*/
 
                             Navigator.pop(context);
                             setState(() {
@@ -438,14 +438,14 @@ class _JobLivePageState extends State<JobLivePage> {
 
                           else{
 
-                            Fluttertoast.showToast(
+                           /* Fluttertoast.showToast(
                                 msg: 'Something went wrong',
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 2,
                                 backgroundColor: Colors.red,
                                 textColor: Colors.white,
-                                fontSize: 16.0);
+                                fontSize: 16.0);*/
 
                           }
                         },

@@ -83,8 +83,8 @@ Widget viewJobQuote(context, {JobData? model}) {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
-            children:  const [
-              Text(
+            children: [
+              const Text(
                 'Show Costs on quote',
                 style: TextStyle(
                     fontSize: 10,
@@ -92,7 +92,21 @@ Widget viewJobQuote(context, {JobData? model}) {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-
+              Transform.scale(
+                scale: 0.4,
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    unselectedWidgetColor: Colors.white,
+                  ),
+                  child: Checkbox(
+                    value: false,
+                    onChanged: (bool? val) {},
+                    checkColor: CustomColors.primeColour,
+                    activeColor: Colors.transparent,
+                    fillColor: MaterialStateProperty.all(CustomColors.white),
+                  ),
+                ),
+              )
             ],
           ),
         ],

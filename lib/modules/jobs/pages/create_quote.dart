@@ -49,9 +49,7 @@ class _CreateQuoteState extends State<CreateQuote> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('JOb id ${widget.jobId}');
-    debugPrint('Project id ${widget.projectId}');
-    debugPrint('Customer id ${widget.customerId}');
+
     return Scaffold(
         backgroundColor: CustomColors.bodyColor,
         appBar: AppBar(
@@ -326,7 +324,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         jobId: widget.jobId,
                                         status: 'Create Quotes'));
 
-                                if (model != null) {
+                               /* if (model != null) {
                                   Fluttertoast.showToast(
                                       msg: model.message!,
                                       toastLength: Toast.LENGTH_SHORT,
@@ -344,7 +342,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       backgroundColor: Colors.red,
                                       textColor: Colors.white,
                                       fontSize: 16.0);
-                                }
+                                }*/
                               },
                               child: SizedBox(
                                 height: 40,
@@ -393,14 +391,14 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         status: 'Create Quotes'));
 
                                 if (model != null) {
-                                  Fluttertoast.showToast(
+                                  /*Fluttertoast.showToast(
                                       msg: model.message!,
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 2,
                                       backgroundColor: Colors.green,
                                       textColor: Colors.white,
-                                      fontSize: 16.0);
+                                      fontSize: 16.0);*/
 
                                   if (widget.projectId != null &&
                                       widget.jobId != null) {
@@ -416,7 +414,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       ),
                                     );
                                   } else {
-                                    Fluttertoast.showToast(
+                                    /*Fluttertoast.showToast(
                                       msg: 'Missing jobId or projectId',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
@@ -424,17 +422,17 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       backgroundColor: Colors.red,
                                       textColor: Colors.white,
                                       fontSize: 16.0,
-                                    );
+                                    );*/
                                   }
                                 } else {
-                                  Fluttertoast.showToast(
+                                  /*Fluttertoast.showToast(
                                       msg: 'Something went wrong',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 2,
                                       backgroundColor: Colors.red,
                                       textColor: Colors.white,
-                                      fontSize: 16.0);
+                                      fontSize: 16.0);*/
                                 }
                               },
                               child: SizedBox(

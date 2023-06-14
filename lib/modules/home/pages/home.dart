@@ -98,7 +98,6 @@ class _HomePageState extends State<HomePage> {
               children: [
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-
                     if(state is HomeSuccess){
                       return Container(
                         width: MediaQuery.of(context).size.width,
@@ -123,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                            state.model?.data?.fullName ?? '',
+                                            state.model?.data.fullName ?? '',
                                             softWrap: true,
                                             style: theme.textTheme.titleLarge!.copyWith(
                                               color: CustomColors.primeColour,
@@ -132,18 +131,18 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model?.data?.businessName ?? '',
+                                            state.model?.data.businessName ?? '',
                                             style: theme.textTheme.titleMedium!.copyWith(
                                               color: CustomColors.primeColour,
                                             ),
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model?.data?.currentMonth ?? '',
+                                            state.model?.data.currentMonth ?? '',
                                             style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
                                           ),
                                           sizedBox,
-                                          if (state.model?.data?.currentMonthPrice != null)
+                                          if (state.model?.data.currentMonthPrice != null)
                                             Row(
                                               children: [
                                                 Text(
@@ -152,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 SizedBox(width: 5),
                                                 Text(
-                                                  state.model!.data!.currentMonthPrice.toString(),
+                                                  state.model!.data.currentMonthPrice.toString(),
                                                   style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
                                                 ),
                                               ],
@@ -164,9 +163,9 @@ class _HomePageState extends State<HomePage> {
                                       height: 80,
                                       width: 140,
                                       child: Container(
-                                        child: state.model?.data?.logo != null
+                                        child: state.model?.data.logo != null
                                             ? Image.network(
-                                          '${state.model!.data!.filePath}/${state.model!.data!.logo}',
+                                          '${state.model!.data.filePath}/${state.model!.data!.logo}',
                                           fit: BoxFit.fill,
                                         )
                                             : SizedBox(), // Show an empty SizedBox if logo is null
