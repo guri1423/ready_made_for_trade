@@ -40,7 +40,7 @@ class UserData {
   String? businessName;
   String? isCompanyRegisteredWith;
   String? companyNumber;
-  DateTime? businessTradingDate;
+  String? businessTradingDate;
   String? logo;
   String? filePath;
   String? bussniessBankAccount;
@@ -95,7 +95,7 @@ class UserData {
         businessName: json["business_name"],
         isCompanyRegisteredWith: json["is_company_registered_with"],
         companyNumber: json["company_number"],
-        businessTradingDate: DateTime.parse(json["business_trading_date"]),
+        businessTradingDate: json["business_trading_date"],
         logo: json["logo"],
         filePath: json["file_path"],
         bussniessBankAccount: json["bussniess_bank_account"],
@@ -123,7 +123,7 @@ class UserData {
         "business_name": businessName,
         "is_company_registered_with": isCompanyRegisteredWith,
         "company_number": companyNumber,
-        "business_trading_date": businessTradingDate!.toIso8601String(),
+        "business_trading_date": businessTradingDate!,
         "logo": logo,
         "file_path": filePath,
         "bussniess_bank_account": bussniessBankAccount,
