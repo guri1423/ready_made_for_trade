@@ -5,11 +5,8 @@ class AddReminderModel{
   AddReminderModel({
     required this.userId,
     required this.customerId,
-    required this.date,
-    required this.month,
-    required this.year,
-    required this.hours,
-    required this.minutes,
+    required this.fullDate,
+    required this.fullTime,
     required this.projectTitle,
     required this.projectDescription,
     required this.jobId,
@@ -22,11 +19,8 @@ class AddReminderModel{
 
   String? userId;
   String? customerId;
-  String? date;
-  String? month;
-  String? year;
-  String? hours;
-  String? minutes;
+  dynamic fullDate;
+  dynamic fullTime;
   String? projectTitle;
   String? projectDescription;
   String? jobId;
@@ -39,11 +33,8 @@ class AddReminderModel{
 
     "user_id": userId,
     "customer_id": customerId,
-    "date": date,
-    "month": month,
-    "year": year,
-    "hours": hours,
-    "minutes": minutes,
+    "full_time": fullTime,
+    "full_date": fullDate,
     "project_title": projectTitle,
     "project_description": projectDescription,
     "job_id": jobId,

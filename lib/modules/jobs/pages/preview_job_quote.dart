@@ -105,18 +105,18 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             children: [
                               Text(
                                 'INVOICE  #${snapshot.data!.data.quoteId}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Text(
                                 snapshot.data!.data.customerName ?? '',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
                                     color: CustomColors.blueButton,
@@ -144,7 +144,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       ),
                       Row(
                         children: [
-                          Text( snapshot.data!.data.customerAddress!,
+                          Text( snapshot.data!.data.customerAddress,
 
                               style: TextStyle(
                                   fontSize: 10,
@@ -176,6 +176,15 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                      Text(
+                        'Invoice terms - ${snapshot.data!.data.invoiceTerms!}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Dongle Regular',
+                          height: 1.5,
+                          color: CustomColors.greyButton,
+                        ),
                       ),
                       const Divider(
                         thickness: 1,
@@ -264,6 +273,18 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Quote terms - ${snapshot.data!.data.quoteTerms}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Dongle Regular',
+                          height: 1.5,
+                          color: CustomColors.greyButton,
+                        ),
                       ),
                       // const Text(
                       //   'Lorem ipsum dolor sit amet, consectetur adipiscing '

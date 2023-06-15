@@ -2,6 +2,7 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
@@ -18,6 +19,8 @@ import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:ready_made_4_trade/widgets/date_picker.dart';
+import 'package:ready_made_4_trade/widgets/time_picker.dart';
 
 class ReminderSetup extends StatefulWidget {
   int? jobId;
@@ -112,11 +115,12 @@ class _ReminderSetupState extends State<ReminderSetup> {
                         onTap: ()async{
                          String? userId = await _storageServices.getUserId();
                          AddProjectResponse? model = await   _remoteApi.addReminder(AddReminderModel(userId: userId, customerId: widget.customerId.toString(),
-                              date: dateValue.toString(), month: monthValue.toString(),
-                              year: _year.text, hours: hoursValue.toString(),
-                              minutes: minutesValue.toString(),
+
                               projectTitle: _projectTitle.text, projectDescription: _projectDetails.text,
-                              jobId: widget.jobId.toString(), projectId: widget.projectId.toString()));
+                              jobId: widget.jobId.toString(), projectId: widget.projectId.toString(),  fullDate:
+                           BlocProvider.of<PickupDateCubit>(context).getPickupDate(),
+                           fullTime:
+                           BlocProvider.of<PickupTimeCubit>(context).getPickupTime(),));
 
 
                          if(model != null){
@@ -234,305 +238,19 @@ class _ReminderSetupState extends State<ReminderSetup> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Expanded(
+                            child: CustomDatePicker(
+                              isMandate: false,
+                              isDiary: false,
+                            )),
                         SizedBox(
-                          width: 60,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                                decoration: const InputDecoration(
-                                  iconColor: CustomColors.white,
-                                  isDense: true,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                buttonHeight: 40,
-                                buttonWidth: 40,
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: CustomColors.textFldBorder,
-                                      width: 1,
-                                    ),
-                                    color: CustomColors.white
-                                ),
-                                itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                                itemHeight: MediaQuery.of(context).size.height * 0.056,
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                iconOnClick: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_up,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                hint: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    'DD',
-                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
-                                  ),
-                                ),
-                                value: dateValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    dateValue = value as int?;
-                                  });
-                                },
-                                items: dateList
-                                    .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Text(
-                                        item.toString(),
-                                        style:
-                                        TextStyle(color: CustomColors.blackText),
-                                      ),
-                                    )))
-                                    .toList(),
-                                validator: (value) {
-                                  return validationDropField(value);
-                                }),
-                          ),
+                          width: 10,
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: 60,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                                decoration: const InputDecoration(
-                                  iconColor: CustomColors.white,
-                                  isDense: true,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                buttonHeight: 40,
-                                buttonWidth: 40,
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: CustomColors.textFldBorder,
-                                      width: 1,
-                                    ),
-                                    color: CustomColors.white
-                                ),
-                                itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                                itemHeight: MediaQuery.of(context).size.height * 0.056,
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                iconOnClick: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_up,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                hint: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    'MM',
-                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
-                                  ),
-                                ),
-                                value: monthValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    monthValue = value as int?;
-                                  });
-                                },
-                                items: monthList
-                                    .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Text(
-                                        item.toString(),
-                                        style:
-                                        TextStyle(color: CustomColors.blackText),
-                                      ),
-                                    )))
-                                    .toList(),
-                                validator: (value) {
-                                  return validationDropField(value);
-                                }),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                            height: 40,
-                            width: 60,
-                            child: customTextFieldForm(
-                                context,
-                                controller: _year, hintText: 'YYYY')),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: 60,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                                decoration: const InputDecoration(
-                                  iconColor: CustomColors.white,
-                                  isDense: true,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                buttonHeight: 40,
-                                buttonWidth: 40,
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: CustomColors.textFldBorder,
-                                      width: 1,
-                                    ),
-                                    color: CustomColors.white
-                                ),
-                                itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                                itemHeight: MediaQuery.of(context).size.height * 0.056,
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                iconOnClick: const Padding(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_up,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                hint: Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    'hrs',
-                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
-                                  ),
-                                ),
-                                value: hoursValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    hoursValue = value as int?;
-                                  });
-                                },
-                                items: hoursList
-                                    .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Text(
-                                        item.toString(),
-                                        style:
-                                        TextStyle(color: CustomColors.blackText),
-                                      ),
-                                    )))
-                                    .toList(),
-                                validator: (value) {
-                                  return validationDropField(value);
-                                }),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: 65,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                                decoration: const InputDecoration(
-                                  iconColor: CustomColors.white,
-                                  isDense: true,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                ),
-                                buttonHeight: 40,
-                                buttonWidth: 40,
-                                buttonDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                      color: CustomColors.textFldBorder,
-                                      width: 1,
-                                    ),
-                                    color: CustomColors.white
-                                ),
-                                itemPadding: EdgeInsets.symmetric(horizontal: 10),
-                                itemHeight: MediaQuery.of(context).size.height * 0.056,
-                                icon: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                iconOnClick: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.arrow_drop_up,
-                                    color: CustomColors.primeColour,
-                                  ),
-                                ),
-                                hint: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    'mins',
-                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.textFieldTextColour),
-                                  ),
-                                ),
-                                value: minutesValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    minutesValue = value as int?;
-                                  });
-                                },
-                                items: minuteList
-                                    .map((item) => DropdownMenuItem(
-                                    value: item,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Text(
-                                        item.toString(),
-                                        style:
-                                        TextStyle(color: CustomColors.blackText),
-                                      ),
-                                    )))
-                                    .toList(),
-                                validator: (value) {
-                                  return validationDropField(value);
-                                }),
-                          ),
-                        ),
-
+                        Expanded(
+                            child: CustomTimePicker(
+                              isMandate: false,
+                              isDiary: false,
+                            ))
                       ],
                     ),
                     const SizedBox(

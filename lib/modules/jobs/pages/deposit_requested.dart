@@ -13,6 +13,7 @@ import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:ready_made_4_trade/widgets/date_picker.dart';
 
 class DepositRequested extends StatefulWidget {
   int? jobId;
@@ -774,8 +775,12 @@ class _DepositRequestedState extends State<DepositRequested> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    textField(context, _totalPrice, 'Total Price', 100, 50),
-                    textField(context, _date, 'DD/MM/YYYY', 130, 50),
+                    Expanded(child: textField(context, _totalPrice, 'Total Price', 40, 50)),
+                    Expanded(
+                        child: CustomDatePicker(
+                          isMandate: false,
+                          isDiary: false,
+                        )),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -789,7 +794,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                             _totalPrice.text,
                             widget.jobId.toString(),
                             'Deposit Paid',
-                            _date.text);
+                          BlocProvider.of<PickupDateCubit>(context).getPickupDate());
 
                         if (model != null) {
                           /*Fluttertoast.showToast(

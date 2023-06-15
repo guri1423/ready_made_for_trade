@@ -859,6 +859,8 @@ class RemoteApi {
   }
 
   Future<GetJobInvoiceData?> getJobInvoice(int? jobId) async {
+
+    debugPrint('Job id ${jobId}');
     try {
       final response = await http.post(
         Uri.parse(Urls.getJobInvoice),

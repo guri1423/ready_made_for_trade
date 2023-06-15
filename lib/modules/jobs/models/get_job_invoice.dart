@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getJobInvoiceData = getJobInvoiceDataFromJson(jsonString);
-
 import 'dart:convert';
 
 GetJobInvoiceData getJobInvoiceDataFromJson(String str) => GetJobInvoiceData.fromJson(json.decode(str));
@@ -9,18 +5,18 @@ GetJobInvoiceData getJobInvoiceDataFromJson(String str) => GetJobInvoiceData.fro
 String getJobInvoiceDataToJson(GetJobInvoiceData data) => json.encode(data.toJson());
 
 class GetJobInvoiceData {
-  JobInvoiceData data;
+  Data data;
   String message;
   bool status;
 
   GetJobInvoiceData({
-   required this.data,
-   required this.message,
-   required this.status,
+    required this.data,
+    required this.message,
+    required this.status,
   });
 
   factory GetJobInvoiceData.fromJson(Map<String, dynamic> json) => GetJobInvoiceData(
-    data: JobInvoiceData.fromJson(json["data"]),
+    data: Data.fromJson(json["data"]),
     message: json["message"],
     status: json["status"],
   );
@@ -32,86 +28,82 @@ class GetJobInvoiceData {
   };
 }
 
-class JobInvoiceData {
-  int? id;
-  String? appointmentId;
-  String? quoteId;
+class Data {
+  int id;
+  String appointmentId;
+  String quoteId;
   dynamic projectId;
-  String? projectTitle;
-  String? projectDescription;
-  String? materialCost;
-  String? labourCost;
-  String? vat;
-  String? isVat;
-  String? totalPrice;
-  dynamic totalIncVat;
-  String? customerId;
-  String? userId;
+  String projectTitle;
+  String projectDescription;
+  String materialCost;
+  String labourCost;
+  String vat;
+  String isVat;
+  String totalPrice;
+  String totalIncVat;
+  String customerId;
+  String userId;
   dynamic jobStartFullDate;
   dynamic jobEndFullDate;
   dynamic jobStartDate;
-  dynamic jobStartMonth;
-  dynamic jobStartYear;
   dynamic jobEndDate;
-  dynamic jobEndMonth;
-  dynamic jobEndYear;
-  dynamic jobStartHourse;
-  dynamic jobStartMinutes;
-  dynamic jobEndHourse;
-  dynamic jobEndMinutes;
+  dynamic jobStartTime;
+  dynamic jobEndTime;
   dynamic depositAmount;
-  String? isJobConfirm;
-  String? status;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  String? customerName;
-  String? userName;
-  String? userLogo;
-  String? filePath;
-  String? customerAddress;
-  dynamic remaining;
+  dynamic requestDepositAmount;
+  dynamic depositAmountDate;
+  String isJobConfirm;
+  String status;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String quoteTerms;
+  String invoiceTerms;
+  String customerName;
+  String userName;
+  String userLogo;
+  String filePath;
+  String customerAddress;
+  double remaining;
 
-  JobInvoiceData({
-    this.id,
-    this.appointmentId,
-    this.quoteId,
+  Data({
+    required this.id,
+    required this.appointmentId,
+    required this.quoteId,
     this.projectId,
-    this.projectTitle,
-    this.projectDescription,
-    this.materialCost,
-    this.labourCost,
-    this.vat,
-    this.isVat,
-    this.totalPrice,
-    this.totalIncVat,
-    this.customerId,
-    this.userId,
+    required this.projectTitle,
+    required this.projectDescription,
+    required this.materialCost,
+    required this.labourCost,
+    required this.vat,
+    required this.isVat,
+    required this.totalPrice,
+    required this.totalIncVat,
+    required this.customerId,
+    required this.userId,
     this.jobStartFullDate,
     this.jobEndFullDate,
     this.jobStartDate,
-    this.jobStartMonth,
-    this.jobStartYear,
     this.jobEndDate,
-    this.jobEndMonth,
-    this.jobEndYear,
-    this.jobStartHourse,
-    this.jobStartMinutes,
-    this.jobEndHourse,
-    this.jobEndMinutes,
+    this.jobStartTime,
+    this.jobEndTime,
     this.depositAmount,
-    this.isJobConfirm,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.customerName,
-    this.userName,
-    this.userLogo,
-    this.filePath,
-    this.customerAddress,
-    this.remaining,
+    this.requestDepositAmount,
+    this.depositAmountDate,
+    required this.isJobConfirm,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.quoteTerms,
+    required this.invoiceTerms,
+    required this.customerName,
+    required this.userName,
+    required this.userLogo,
+    required this.filePath,
+    required this.customerAddress,
+    required this.remaining,
   });
 
-  factory JobInvoiceData.fromJson(Map<String, dynamic> json) => JobInvoiceData(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
     appointmentId: json["appointment_id"],
     quoteId: json["quote_id"],
@@ -129,26 +121,24 @@ class JobInvoiceData {
     jobStartFullDate: json["Job_start_full_date"],
     jobEndFullDate: json["Job_end_full_date"],
     jobStartDate: json["Job_start_date"],
-    jobStartMonth: json["job_start_month"],
-    jobStartYear: json["job_start_year"],
     jobEndDate: json["Job_end_date"],
-    jobEndMonth: json["job_end_month"],
-    jobEndYear: json["job_end_year"],
-    jobStartHourse: json["job_start_hourse"],
-    jobStartMinutes: json["job_start_minutes"],
-    jobEndHourse: json["job_end_hourse"],
-    jobEndMinutes: json["job_end_minutes"],
+    jobStartTime: json["job_start_time"],
+    jobEndTime: json["job_end_time"],
     depositAmount: json["deposit_amount"],
+    requestDepositAmount: json["request_deposit_amount"],
+    depositAmountDate: json["deposit_amount_date"],
     isJobConfirm: json["is_job_confirm"],
     status: json["status"],
-    createdAt: json["created_at"] != null ? DateTime.parse(json["created_at"]) : null,
-    updatedAt: json["updated_at"] != null ? DateTime.parse(json["updated_at"]) : null,
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    quoteTerms: json["quote_terms"],
+    invoiceTerms: json["invoice_terms"],
     customerName: json["customer_name"],
     userName: json["user_name"],
     userLogo: json["user_logo"],
     filePath: json["file_path"],
     customerAddress: json["customer_address"],
-    remaining: json["Remaining"],
+    remaining: json["Remaining"]?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -169,20 +159,18 @@ class JobInvoiceData {
     "Job_start_full_date": jobStartFullDate,
     "Job_end_full_date": jobEndFullDate,
     "Job_start_date": jobStartDate,
-    "job_start_month": jobStartMonth,
-    "job_start_year": jobStartYear,
     "Job_end_date": jobEndDate,
-    "job_end_month": jobEndMonth,
-    "job_end_year": jobEndYear,
-    "job_start_hourse": jobStartHourse,
-    "job_start_minutes": jobStartMinutes,
-    "job_end_hourse": jobEndHourse,
-    "job_end_minutes": jobEndMinutes,
+    "job_start_time": jobStartTime,
+    "job_end_time": jobEndTime,
     "deposit_amount": depositAmount,
+    "request_deposit_amount": requestDepositAmount,
+    "deposit_amount_date": depositAmountDate,
     "is_job_confirm": isJobConfirm,
     "status": status,
-    "created_at": createdAt!.toIso8601String(),
-    "updated_at": updatedAt!.toIso8601String(),
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "quote_terms": quoteTerms,
+    "invoice_terms": invoiceTerms,
     "customer_name": customerName,
     "user_name": userName,
     "user_logo": userLogo,

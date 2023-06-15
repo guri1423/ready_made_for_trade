@@ -13,6 +13,7 @@ import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:ready_made_4_trade/widgets/date_picker.dart';
 
 class JobLivePage extends StatefulWidget {
   int? customerId;
@@ -420,18 +421,7 @@ class _JobLivePageState extends State<JobLivePage> {
                 return const Center(child: Text('Something went wrong'));
               }
               return const Center(child: CircularProgressIndicator());
-              return FutureBuilder<GetJobData?>(
-                future: _remoteApi.getJobData(widget.jobId.toString()),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {}
 
-                  if (snapshot.hasError) {
-                    return const Center(child: Text('Somthing went Wrong'));
-                  }
-
-                  return const Center(child: SingleChildScrollView());
-                },
-              );
             },
           ),
         ));
@@ -469,58 +459,68 @@ class _JobLivePageState extends State<JobLivePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    textField(context, _totalPrice, 'Total Price', 120, 50),
-                    textField(context, _date, 'DD/MM/YY', 120, 50),
+                    Expanded(child: textField(context, _totalPrice, 'Total Price', 40, 50)),
+                    const Expanded(
+                        child: CustomDatePicker(
+                          isMandate: false,
+                          isDiary: false,
+                        )),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                        onTap: () async {
-                          AddProjectResponse? model =
-                              await _remoteApi.addPayment(
-                                  _totalPrice.text,
-                                  widget.jobId.toString(),
-                                  'Deposit Paid',
-                                  _date.text);
+                    Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            AddProjectResponse? model = await _remoteApi.addPayment(
+                                _totalPrice.text,
+                                widget.jobId.toString(),
+                                'Deposit Paid',
+                                BlocProvider.of<PickupDateCubit>(context).getPickupDate());
 
-                          if (model != null) {
-                            /* Fluttertoast.showToast(
-                                msg: model.message!,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16.0);*/
+                            if (model != null) {
+                              /*Fluttertoast.showToast(
+                              msg: model.message!,
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0);*/
 
+                              Navigator.pop(context);
+                              setState(() {});
+                            } else {
+                              /*Fluttertoast.showToast(
+                              msg: 'Something went wrong',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);*/
+                            }
+                          },
+                          child: smallButton(
+                              context, 'SAVE', CustomColors.greyButton, 100),
+                        )),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            _totalPrice.clear();
+                            _date.clear();
                             Navigator.pop(context);
-                            setState(() {});
-                          } else {
-                            /* Fluttertoast.showToast(
-                                msg: 'Something went wrong',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);*/
-                          }
-                        },
-                        child: smallButton(
-                            context, 'SAVE', CustomColors.greyButton, 100)),
-                    GestureDetector(
-                        onTap: () {
-                          _totalPrice.clear();
-                          _date.clear();
-                          Navigator.pop(context);
 
-                          setState(() {});
-                        },
-                        child: smallButton(
-                            context, 'DELETE', CustomColors.yellow, 100)),
+                            setState(() {});
+                          },
+                          child: smallButton(
+                              context, 'DELETE', CustomColors.yellow, 100),
+                        )),
                   ],
                 ),
               ],
