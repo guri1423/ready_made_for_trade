@@ -359,25 +359,25 @@ Widget viewCustomerDetails(context, DatumCustomer data) {
                 children: [
                   Column(
                     children: [
-                      Text(data.statusCounts!.createQuotes!.toString(), style: theme.textTheme.titleLarge),
+                      Text((data?.statusCounts?.createQuotes ?? 0).toString(), style: theme.textTheme.titleLarge),
                       Text('PENDING', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(data.statusCounts!.depositPaid!.toString(), style: theme.textTheme.titleLarge),
+                      Text((data?.statusCounts?.depositPaid ?? 0).toString(), style: theme.textTheme.titleLarge),
                       Text('DEPOSITS', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(data.statusCounts!.confirmJob.toString(), style: theme.textTheme.titleLarge),
+                      Text((data?.statusCounts?.confirmJob ?? 0).toString(), style: theme.textTheme.titleLarge),
                       Text('ACTIVE', style: theme.textTheme.titleSmall),
                     ],
                   ),
                   Column(
                     children: [
-                      Text(data.statusCounts!.finalInvoice.toString(), style: theme.textTheme.titleLarge),
+                      Text((data?.statusCounts?.finalInvoice ?? 0).toString(), style: theme.textTheme.titleLarge),
                       Text('COMPLETED', style: theme.textTheme.titleSmall),
                     ],
                   ),

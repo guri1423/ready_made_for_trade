@@ -239,7 +239,9 @@ class _HomePageState extends State<HomePage> {
                                                 height: 65,
                                                 width: 120,
                                                 child: Container(
+
                                                   decoration: BoxDecoration(
+                                                    color: CustomColors.primeColour,
                                                     border: Border.all(
                                                       color: CustomColors
                                                           .greyButton,
@@ -259,19 +261,14 @@ class _HomePageState extends State<HomePage> {
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleLarge!
-                                                            .copyWith(
-                                                              color: CustomColors
-                                                                  .primeColour,
-                                                            ),
+                                                            .copyWith(),
                                                       ),
                                                       Text(
                                                         item.title!,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleSmall!
-                                                            .copyWith(
-                                                                color: CustomColors
-                                                                    .primeColour),
+                                                            .copyWith(),
                                                       ),
                                                     ],
                                                   ),
