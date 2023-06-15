@@ -6,16 +6,10 @@ class JobAgreedModel{
   JobAgreedModel({
     required this.jobId,
     required this.jobStartDate,
-    required this.jobStartMonth,
-    required this.jobStartYear,
     required this.jobEndDate,
-    required this.jobEndMonth,
-    required this.jobEndYear,
+    required this.jobStartTime,
+    required this.jobEndTime,
     required this.depositAmount,
-    required this.jobStartHours,
-    required this.jobStartMinutes,
-    required this.jobEndHours,
-    required this.jobEndMinutes,
     required this.status,
 
 
@@ -23,16 +17,10 @@ class JobAgreedModel{
 
   int? jobId;
   String? jobStartDate;
-  String? jobStartMonth;
-  String? jobStartYear;
   String? jobEndDate;
-  String? jobEndMonth;
-  String? jobEndYear;
   String? depositAmount;
-  String? jobStartHours;
-  String? jobStartMinutes;
-  String? jobEndMinutes;
-  String? jobEndHours;
+  String? jobStartTime;
+  String? jobEndTime;
   String? status;
 
 
@@ -47,14 +35,8 @@ class JobAgreedModel{
     "job_end_date": jobEndDate,
     "deposit_amount": depositAmount,
     "job_id": jobId,
-    "job_start_month": jobStartMonth,
-    "job_start_year": jobStartYear,
-    "job_end_month": jobEndMonth,
-    "job_end_year": jobEndYear,
-    "job_start_hourse": jobStartHours ,
-    "job_start_minutes": jobStartMinutes,
-    "job_end_hourse": jobEndHours,
-    "job_end_minutes" : jobEndMinutes,
+    "job_start_time": jobStartTime ,
+    "job_end_time": jobEndTime ,
     "status": status
 
 

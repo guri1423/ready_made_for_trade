@@ -1,10 +1,6 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/core/list/list.dart';
-import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
@@ -28,10 +24,7 @@ class AddJobsPage extends StatefulWidget {
 }
 
 class _AddJobsPageState extends State<AddJobsPage> {
-  final TextEditingController _date = TextEditingController();
-  final TextEditingController _month = TextEditingController();
-  final TextEditingController _year = TextEditingController();
-  final TextEditingController _time = TextEditingController();
+
   final TextEditingController _projectTitle = TextEditingController();
   final TextEditingController _projectDetails = TextEditingController();
 

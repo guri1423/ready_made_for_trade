@@ -10,6 +10,7 @@ import 'package:ready_made_4_trade/modules/jobs/pages/quote_sent.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 
+
 class AllJobs extends StatefulWidget {
   String? status;
 

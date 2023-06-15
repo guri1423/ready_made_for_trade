@@ -76,7 +76,12 @@ class RemoteApi {
     debugPrint(email);
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
+          await http.post(Uri.parse(Urls.fetchUser),
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+              },
+              body: {'email': email});
 
       var jsonResponse = response.body;
 

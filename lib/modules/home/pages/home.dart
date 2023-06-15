@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Container(
                                         child: state.model?.data.logo != null
                                             ? Image.network(
-                                          '${state.model!.data.filePath}/${state.model!.data!.logo}',
+                                          '${state.model!.data.filePath}/${state.model!.data.logo}',
                                           fit: BoxFit.fill,
                                         )
                                             : SizedBox(), // Show an empty SizedBox if logo is null

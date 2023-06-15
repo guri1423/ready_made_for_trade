@@ -8,19 +8,21 @@ import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 class DeletePage extends StatefulWidget {
-  GetGalleryImages? id;
-   DeletePage({Key? key,required this.id}) : super(key: key);
+
+   DeletePage({Key? key}) : super(key: key);
 
   @override
   State<DeletePage> createState() => _DeletePageState();
 }
 
 class _DeletePageState extends State<DeletePage> {
-  postData() async {
+
+
+  postData( List<String> imageList,) async {
     var response = await http.post(
         Uri.parse("https://readymade4trade.omkatech.in/api/CameraImageDelete"),
         body: {
-          "id": widget.id.toString(),
+          "id":  _imageList,
         });
     dynamic response1 = jsonDecode(response.body.toString());
     debugPrint(response1.toString());
@@ -127,7 +129,7 @@ class _DeletePageState extends State<DeletePage> {
                                 Checkbox(
                                   value: _isCheckedList[index],
                                   onChanged: (bool? value) {
-                                         postData();
+                                         postData(_imageList!);
                                   },
                                 ),
                               ]),
@@ -153,7 +155,7 @@ class _DeletePageState extends State<DeletePage> {
                 ),
                 child: MaterialButton(
                   onPressed: () async {
-                    postData();
+                    postData(_imageList!);
                   },
                   child: Text(
                     'Delete',

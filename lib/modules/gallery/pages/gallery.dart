@@ -6,11 +6,10 @@ import 'package:ready_made_4_trade/modules/gallery/pages/delete_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/pages/projects.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-
 import '../../home/widgets/common_widgets.dart';
 
 class GalleryPage extends StatefulWidget {
-  GetGalleryImages? id;
+   String? id;
    GalleryPage({Key? key}) : super(key: key);
 
   @override
@@ -64,7 +63,7 @@ class _GalleryPageState extends State<GalleryPage> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DeletePage(id: widget.id,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DeletePage()));
                   },
                     child: Icon(Icons.delete,
                       color: CustomColors.primeColour,

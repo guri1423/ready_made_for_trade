@@ -41,7 +41,7 @@ class _CustomersPageState extends State<CustomersPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             SizedBox(

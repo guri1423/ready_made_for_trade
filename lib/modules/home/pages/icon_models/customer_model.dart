@@ -100,14 +100,14 @@ class DatumCustomer {
 
 class StatusCounts {
   dynamic appointmentSet;
-  int? confirmJob;
+  dynamic confirmJob;
   dynamic confirmStartDate;
   dynamic createQuotes;
-  int? depositPaid;
-  int? finalInvoice;
-  int? jobComplete;
-  int? liveJob;
-  int? sendFinalInvoice;
+  dynamic depositPaid;
+  dynamic finalInvoice;
+  dynamic jobComplete;
+  dynamic liveJob;
+  dynamic sendFinalInvoice;
 
   StatusCounts({
     this.appointmentSet,

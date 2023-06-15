@@ -83,8 +83,14 @@ class MyApp extends StatelessWidget {
           BlocProvider<PickupDateCubit>(
             create: (_) => PickupDateCubit(),
           ),
+          BlocProvider<PickupDateCubit2>(
+            create: (_) => PickupDateCubit2(),
+          ),
           BlocProvider<PickupTimeCubit>(
             create: (_) => PickupTimeCubit(),
+          ),
+          BlocProvider<PickupTimeCubit2>(
+            create: (_) => PickupTimeCubit2(),
           ),
           BlocProvider<DairyCubit>(
             create: (_) => DairyCubit(),
