@@ -14,7 +14,7 @@ import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 import 'package:ready_made_4_trade/modules/essentials/bloc/essential_bloc_cubit.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/finance_insurance_cubit/finanace_insurance_cubit.dart';
-import 'package:ready_made_4_trade/modules/home/bloc_home/home_cubit.dart';
+import 'package:ready_made_4_trade/modules/home/bloc/bloc_home/home_cubit.dart';
 import 'package:ready_made_4_trade/modules/login/pages/login.dart';
 import 'package:ready_made_4_trade/modules/material/bloc/material_cubit.dart';
 import 'package:ready_made_4_trade/modules/receipts/bloc/receipts_cubit.dart';
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<MaterialCubit>(
             create: (_) => MaterialCubit(),
           ),
-         /* BlocProvider<WebSiteCubit>(
+          /* BlocProvider<WebSiteCubit>(
             create: (_)=> WebSiteCubit(),
           ),*/
 

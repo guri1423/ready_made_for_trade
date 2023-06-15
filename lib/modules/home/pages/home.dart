@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/customers.dart';
 import 'package:ready_made_4_trade/modules/check_list/pages/checklist.dart';
-import 'package:ready_made_4_trade/modules/home/bloc_home/home_cubit.dart';
+import 'package:ready_made_4_trade/modules/home/bloc/bloc_home/home_cubit.dart';
 import 'package:ready_made_4_trade/modules/dairy/pages/diary.dart';
 import 'package:ready_made_4_trade/modules/essentials/pages/essentials.dart';
 import 'package:ready_made_4_trade/modules/f_and_i/pages/fAndI.dart';
@@ -43,11 +43,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     BlocProvider.of<HomeCubit>(context).getUserData();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _attachScrollController();
+      // _attachScrollController();
     });
-
   }
-
 
   void _attachScrollController() {
     _scrollController = ScrollController();
@@ -98,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    if(state is HomeSuccess){
+                    if (state is HomeSuccess) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
@@ -112,47 +110,70 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.45,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
                                             state.model?.data.fullName ?? '',
                                             softWrap: true,
-                                            style: theme.textTheme.titleLarge!.copyWith(
+                                            style: theme.textTheme.titleLarge!
+                                                .copyWith(
                                               color: CustomColors.primeColour,
                                               fontWeight: FontWeight.normal,
                                             ),
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model?.data.businessName ?? '',
-                                            style: theme.textTheme.titleMedium!.copyWith(
+                                            state.model?.data.businessName ??
+                                                '',
+                                            style: theme.textTheme.titleMedium!
+                                                .copyWith(
                                               color: CustomColors.primeColour,
                                             ),
                                           ),
                                           sizedBox,
                                           Text(
-                                            state.model?.data.currentMonth ?? '',
-                                            style: theme.textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                            state.model?.data.currentMonth ??
+                                                '',
+                                            style: theme.textTheme.titleMedium!
+                                                .copyWith(
+                                                    color: CustomColors
+                                                        .primeColour),
                                           ),
                                           sizedBox,
-                                          if (state.model?.data.currentMonthPrice != null)
+                                          if (state.model?.data
+                                                  .currentMonthPrice !=
+                                              null)
                                             Row(
                                               children: [
                                                 Text(
                                                   '£',
-                                                  style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                                  style: theme
+                                                      .textTheme.titleLarge!
+                                                      .copyWith(
+                                                          color: CustomColors
+                                                              .skyblue),
                                                 ),
                                                 SizedBox(width: 5),
                                                 Text(
-                                                  state.model!.data.currentMonthPrice.toString(),
-                                                  style: theme.textTheme.titleLarge!.copyWith(color: CustomColors.skyblue),
+                                                  state.model!.data
+                                                      .currentMonthPrice
+                                                      .toString(),
+                                                  style: theme
+                                                      .textTheme.titleLarge!
+                                                      .copyWith(
+                                                          color: CustomColors
+                                                              .skyblue),
                                                 ),
                                               ],
                                             ),
@@ -165,12 +186,14 @@ class _HomePageState extends State<HomePage> {
                                       child: Container(
                                         child: state.model?.data.logo != null
                                             ? Image.network(
-                                          '${state.model!.data.filePath}/${state.model!.data.logo}',
-                                          fit: BoxFit.fill,
-                                        )
-                                            : SizedBox(), // Show an empty SizedBox if logo is null
+                                                '${state.model!.data.filePath}/${state.model!.data.logo}',
+                                                fit: BoxFit.fill,
+                                              )
+                                            : SizedBox(),
+                                        // Show an empty SizedBox if logo is null
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                       ),
                                     ),
@@ -188,49 +211,67 @@ class _HomePageState extends State<HomePage> {
                                       GestureDetector(
                                         onTap: () {
                                           _scrollController.animateTo(
-                                            _scrollController.offset - 150, // Adjust the scroll distance as needed
+                                            _scrollController.offset - 150,
+                                            // Adjust the scroll distance as needed
                                             curve: Curves.ease,
-                                            duration: Duration(milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                           );
                                         },
-                                        child: Image.asset('assets/images/Path 8242.png'),
+                                        child: Image.asset(
+                                            'assets/images/Path 8242.png'),
                                       ),
                                       Flexible(
                                         fit: FlexFit.loose,
                                         child: ListView.builder(
                                           controller: _scrollController,
                                           scrollDirection: Axis.horizontal,
-                                          itemCount: state.model!.data.statusCounts!.length,
+                                          itemCount: state
+                                              .model!.data.statusCounts!.length,
                                           itemBuilder: (context, int index) {
-                                            final item = state.model!.data.statusCounts![index];
+                                            final item = state.model!.data
+                                                .statusCounts![index];
                                             return Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                               child: SizedBox(
                                                 height: 65,
                                                 width: 120,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      color: CustomColors.greyButton,
+                                                      color: CustomColors
+                                                          .greyButton,
                                                       width: 1.0,
                                                     ),
-                                                    borderRadius: BorderRadius.circular(10),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                   child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
                                                     children: [
                                                       Text(
                                                         item.noCount!,
-                                                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                                                          color: CustomColors.primeColour,
-                                                        ),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge!
+                                                            .copyWith(
+                                                              color: CustomColors
+                                                                  .primeColour,
+                                                            ),
                                                       ),
                                                       Text(
                                                         item.title!,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .titleSmall!
-                                                            .copyWith(color: CustomColors.primeColour),
+                                                            .copyWith(
+                                                                color: CustomColors
+                                                                    .primeColour),
                                                       ),
                                                     ],
                                                   ),
@@ -243,12 +284,15 @@ class _HomePageState extends State<HomePage> {
                                       GestureDetector(
                                         onTap: () {
                                           _scrollController.animateTo(
-                                            _scrollController.offset + 150, // Adjust the scroll distance as needed
+                                            _scrollController.offset + 150,
+                                            // Adjust the scroll distance as needed
                                             curve: Curves.ease,
-                                            duration: Duration(milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                           );
                                         },
-                                        child: Image.asset('assets/images/right direction.png'),
+                                        child: Image.asset(
+                                            'assets/images/right direction.png'),
                                       ),
                                     ],
                                   ),
@@ -330,20 +374,15 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    if(state is HomeLoading){
+                    if (state is HomeLoading) {
                       return const Center(child: CircularProgressIndicator());
                     }
 
-                    if(state is HomeFailure){
-
+                    if (state is HomeFailure) {
                       return const Center(child: Text('Something went wrong'));
-
                     }
 
                     return const Center(child: CircularProgressIndicator());
-
-
-
                   },
                 ),
                 const SizedBox(
@@ -354,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       mainAxisSpacing: 10.0,
                       crossAxisSpacing: 10.0,
@@ -362,93 +401,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () async {
-                          switch (index) {
-                            case 0:
-                              await getImage(ImageSource.camera)
-                                  .then((value) {
-                                setState(() {
-                                  setState(() {
-                                    if (_image1 == null) {
-                                      setState(() {
-                                        _image1 = File(value!.path);
-                                      });
-                                    }
-                                  });
-
-                                  uploadCollectionData();
-                                });
-                              });
-
-                              break;
-                            case 1:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GalleryPage()));
-                              break;
-                            case 2:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CustomersPage()));
-                              break;
-                            case 3:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => JobsPage()));
-                              break;
-                            case 4:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DiaryPage()));
-                              break;
-                            case 5:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          MaterialHomePage()));
-                              break;
-                            case 6:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TradesPage()));
-                              break;
-                            case 7:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChecklistPage()));
-                              break;
-                            case 8:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FAndIPage()));
-                              break;
-                            case 9:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ReceiptsPage()));
-                              break;
-                            case 10:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EssentialsPage()));
-                              break;
-                            case 11:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TrainingsPage()));
-                              break;
-                          }
+                          await onTapHandling(index, context);
                         },
                         child: Container(
                           height: 45,
@@ -462,7 +415,8 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                   height: 40,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 2),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
                                     child: Image.asset(images[index]),
                                   )),
                               Text(
@@ -470,7 +424,8 @@ class _HomePageState extends State<HomePage> {
                                 style: const TextStyle(
                                   color: CustomColors.primeColour,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 12,),
+                                  fontSize: 12,
+                                ),
                               )
                             ],
                           ),
@@ -485,6 +440,71 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ));
+  }
+
+  Future<void> onTapHandling(int index, BuildContext context) async {
+    switch (index) {
+      case 0:
+        await getImage(ImageSource.camera).then((value) {
+          setState(() {
+            setState(() {
+              if (_image1 == null) {
+                setState(() {
+                  _image1 = File(value!.path);
+                });
+              }
+            });
+
+            uploadCollectionData();
+          });
+        });
+
+        break;
+      case 1:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => GalleryPage()));
+        break;
+      case 2:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CustomersPage()));
+        break;
+      case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => JobsPage()));
+        break;
+      case 4:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DiaryPage()));
+        break;
+      case 5:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => MaterialHomePage()));
+        break;
+      case 6:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TradesPage()));
+        break;
+      case 7:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ChecklistPage()));
+        break;
+      case 8:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FAndIPage()));
+        break;
+      case 9:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ReceiptsPage()));
+        break;
+      case 10:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => EssentialsPage()));
+        break;
+      case 11:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TrainingsPage()));
+        break;
+    }
   }
 
   void uploadCollectionData() async {

@@ -17,6 +17,7 @@ import 'package:ready_made_4_trade/modules/gallery/models/get_all_projects.dart'
 import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/model/get_user_data.dart';
+import 'package:ready_made_4_trade/modules/home/model/home_image_model.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_reminder.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
@@ -80,10 +81,28 @@ class RemoteApi {
 
       var jsonResponse = response.body;
 
-      debugPrint(jsonResponse);
+      debugPrint('*****$jsonResponse');
       return getUserDataFromJson(jsonResponse);
     } catch (e) {
       debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  Future<HomeImage?> getImage() async {
+    try {
+      http.Response response;
+      response = await http.get(
+          Uri.parse('https://readymade4trade.omkatech.in/api/GetHomeImage'),
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          });
+      if (response.statusCode == 200) {
+        return homeImageFromJson(response.body);
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
