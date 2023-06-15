@@ -58,7 +58,7 @@ class UserData {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? currentMonth;
-  int? currentMonthPrice;
+  String? currentMonthPrice;
   List<StatusCount>? statusCounts;
 
   UserData({

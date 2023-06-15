@@ -76,12 +76,7 @@ class RemoteApi {
     debugPrint(email);
     try {
       Response response =
-          await http.post(Uri.parse(Urls.fetchUser),
-              headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-              },
-              body: {'email': email});
+          await http.post(Uri.parse(Urls.fetchUser), body: {'email': email});
 
       var jsonResponse = response.body;
 
@@ -251,12 +246,13 @@ class RemoteApi {
       return null;
     }
   }
-  Future<GetGalleryImages?> deleteImages() async{
+
+  Future<GetGalleryImages?> deleteImages() async {
     String? Id = await _servicesStorage.getId();
     debugPrint('User ID ${Id.toString()}');
     try {
-      Response response = await http
-          .post(Uri.parse(Urls.deleteCameraImages), body: {'id': Id});
+      Response response =
+          await http.post(Uri.parse(Urls.deleteCameraImages), body: {'id': Id});
       print(response.body);
       var jsonResponse = response.body;
       debugPrint(jsonResponse);
@@ -1096,12 +1092,13 @@ class RemoteApi {
       debugPrint(e.toString());
     }
   }
-  Future<Getwebsite?> getwebsite()async{
-    try{
+
+  Future<Getwebsite?> getwebsite() async {
+    try {
       Response response = await http.get(Uri.parse(Urls.getawebSite));
       var jsonResponse = response.body;
       return getwebsiteFromJson(jsonResponse);
-    }catch(e){
+    } catch (e) {
       debugPrint(e.toString());
       return null;
     }
