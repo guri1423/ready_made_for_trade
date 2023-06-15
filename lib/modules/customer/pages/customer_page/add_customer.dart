@@ -29,7 +29,6 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
   bool formValidate() {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
-      print('23746329x');
       setState(() {
         isFormError = false;
       });
@@ -316,7 +315,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                           String? userId = await _storageServices.getUserId();
                           String? email = await _storageServices.getEmail();
 
-                          debugPrint('User ID ${userId.toString()}');
+                          debugPrint('User ID------ ${userId.toString()}');
 
                           if (statusForm) {
                             AddCustomerResponse? status =

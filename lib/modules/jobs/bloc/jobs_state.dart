@@ -15,4 +15,16 @@ class JobsLoaded extends JobsState {
   final GetJobStatus jobStatus;
 }
 
+class JobsDataByIdLoaded extends JobsState {
+  const JobsDataByIdLoaded({required this.jobData});
+
+  final GetJobData jobData;
+}
+
+class JobsInvoiceLoaded extends JobsState {
+  const JobsInvoiceLoaded({required this.data});
+
+  final GetJobInvoiceData data;
+}
+
 class JobsFailure extends JobsState {}

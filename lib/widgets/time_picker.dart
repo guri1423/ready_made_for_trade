@@ -5,8 +5,10 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 
 class CustomTimePicker extends StatefulWidget {
-  const CustomTimePicker({Key? key, this.isMandate = true}) : super(key: key);
+  const CustomTimePicker({Key? key, this.isMandate = true, this.isDiary = true})
+      : super(key: key);
   final bool isMandate;
+  final bool isDiary;
 
   @override
   _CustomTimePickerState createState() => _CustomTimePickerState();
@@ -39,10 +41,11 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                 .setPickupTime(formattedTime);
             setState(() {
               userPickTime = formattedTime;
-              debugPrint('bloc called');
+            });
+            if (widget.isDiary) {
               BlocProvider.of<DairyCubit>(context)
                   .getDiaryFilterData('', formattedTime);
-            });
+            }
           }
         },
         child: Container(
@@ -98,10 +101,12 @@ class PickupTimeCubit extends Cubit<String> {
   }
 }
 
-
 class CustomTimePicker2 extends StatefulWidget {
-  const CustomTimePicker2({Key? key, this.isMandate = true}) : super(key: key);
+  const CustomTimePicker2(
+      {Key? key, this.isMandate = true, this.isDiary = true})
+      : super(key: key);
   final bool isMandate;
+  final bool isDiary;
 
   @override
   _CustomTimePicker2State createState() => _CustomTimePicker2State();
@@ -129,15 +134,16 @@ class _CustomTimePicker2State extends State<CustomTimePicker2> {
             String formattedTime = DateFormat.Hm().format(DateTime.now()
                 .toLocal()
                 .add(Duration(
-                hours: pickedTime.hour, minutes: pickedTime.minute)));
+                    hours: pickedTime.hour, minutes: pickedTime.minute)));
             BlocProvider.of<PickupTimeCubit>(context)
                 .setPickupTime(formattedTime);
             setState(() {
               userPickTime = formattedTime;
-              debugPrint('bloc called');
+            });
+            if (widget.isDiary) {
               BlocProvider.of<DairyCubit>(context)
                   .getDiaryFilterData('', formattedTime);
-            });
+            }
           }
         },
         child: Container(
@@ -145,7 +151,7 @@ class _CustomTimePicker2State extends State<CustomTimePicker2> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
             border:
-            Border.all(color: CustomColors.textFieldBorderColor, width: 1),
+                Border.all(color: CustomColors.textFieldBorderColor, width: 1),
             color: Colors.white,
           ),
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -156,10 +162,10 @@ class _CustomTimePicker2State extends State<CustomTimePicker2> {
               Text(
                 userPickTime ?? 'Select Time',
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: userPickTime != null
-                      ? CustomColors.black
-                      : CustomColors.textFieldTextColour,
-                ),
+                      color: userPickTime != null
+                          ? CustomColors.black
+                          : CustomColors.textFieldTextColour,
+                    ),
               ),
               Spacer(),
               Visibility(

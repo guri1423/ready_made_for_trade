@@ -5,8 +5,10 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/dairy/bloc/dairy_cubit.dart';
 
 class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({Key? key, this.isMandate = true}) : super(key: key);
+  const CustomDatePicker({Key? key, this.isMandate = true, this.isDiary = true})
+      : super(key: key);
   final bool isMandate;
+  final bool isDiary;
 
   @override
   _CustomDatePickerState createState() => _CustomDatePickerState();
@@ -37,10 +39,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 .setPickupDate(formattedDate);
             setState(() {
               userPickDate = formattedDate;
-              debugPrint('bloc called');
+            });
+            if (widget.isDiary) {
               BlocProvider.of<DairyCubit>(context)
                   .getDiaryFilterData('', formattedDate);
-            });
+            }
           }
         },
         child: SizedBox(
@@ -104,8 +107,11 @@ class PickupDateCubit extends Cubit<String> {
 }
 
 class CustomDatePicker2 extends StatefulWidget {
-  const CustomDatePicker2({Key? key, this.isMandate = true}) : super(key: key);
+  const CustomDatePicker2(
+      {Key? key, this.isMandate = true, this.isDiary = true})
+      : super(key: key);
   final bool isMandate;
+  final bool isDiary;
 
   @override
   _CustomDatePicker2State createState() => _CustomDatePicker2State();
@@ -134,12 +140,14 @@ class _CustomDatePicker2State extends State<CustomDatePicker> {
             String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
             BlocProvider.of<PickupDateCubit2>(context)
                 .setPickupDate(formattedDate);
+
             setState(() {
               userPickDate = formattedDate;
-              debugPrint('bloc called');
+            });
+            if (widget.isDiary) {
               BlocProvider.of<DairyCubit>(context)
                   .getDiaryFilterData('', formattedDate);
-            });
+            }
           }
         },
         child: SizedBox(

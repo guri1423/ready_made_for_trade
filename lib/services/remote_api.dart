@@ -110,7 +110,7 @@ class RemoteApi {
   Future<GetCustomerModel?> getCustomers() async {
     String? userId = await _servicesStorage.getUserId();
 
-    debugPrint('User ID ${userId.toString()}');
+    debugPrint('User ID------****** ${userId.toString()}');
 
     try {
       Response response = await http
@@ -169,7 +169,7 @@ class RemoteApi {
   Future<JobsModel?> getJobsOnCustomerBasis(String? customerId) async {
     String? userId = await _servicesStorage.getUserId();
 
-    debugPrint('User ID ${userId.toString()}');
+    debugPrint('User ID77777 ${userId.toString()}');
     try {
       Response response = await http.post(Uri.parse(Urls.fetchJobs),
           body: {'user_id': userId, 'customer_id': customerId});

@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/job_agreed_model.dart';
@@ -110,12 +111,20 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                           JobAgreeResponse? model =
                               await _remoteApi.jobAgreed(JobAgreedModel(
                             jobId: widget.jobId,
-                            jobStartDate:  BlocProvider.of<PickupDateCubit>(context).getPickupDate(),
-                            jobEndDate:  BlocProvider.of<PickupDateCubit2>(context).getPickupDate(),
+                            jobStartDate:
+                                BlocProvider.of<PickupDateCubit>(context)
+                                    .getPickupDate(),
+                            jobEndDate:
+                                BlocProvider.of<PickupDateCubit2>(context)
+                                    .getPickupDate(),
                             depositAmount: extractNumericValue(_amount.text),
                             status: 'Confirm Start Date',
-                                jobStartTime: BlocProvider.of<PickupTimeCubit>(context).getPickupTime(),
-                                jobEndTime: BlocProvider.of<PickupTimeCubit2>(context).getPickupTime(),
+                            jobStartTime:
+                                BlocProvider.of<PickupTimeCubit>(context)
+                                    .getPickupTime(),
+                            jobEndTime:
+                                BlocProvider.of<PickupTimeCubit2>(context)
+                                    .getPickupTime(),
                           ));
 
                           debugPrint(
@@ -159,10 +168,12 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
             const BottomToolsForInsidePage(),
           ],
         ),
-        body: FutureBuilder<GetJobData?>(
-            future: _remoteApi.getJobData(widget.jobId.toString()),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
+        body: BlocProvider<JobsCubit>(
+          create: (context) =>
+              JobsCubit()..getJobsData(widget.jobId.toString()),
+          child: BlocBuilder<JobsCubit, JobsState>(
+            builder: (context, state) {
+              if (state is JobsDataByIdLoaded) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: SingleChildScrollView(
@@ -172,7 +183,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text('JOB #${snapshot.data!.data.quoteId!}',
+                        Text('JOB #${state.jobData.data.quoteId!}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -194,6 +205,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                             Expanded(
                                 child: CustomDatePicker(
                               isMandate: false,
+                              isDiary: false,
                             )),
                             SizedBox(
                               width: 10,
@@ -201,6 +213,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                             Expanded(
                                 child: CustomTimePicker(
                               isMandate: false,
+                              isDiary: false,
                             ))
                           ],
                         ),
@@ -251,10 +264,12 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                   ),
                 );
               }
-              if (snapshot.hasError) {
-                const Center(child: Text('Something went wrong'));
+              if (state is JobsFailure) {
+                return const Center(child: Text('Something went wrong'));
               }
               return const Center(child: CircularProgressIndicator());
-            }));
+            },
+          ),
+        ));
   }
 }

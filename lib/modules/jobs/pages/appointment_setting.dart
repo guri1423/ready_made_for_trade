@@ -24,7 +24,6 @@ class AddJobsPage extends StatefulWidget {
 }
 
 class _AddJobsPageState extends State<AddJobsPage> {
-
   final TextEditingController _projectTitle = TextEditingController();
   final TextEditingController _projectDetails = TextEditingController();
 
@@ -174,6 +173,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                   Expanded(
                       child: CustomDatePicker(
                     isMandate: false,
+                    isDiary: false,
                   )),
                   SizedBox(
                     width: 10,
@@ -181,6 +181,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                   Expanded(
                       child: CustomTimePicker(
                     isMandate: false,
+                        isDiary: false,
                   ))
                 ],
               ),

@@ -1,7 +1,6 @@
-
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
@@ -9,6 +8,7 @@ import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
@@ -19,16 +19,15 @@ class JobLivePage extends StatefulWidget {
   int? jobId;
   int? projectId;
 
-  JobLivePage({Key? key, required this.customerId, required this.jobId, this.projectId }) : super(key: key);
-
-
+  JobLivePage(
+      {Key? key, required this.customerId, required this.jobId, this.projectId})
+      : super(key: key);
 
   @override
   State<JobLivePage> createState() => _JobLivePageState();
 }
 
 class _JobLivePageState extends State<JobLivePage> {
-
   TextEditingController _materialCost = TextEditingController();
   TextEditingController _labourCost = TextEditingController();
   TextEditingController _vat = TextEditingController();
@@ -40,339 +39,402 @@ class _JobLivePageState extends State<JobLivePage> {
   RemoteApi _remoteApi = RemoteApi();
   String? vatValue;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: CustomColors.backgroundColour,
-      appBar: AppBar(
-        toolbarHeight: 55,
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(width: 8),
-            SizedBox(
-              width: 130,
-              height: 60,
-              child: Image.asset(
-                'assets/images/final Logo.png',
-                fit: BoxFit.fill,
+        appBar: AppBar(
+          toolbarHeight: 55,
+          backgroundColor: Colors.white,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 8),
+              SizedBox(
+                width: 130,
+                height: 60,
+                child: Image.asset(
+                  'assets/images/final Logo.png',
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Image.asset('assets/images/02 Notification.png'),
-            ),
-          ],
+              SizedBox(
+                height: 30,
+                width: 30,
+                child: Image.asset('assets/images/02 Notification.png'),
+              ),
+            ],
+          ),
         ),
-      ),
+        body: BlocProvider<JobsCubit>(
+          create: (context) =>
+              JobsCubit()..getJobsData(widget.jobId.toString()),
+          child: BlocBuilder<JobsCubit, JobsState>(
+            builder: (context, state) {
+              if (state is JobsDataByIdLoaded) {
+                vatValue = state.jobData.data.vat ?? vatValue;
 
-      body: FutureBuilder<GetJobData?>(
-        future: _remoteApi.getJobData(widget.jobId.toString()),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
+                _projectTitle.text =
+                    state.jobData.data.projectTitle ?? _projectTitle.text;
+                _projectDetails.text = state.jobData.data.projectDescription ??
+                    _projectDetails.text;
+                _vat.text = state.jobData.data.vat ?? _vat.text;
+                _materialCost.text =
+                    state.jobData.data.materialCost ?? _materialCost.text;
+                _labourCost.text =
+                    state.jobData.data.labourCost ?? _labourCost.text;
 
-            vatValue = snapshot.data!.data.vat ?? vatValue;
-
-            _projectTitle.text = snapshot.data!.data.projectTitle ?? _projectTitle.text;
-            _projectDetails.text =
-                snapshot.data!.data.projectDescription ?? _projectDetails.text;
-            _vat.text = snapshot.data!.data.vat ?? _vat.text;
-            _materialCost.text = snapshot.data!.data.materialCost ?? _materialCost.text;
-            _labourCost.text = snapshot.data!.data.labourCost ?? _labourCost.text;
-
-            return Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text('JOB #${snapshot.data!.data.quoteId} - JOB LIVE',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold
-                              ),),
+                return Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'JOB #${state.jobData.data.quoteId} - JOB LIVE',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: CustomColors.blueButton,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()),
+                                      (route) => false);
+                                },
+                                child: const Icon(
+                                  Icons.close_outlined,
+                                  size: 30,
+                                  color: CustomColors.primeColour,
+                                ),
+                              ),
+                            ],
                           ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomePage()), (route) => false);
-                            },
-                            child: const Icon(
-                              Icons.close_outlined,
-                              size: 30,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
                               color: CustomColors.primeColour,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      decoration: BoxDecoration(
-                          color: CustomColors.primeColour,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            Column(
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Stack(
+                              alignment: Alignment.bottomRight,
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Column(
                                   children: [
-                                    Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: CustomColors.white,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: Image.asset('assets/images/user.png'),
-                                        )),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(  snapshot.data!.data.customerName!,
-                                            style: Theme.of(context).textTheme.titleLarge!.copyWith()),
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: CustomColors.white,
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(20.0),
+                                              child: Image.asset(
+                                                  'assets/images/user.png'),
+                                            )),
                                         const SizedBox(
-                                          height: 12,
+                                          width: 20,
                                         ),
-                                        Text( snapshot.data!.data.address!,
-                                            style: Theme.of(context).textTheme.titleSmall!.copyWith()),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Column(
-                                      children: [
-                                        Image.asset('assets/images/Phone Icon.png',height: 25,width: 25,),
-                                        const SizedBox(
-                                          height: 10,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                state
+                                                    .jobData.data.customerName!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith()),
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Text(state.jobData.data.address!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith()),
+                                          ],
                                         ),
-                                        Image.asset('assets/images/Book Appointment.png',height: 25,width: 25,),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/Phone Icon.png',
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Image.asset(
+                                              'assets/images/Book Appointment.png',
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
+                                const Text('Show Costs on quote',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontFamily: 'Dongle',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
                               ],
                             ),
-                            const Text('Show Costs on quote',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'Dongle',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text('   ${snapshot.data!.data.projectTitle!}',
-                                style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
-                              ),
-                            ],
                           ),
                         ),
-                      )
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(  // Wrap the Text widget with Flexible
-                                child: Text(
-                                  '${snapshot.data!.data.projectDescription!}',
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        '   ${state.jobData.data.projectTitle!}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                                color:
+                                                    CustomColors.primeColour),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    // Wrap the Text widget with Flexible
+                                    child: Text(
+                                      '${state.jobData.data.projectDescription!}',
+                                      softWrap: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                              color: CustomColors.primeColour),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('Material - \$${snapshot.data!.data.materialCost}',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: CustomColors.blueButton,
-                              fontWeight: FontWeight.bold
-                          ),),
-
-                        Text('Labour - \$${snapshot.data!.data.labourCost}',
-                          style: TextStyle(
-                              fontSize: 16,
-
-                              color: CustomColors.blueButton,
-                              fontWeight: FontWeight.bold
-                          ),),
-                      ],
-                    ),
-
-
-                    SizedBox(height: 20,),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-
-
-                        if(snapshot.data!.data.isVat! == '1' )
-                          Text(
-                            'Total INC VAT - \$${snapshot.data!.data.totalIncVat!}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Dongle Regular',
-                                color: CustomColors.blueButton,
-                                fontWeight: FontWeight.bold),
-                          ) else  Text(
-                          'Total - \$${snapshot.data!.data.totalPrice!}',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Dongle Regular',
-                              color: CustomColors.blueButton,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 10,),
-                        Text('          ',
-                          style: TextStyle(
-                              fontSize: 16,
-
-                              color: CustomColors.blueButton,
-                              fontWeight: FontWeight.bold
-                          ),)
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                      children: [
-                        GestureDetector(
-                            onTap: (){
-                              dialogBox(context);
-                            },
-                            child: smallButton(context, 'ADD PAYMENT', CustomColors.blueButton, 170)),
-
-                        SizedBox(
-                          height: 50,
-                          width: 170,
-                          child: Center(
-                            child: Text('Paid - \$${snapshot.data!.data.depositAmount ?? '0'}',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              'Material - \$${state.jobData.data.materialCost}',
                               style: TextStyle(
                                   fontSize: 16,
                                   color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold
-                              ),),
-                          ),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Labour - \$${state.jobData.data.labourCost}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-
-                        Expanded(
-                          child: GestureDetector(
-                              onTap: (){
-
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
-                              },
-                              child: smallButton(context, 'PREVIEW', CustomColors.skyblue, 170)),
+                        SizedBox(
+                          height: 20,
                         ),
-
-                        SizedBox(width: 20,),
-
-                        if(int.parse(snapshot.data!.data.depositAmount ?? '0') <= int.parse(snapshot.data!.data.totalPrice!) )
-
-                          Expanded(
-                            child: GestureDetector(
-
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PreviewAfterDeposit(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            if (state.jobData.data.isVat! == '1')
+                              Text(
+                                'Total INC VAT - \$${state.jobData.data.totalIncVat!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            else
+                              Text(
+                                'Total - \$${state.jobData.data.totalPrice!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '          ',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  dialogBox(context);
                                 },
-                                child: smallButton(context, 'SEND INVOICE', CustomColors.blueButton, 170)),
-                          ) else  Expanded(
-                            child: GestureDetector(
-
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> InvoicePaid(jobId: widget.jobId, customerId: widget.customerId, projectId: widget.customerId)));
-                              },
-                              child: smallButton(context, 'FINAL INVOICE', CustomColors.blueButton, 170)),
-                          )
-
+                                child: smallButton(context, 'ADD PAYMENT',
+                                    CustomColors.blueButton, 170)),
+                            SizedBox(
+                              height: 50,
+                              width: 170,
+                              child: Center(
+                                child: Text(
+                                  'Paid - \$${state.jobData.data.depositAmount ?? '0'}',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: CustomColors.blueButton,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PreviewAfterDeposit(
+                                                    jobId: widget.jobId,
+                                                    customerId:
+                                                        widget.customerId,
+                                                    projectId:
+                                                        widget.customerId)));
+                                  },
+                                  child: smallButton(context, 'PREVIEW',
+                                      CustomColors.skyblue, 170)),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            if (int.parse(
+                                    state.jobData.data.depositAmount ?? '0') <=
+                                int.parse(state.jobData.data.totalPrice!))
+                              Expanded(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PreviewAfterDeposit(
+                                                      jobId: widget.jobId,
+                                                      customerId:
+                                                          widget.customerId,
+                                                      projectId:
+                                                          widget.customerId)));
+                                    },
+                                    child: smallButton(context, 'SEND INVOICE',
+                                        CustomColors.blueButton, 170)),
+                              )
+                            else
+                              Expanded(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => InvoicePaid(
+                                                  jobId: widget.jobId,
+                                                  customerId: widget.customerId,
+                                                  projectId:
+                                                      widget.customerId)));
+                                    },
+                                    child: smallButton(context, 'FINAL INVOICE',
+                                        CustomColors.blueButton, 170)),
+                              )
+                          ],
+                        ),
                       ],
                     ),
+                  ),
+                );
+              }
+              if (state is JobsFailure) {
+                return const Center(child: Text('Something went wrong'));
+              }
+              return const Center(child: CircularProgressIndicator());
+              return FutureBuilder<GetJobData?>(
+                future: _remoteApi.getJobData(widget.jobId.toString()),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {}
 
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Somthing went Wrong'));
+                  }
 
-
-
-
-
-
-                  ],
-                ),
-              ),
-            );
-          }
-
-          if (snapshot.hasError) {
-            return const Center(child: Text('Somthing went Wrong'));
-          }
-
-          return const Center(child: SingleChildScrollView());
-        },
-      )
-
-
-
-
-
-    );
+                  return const Center(child: SingleChildScrollView());
+                },
+              );
+            },
+          ),
+        ));
   }
 
   Future<void> dialogBox(BuildContext context) async {
@@ -380,7 +442,6 @@ class _JobLivePageState extends State<JobLivePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-
           title: Container(
             width: 400,
             decoration: BoxDecoration(
@@ -392,18 +453,19 @@ class _JobLivePageState extends State<JobLivePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('PAYMENT',
+                    Text(
+                      'PAYMENT',
                       style: TextStyle(
                           fontSize: 20,
-                          fontFamily:'Dongle',
+                          fontFamily: 'Dongle',
                           color: CustomColors.blueButton,
-                          fontWeight: FontWeight.bold
-                      ),),
+                          fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
-
-                SizedBox(height: 20,),
-
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -416,11 +478,16 @@ class _JobLivePageState extends State<JobLivePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
-                        onTap: ()async{
-                          AddProjectResponse? model = await  _remoteApi.addPayment(_totalPrice.text, widget.jobId.toString(), 'Deposit Paid',_date.text);
+                        onTap: () async {
+                          AddProjectResponse? model =
+                              await _remoteApi.addPayment(
+                                  _totalPrice.text,
+                                  widget.jobId.toString(),
+                                  'Deposit Paid',
+                                  _date.text);
 
-                          if(model != null){
-                           /* Fluttertoast.showToast(
+                          if (model != null) {
+                            /* Fluttertoast.showToast(
                                 msg: model.message!,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
@@ -430,15 +497,9 @@ class _JobLivePageState extends State<JobLivePage> {
                                 fontSize: 16.0);*/
 
                             Navigator.pop(context);
-                            setState(() {
-
-                            });
-
-                          }
-
-                          else{
-
-                           /* Fluttertoast.showToast(
+                            setState(() {});
+                          } else {
+                            /* Fluttertoast.showToast(
                                 msg: 'Something went wrong',
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
@@ -446,21 +507,20 @@ class _JobLivePageState extends State<JobLivePage> {
                                 backgroundColor: Colors.red,
                                 textColor: Colors.white,
                                 fontSize: 16.0);*/
-
                           }
                         },
-                        child: smallButton(context, 'SAVE', CustomColors.greyButton, 100)),
+                        child: smallButton(
+                            context, 'SAVE', CustomColors.greyButton, 100)),
                     GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           _totalPrice.clear();
                           _date.clear();
                           Navigator.pop(context);
 
-                          setState(() {
-
-                          });
+                          setState(() {});
                         },
-                        child: smallButton(context, 'DELETE', CustomColors.yellow, 100)),
+                        child: smallButton(
+                            context, 'DELETE', CustomColors.yellow, 100)),
                   ],
                 ),
               ],
@@ -470,7 +530,4 @@ class _JobLivePageState extends State<JobLivePage> {
       },
     );
   }
-
-
-
 }

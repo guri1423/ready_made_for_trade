@@ -1,9 +1,9 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/deposit_requested.dart';
@@ -14,22 +14,25 @@ class SendDeposit extends StatefulWidget {
   int? jobId;
   int? projectId;
   int? customerId;
-   SendDeposit({Key? key, required this.jobId, required this.projectId, required this.customerId}) : super(key: key);
+
+  SendDeposit(
+      {Key? key,
+      required this.jobId,
+      required this.projectId,
+      required this.customerId})
+      : super(key: key);
 
   @override
   State<SendDeposit> createState() => _SendDepositState();
 }
 
 class _SendDepositState extends State<SendDeposit> {
-
-
   RemoteApi _remoteApi = RemoteApi();
 
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -46,14 +49,16 @@ class _SendDepositState extends State<SendDeposit> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DepositRequested(
-                          customerId: widget.customerId,
-                          jobId: widget.jobId,
-                          projectId: widget.projectId,
-                        )));
+                              customerId: widget.customerId,
+                              jobId: widget.jobId,
+                              projectId: widget.projectId,
+                            )));
               },
               child: smallButton(
                   context, 'SEND QUOTE', CustomColors.blueButton, 170)),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           const BottomToolsForInsidePage(),
         ],
       ),
@@ -83,10 +88,11 @@ class _SendDepositState extends State<SendDeposit> {
           ],
         ),
       ),
-      body: FutureBuilder<GetJobInvoiceData?>(
-          future: _remoteApi.getJobInvoice(widget.jobId),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
+      body: BlocProvider<JobsCubit>(
+        create: (context) => JobsCubit()..getJobInvoiceData(widget.jobId!),
+        child: BlocBuilder<JobsCubit, JobsState>(
+          builder: (context, state) {
+            if (state is JobsInvoiceLoaded) {
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(20),
@@ -100,7 +106,7 @@ class _SendDepositState extends State<SendDeposit> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'INVOICE  #${snapshot.data!.data.quoteId}',
+                                'INVOICE  #${state.data.data.quoteId}',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -111,7 +117,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 height: 20,
                               ),
                               Text(
-                                snapshot.data!.data.customerName ?? '',
+                                state.data.data.customerName ?? '',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -129,7 +135,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Image.network(
-                                '${snapshot.data!.data.filePath}/${snapshot.data!.data.userLogo}',
+                                '${state.data.data.filePath}/${state.data.data.userLogo}',
                               ),
                             ),
                           )
@@ -140,8 +146,7 @@ class _SendDepositState extends State<SendDeposit> {
                       ),
                       Row(
                         children: [
-                          Text( snapshot.data!.data.customerAddress!,
-
+                          Text(state.data.data.customerAddress!,
                               style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'Dongle Regular',
@@ -150,7 +155,7 @@ class _SendDepositState extends State<SendDeposit> {
                           Spacer(),
                           Text(
                               '${formattedDate}\n'
-                                  'Quote #${snapshot.data!.data.quoteId}',
+                              'Quote #${state.data.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'Dongle Regular',
@@ -162,7 +167,7 @@ class _SendDepositState extends State<SendDeposit> {
                         height: 30,
                       ),
                       Text(
-                        snapshot.data!.data.projectDescription!,
+                        state.data.data.projectDescription!,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',
@@ -189,7 +194,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\£ ${snapshot.data!.data.totalPrice}',
+                                  '\£ ${state.data.data.totalPrice}',
                                   style: style,
                                 ),
                               ],
@@ -199,9 +204,10 @@ class _SendDepositState extends State<SendDeposit> {
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-                          if (snapshot.data!.data.isVat == '1')
+                          if (state.data.data.isVat == '1')
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 47),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 47),
                               child: Row(
                                 children: [
                                   Text(
@@ -210,7 +216,7 @@ class _SendDepositState extends State<SendDeposit> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '\£ ${snapshot.data!.data.totalIncVat}',
+                                    '\£ ${state.data.data.totalIncVat}',
                                     style: style,
                                   ),
                                 ],
@@ -218,13 +224,10 @@ class _SendDepositState extends State<SendDeposit> {
                             )
                           else
                             SizedBox.shrink(),
-
                           const Divider(
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-
-
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 47),
                             child: Row(
@@ -235,7 +238,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\£ ${snapshot.data!.data.remaining}',
+                                  '\£ ${state.data.data.remaining}',
                                   style: style,
                                 ),
                               ],
@@ -245,22 +248,23 @@ class _SendDepositState extends State<SendDeposit> {
                             thickness: 1,
                             color: CustomColors.black,
                           ),
-
                         ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-
                     ],
                   ),
                 ),
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
+            if (state is JobsFailure) {
+              return const Center(child: Text('Something went wrong'));
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
     );
   }
 }
