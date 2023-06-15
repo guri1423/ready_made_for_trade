@@ -123,14 +123,14 @@ class StatusCounts {
 
   factory StatusCounts.fromJson(Map<String, dynamic> json) => StatusCounts(
     appointmentSet: json["Appointment Set"],
-    confirmJob: json["Confirm job"],
+    confirmJob: json["Confirm job"]??0,
     confirmStartDate: json["Confirm Start Date"],
-    createQuotes: json["Create Quotes"],
+    createQuotes: json["Create Quotes"]??0,
     depositPaid: json["Deposit Paid"],
     finalInvoice: json["Final Invoice"],
     jobComplete: json["Job Complete"],
     liveJob: json["Live Job"],
-    sendFinalInvoice: json["Send Final Invoice"],
+    sendFinalInvoice: json["Send Final Invoice"]??0,
   );
 
   Map<String, dynamic> toJson() => {
