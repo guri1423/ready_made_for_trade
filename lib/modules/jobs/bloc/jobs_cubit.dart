@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ready_made_4_trade/modules/home/pages/icon_models/jobs_model.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_invoice.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_status.dart';
@@ -24,6 +25,15 @@ class JobsCubit extends Cubit<JobsState> {
     GetJobData? jobData = await apiServices.getJobData(jobId);
     if (jobData != null) {
       emit(JobsDataByIdLoaded(jobData: jobData));
+    } else {
+      emit(JobsFailure());
+    }
+  }
+
+  getAllJobsByStatus(String status) async {
+    JobsModel? jobData = await apiServices.getJobsOnStatusBasis(status);
+    if (jobData != null) {
+      emit(JobsDataByStatusLoaded(jobData: jobData));
     } else {
       emit(JobsFailure());
     }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/jobs_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
+import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/create_quote.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
@@ -9,7 +11,6 @@ import 'package:ready_made_4_trade/modules/jobs/pages/job_live_page.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/quote_sent.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-
 
 class AllJobs extends StatefulWidget {
   String? status;
@@ -37,7 +38,7 @@ class _AllJobsState extends State<AllJobs> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 8 ,
+              width: 8,
             ),
             SizedBox(
               width: 130,
@@ -57,37 +58,39 @@ class _AllJobsState extends State<AllJobs> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: FutureBuilder<JobsModel?>(
-          future: _remoteApi.getJobsOnStatusBasis(widget.status),
-          builder: (BuildContext context, AsyncSnapshot<JobsModel?> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+        child: BlocProvider<JobsCubit>(
+          create: (context) =>
+              JobsCubit()..getAllJobsByStatus(widget.status.toString()),
+          child: BlocBuilder<JobsCubit, JobsState>(
+            builder: (context, state) {
+              if (state is JobsDataByStatusLoaded) {
+                return ListView.builder(
+                  itemCount: state.jobData.data.length,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        navigateUserBasedOnStatus(
+                            context: context,
+                            status: widget.status ?? '',
+                            customerId:
+                                state.jobData.data[index].customerId ?? '',
+                            jobId: state.jobData.data[index].id ?? 0,
+                            projectId:
+                                state.jobData.data[index].projectId ?? 0);
+                      },
+                      child: viewCustomerJobs(
+                          context, state.jobData.data[index], index),
+                    );
+                  },
+                );
+              }
+              if (state is JobsFailure) {
+                return const Center(child: Text('Something went wrong'));
+              }
               return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return const Center(child: Text('Something went wrong'));
-            } else if (snapshot.hasData && snapshot.data != null) {
-              return ListView.builder(
-                itemCount: snapshot.data!.data.length,
-                physics: const ClampingScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      navigateUserBasedOnStatus(
-                          context: context,
-                          status: widget.status ?? '',
-                          customerId:
-                              snapshot.data!.data[index].customerId ?? '',
-                          jobId: snapshot.data!.data[index].id ?? 0,
-                          projectId: snapshot.data!.data[index].projectId ?? 0);
-                    },
-                    child: viewCustomerJobs(
-                        context, snapshot.data!.data[index], index),
-                  );
-                },
-              );
-            } else {
-              return const Center(child: Text('No data available'));
-            }
-          },
+            },
+          ),
         ),
       ),
       bottomNavigationBar: const BottomToolsForInsidePage(),
@@ -156,51 +159,50 @@ void navigateUserBasedOnStatus({
           context,
           MaterialPageRoute(
               builder: (context) => ConfirmJob(
-                customerId: int.tryParse(customerId),
-                jobId: jobId,
-                projectId: projectId,
-              )));
+                    customerId: int.tryParse(customerId),
+                    jobId: jobId,
+                    projectId: projectId,
+                  )));
       break;
     case 'Final Invoice Paid':
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => InvoicePaid(
-                customerId: int.tryParse(customerId),
-                jobId: jobId,
-                projectId: projectId,
-              )));
+                    customerId: int.tryParse(customerId),
+                    jobId: jobId,
+                    projectId: projectId,
+                  )));
       break;
     case 'Live Job':
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => JobLivePage(
-                customerId: int.tryParse(customerId),
-                jobId: jobId,
-                projectId: projectId,
-              )));
+                    customerId: int.tryParse(customerId),
+                    jobId: jobId,
+                    projectId: projectId,
+                  )));
       break;
     case 'Send Final Invoice':
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => InvoicePaid(
-                customerId: int.tryParse(customerId),
-                jobId: jobId,
-                projectId: projectId,
-              )));
+                    customerId: int.tryParse(customerId),
+                    jobId: jobId,
+                    projectId: projectId,
+                  )));
       break;
     case 'Job Complete':
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => InvoicePaid(
-                customerId: int.tryParse(customerId),
-                jobId: jobId,
-                projectId: projectId,
-              )));
+                    customerId: int.tryParse(customerId),
+                    jobId: jobId,
+                    projectId: projectId,
+                  )));
       break;
-
   }
 }

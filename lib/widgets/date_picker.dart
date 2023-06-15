@@ -105,7 +105,17 @@ class PickupDateCubit extends Cubit<String> {
     return state;
   }
 }
+/*class CustomDatePicker extends StatefulWidget {
+  const CustomDatePicker({Key? key, this.isMandate = true, this.isDiary = true})
+      : super(key: key);
+  final bool isMandate;
+  final bool isDiary;
 
+  @override
+  _CustomDatePickerState createState() => _CustomDatePickerState();
+}
+
+class _CustomDatePickerState extends State<CustomDatePicker> {*/
 class CustomDatePicker2 extends StatefulWidget {
   const CustomDatePicker2(
       {Key? key, this.isMandate = true, this.isDiary = true})
@@ -117,7 +127,7 @@ class CustomDatePicker2 extends StatefulWidget {
   _CustomDatePicker2State createState() => _CustomDatePicker2State();
 }
 
-class _CustomDatePicker2State extends State<CustomDatePicker> {
+class _CustomDatePicker2State extends State<CustomDatePicker2> {
   String? userPickDate;
   late PickupDateCubit2 _pickupDateCubit;
 

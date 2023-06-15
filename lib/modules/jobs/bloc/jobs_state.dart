@@ -27,4 +27,10 @@ class JobsInvoiceLoaded extends JobsState {
   final GetJobInvoiceData data;
 }
 
+class JobsDataByStatusLoaded extends JobsState {
+  const JobsDataByStatusLoaded({required this.jobData});
+
+  final JobsModel jobData;
+}
+
 class JobsFailure extends JobsState {}

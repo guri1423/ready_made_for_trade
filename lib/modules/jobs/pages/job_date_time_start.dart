@@ -228,22 +228,24 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                         const SizedBox(
                           height: 15,
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: const [
-                        //     Expanded(
-                        //         child: CustomDatePicker2(
-                        //       isMandate: false,
-                        //     )),
-                        //     SizedBox(
-                        //       width: 10,
-                        //     ),
-                        //     Expanded(
-                        //         child: CustomTimePicker2(
-                        //       isMandate: false,
-                        //     ))
-                        //   ],
-                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: const [
+                            Expanded(
+                                child: CustomDatePicker2(
+                              isMandate: false,
+                              isDiary: false,
+                            )),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                                child: CustomTimePicker2(
+                              isMandate: false,
+                              isDiary: false,
+                            ))
+                          ],
+                        ),
                         SizedBox(
                           height: 80,
                         ),

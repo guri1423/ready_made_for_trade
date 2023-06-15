@@ -47,6 +47,7 @@ class _ConfirmJobState extends State<ConfirmJob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: CustomColors.backgroundColour,
         appBar: AppBar(
           toolbarHeight: 55,
           backgroundColor: Colors.white,
@@ -70,11 +71,8 @@ class _ConfirmJobState extends State<ConfirmJob> {
             ],
           ),
         ),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: CustomColors.backgroundColour,
-          ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -152,6 +150,24 @@ class _ConfirmJobState extends State<ConfirmJob> {
               SizedBox(
                 height: 15,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Expanded(
+                      child: CustomDatePicker2(
+                    isMandate: false,
+                    isDiary: false,
+                  )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: CustomTimePicker2(
+                    isMandate: false,
+                    isDiary: false,
+                  ))
+                ],
+              ),
               Spacer(),
               Padding(
                 padding:
@@ -159,66 +175,73 @@ class _ConfirmJobState extends State<ConfirmJob> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: smallButton(
-                            context, 'DELETE', CustomColors.greyButton, 170)),
-                    GestureDetector(
-                        onTap: () async {
-                          JobAgreeResponse? model =
-                              await _remoteApi.confirmJob(JobAgreedModel(
-                            jobId: widget.jobId,
-                            jobStartDate:
-                                BlocProvider.of<PickupDateCubit>(context)
-                                    .getPickupDate(),
-                            status: 'Confirm Start Date',
-                            depositAmount: '600',
-                            jobEndDate:
-                                BlocProvider.of<PickupDateCubit2>(context)
-                                    .getPickupDate(),
-                            jobStartTime:
-                                BlocProvider.of<PickupTimeCubit>(context)
-                                    .getPickupTime(),
-                            jobEndTime:
-                                BlocProvider.of<PickupTimeCubit2>(context)
-                                    .getPickupTime(),
-                          ));
+                    Expanded(
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: smallButton(
+                              context, 'DELETE', CustomColors.greyButton, 170)),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                          onTap: () async {
+                            JobAgreeResponse? model =
+                                await _remoteApi.confirmJob(JobAgreedModel(
+                              jobId: widget.jobId,
+                              jobStartDate:
+                                  BlocProvider.of<PickupDateCubit>(context)
+                                      .getPickupDate(),
+                              status: 'Confirm Start Date',
+                              depositAmount: '600',
+                              jobEndDate:
+                                  BlocProvider.of<PickupDateCubit2>(context)
+                                      .getPickupDate(),
+                              jobStartTime:
+                                  BlocProvider.of<PickupTimeCubit>(context)
+                                      .getPickupTime(),
+                              jobEndTime:
+                                  BlocProvider.of<PickupTimeCubit2>(context)
+                                      .getPickupTime(),
+                            ));
 
-                          debugPrint(
-                              'model print${model!.toJson().toString()}');
+                            debugPrint(
+                                'model print${model!.toJson().toString()}');
 
-                          if (model != null) {
-                            /*Fluttertoast.showToast(
-                                msg: model.message,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.white,
-                                fontSize: 16.0);*/
+                            if (model != null) {
+                              /*Fluttertoast.showToast(
+                                  msg: model.message,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);*/
 
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => JobLivePage(
-                                          customerId: widget.customerId,
-                                          jobId: widget.jobId,
-                                        )));
-                          } else {
-                            /*   Fluttertoast.showToast(
-                                msg: 'Something went wrong',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);*/
-                          }
-                        },
-                        child: smallButton(context, 'SAVE & SEND',
-                            CustomColors.blueButton, 170)),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => JobLivePage(
+                                            customerId: widget.customerId,
+                                            jobId: widget.jobId,
+                                          )));
+                            } else {
+                              /*   Fluttertoast.showToast(
+                                  msg: 'Something went wrong',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);*/
+                            }
+                          },
+                          child: smallButton(context, 'SAVE & SEND',
+                              CustomColors.blueButton, 12)),
+                    ),
                   ],
                 ),
               )
