@@ -106,7 +106,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 child: Text(
                                   'JOB #${state.jobData.data.quoteId} - DEPOSIT REQUESTED',
                                   style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 15,
                                       fontFamily: 'Dongle Regular',
                                       color: CustomColors.blueButton,
                                       fontWeight: FontWeight.bold),
@@ -235,7 +235,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Material - \£${state.jobData.data.materialCost!}',
@@ -259,7 +259,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 10,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             if (state.jobData.data.isVat! == '1')
                               Text(
@@ -293,7 +293,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
                                 onTap: () {
@@ -301,9 +301,10 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 },
                                 child: smallButton(context, 'ADD PAYMENT',
                                     CustomColors.blueButton, 170)),
+                            SizedBox(width: 40),
                             SizedBox(
                               height: 50,
-                              width: 170,
+                              width: 120,
                               child: Center(
                                 child: Text(
                                   'Paid - \£ ${state.jobData.data.depositAmount ?? '0'}',

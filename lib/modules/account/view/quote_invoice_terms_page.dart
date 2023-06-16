@@ -3,7 +3,8 @@ import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
-
+import 'dart:io';
+import 'package:http/http.dart' as http;
 class QuoteInvoiceTermsPage extends StatefulWidget {
   const QuoteInvoiceTermsPage({Key? key}) : super(key: key);
 
@@ -12,6 +13,22 @@ class QuoteInvoiceTermsPage extends StatefulWidget {
 }
 
 class _QuoteInvoiceTermsPageState extends State<QuoteInvoiceTermsPage> {
+/*  Future<HomeImage> getImage() async {
+    *//* SharedPreferences prefs = await SharedPreferences.getInstance();*//*
+    http.Response response;
+    response = await http.get(
+        Uri.parse('https://readymade4trade.omkatech.in/api/GetHomeImage'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        });
+    if (response.statusCode == 200) {
+      return homeImageFromJson(response.body);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }*/
   final TextEditingController inbox1 = TextEditingController();
   final TextEditingController inbox2 = TextEditingController();
   final TextEditingController expiry = TextEditingController();

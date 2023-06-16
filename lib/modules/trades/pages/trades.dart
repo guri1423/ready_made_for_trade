@@ -141,8 +141,7 @@ class _TradesPageState extends State<TradesPage> {
                         ),
                       ),
                       itemPadding: EdgeInsets.symmetric(horizontal: 15),
-                      itemHeight:
-                          MediaQuery.of(context).size.height * 0.056,
+                      itemHeight: MediaQuery.of(context).size.height * 0.056,
                       icon: const Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: Icon(
@@ -170,11 +169,12 @@ class _TradesPageState extends State<TradesPage> {
                           .map((item) => DropdownMenuItem(
                           value: item,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            padding:  EdgeInsets.symmetric(horizontal: 5),
                             child: Text(
                               item.toString(),
                               style:
-                              Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.primeColour),
+                              Theme.of(context).textTheme.titleSmall!.
+                              copyWith(color: CustomColors.primeColour),
                             ),
                           )))
                           .toList(),
@@ -265,7 +265,7 @@ class _TradesPageState extends State<TradesPage> {
                               focusedBorder: InputBorder.none,
                               focusedErrorBorder: InputBorder.none,
                             ),
-                            buttonHeight: 49,
+                            buttonHeight: 37,
                             buttonWidth: MediaQuery.of(context).size.width,
                             buttonDecoration: BoxDecoration(
                               color: CustomColors.white,
@@ -365,7 +365,7 @@ class _TradesPageState extends State<TradesPage> {
                         focusedBorder: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
                       ),
-                      buttonHeight: 49,
+                      buttonHeight: 37,
                       buttonWidth: MediaQuery.of(context).size.width,
                       buttonDecoration: BoxDecoration(
                         color: CustomColors.white,
@@ -505,7 +505,7 @@ class _TradesPageState extends State<TradesPage> {
                         focusedBorder: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
                       ),
-                      buttonHeight: 49,
+                      buttonHeight: 37,
                       buttonWidth: MediaQuery.of(context).size.width,
                       buttonDecoration: BoxDecoration(
                         color: CustomColors.white,

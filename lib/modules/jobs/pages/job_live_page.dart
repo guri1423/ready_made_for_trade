@@ -225,10 +225,10 @@ class _JobLivePageState extends State<JobLivePage> {
                                         '   ${state.jobData.data.projectTitle!}',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium!
+                                            .titleSmall!
                                             .copyWith(
                                                 color:
-                                                    CustomColors.primeColour),
+                                                    CustomColors.primeColour,fontSize: 15),
                                       ),
                                     ),
                                   ],
@@ -256,9 +256,9 @@ class _JobLivePageState extends State<JobLivePage> {
                                       softWrap: true,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleMedium!
+                                          .titleSmall!
                                           .copyWith(
-                                              color: CustomColors.primeColour),
+                                              color: CustomColors.primeColour,fontSize: 15),
                                     ),
                                   ),
                                 ],
@@ -266,117 +266,106 @@ class _JobLivePageState extends State<JobLivePage> {
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              'Material - \$${state.jobData.data.materialCost}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Labour - \$${state.jobData.data.labourCost}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            if (state.jobData.data.isVat! == '1')
+                        Padding(
+                          padding:  EdgeInsets.only(left:10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
                               Text(
-                                'Total INC VAT - \$${state.jobData.data.totalIncVat!}',
+                                'Material - \$${state.jobData.data.materialCost}',
                                 style: TextStyle(
                                     fontSize: 16,
-                                    fontFamily: 'Dongle Regular',
-                                    color: CustomColors.blueButton,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            else
-                              Text(
-                                'Total - \$${state.jobData.data.totalPrice!}',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Dongle Regular',
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold),
                               ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '          ',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
+                              SizedBox(width: 125),
+                              Text(
+                                'Labour - \$${state.jobData.data.labourCost}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  dialogBox(context);
-                                },
-                                child: smallButton(context, 'ADD PAYMENT',
-                                    CustomColors.blueButton, 170)),
-                            SizedBox(
-                              height: 50,
-                              width: 170,
-                              child: Center(
-                                child: Text(
-                                  'Paid - \$${state.jobData.data.depositAmount ?? '0'}',
+                        Padding(
+                          padding: EdgeInsets.only(left:8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              if (state.jobData.data.isVat! == '1')
+                                Text(
+                                  'Total INC VAT - \$${state.jobData.data.totalIncVat!}',
                                   style: TextStyle(
                                       fontSize: 16,
+                                      fontFamily: 'Dongle Regular',
+                                      color: CustomColors.blueButton,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              else
+                                Text(
+                                  'Total - \$${state.jobData.data.totalPrice!}',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Dongle Regular',
                                       color: CustomColors.blueButton,
                                       fontWeight: FontWeight.bold),
                                 ),
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
-                          ],
+                              Text(
+                                '          ',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
+                        Padding(
+                          padding:  EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PreviewAfterDeposit(
-                                                    jobId: widget.jobId,
-                                                    customerId:
-                                                        widget.customerId,
-                                                    projectId:
-                                                        widget.customerId)));
+                                    dialogBox(context);
                                   },
-                                  child: smallButton(context, 'PREVIEW',
-                                      CustomColors.skyblue, 170)),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            if (int.parse(
-                                    state.jobData.data.depositAmount ?? '0') <=
-                                int.parse(state.jobData.data.totalPrice!))
+                                  child: smallButton(context, 'ADD PAYMENT',
+                                      CustomColors.blueButton, 170)),
+                              SizedBox(width: 65),
+                              SizedBox(
+                                height: 50,
+                                child: Center(
+                                  child: Text(
+                                    'Paid - \$${state.jobData.data.depositAmount ?? '0'}',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: CustomColors.blueButton,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
                               Expanded(
                                 child: GestureDetector(
                                     onTap: () {
@@ -391,26 +380,50 @@ class _JobLivePageState extends State<JobLivePage> {
                                                       projectId:
                                                           widget.customerId)));
                                     },
-                                    child: smallButton(context, 'SEND INVOICE',
-                                        CustomColors.blueButton, 170)),
-                              )
-                            else
-                              Expanded(
-                                child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => InvoicePaid(
-                                                  jobId: widget.jobId,
-                                                  customerId: widget.customerId,
-                                                  projectId:
-                                                      widget.customerId)));
-                                    },
-                                    child: smallButton(context, 'FINAL INVOICE',
-                                        CustomColors.blueButton, 170)),
-                              )
-                          ],
+                                    child: smallButton(context, 'PREVIEW',
+                                        CustomColors.skyblue, 170)),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              if (int.parse(
+                                      state.jobData.data.depositAmount ?? '0') <=
+                                  int.parse(state.jobData.data.totalPrice!))
+                                Expanded(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PreviewAfterDeposit(
+                                                        jobId: widget.jobId,
+                                                        customerId:
+                                                            widget.customerId,
+                                                        projectId:
+                                                            widget.customerId)));
+                                      },
+                                      child: smallButton(context, 'SEND INVOICE',
+                                          CustomColors.blueButton, 170)),
+                                )
+                              else
+                                Expanded(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => InvoicePaid(
+                                                    jobId: widget.jobId,
+                                                    customerId: widget.customerId,
+                                                    projectId:
+                                                        widget.customerId)));
+                                      },
+                                      child: smallButton(context, 'FINAL INVOICE',
+                                          CustomColors.blueButton, 170)),
+                                )
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -9,6 +9,7 @@ import 'package:ready_made_4_trade/modules/account/model/setup_cmpany_model.dart
 import 'package:ready_made_4_trade/modules/account/model/website_text_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_model.dart';
 import 'package:ready_made_4_trade/modules/check_list/models/checklist_status_model.dart';
+import 'package:ready_made_4_trade/modules/check_list/pages/checklist.dart';
 import 'package:ready_made_4_trade/modules/customer/model/add_customer_model.dart';
 import 'package:ready_made_4_trade/modules/dairy/model/get_diary_data_model.dart';
 import 'package:ready_made_4_trade/modules/essentials/models/get_essentails_model.dart';
@@ -266,21 +267,6 @@ class RemoteApi {
     }
   }
 
-  Future<GetGalleryImages?> deleteImages() async {
-    String? Id = await _servicesStorage.getId();
-    debugPrint('User ID ${Id.toString()}');
-    try {
-      Response response =
-          await http.post(Uri.parse(Urls.deleteCameraImages), body: {'id': Id});
-      print(response.body);
-      var jsonResponse = response.body;
-      debugPrint(jsonResponse);
-      return getGalleryImagesFromJson(jsonResponse);
-    } catch (e) {
-      debugPrint(e.toString());
-      return null;
-    }
-  }
 
   Future<GetAllTrades?> getSearchTrades(String? search) async {
     String? userId = await _servicesStorage.getUserId();
@@ -464,7 +450,10 @@ class RemoteApi {
   }
 
   Future<AddProjectResponse?> addProject(
-      {required List<String> imageList, required String projectTitle}) async {
+      {
+        required List<String> imageList, required String projectTitle
+      }
+      ) async {
     String? userId = await _servicesStorage.getUserId();
 
     debugPrint('User ID ${userId.toString()}');
@@ -506,6 +495,39 @@ class RemoteApi {
       return null;
     }
   }
+
+  Future<void> deleteImages(
+      {
+        required List<String> imageList
+      }
+      ) async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+
+    debugPrint(imageList.toString());
+
+    try {
+      Map<String, dynamic> requestBody = {
+
+      };
+
+      for (int i = 0; i < imageList.length; i++) {
+        requestBody['id[$i]'] = imageList[i];
+      }
+
+      Response response =
+      await http.post(Uri.parse(Urls.deleteCameraImages), body: requestBody);
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
 
   Future<AddCustomerResponse?> editCustomer(AddCustomerModel model) async {
     try {
@@ -1124,4 +1146,27 @@ class RemoteApi {
       return null;
     }
   }
+  /*Future<GetGalleryImages?> insertQuoteData() async {
+    String? userId = await _servicesStorage.getUserId();
+
+    debugPrint('User ID ${userId.toString()}');
+    try {
+      Response response = await http
+          .post(Uri.parse(Urls.insertQuoteData), body: {
+            'user_id': userId,
+            'quote_terms': inbox1,
+            'expiry':'n nb n',
+            'invoice_terms':'vvhn',
+            'payment_terms':'vghvj',
+          });
+      print(response.body);
+      var jsonResponse = response.body;
+
+      debugPrint(jsonResponse);
+      return getGalleryImagesFromJson(jsonResponse);
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }*/
 }

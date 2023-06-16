@@ -238,7 +238,7 @@ class _AddCustomerPageState extends State<AddCustomerPage> {
                         buttonDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             border: Border.all(
-                              color: CustomColors.textFldBorder,
+                              color: CustomColors.textFieldTextColour,
                               width: 1,
                             ),
                             color: CustomColors.white),

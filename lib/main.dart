@@ -23,6 +23,7 @@ import 'package:ready_made_4_trade/modules/trainings/bloc/training_cubit.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/date_picker.dart';
 import 'package:ready_made_4_trade/widgets/time_picker.dart';
+import 'package:requests_inspector/requests_inspector.dart';
 
 import 'modules/bottom_nav/cubit/navigation_cubit.dart';
 
@@ -31,7 +32,7 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {

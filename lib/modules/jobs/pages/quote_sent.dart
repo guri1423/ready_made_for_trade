@@ -265,20 +265,18 @@ class _QuoteSentState extends State<QuoteSent> {
                           height: 15,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: SizedBox(
                                   height: 40,
-                                  child: Center(
-                                    child: Text(
-                                      'VAT: ${changeValue(state.jobData.data.isVat!)}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                              color: CustomColors.primeColour),
-                                    ),
+                                  child: Text(
+                                    'VAT: ${changeValue(state.jobData.data.isVat!)}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: CustomColors.primeColour,fontSize: 15),
                                   )),
                             ),
                             const SizedBox(
@@ -289,16 +287,14 @@ class _QuoteSentState extends State<QuoteSent> {
                               replacement: Expanded(
                                   child: SizedBox(
                                 height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Total Inc Vat: £${state.jobData.data.totalIncVat ?? ''}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          color: CustomColors.primeColour,
-                                        ),
-                                  ),
+                                child: Text(
+                                  'Total Inc Vat: £${state.jobData.data.totalIncVat ?? ''}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: CustomColors.primeColour,fontSize: 15
+                                      ),
                                 ),
                               )),
                               child: Expanded(

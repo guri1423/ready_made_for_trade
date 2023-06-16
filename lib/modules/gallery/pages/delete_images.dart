@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:ready_made_4_trade/core/base_urls.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:ready_made_4_trade/modules/gallery/models/delete_camera_images_model.dart';
 import 'dart:convert';
 import 'package:ready_made_4_trade/modules/gallery/models/get_gallery_images.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:requests_inspector/requests_inspector.dart';
 class DeletePage extends StatefulWidget {
-
+  GetGalleryImages? id;
    DeletePage({Key? key}) : super(key: key);
 
   @override
@@ -16,30 +20,7 @@ class DeletePage extends StatefulWidget {
 }
 
 class _DeletePageState extends State<DeletePage> {
-
-
-  postData( List<String> imageList,) async {
-    var response = await http.post(
-        Uri.parse("https://readymade4trade.omkatech.in/api/CameraImageDelete"),
-        body: {
-          "id":  _imageList,
-        });
-    dynamic response1 = jsonDecode(response.body.toString());
-    debugPrint(response1.toString());
-    if(response1['status']==true){
-      debugPrint('Hello shubham');
-     /* Navigator.push(context,MaterialPageRoute(builder: (context)=> Home()));*/
-    }
-    else{
-     /* Fluttertoast.showToast(
-          msg:response1['email'],
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.grey,
-          textColor: Colors.black,
-          fontSize: 12);*/
-      debugPrint('Good By');
-    }
-  }
+  final StorageServices _servicesStorage = StorageServices();
   final RemoteApi apiServices = RemoteApi();
 
   List<bool> _isCheckedList = List.generate(1000, (_) => false);
@@ -113,14 +94,15 @@ class _DeletePageState extends State<DeletePage> {
                                   !_isCheckedList[index];
                                   if (_isCheckedList[index]) {
                                     _imageList!
-                                        .add(snapshot.data!.data[index].image!);
+                                        .add(snapshot.data!.data[index].id!.toString());
                                   } else {
                                     int? indexVal = _imageList?.indexOf(
-                                        snapshot.data!.data[index].image!);
+                                        snapshot.data!.data[index].id!.toString());
                                     if (indexVal != null) {
                                       _imageList!.removeAt(indexVal);
                                     }
                                   }
+                                  print(_imageList.toString());
                                 });
                               },
                               child: Stack(children: <Widget>[
@@ -129,7 +111,6 @@ class _DeletePageState extends State<DeletePage> {
                                 Checkbox(
                                   value: _isCheckedList[index],
                                   onChanged: (bool? value) {
-                                         postData(_imageList!);
                                   },
                                 ),
                               ]),
@@ -155,7 +136,8 @@ class _DeletePageState extends State<DeletePage> {
                 ),
                 child: MaterialButton(
                   onPressed: () async {
-                    postData(_imageList!);
+                    await apiServices.deleteImages(
+                        imageList: _imageList!);
                   },
                   child: Text(
                     'Delete',

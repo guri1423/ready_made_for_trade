@@ -183,18 +183,21 @@ Widget searchTextField(context, TextEditingController controller, String hint,
 }
 
 Widget smallButton(context, String title, Color borderColour, double width) {
-  return SizedBox(
-    height: 40,
-    width: width,
-    child: Container(
-      decoration: BoxDecoration(
-        color: borderColour,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge,
+  return Padding(
+    padding:  EdgeInsets.only(right: 10.0),
+    child: SizedBox(
+      height: 40,
+      width: width,
+      child: Container(
+        decoration: BoxDecoration(
+          color: borderColour,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
         ),
       ),
     ),

@@ -122,7 +122,9 @@ class _CreateProjectState extends State<CreateProject> {
                                     '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}'),
                                 Checkbox(
                                   value: _isCheckedList[index],
-                                  onChanged: (bool? value) {},
+                                  onChanged: (bool? value) {
+
+                                  },
                                 ),
                               ]),
                             );

@@ -74,7 +74,7 @@ Widget customerPage(context, List<DatumCustomer>? data, int index) {
                     style: theme.textTheme.titleSmall),
               ],
             ),
-            const Spacer(),
+           SizedBox(width: 7),
             GestureDetector(
               onTap: () async {
                 await handlingOnTap(_api, data, index, context);

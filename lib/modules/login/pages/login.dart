@@ -238,7 +238,7 @@ class _LoginState extends State<Login> {
                         color: Color.fromRGBO(39, 69, 89, 1),
                       ),
                     ),
-                    SizedBox(width: 85),
+                    SizedBox(width: 105),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

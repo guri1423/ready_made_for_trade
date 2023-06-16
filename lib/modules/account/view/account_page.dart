@@ -116,7 +116,6 @@ List<String> settingList = [
   'UPLOAD LOGO',
   'QUOTE & INVOICE TERMS',
   'ADD REMINDERS',
-  'SALES'
 ];
 
 Widget? navigateToNextPage(int index) {

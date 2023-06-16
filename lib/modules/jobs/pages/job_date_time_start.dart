@@ -246,11 +246,9 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                             ))
                           ],
                         ),
+                        SizedBox(height: 15),
                         SizedBox(
-                          height: 80,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          height: 40,
                           child: Row(
                             children: [
                               Expanded(
