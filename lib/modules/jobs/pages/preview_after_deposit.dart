@@ -121,7 +121,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 height: 20,
                               ),
                               Text(
-                                snapshot.data!.data.customerName ?? '',
+                                snapshot.data!.data.customerName,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -150,7 +150,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                       ),
                       Row(
                         children: [
-                          Text( snapshot.data!.data.customerAddress!,
+                          Text( snapshot.data!.data.customerAddress,
 
                               style: TextStyle(
                                   fontSize: 10,
@@ -172,7 +172,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                         height: 30,
                       ),
                       Text(
-                        snapshot.data!.data.projectDescription!,
+                        snapshot.data!.data.projectDescription,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',

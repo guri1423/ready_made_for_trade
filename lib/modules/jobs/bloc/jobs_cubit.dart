@@ -31,6 +31,7 @@ class JobsCubit extends Cubit<JobsState> {
   }
 
   getAllJobsByStatus(String status) async {
+    emit(JobsInitial());
     JobsModel? jobData = await apiServices.getJobsOnStatusBasis(status);
     if (jobData != null) {
       emit(JobsDataByStatusLoaded(jobData: jobData));

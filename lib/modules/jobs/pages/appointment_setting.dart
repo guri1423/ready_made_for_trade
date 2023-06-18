@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
@@ -30,15 +31,25 @@ class _AddJobsPageState extends State<AddJobsPage> {
   final RemoteApi _remoteApi = RemoteApi();
   final StorageServices _storageServices = StorageServices();
 
+  FlutterSoundPlayer? _soundPlayer;
+  FlutterSoundRecorder? _soundRecorder;
+  String? _recordingPath;
+  bool _isRecording = false;
+  bool _isPlaying = false;
+
+
   @override
   void initState() {
     super.initState();
+    _soundPlayer = FlutterSoundPlayer();
+    _soundRecorder = FlutterSoundRecorder();
   }
 
   int? hoursValue;
   int? dateValue;
   int? monthValue;
   int? minutesValue;
+
 
   @override
   Widget build(BuildContext context) {

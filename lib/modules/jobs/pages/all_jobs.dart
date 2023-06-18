@@ -2,7 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
-import 'package:ready_made_4_trade/modules/home/pages/icon_models/jobs_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/cofirm_job.dart';
@@ -65,6 +64,7 @@ class _AllJobsState extends State<AllJobs> {
               JobsCubit()..getAllJobsByStatus(widget.status.toString()),
           child: BlocBuilder<JobsCubit, JobsState>(
             builder: (context, state) {
+              print(state);
               if (state is JobsDataByStatusLoaded) {
                 return Column(
                   children: [
@@ -106,32 +106,34 @@ class _AllJobsState extends State<AllJobs> {
                           ),
                         ),
                         hint: Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Text(
-                            'Trade',
-                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                color: CustomColors.textFieldTextColour),
+                            'Status of Job',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                    color: CustomColors.textFieldTextColour),
                           ),
                         ),
                         items: statusList
                             .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                item.toString(),
-                                style:
-                                Theme.of(context).textTheme.titleSmall!.
-                                copyWith(color: CustomColors.primeColour),
-                              ),
-                            )))
+                                value: item,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  child: Text(
+                                    item.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: CustomColors.primeColour),
+                                  ),
+                                )))
                             .toList(),
-                        onChanged: (val){
-                          BlocProvider<JobsCubit>(
-                              create: (context) =>
-                          JobsCubit()..getAllJobsByStatus(val.toString()) );
-
+                        onChanged: (val) {
+                          BlocProvider.of<JobsCubit>(context)
+                              .getAllJobsByStatus(val.toString());
                         },
                       ),
                     ),
@@ -146,7 +148,8 @@ class _AllJobsState extends State<AllJobs> {
                                   context: context,
                                   status: widget.status ?? '',
                                   customerId:
-                                      state.jobData.data[index].customerId ?? '',
+                                      state.jobData.data[index].customerId ??
+                                          '',
                                   jobId: state.jobData.data[index].id ?? 0,
                                   projectId:
                                       state.jobData.data[index].projectId ?? 0);
@@ -173,7 +176,7 @@ class _AllJobsState extends State<AllJobs> {
   }
 }
 
-List<String>  statusList = [
+List<String> statusList = [
   'Appointment Set',
   'Confirm Start Date',
   'Create Quotes',
@@ -185,8 +188,6 @@ List<String>  statusList = [
   'Send Final Invoice',
   'Job Complete'
 ];
-
-
 
 void navigateUserBasedOnStatus({
   required BuildContext context,

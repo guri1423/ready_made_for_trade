@@ -126,7 +126,7 @@ class _GetWebsitePageState extends State<GetWebsitePage> {
               if (widget.url != null)
                 InkWell(
                   onTap: () {
-                    launchUrlString(widget.url.toString() ?? '',
+                    launchUrlString(widget.url.toString(),
                         mode: LaunchMode.externalApplication);
                   },
                   child: extraLongButton(context, "VISIT SITE"),

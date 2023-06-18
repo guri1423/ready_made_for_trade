@@ -115,7 +115,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                 height: 20,
                               ),
                               Text(
-                                snapshot.data!.data.customerName ?? '',
+                                snapshot.data!.data.customerName,
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -166,7 +166,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                         height: 30,
                       ),
                       Text(
-                        snapshot.data!.data.projectDescription!,
+                        snapshot.data!.data.projectDescription,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',
@@ -178,7 +178,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                         height: 20,
                       ),
                       Text(
-                        'Invoice terms - ${snapshot.data!.data.invoiceTerms!}',
+                        'Invoice terms - ${snapshot.data!.data.invoiceTerms}',
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',

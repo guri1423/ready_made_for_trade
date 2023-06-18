@@ -117,7 +117,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 height: 20,
                               ),
                               Text(
-                                state.data.data.customerName ?? '',
+                                state.data.data.customerName,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -146,7 +146,7 @@ class _SendDepositState extends State<SendDeposit> {
                       ),
                       Row(
                         children: [
-                          Text(state.data.data.customerAddress!,
+                          Text(state.data.data.customerAddress,
                               style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'Dongle Regular',
@@ -167,7 +167,7 @@ class _SendDepositState extends State<SendDeposit> {
                         height: 30,
                       ),
                       Text(
-                        state.data.data.projectDescription!,
+                        state.data.data.projectDescription,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',
