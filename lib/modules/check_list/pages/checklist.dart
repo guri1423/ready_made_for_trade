@@ -161,6 +161,12 @@ class _ChecklistPageState extends State<ChecklistPage> {
                       unselectedWidgetColor: Colors.white,
                     ),
                     child: Checkbox(
+                      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return CustomColors.white; // Color when checkbox is checked
+                        }
+                        return CustomColors.white; // Color when checkbox is unchecked
+                      }),
                       checkColor: CustomColors.primeColour,
                       activeColor: CustomColors.white,
                       focusColor: CustomColors.white,
@@ -168,7 +174,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
                       onChanged: (bool? value) {
                         setState(() {
                           _isCheckedList[data.data[index].id!] =
-                              !_isCheckedList[data.data[index].id!];
+                          !_isCheckedList[data.data[index].id!];
                           map[data.data[index].id!.toString()] =
                               getStatus(_isCheckedList[data.data[index].id!]);
                           if (userId != null) {
@@ -186,6 +192,7 @@ class _ChecklistPageState extends State<ChecklistPage> {
                     ),
                   ),
                 ),
+
               ],
             ),
           );

@@ -1,5 +1,7 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/home/pages/icon_models/jobs_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/icon_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
@@ -64,25 +66,98 @@ class _AllJobsState extends State<AllJobs> {
           child: BlocBuilder<JobsCubit, JobsState>(
             builder: (context, state) {
               if (state is JobsDataByStatusLoaded) {
-                return ListView.builder(
-                  itemCount: state.jobData.data.length,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        navigateUserBasedOnStatus(
-                            context: context,
-                            status: widget.status ?? '',
-                            customerId:
-                                state.jobData.data[index].customerId ?? '',
-                            jobId: state.jobData.data[index].id ?? 0,
-                            projectId:
-                                state.jobData.data[index].projectId ?? 0);
-                      },
-                      child: viewCustomerJobs(
-                          context, state.jobData.data[index], index),
-                    );
-                  },
+                return Column(
+                  children: [
+                    DropdownButtonHideUnderline(
+                      child: DropdownButtonFormField2(
+                        decoration: const InputDecoration(
+                          isDense: true,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                        ),
+                        buttonHeight: 37,
+                        buttonWidth: MediaQuery.of(context).size.width,
+                        buttonDecoration: BoxDecoration(
+                          color: CustomColors.white,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: CustomColors.textFieldBorderColor,
+                            width: 1,
+                          ),
+                        ),
+                        itemPadding: EdgeInsets.symmetric(horizontal: 15),
+                        itemHeight: MediaQuery.of(context).size.height * 0.056,
+                        icon: const Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: CustomColors.primeColour,
+                          ),
+                        ),
+                        iconOnClick: const Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Icon(
+                            Icons.keyboard_arrow_up,
+                            color: CustomColors.primeColour,
+                          ),
+                        ),
+                        hint: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 12),
+                          child: Text(
+                            'Trade',
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                color: CustomColors.textFieldTextColour),
+                          ),
+                        ),
+                        items: statusList
+                            .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                item.toString(),
+                                style:
+                                Theme.of(context).textTheme.titleSmall!.
+                                copyWith(color: CustomColors.primeColour),
+                              ),
+                            )))
+                            .toList(),
+                        onChanged: (val){
+                          BlocProvider<JobsCubit>(
+                              create: (context) =>
+                          JobsCubit()..getAllJobsByStatus(val.toString()) );
+
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.jobData.data.length,
+                        physics: const ClampingScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              navigateUserBasedOnStatus(
+                                  context: context,
+                                  status: widget.status ?? '',
+                                  customerId:
+                                      state.jobData.data[index].customerId ?? '',
+                                  jobId: state.jobData.data[index].id ?? 0,
+                                  projectId:
+                                      state.jobData.data[index].projectId ?? 0);
+                            },
+                            child: viewCustomerJobs(
+                                context, state.jobData.data[index], index),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               }
               if (state is JobsFailure) {
@@ -97,6 +172,21 @@ class _AllJobsState extends State<AllJobs> {
     );
   }
 }
+
+List<String>  statusList = [
+  'Appointment Set',
+  'Confirm Start Date',
+  'Create Quotes',
+  'Deposit Paid',
+  'Quote Sent',
+  'Deposit Requested',
+  'Final Invoice Paid',
+  'Live Job',
+  'Send Final Invoice',
+  'Job Complete'
+];
+
+
 
 void navigateUserBasedOnStatus({
   required BuildContext context,

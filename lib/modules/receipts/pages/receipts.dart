@@ -161,45 +161,56 @@ class _ReceiptsPageState extends State<ReceiptsPage> {
                       children: [
                         Expanded(
                           child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount: state.model!.data.length,
-                              gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 20.0,
-                                crossAxisSpacing: 20.0,
-                              ),
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _isCheckedList[index] =
-                                      !_isCheckedList[index];
-                                      if (_isCheckedList[index]) {
-                                        _imageList!
-                                            .add(state.model!.data[index].image!);
-                                      } else {
-                                        int? indexVal = _imageList?.indexOf(
-                                            state.model!.data[index].image!);
-                                        if (indexVal != null) {
-                                          _imageList!.removeAt(indexVal);
-                                        }
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: state.model!.data.length,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 20.0,
+                              crossAxisSpacing: 20.0,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isCheckedList[index] = !_isCheckedList[index];
+                                    if (_isCheckedList[index]) {
+                                      _imageList!.add(state.model!.data[index].image!);
+                                    } else {
+                                      int? indexVal = _imageList?.indexOf(state.model!.data[index].image!);
+                                      if (indexVal != null) {
+                                        _imageList!.removeAt(indexVal);
                                       }
-                                    });
-                                  },
-                                  child: Stack(
-                                      children: <Widget>[
+                                    }
+                                  });
+                                },
+                                child: Stack(
+                                  children: <Widget>[
                                     Image.network(
-                                        '${state.model!.data[index].filePath}/${state.model!.data[index].image}',fit: BoxFit.cover),
-                                    Checkbox(
-                                      value: _isCheckedList[index],
-                                      onChanged: (bool? value) {},
+                                      '${state.model!.data[index].filePath}/${state.model!.data[index].image}',
+                                      fit: BoxFit.cover,
                                     ),
-                                  ]),
-                                );
-                              }),
+                                    Positioned.fill(
+                                      child: Container(
+                                        color: _isCheckedList[index]
+                                            ? Colors.black.withOpacity(0.4)
+                                            : Colors.transparent,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.check,
+                                            color: _isCheckedList[index] ? Colors.white : Colors.transparent,
+                                            size: 40,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
+
                         GestureDetector(
                           onTap: () async {
                             AddProjectResponse? response = await apiServices
