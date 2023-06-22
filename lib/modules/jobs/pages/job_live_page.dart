@@ -196,36 +196,38 @@ class _JobLivePageState extends State<JobLivePage> {
                                     ),
                                   ],
                                 ),
-                               Padding(
-                                 padding:  EdgeInsets.only(left: 20),
-                                 child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.center,
-                                   children: [
-                                     Text('Show Costs on quote',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontFamily: 'Dongle',
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold)),
-                                     Transform.scale(
-                                       scale: 0.4,
-                                       child: Theme(
-                                         data: Theme.of(context).copyWith(
-                                           unselectedWidgetColor: Colors.white,
-                                         ),
-                                         child: Checkbox(
-                                           value: false,
-                                           onChanged: (bool? val) {},
-                                           checkColor: CustomColors.primeColour,
-                                           activeColor: Colors.transparent,
-                                           fillColor: MaterialStateProperty.all(CustomColors.white),
-                                         ),
-                                       ),
-                                     )
-                                   ],
-                                 ),
-                               ),
-
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'Show Costs on quote',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          fontFamily: 'Dongle',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
+                                    SizedBox(
+                                      width: 30,
+                                      child: Transform.scale(
+                                        scale: 0.5,
+                                        child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                            unselectedWidgetColor: Colors.white,
+                                          ),
+                                          child: Checkbox(
+                                            value: false,
+                                            onChanged: (bool? val) {},
+                                            checkColor: CustomColors.primeColour,
+                                            activeColor: Colors.transparent,
+                                            fillColor: MaterialStateProperty.all(CustomColors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -360,7 +362,7 @@ class _JobLivePageState extends State<JobLivePage> {
                                     dialogBox(context);
                                   },
                                   child: smallButton(context, 'ADD PAYMENT',
-                                      CustomColors.blueButton, 160)),
+                                      CustomColors.blueButton, 150)),
                               SizedBox(width: 20),
                               SizedBox(
                                 height: 50,

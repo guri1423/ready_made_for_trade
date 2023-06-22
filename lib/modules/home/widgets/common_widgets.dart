@@ -53,8 +53,7 @@ Widget extraLongButton(context, String title,
   );
 }
 
-Widget textField(context, TextEditingController controller, String hint,
-    double width, double height) {
+Widget textField(context, TextEditingController controller, String hint, double width, double height) {
   return SizedBox(
     height: height,
     width: width,
@@ -79,7 +78,32 @@ Widget textField(context, TextEditingController controller, String hint,
     ),
   );
 }
-
+Widget textField1(context, TextEditingController controller, String hint, double width, double height) {
+  return SizedBox(
+    height: height,
+    width: width,
+    child: TextFormField(
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium!
+          .copyWith(color: CustomColors.black, fontWeight: FontWeight.normal),
+      maxLines: 1,
+      controller: controller,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.only(left: 10,bottom: 10),
+        hintText: hint,
+        hintStyle: Theme.of(context)
+            .textTheme
+            .titleSmall!
+            .copyWith(color: CustomColors.textFieldTextColour),
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      keyboardType: TextInputType.number,
+    ),
+  );
+}
 class DateInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {

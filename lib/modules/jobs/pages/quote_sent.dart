@@ -205,22 +205,22 @@ class _QuoteSentState extends State<QuoteSent> {
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        /*mainAxisSize: MainAxisSize.min,*/
-                                        children: [
-                                          const Text(
-                                            'Show Costs on quote',
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontFamily: 'Dongle',
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Transform.scale(
-                                            scale: 0.4,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Show Costs on quote',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontFamily: 'Dongle',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
+                                        SizedBox(
+                                          width: 30,
+                                          child: Transform.scale(
+                                            scale: 0.5,
                                             child: Theme(
                                               data: Theme.of(context).copyWith(
                                                 unselectedWidgetColor: Colors.white,
@@ -233,9 +233,9 @@ class _QuoteSentState extends State<QuoteSent> {
                                                 fillColor: MaterialStateProperty.all(CustomColors.white),
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),

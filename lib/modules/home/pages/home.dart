@@ -19,7 +19,6 @@ import 'package:ready_made_4_trade/modules/material/pages/material.dart';
 import 'package:ready_made_4_trade/modules/trades/pages/trades.dart';
 import 'package:ready_made_4_trade/modules/trainings/pages/trainings.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/home_widgets.dart';
-import 'package:ready_made_4_trade/modules/youtube/pages/video_player.dart';
 import '../../../services/remote_api.dart';
 import '../../../services/storage.dart';
 import 'package:http/http.dart' as http;

@@ -33,7 +33,7 @@ class _InvoiceSentState extends State<InvoiceSent> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 55,
@@ -68,7 +68,6 @@ class _InvoiceSentState extends State<InvoiceSent> {
         ),
         child: Column(
           children: [
-
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
               child: Row(

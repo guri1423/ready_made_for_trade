@@ -32,7 +32,7 @@ class _SendDepositState extends State<SendDeposit> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -145,6 +145,7 @@ class _SendDepositState extends State<SendDeposit> {
                         height: 10,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(state.data.data.customerAddress,
                               style: TextStyle(
@@ -166,14 +167,19 @@ class _SendDepositState extends State<SendDeposit> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        state.data.data.projectDescription,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.data.data.projectDescription,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,

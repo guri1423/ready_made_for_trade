@@ -31,7 +31,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -171,14 +171,19 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        snapshot.data!.data.projectDescription,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data!.data.projectDescription,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,

@@ -223,7 +223,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
               const SizedBox(
                 height: 10,
               ),
-              /*SizedBox(
+             /* SizedBox(
                   height: 200,
                   child: customTextFieldForm(context,
                       controller: _projectDetails,
@@ -235,10 +235,10 @@ class _AddJobsPageState extends State<AddJobsPage> {
                   return validationTxtField(value);
                 },
                 maxLines: 10,
-                style: TextStyle(color: CustomColors.primeColour),
+                style: TextStyle(color: CustomColors.primeColour,fontSize: 12),
+                textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                   /* contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),*/
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: BorderSide(
@@ -251,8 +251,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                           color: CustomColors.textFieldTextColour,
                           width: 1,
                         )),
-                    hintStyle:
-                    TextStyle(fontSize: 13, color: CustomColors.textFieldTextColour),
+                    hintStyle: TextStyle(fontSize: 12, color: CustomColors.textFieldTextColour),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: BorderSide(
