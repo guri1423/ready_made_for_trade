@@ -196,7 +196,7 @@ Widget smallButton(context, String title, Color borderColour, double width) {
         child: Center(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ),

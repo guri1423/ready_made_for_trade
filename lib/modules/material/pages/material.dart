@@ -109,7 +109,7 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                               crossAxisCount: 3,
-                              mainAxisExtent: 135),
+                              mainAxisExtent: 145),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {

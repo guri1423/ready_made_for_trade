@@ -407,11 +407,8 @@ Widget customTextFieldForm(BuildContext context,
         ? TextInputType.phone
         : TextInputType.emailAddress,
     controller: controller,
-    maxLines: hintText.contains('Project Details')
-        ? 20
-        : isBig
-            ? 10
-            : 1,
+    maxLines: hintText.contains('Project Details') ? 20 : isBig ? 10 : 1,
+    /*maxLines: 10,*/
     style: Theme.of(context)
         .textTheme
         .titleSmall!

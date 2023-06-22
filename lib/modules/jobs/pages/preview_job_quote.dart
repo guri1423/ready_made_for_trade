@@ -32,7 +32,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -165,19 +165,24 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        snapshot.data!.data.projectDescription,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data!.data.projectDescription,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
+                     /* Text(
                         'Invoice terms - ${snapshot.data!.data.invoiceTerms}',
                         style: TextStyle(
                           fontSize: 14,
@@ -185,7 +190,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                           height: 1.5,
                           color: CustomColors.greyButton,
                         ),
-                      ),
+                      ),*/
                       const Divider(
                         thickness: 1,
                         color: CustomColors.black,
@@ -277,14 +282,20 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'Quote terms - ${snapshot.data!.data.quoteTerms}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                           /* 'Quote terms - ${snapshot.data!.data.quoteTerms}',*/
+                            snapshot.data!.data.quoteTerms,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       // const Text(
                       //   'Lorem ipsum dolor sit amet, consectetur adipiscing '

@@ -64,7 +64,8 @@ class _AccountPageState extends State<AccountPage> {
                   MaterialPageRoute(builder: (context) => const Login()),
                   (route) => false);
             },
-            child: extraLongButton(context, 'LOG OUT')),
+            child: extraLongButton(context, 'LOG OUT'),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -137,6 +138,8 @@ Widget? navigateToNextPage(int index) {
 
     case 5:
       return AskExpertPage();
+   /* case 6:
+      return */
   }
   return null;
 }

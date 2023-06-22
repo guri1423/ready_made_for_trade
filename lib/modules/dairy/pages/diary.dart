@@ -118,7 +118,7 @@ class _DiaryPageState extends State<DiaryPage> {
                           child: Text(
                             'Filter',
                             style: theme.textTheme.titleMedium!.copyWith(
-                                color: CustomColors.textFieldTextColour),
+                                color: CustomColors.textFieldTextColour,fontSize: 12),
                           ),
                         ),
                         items: dairyFilterList
@@ -146,7 +146,7 @@ class _DiaryPageState extends State<DiaryPage> {
                     width: 10,
                   ),
                   SizedBox(
-                      height: 35,
+                      height: 30,
                       width: 40,
                       child: Image.asset(
                           'assets/images/updated_images/029-list.png'))
@@ -160,7 +160,7 @@ class _DiaryPageState extends State<DiaryPage> {
                     width: 10,
                   ),
                   SizedBox(
-                      height: 35,
+                      height: 30,
                       width: 40,
                       child: Image.asset(
                           'assets/images/updated_images/diary.png'))

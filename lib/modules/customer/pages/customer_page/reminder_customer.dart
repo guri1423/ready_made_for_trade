@@ -7,6 +7,8 @@ import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:ready_made_4_trade/widgets/date_picker.dart';
+import 'package:ready_made_4_trade/widgets/time_picker.dart';
 
 import '../../../../core/list/list.dart';
 
@@ -18,7 +20,8 @@ class ReminderCustomer extends StatefulWidget {
 }
 
 class _ReminderCustomerState extends State<ReminderCustomer> {
-
+  final TextEditingController _projectTitle = TextEditingController();
+  final TextEditingController _projectDetails = TextEditingController();
   final TextEditingController _year = TextEditingController();
 
   int? hoursValue;
@@ -146,7 +149,21 @@ class _ReminderCustomerState extends State<ReminderCustomer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  Expanded(
+                      child: CustomDatePicker(
+                        isMandate: false,
+                        isDiary: false,
+                      )),
                   SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: CustomTimePicker(
+                      isMandate: false,
+                      isDiary: false,
+                    ),
+                  ),
+            /*      SizedBox(
                     width: 60,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButtonFormField2(
@@ -300,8 +317,66 @@ class _ReminderCustomerState extends State<ReminderCustomer> {
                           controller: _year, hintText: 'YYYY')),
                   const SizedBox(
                     width: 5,
+                  ),*/
+                ],
+              ),
+              SizedBox(height: 10),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 45,
+                    child: customTextFieldForm(context,
+                        controller: _projectTitle, hintText: 'Project Title'),
                   ),
                   SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _projectDetails,
+                    validator: (value) {
+                      return validationTxtField(value);
+                    },
+                    maxLines: 10,
+                    style: TextStyle(color: CustomColors.primeColour),
+                    decoration: InputDecoration(
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: CustomColors.textFieldTextColour,
+                            width: 1,
+                          )),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: CustomColors.textFieldTextColour,
+                            width: 1,
+                          )),
+                      hintStyle:
+                      TextStyle(fontSize: 13, color: CustomColors.textFieldTextColour),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: CustomColors.textFieldTextColour,
+                            width: 1,
+                          )),
+                      hintText: "Product Details",
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    keyboardType: TextInputType.multiline,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+    );
+  }
+}
+/*  SizedBox(
                     width: 60,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButtonFormField2(
@@ -443,20 +518,4 @@ class _ReminderCustomerState extends State<ReminderCustomer> {
                             return validationDropField(value);
                           }),
                     ),
-                  ),
-
-                ],
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-
-            ],
-          ),
-        )
-
-
-
-    );
-  }
-}
+                  ),*/

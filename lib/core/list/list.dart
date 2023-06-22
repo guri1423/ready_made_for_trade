@@ -15,13 +15,20 @@ List<String> jobList = [
 
 
 final List<String>customerType = [
+
   'CIS Customer',
   'Private Customer',
 
 ];
 
 final List<String>categoryList = [
-  'Materials', 'Entertainment', 'Travel'
+ /* 'Materials', 'Entertainment', 'Travel'*/
+  'Entertainment',
+  'Fuel',
+  'General Expenses',
+  'Job',
+  'Materials',
+  'Travel',
 
 ];
 

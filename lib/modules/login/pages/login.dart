@@ -215,13 +215,8 @@ class _LoginState extends State<Login> {
                       activeColor: CustomColors.white,
                       value: _checkBox,
                       onChanged: (value) {
-
                         _checkBox =! _checkBox!;
-
                         setState(() {
-
-
-
                           if(_checkBox == true){
 
                           }else {

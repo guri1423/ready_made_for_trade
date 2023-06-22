@@ -106,7 +106,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 child: Text(
                                   'JOB #${state.jobData.data.quoteId} - DEPOSIT REQUESTED',
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 20,
                                       fontFamily: 'Dongle Regular',
                                       color: CustomColors.blueButton,
                                       fontWeight: FontWeight.bold),
@@ -204,12 +204,38 @@ class _DepositRequestedState extends State<DepositRequested> {
                                     ),
                                   ],
                                 ),
-                                Text('Show Costs on quote',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontFamily: 'Dongle',
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    /*mainAxisSize: MainAxisSize.min,*/
+                                    children: [
+                                      const Text(
+                                        'Show Costs on quote',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontFamily: 'Dongle',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Transform.scale(
+                                        scale: 0.4,
+                                        child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                            unselectedWidgetColor: Colors.white,
+                                          ),
+                                          child: Checkbox(
+                                            value: false,
+                                            onChanged: (bool? val) {},
+                                            checkColor: CustomColors.primeColour,
+                                            activeColor: Colors.transparent,
+                                            fillColor: MaterialStateProperty.all(CustomColors.white),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -235,7 +261,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
                           children: [
                             Text(
                               'Material - \£${state.jobData.data.materialCost!}',
@@ -245,6 +271,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                   color: CustomColors.blueButton,
                                   fontWeight: FontWeight.bold),
                             ),
+                            SizedBox(width: 105),
                             Text(
                               'Labour - \£${state.jobData.data.labourCost!}',
                               style: TextStyle(
@@ -293,18 +320,18 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
                           children: [
                             GestureDetector(
                                 onTap: () {
                                   dialogBox(context);
                                 },
                                 child: smallButton(context, 'ADD PAYMENT',
-                                    CustomColors.blueButton, 170)),
-                            SizedBox(width: 40),
+                                    CustomColors.blueButton, 155)),
+                            SizedBox(width: 25),
                             SizedBox(
                               height: 50,
-                              width: 120,
+                              width: 115,
                               child: Center(
                                 child: Text(
                                   'Paid - \£ ${state.jobData.data.depositAmount ?? '0'}',
@@ -750,9 +777,9 @@ class _DepositRequestedState extends State<DepositRequested> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Container(
-            width: 400,
+            width: 650,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
+              color: Colors.blue.shade300,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -776,11 +803,24 @@ class _DepositRequestedState extends State<DepositRequested> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(child: textField(context, _totalPrice, 'Total Price', 40, 50)),
                     Expanded(
-                        child: CustomDatePicker(
-                          isMandate: false,
-                          isDiary: false,
+                        child: Padding(
+                          padding:  EdgeInsets.only(left: 10),
+                          child: SizedBox(
+                            height: 40,
+                            child: textField(
+                                context, _totalPrice, 'Total Price', 40, 50),
+                          ),
+                        ),
+                    ),
+                    SizedBox(width: 5),
+                    Expanded(
+                        child: Padding(
+                          padding:EdgeInsets.only(right: 10),
+                          child: CustomDatePicker(
+                            isMandate: false,
+                            isDiary: false,
+                          ),
                         )),
                   ],
                 ),
@@ -820,8 +860,11 @@ class _DepositRequestedState extends State<DepositRequested> {
                               fontSize: 16.0);*/
                         }
                       },
-                      child: smallButton(
-                          context, 'SAVE', CustomColors.greyButton, 100),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: smallButton(
+                            context, 'SAVE', CustomColors.greyButton, 100),
+                      ),
                     )),
                     const SizedBox(
                       width: 20,

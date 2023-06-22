@@ -205,12 +205,35 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                   ),
                                 ],
                               ),
-                              Text('Show Costs on quote',
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontFamily: 'Dongle',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
+                              Padding(
+                                padding:  EdgeInsets.only(left: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('Show Costs on quote',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontFamily: 'Dongle',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                              Transform.scale(
+                                scale: 0.4,
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    unselectedWidgetColor: Colors.white,
+                                  ),
+                                  child: Checkbox(
+                                    value: false,
+                                    onChanged: (bool? val) {},
+                                    checkColor: CustomColors.primeColour,
+                                    activeColor: Colors.transparent,
+                                    fillColor: MaterialStateProperty.all(CustomColors.white),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -232,7 +255,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Center(
-                                    child: Text('   ${snapshot.data!.data.projectTitle!}',
+                                    child: Text('${snapshot.data!.data.projectTitle!}',
                                       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
                                   ),
                                 ],
@@ -270,7 +293,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        /*mainAxisAlignment: MainAxisAlignment.spaceAround,*/
                         children: [
                           Column(
                             children: [
@@ -283,7 +306,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
-                                height: 10,
+                                width: 105,
                               ),
                               Text(
                                 'Labour - \£${snapshot.data!.data.labourCost!}',
@@ -315,7 +338,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                     fontWeight: FontWeight.bold),
                               ),
 
-                              SizedBox(height: 10,),
+                              SizedBox(width: 105),
 
                               Text(
                                 'Paid - \£${snapshot.data!.data.depositAmount!}                 ',

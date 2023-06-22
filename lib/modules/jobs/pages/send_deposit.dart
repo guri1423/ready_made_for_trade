@@ -181,7 +181,7 @@ class _SendDepositState extends State<SendDeposit> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
+                      /*Text(
                         'Invoice terms - ${state.data.data.invoiceTerms}',
                         style: TextStyle(
                           fontSize: 14,
@@ -189,7 +189,7 @@ class _SendDepositState extends State<SendDeposit> {
                           height: 1.5,
                           color: CustomColors.greyButton,
                         ),
-                      ),
+                      ),*/
                       const Divider(
                         thickness: 1,
                         color: CustomColors.black,
@@ -268,14 +268,20 @@ class _SendDepositState extends State<SendDeposit> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'Quote terms - ${state.data.data.quoteTerms}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                           /* 'Quote terms - ${state.data.data.quoteTerms}',*/
+                            state.data.data.quoteTerms,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

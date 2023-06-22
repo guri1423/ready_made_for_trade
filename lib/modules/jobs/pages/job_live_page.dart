@@ -196,12 +196,36 @@ class _JobLivePageState extends State<JobLivePage> {
                                     ),
                                   ],
                                 ),
-                                const Text('Show Costs on quote',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontFamily: 'Dongle',
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
+                               Padding(
+                                 padding:  EdgeInsets.only(left: 20),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: [
+                                     Text('Show Costs on quote',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontFamily: 'Dongle',
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                     Transform.scale(
+                                       scale: 0.4,
+                                       child: Theme(
+                                         data: Theme.of(context).copyWith(
+                                           unselectedWidgetColor: Colors.white,
+                                         ),
+                                         child: Checkbox(
+                                           value: false,
+                                           onChanged: (bool? val) {},
+                                           checkColor: CustomColors.primeColour,
+                                           activeColor: Colors.transparent,
+                                           fillColor: MaterialStateProperty.all(CustomColors.white),
+                                         ),
+                                       ),
+                                     )
+                                   ],
+                                 ),
+                               ),
+
                               ],
                             ),
                           ),
@@ -220,16 +244,14 @@ class _JobLivePageState extends State<JobLivePage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Center(
-                                      child: Text(
-                                        '   ${state.jobData.data.projectTitle!}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(
-                                                color:
-                                                    CustomColors.primeColour,fontSize: 15),
-                                      ),
+                                    Text(
+                                      '${state.jobData.data.projectTitle!}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color:
+                                                  CustomColors.primeColour,fontSize: 15),
                                     ),
                                   ],
                                 ),
@@ -249,17 +271,14 @@ class _JobLivePageState extends State<JobLivePage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Flexible(
-                                    // Wrap the Text widget with Flexible
-                                    child: Text(
-                                      '${state.jobData.data.projectDescription!}',
-                                      softWrap: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall!
-                                          .copyWith(
-                                              color: CustomColors.primeColour,fontSize: 15),
-                                    ),
+                                  Text(
+                                    '${state.jobData.data.projectDescription!}',
+                                    softWrap: true,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .copyWith(
+                                            color: CustomColors.primeColour,fontSize: 15),
                                   ),
                                 ],
                               ),
@@ -272,15 +291,15 @@ class _JobLivePageState extends State<JobLivePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Material - \$${state.jobData.data.materialCost}',
+                                'Material - \£${state.jobData.data.materialCost}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(width: 125),
+                              SizedBox(width: 80),
                               Text(
-                                'Labour - \$${state.jobData.data.labourCost}',
+                                'Labour - \£${state.jobData.data.labourCost}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: CustomColors.blueButton,
@@ -293,13 +312,13 @@ class _JobLivePageState extends State<JobLivePage> {
                           height: 20,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left:8),
+                          padding:  EdgeInsets.only(left: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               if (state.jobData.data.isVat! == '1')
                                 Text(
-                                  'Total INC VAT - \$${state.jobData.data.totalIncVat!}',
+                                  'Total INC VAT - \£${state.jobData.data.totalIncVat!}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Dongle Regular',
@@ -341,8 +360,8 @@ class _JobLivePageState extends State<JobLivePage> {
                                     dialogBox(context);
                                   },
                                   child: smallButton(context, 'ADD PAYMENT',
-                                      CustomColors.blueButton, 170)),
-                              SizedBox(width: 65),
+                                      CustomColors.blueButton, 160)),
+                              SizedBox(width: 20),
                               SizedBox(
                                 height: 50,
                                 child: Center(

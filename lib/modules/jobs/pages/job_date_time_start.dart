@@ -246,7 +246,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                             ))
                           ],
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 35),
                         SizedBox(
                           height: 40,
                           child: Row(
@@ -255,7 +255,40 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                                   child: customTextFieldForm(context,
                                       controller: _amount,
                                       hintText: 'Deposit Amount')),
-                              Expanded(child: Container())
+                              Expanded(
+                                child: Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  /*mainAxisSize: MainAxisSize.min,*/
+                                  children: [
+                                    Transform.scale(
+                                      scale: 1.3,
+                                      child: Theme(
+                                        data: Theme.of(context).copyWith(
+                                          unselectedWidgetColor: CustomColors.textFieldTextColour,
+                                        ),
+                                        child: Checkbox(
+                                          value: false,
+                                          onChanged: (bool? val) {},
+                                          checkColor: CustomColors.primeColour,
+                                          activeColor: Colors.transparent,
+                                          fillColor: MaterialStateProperty.all(CustomColors.white),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Request Deposit',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontFamily: 'Dongle',
+                                          color: CustomColors.textFieldTextColour,
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),)
                             ],
                           ),
                         ),

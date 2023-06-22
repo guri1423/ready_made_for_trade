@@ -92,9 +92,9 @@ class _QuoteSentState extends State<QuoteSent> {
                     _projectDetails.text;
                 _vat.text = state.jobData.data.vat ?? _vat.text;
                 _materialCost.text =
-                    state.jobData.data.materialCost ?? _materialCost.text;
+                    '£${state.jobData.data.materialCost ?? _materialCost.text}';
                 _labourCost.text =
-                    state.jobData.data.labourCost ?? _labourCost.text;
+                    '£${state.jobData.data.labourCost ?? _labourCost.text}';
 
                 return SingleChildScrollView(
                   child: Padding(
@@ -205,12 +205,38 @@ class _QuoteSentState extends State<QuoteSent> {
                                         ),
                                       ],
                                     ),
-                                    Text('Show Costs on quote',
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontFamily: 'Dongle',
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        /*mainAxisSize: MainAxisSize.min,*/
+                                        children: [
+                                          const Text(
+                                            'Show Costs on quote',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontFamily: 'Dongle',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Transform.scale(
+                                            scale: 0.4,
+                                            child: Theme(
+                                              data: Theme.of(context).copyWith(
+                                                unselectedWidgetColor: Colors.white,
+                                              ),
+                                              child: Checkbox(
+                                                value: false,
+                                                onChanged: (bool? val) {},
+                                                checkColor: CustomColors.primeColour,
+                                                activeColor: Colors.transparent,
+                                                fillColor: MaterialStateProperty.all(CustomColors.white),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -316,8 +342,8 @@ class _QuoteSentState extends State<QuoteSent> {
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 15,
+                        SizedBox(
+                          height: 7,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

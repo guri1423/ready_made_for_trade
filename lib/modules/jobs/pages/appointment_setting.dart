@@ -25,6 +25,21 @@ class AddJobsPage extends StatefulWidget {
 }
 
 class _AddJobsPageState extends State<AddJobsPage> {
+  dynamic validationTxtField(value){
+    if(value.isEmpty){
+      return "Field is mandatory";
+    }else{
+      return null;
+    }
+  }
+
+  dynamic validationDropField(value){
+    if(value == null){
+      return "Field is mandatory";
+    }else{
+      return null;
+    }
+  }
   final TextEditingController _projectTitle = TextEditingController();
   final TextEditingController _projectDetails = TextEditingController();
 
@@ -193,27 +208,67 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       child: CustomTimePicker(
                     isMandate: false,
                         isDiary: false,
-                  ))
+                  ),
+                  ),
                 ],
               ),
               const SizedBox(
                 height: 35,
               ),
               SizedBox(
-                height: 40,
+                height: 45,
                 child: customTextFieldForm(context,
                     controller: _projectTitle, hintText: 'Project Title'),
               ),
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              /*SizedBox(
                   height: 200,
                   child: customTextFieldForm(context,
                       controller: _projectDetails,
-                      hintText: 'Project Details')),
+                      hintText: 'Project Details'),
+              ),*/
+              TextFormField(
+                controller: _projectDetails,
+                validator: (value) {
+                  return validationTxtField(value);
+                },
+                maxLines: 10,
+                style: TextStyle(color: CustomColors.primeColour),
+                decoration: InputDecoration(
+                    contentPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: CustomColors.textFieldTextColour,
+                          width: 1,
+                        )),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: CustomColors.textFieldTextColour,
+                          width: 1,
+                        )),
+                    hintStyle:
+                    TextStyle(fontSize: 13, color: CustomColors.textFieldTextColour),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: CustomColors.textFieldTextColour,
+                          width: 1,
+                        )),
+                    hintText: "Product Details",
+                    border: InputBorder.none,
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                keyboardType: TextInputType.multiline,
+              ),
             ],
           ),
-        ));
+        ),
+    );
   }
 }

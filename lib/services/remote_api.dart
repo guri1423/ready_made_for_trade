@@ -624,10 +624,8 @@ class RemoteApi {
     }
   }
 
-  Future<AddAppointmentResponse?> addAppointment(
-      AddAppointmentModel model) async {
+  Future<AddAppointmentResponse?> addAppointment(AddAppointmentModel model) async {
     debugPrint('TESt Id customer ${model.toJson().toString()}');
-
     try {
       final response = await http.post(
         Uri.parse(Urls.addAppointment),
@@ -1136,11 +1134,11 @@ class RemoteApi {
     }
   }
 
-  Future<Getwebsite?> getwebsite() async {
+  Future<GetWebsite?> getwebsite() async {
     try {
       Response response = await http.get(Uri.parse(Urls.getawebSite));
       var jsonResponse = response.body;
-      return getwebsiteFromJson(jsonResponse);
+      return getWebsiteFromJson(jsonResponse);
     } catch (e) {
       debugPrint(e.toString());
       return null;

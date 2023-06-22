@@ -125,25 +125,21 @@ class _DeletePageState extends State<DeletePage> {
                   }
                 }),
             Padding(
-              padding: EdgeInsets.only(top: 10.0, right: 35.0, left: 35.0,bottom: 5),
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Color.fromRGBO(2, 141, 153, 1),
-                ),
-                child: MaterialButton(
-                  onPressed: () async {
+              padding:  EdgeInsets.only(bottom: 25),
+              child: GestureDetector(
+                  onTap: () async{
                     await apiServices.deleteImages(
                         imageList: _imageList!);
+                    CircularProgressIndicator(color: CustomColors.primeColour,);
+                    setState(() {
+
+                    });
+                   /* Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AllProjectsPage()));*/
                   },
-                  child: Text(
-                    'Delete',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
-                ),
+                  child: extraLongButton(context, 'DELETE'),
               ),
             ),
           ],

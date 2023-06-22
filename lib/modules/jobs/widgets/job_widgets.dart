@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/account/view/add_reminders_page.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget viewJobQuote(context, {JobData? model}) {
+  void makePhoneCall(String phoneNumber) async {
+    final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
+    await launch(telUri.toString());
+  }
   bool? value = true;
   TextStyle style = Theme.of(context).textTheme.titleSmall!.copyWith();
   return Container(
@@ -81,7 +86,7 @@ Widget viewJobQuote(context, {JobData? model}) {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(left: 5),
+            padding: EdgeInsets.only(left: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               /*mainAxisSize: MainAxisSize.min,*/
