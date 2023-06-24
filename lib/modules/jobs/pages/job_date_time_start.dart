@@ -45,7 +45,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
   final TextEditingController _timeEnd = TextEditingController();
   final TextEditingController _amount = TextEditingController();
 
-  bool _isChecked = false;
+  bool _isChecked = true;
 
   final RemoteApi _remoteApi = RemoteApi();
 
@@ -100,7 +100,7 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                           Navigator.pop(context);
                         },
                         child: smallButton(
-                            context, 'DELETE', CustomColors.greyButton, 170)),
+                            context, 'DELETE', CustomColors.greyButton, 170,),),
                   ),
                   SizedBox(
                     width: 20,
@@ -269,10 +269,15 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                                           unselectedWidgetColor: CustomColors.textFieldTextColour,
                                         ),
                                         child: Checkbox(
-                                          value: false,
-                                          onChanged: (bool? val) {},
+                                          value: _isChecked,
+                                          onChanged: (bool? val) {
+                                            setState(() {
+                                              _isChecked = val!;
+                                            });
+                                          },
                                           checkColor: CustomColors.primeColour,
-                                          activeColor: Colors.transparent,
+                                          activeColor: CustomColors.white,
+                                          focusColor: CustomColors.white,
                                           fillColor: MaterialStateProperty.all(CustomColors.white),
                                         ),
                                       ),

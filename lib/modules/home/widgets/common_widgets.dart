@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/trades/search_cubit/search_trades_cubit.dart';
 
@@ -83,10 +84,24 @@ Widget textField1(context, TextEditingController controller, String hint, double
     height: height,
     width: width,
     child: TextFormField(
+      onChanged: (value){
+        String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+        int? number = int.tryParse(cleanValue);
+        if (number != null) {
+          // Format the number with commas and add the pound sign
+          String formattedNumber =
+              '£' + NumberFormat.decimalPattern().format(number);
+          // Update the TextField value with the formatted number
+          controller.value = TextEditingValue(
+            text: formattedNumber,
+            selection: TextSelection.collapsed(offset: formattedNumber.length),
+          );
+        }
+      },
       style: Theme.of(context)
           .textTheme
           .titleMedium!
-          .copyWith(color: CustomColors.black, fontWeight: FontWeight.normal),
+          .copyWith(color: CustomColors.primeColour, fontWeight: FontWeight.bold,fontSize: 12),
       maxLines: 1,
       controller: controller,
       decoration: InputDecoration(
@@ -99,8 +114,10 @@ Widget textField1(context, TextEditingController controller, String hint, double
         border: InputBorder.none,
         filled: true,
         fillColor: Colors.white,
+
       ),
       keyboardType: TextInputType.number,
+
     ),
   );
 }

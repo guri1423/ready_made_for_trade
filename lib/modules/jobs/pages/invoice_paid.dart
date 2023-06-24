@@ -280,11 +280,14 @@ class _InvoicePaidState extends State<InvoicePaid> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Flexible(  // Wrap the Text widget with Flexible
-                                  child: Text(
-                                    '${snapshot.data!.data.projectDescription!}',
-                                    softWrap: true,
-                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                SizedBox(
+                                  height: 200,
+                                  child: Flexible(  // Wrap the Text widget with Flexible
+                                    child: Text(
+                                      '${snapshot.data!.data.projectDescription!}',
+                                      softWrap: true,
+                                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -295,8 +298,69 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        /*mainAxisAlignment: MainAxisAlignment.spaceAround,*/
+                      Padding(
+                        padding:  EdgeInsets.only(left:10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Material - \£${snapshot.data!.data.materialCost!}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 85),
+                            Text(
+                              'Labour - \£${snapshot.data!.data.labourCost!}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            if (snapshot.data!.data.isVat! == '1')
+                              Text(
+                                'Total Inc VAT - \£${snapshot.data!.data.totalIncVat!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            else
+                              Text(
+                                'Total - \£${snapshot.data!.data.totalPrice!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '          ',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: CustomColors.blueButton,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                    /*  Row(
                         children: [
                           Column(
                             children: [
@@ -356,11 +420,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
 
 
                         ],
-                      ),
-
-
-
-
+                      ),*/
                       const SizedBox(
                         height: 20,
                       ),

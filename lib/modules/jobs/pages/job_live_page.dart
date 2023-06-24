@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
+import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/gallery/models/project_response_model.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
@@ -13,7 +14,9 @@ import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/invoice_paid.dart';
 import 'package:ready_made_4_trade/modules/jobs/pages/preview_after_deposit.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
 import 'package:ready_made_4_trade/widgets/date_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JobLivePage extends StatefulWidget {
   int? customerId;
@@ -39,10 +42,12 @@ class _JobLivePageState extends State<JobLivePage> {
 
   RemoteApi _remoteApi = RemoteApi();
   String? vatValue;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar:BottomToolsForInsidePage(
+
+        ) ,
         backgroundColor: CustomColors.backgroundColour,
         appBar: AppBar(
           toolbarHeight: 55,
@@ -273,15 +278,23 @@ class _JobLivePageState extends State<JobLivePage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '${state.jobData.data.projectDescription!}',
-                                    softWrap: true,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                            color: CustomColors.primeColour,fontSize: 15),
+                                  SizedBox(
+                                    height: 180,
+                                    child: Text(
+                                      '${state.jobData.data.projectDescription!}',
+                                      softWrap: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(
+                                              color: CustomColors.primeColour,fontSize: 15),
+                                    ),
                                   ),
+                                 /* SizedBox(
+                                      height: 200,
+                                      child: customTextFieldForm(context,
+                                          controller: _projectDetails,
+                                          hintText: 'Project Details')),*/
                                 ],
                               ),
                             ),
@@ -320,7 +333,7 @@ class _JobLivePageState extends State<JobLivePage> {
                             children: [
                               if (state.jobData.data.isVat! == '1')
                                 Text(
-                                  'Total INC VAT - \£${state.jobData.data.totalIncVat!}',
+                                  'Total Inc VAT - \£${state.jobData.data.totalIncVat!}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Dongle Regular',
@@ -329,7 +342,7 @@ class _JobLivePageState extends State<JobLivePage> {
                                 )
                               else
                                 Text(
-                                  'Total - \$${state.jobData.data.totalPrice!}',
+                                  'Total - \£${state.jobData.data.totalPrice!}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Dongle Regular',
@@ -362,13 +375,13 @@ class _JobLivePageState extends State<JobLivePage> {
                                     dialogBox(context);
                                   },
                                   child: smallButton(context, 'ADD PAYMENT',
-                                      CustomColors.blueButton, 150)),
-                              SizedBox(width: 20),
+                                      CustomColors.blueButton, 140)),
+                              SizedBox(width: 40),
                               SizedBox(
                                 height: 50,
                                 child: Center(
                                   child: Text(
-                                    'Paid - \$${state.jobData.data.depositAmount ?? '0'}',
+                                    'Paid -\£${state.jobData.data.depositAmount ?? '0'}',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: CustomColors.blueButton,
@@ -383,7 +396,7 @@ class _JobLivePageState extends State<JobLivePage> {
                           height: 20,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.only(left: 10,bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -466,99 +479,119 @@ class _JobLivePageState extends State<JobLivePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Container(
-            width: 400,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'PAYMENT',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Dongle',
-                          color: CustomColors.blueButton,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(child: textField(context, _totalPrice, 'Total Price', 40, 50)),
-                    const Expanded(
+          backgroundColor: CustomColors.primeColour,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'PAYMENT',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Dongle',
+                        color: CustomColors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Container(
+                        decoration:  BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                            color: CustomColors.textFieldBorderColor, width: 1),
+                            color: Colors.white,
+                          ),
+                        child: SizedBox(
+                          height: 40,
+                          child: Padding(
+                            padding:  EdgeInsets.only(left: 10),
+                            child: textField1(
+                              context, _totalPrice, '£ Total Price', 40, 50,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ),
+                  SizedBox(width: 15),
+                 Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 5),
                         child: CustomDatePicker(
                           isMandate: false,
                           isDiary: false,
-                        )),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                        child: GestureDetector(
-                          onTap: () async {
-                            AddProjectResponse? model = await _remoteApi.addPayment(
-                                _totalPrice.text,
-                                widget.jobId.toString(),
-                                'Deposit Paid',
-                                BlocProvider.of<PickupDateCubit>(context).getPickupDate());
+                        ),
+                      )),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      child: GestureDetector(
+                        onTap: () async {
+                          AddProjectResponse? model = await _remoteApi.addPayment(
+                              _totalPrice.text,
+                              widget.jobId.toString(),
+                              'Deposit Paid',
+                              BlocProvider.of<PickupDateCubit>(context).getPickupDate());
 
-                            if (model != null) {
-                              /*Fluttertoast.showToast(
-                              msg: model.message!,
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0);*/
+                          if (model != null) {
+                            /*Fluttertoast.showToast(
+                            msg: model.message!,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0);*/
 
-                              Navigator.pop(context);
-                              setState(() {});
-                            } else {
-                              /*Fluttertoast.showToast(
-                              msg: 'Something went wrong',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);*/
-                            }
-                          },
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            /*Fluttertoast.showToast(
+                            msg: 'Something went wrong',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);*/
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5),
                           child: smallButton(
                               context, 'SAVE', CustomColors.greyButton, 100),
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _totalPrice.clear();
-                            _date.clear();
-                            Navigator.pop(context);
+                        ),
+                      )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          _totalPrice.clear();
+                          _date.clear();
+                          Navigator.pop(context);
 
-                            setState(() {});
-                          },
-                          child: smallButton(
-                              context, 'DELETE', CustomColors.yellow, 100),
-                        )),
-                  ],
-                ),
-              ],
-            ),
+                          setState(() {});
+                        },
+                        child: smallButton(
+                            context, 'DELETE', CustomColors.yellow, 100),
+                      )),
+                ],
+              ),
+            ],
           ),
         );
       },

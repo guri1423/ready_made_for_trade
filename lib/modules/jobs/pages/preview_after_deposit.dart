@@ -62,7 +62,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
 
               },
               child: smallButton(
-                  context, 'SEND QUOTE', CustomColors.blueButton, 170)),
+                  context, 'SEND INVOICE', CustomColors.blueButton, 170)),
           SizedBox(height: 10,),
           const BottomToolsForInsidePage(),
         ],

@@ -233,29 +233,33 @@ class _LoginState extends State<Login> {
                         color: Color.fromRGBO(39, 69, 89, 1),
                       ),
                     ),
-                    SizedBox(width: 105),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPassword()));
-                      },
-                      child: const Text(
-                        'Forgot Password',
-                        style: TextStyle(fontSize: 14,
-                          color: Color.fromRGBO(39, 69, 89, 1),
-                        ),
-                        /*Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .copyWith(color: CustomColors.blueButton),*/
-                      ),
-                    ),
+                    /*SizedBox(width: 105),*/
                   ],
                 ),
-                const SizedBox(
-                  height: 59,
+                Padding(
+                  padding: EdgeInsets.only(left: 17),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPassword()));
+                        },
+                        child: const Text(
+                          'Forgot Password',
+                          style: TextStyle(fontSize: 14,
+                            color: Color.fromRGBO(39, 69, 89, 1),
+                          ),
+                          /*Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(color: CustomColors.blueButton),*/
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

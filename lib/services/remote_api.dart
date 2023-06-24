@@ -33,6 +33,7 @@ import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.da
 import 'package:ready_made_4_trade/modules/trainings/models/get_trainings_model.dart';
 import 'package:ready_made_4_trade/modules/trainings/models/training_status_model.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/base_urls.dart';
 import '../modules/home/pages/icon_models/customer_model.dart';
@@ -110,14 +111,17 @@ class RemoteApi {
 
   Future<GetCustomerModel?> getCustomers() async {
     String? userId = await _servicesStorage.getUserId();
-
+    String? address = await _servicesStorage.getAddress();
+    debugPrint('User Address------***${address}');
     debugPrint('User ID------****** ${userId.toString()}');
-
     try {
       Response response = await http
           .post(Uri.parse(Urls.fetchCustomer), body: {'user_id': userId});
       var jsonResponse = json.decode(response.body);
-
+      dynamic response1 = jsonDecode(response.body.toString());
+     /* String value = jsonResponse['address'];*/
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('address', response1['message'].toString());
       if (jsonResponse['message'].toString().contains('Not Found')) {
         return null;
       } else {

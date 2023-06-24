@@ -7,7 +7,9 @@ class StorageServices{
 
 
   final storage =  const FlutterSecureStorage();
-
+  setAddress(String address)async{
+    await storage.write(key: Strings.address, value: address);
+  }
   setEmail(String email)async{
     await storage.write(key: Strings.emailKey, value: email);
   }
@@ -27,7 +29,10 @@ class StorageServices{
     return await storage.read(key: Strings.emailKey);
 
   }
+  Future<String?> getAddress()async{
+    return await storage.read(key: Strings.address);
 
+  }
   Future<String?> getPassword()async{
     return await storage.read(key: Strings.passwordKey);
 

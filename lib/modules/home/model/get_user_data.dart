@@ -58,6 +58,7 @@ class UserData {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? currentMonth;
+  String? currentYear;
   String? currentMonthPrice;
   List<StatusCount>? statusCounts;
 
@@ -84,6 +85,7 @@ class UserData {
     this.status,
     this.datafrom,
     this.currentMonth,
+    this.currentYear,
     this.currentMonthPrice,
     this.statusCounts,
   });
@@ -111,6 +113,7 @@ class UserData {
         status: json["status"],
         datafrom: json["datafrom"],
         currentMonth: json["current_month"],
+        currentYear: json["current_year"],
         currentMonthPrice: json["current_month_price"],
         statusCounts: List<StatusCount>.from(
             json["status_counts"].map((x) => StatusCount.fromJson(x))),
@@ -139,6 +142,7 @@ class UserData {
         "status": status,
         "datafrom": datafrom,
         "current_month": currentMonth,
+        "current_year": currentYear,
         "current_month_price": currentMonthPrice,
         "status_counts":
             List<dynamic>.from(statusCounts!.map((x) => x.toJson())),

@@ -88,7 +88,61 @@ class _CreateProjectState extends State<CreateProject> {
                 future: apiServices.getGalleryImages(),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.hasData) {
-                    return Expanded(
+                    return  Expanded(
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: snapshot.data!.data.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 10.0,
+                            mainAxisExtent: 120
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          int reversedIndex = snapshot.data!.data.length - 1 - index;
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isCheckedList[index] = !_isCheckedList[index];
+                                if (_isCheckedList[index]) {
+                                  _imageList!.add(snapshot.data!.data[index].image!);
+                                } else {
+                                  int? indexVal = _imageList?.indexOf(
+                                      snapshot.data!.data[index].image!);
+                                  if (indexVal != null) {
+                                    _imageList!.removeAt(indexVal);
+                                  }
+                                }
+                              });
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Image.network(
+                                  '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}',
+                                 fit: BoxFit.cover,
+                                  // Added to fill the image within the container
+                                ),
+                                Container(
+                                  color: _isCheckedList[index]
+                                      ? Colors.black.withOpacity(0.2)
+                                      : Colors.transparent,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.check,
+                                      color: _isCheckedList[index] ? Colors.white : Colors.transparent,
+                                      size: 40,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+
+                    );
+                    Expanded(
                       child: GridView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
@@ -118,7 +172,7 @@ class _CreateProjectState extends State<CreateProject> {
                               children: <Widget>[
                                 Image.network(
                                   '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}',
-                                  fit: BoxFit.cover, // Added to fill the image within the container
+                                  // Added to fill the image within the container
                                 ),
                                 Container(
                                   color: _isCheckedList[index]

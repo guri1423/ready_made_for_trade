@@ -9,14 +9,15 @@ import 'package:ready_made_4_trade/modules/customer/search_cubit/customer_search
 import 'package:ready_made_4_trade/modules/trades/models/get_all_trades_model.dart';
 import 'package:ready_made_4_trade/modules/trades/models/search_trades_model.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../pages/icon_models/customer_model.dart';
 import '../pages/icon_models/jobs_model.dart';
 
 Widget customerPage(context, List<DatumCustomer>? data, int index) {
-  RemoteApi _api = RemoteApi();
 
+  RemoteApi _api = RemoteApi();
   ThemeData theme = Theme.of(context);
   TextStyle style = const TextStyle(
       fontSize: 10,
@@ -135,6 +136,7 @@ Future<void> deleteJobs(
         fontSize: 16.0);
   }
 }
+
 void makePhoneCall(String phoneNumber) async {
   final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
   await launch(telUri.toString());

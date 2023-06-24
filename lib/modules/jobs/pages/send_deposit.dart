@@ -55,7 +55,7 @@ class _SendDepositState extends State<SendDeposit> {
                             )));
               },
               child: smallButton(
-                  context, 'SEND QUOTE', CustomColors.blueButton, 170)),
+                  context, 'SEND INVOICE', CustomColors.blueButton, 170)),
           SizedBox(
             height: 10,
           ),

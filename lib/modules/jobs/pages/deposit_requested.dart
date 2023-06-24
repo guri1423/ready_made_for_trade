@@ -29,6 +29,7 @@ class DepositRequested extends StatefulWidget {
 }
 
 class _DepositRequestedState extends State<DepositRequested> {
+  bool isChecked = false;
   TextEditingController _materialCost = TextEditingController();
   TextEditingController _labourCost = TextEditingController();
   TextEditingController _vat = TextEditingController();
@@ -106,7 +107,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 child: Text(
                                   'JOB #${state.jobData.data.quoteId} - DEPOSIT REQUESTED',
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 14,
                                       fontFamily: 'Dongle Regular',
                                       color: CustomColors.blueButton,
                                       fontWeight: FontWeight.bold),
@@ -226,7 +227,8 @@ class _DepositRequestedState extends State<DepositRequested> {
                                           ),
                                           child: Checkbox(
                                             value: false,
-                                            onChanged: (bool? val) {},
+                                            onChanged: (bool? val) {
+                                            },
                                             checkColor: CustomColors.primeColour,
                                             activeColor: Colors.transparent,
                                             fillColor: MaterialStateProperty.all(CustomColors.white),
@@ -261,7 +263,6 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
                           children: [
                             Text(
                               'Material - \£${state.jobData.data.materialCost!}',
@@ -271,7 +272,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                   color: CustomColors.blueButton,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: 105),
+                            SizedBox(width: 80),
                             Text(
                               'Labour - \£${state.jobData.data.labourCost!}',
                               style: TextStyle(
@@ -290,7 +291,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           children: [
                             if (state.jobData.data.isVat! == '1')
                               Text(
-                                'Total INC VAT - \£${state.jobData.data.totalIncVat!}',
+                                'Total Inc VAT - \£${state.jobData.data.totalIncVat!}',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Dongle Regular',
@@ -320,15 +321,17 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
-                          /*mainAxisAlignment: MainAxisAlignment.spaceBetween,*/
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                                 onTap: () {
                                   dialogBox(context);
                                 },
                                 child: smallButton(context, 'ADD PAYMENT',
-                                    CustomColors.blueButton, 140)),
-                            SizedBox(width: 25),
+                                    CustomColors.blueButton, 140,
+                                ),
+                            ),
+                            SizedBox(width: 20),
                             SizedBox(
                               height: 50,
                               width: 115,
@@ -776,115 +779,110 @@ class _DepositRequestedState extends State<DepositRequested> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Container(
-            width: 650,
-            decoration: BoxDecoration(
-              color: Colors.blue.shade300,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'PAYMENT',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Dongle',
-                          color: CustomColors.blueButton,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                        child: SizedBox(
-                          height: 40,
-                          child: Padding(
-                            padding:  EdgeInsets.only(left: 10),
-                            child: textField1(
-                                context, _totalPrice, '£ Total Price', 40, 50),
-                          ),
-                        ),
-                    ),
-                    SizedBox(width: 5),
-                    Expanded(
+          backgroundColor: CustomColors.primeColour,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'PAYMENT',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Dongle',
+                        color: CustomColors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      child: SizedBox(
+                        height: 40,
                         child: Padding(
-                          padding:EdgeInsets.only(right: 10),
-                          child: CustomDatePicker(
-                            isMandate: false,
-                            isDiary: false,
-                          ),
-                        )),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                        child: GestureDetector(
-                      onTap: () async {
-                        AddProjectResponse? model = await _remoteApi.addPayment(
-                            _totalPrice.text,
-                            widget.jobId.toString(),
-                            'Deposit Paid',
-                          BlocProvider.of<PickupDateCubit>(context).getPickupDate());
-
-                        if (model != null) {
-                          /*Fluttertoast.showToast(
-                              msg: model.message!,
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0);*/
-
-                          Navigator.pop(context);
-                          setState(() {});
-                        } else {
-                          /*Fluttertoast.showToast(
-                              msg: 'Something went wrong',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);*/
-                        }
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 5),
-                        child: smallButton(
-                            context, 'SAVE', CustomColors.greyButton, 100),
+                          padding:  EdgeInsets.only(left: 10),
+                          child: textField1(
+                              context, _totalPrice, '£ Total Price', 40, 50),
+                        ),
                       ),
-                    )),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        child: GestureDetector(
-                      onTap: () {
-                        _totalPrice.clear();
-                        _date.clear();
-                        Navigator.pop(context);
+                  ),
+                  SizedBox(width: 5),
+                  Expanded(
+                      child: Padding(
+                        padding:EdgeInsets.only(right: 10),
+                        child: CustomDatePicker(
+                          isMandate: false,
+                          isDiary: false,
+                        ),
+                      )),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: () async {
+                      AddProjectResponse? model = await _remoteApi.addPayment(
+                          _totalPrice.text,
+                          widget.jobId.toString(),
+                          'Deposit Paid',
+                        BlocProvider.of<PickupDateCubit>(context).getPickupDate());
 
+                      if (model != null) {
+                        /*Fluttertoast.showToast(
+                            msg: model.message!,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0);*/
+
+                        Navigator.pop(context);
                         setState(() {});
-                      },
+                      } else {
+                        /*Fluttertoast.showToast(
+                            msg: 'Something went wrong',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);*/
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5),
                       child: smallButton(
-                          context, 'DELETE', CustomColors.yellow, 100),
-                    )),
-                  ],
-                ),
-              ],
-            ),
+                          context, 'SAVE', CustomColors.greyButton, 100),
+                    ),
+                  )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: () {
+                      _totalPrice.clear();
+                      _date.clear();
+                      Navigator.pop(context);
+
+                      setState(() {});
+                    },
+                    child: smallButton(
+                        context, 'DELETE', CustomColors.yellow, 100),
+                  )),
+                ],
+              ),
+            ],
           ),
         );
       },

@@ -7,6 +7,7 @@ import 'package:ready_made_4_trade/core/list/list.dart';
 import 'package:ready_made_4_trade/core/utils.dart';
 import 'package:ready_made_4_trade/modules/customer/pages/customer_page/add_customer.dart';
 import 'package:ready_made_4_trade/modules/home/pages/home.dart';
+import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/modules/home/widgets/common_widgets.dart';
 import 'package:ready_made_4_trade/modules/jobs/bloc/jobs_cubit.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/add_quote.dart';
@@ -30,6 +31,7 @@ class CreateQuote extends StatefulWidget {
 }
 
 class _CreateQuoteState extends State<CreateQuote> {
+
   TextEditingController _materialCost = TextEditingController();
   TextEditingController _labourCost = TextEditingController();
   TextEditingController _vat = TextEditingController();

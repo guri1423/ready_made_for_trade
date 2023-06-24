@@ -141,13 +141,29 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                           sizedBox,
-                                          Text(
-                                            state.model?.data.currentMonth ??
-                                                '',
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(
+                                          Row(
+                                            children: [
+                                              Text(
+                                                state.model?.data.currentMonth ??
+                                                    '',
+                                                style: theme.textTheme.titleMedium!
+                                                    .copyWith(
+                                                        color: CustomColors
+                                                            .primeColour),
+                                              ),
+                                              Text(',', style: theme.textTheme.titleSmall!
+                                                  .copyWith(
+                                                color: CustomColors.primeColour,),
+                                              ),
+                                              Text(
+                                                state.model?.data.currentYear ??
+                                                    '',
+                                                style: theme.textTheme.titleMedium!
+                                                    .copyWith(
                                                     color: CustomColors
                                                         .primeColour),
+                                              ),
+                                            ],
                                           ),
                                           sizedBox,
                                           if (state.model?.data

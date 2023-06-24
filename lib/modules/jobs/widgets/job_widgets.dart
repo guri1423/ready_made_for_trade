@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ready_made_4_trade/core/colors.dart';
 import 'package:ready_made_4_trade/modules/account/view/add_reminders_page.dart';
+import 'package:ready_made_4_trade/modules/home/pages/icon_models/customer_model.dart';
 import 'package:ready_made_4_trade/modules/jobs/models/get_job_data.dart';
+import 'package:ready_made_4_trade/services/remote_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget viewJobQuote(context, {JobData? model}) {
+
   void makePhoneCall(String phoneNumber) async {
     final Uri telUri = Uri(scheme: 'tel', path: phoneNumber);
     await launch(telUri.toString());
@@ -49,10 +53,10 @@ Widget viewJobQuote(context, {JobData? model}) {
                       const SizedBox(
                         height: 12,
                       ),
-                      Text(
+                      /*Text(
                           model.address ??
                               "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
-                          style: style),
+                          style: style),*/
                     ],
                   ),
                   const Spacer(),
