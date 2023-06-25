@@ -400,7 +400,6 @@ Widget customTextFieldForm(BuildContext context,
     required String hintText,
     bool isBig = false}) {
   return TextFormField(
-
     keyboardType: controller.text == 'Mobile No' ||
             controller.text == 'Amount' ||
             hintText.contains('Deposit Amount') ||
@@ -409,6 +408,7 @@ Widget customTextFieldForm(BuildContext context,
         : TextInputType.emailAddress,
     controller: controller,
     maxLines: hintText.contains('Project Details') ? 20 : isBig ? 10 : 1,
+      textCapitalization: TextCapitalization.sentences,
    /* maxLines: 10,*/
     style: Theme.of(context)
         .textTheme

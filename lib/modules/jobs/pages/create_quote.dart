@@ -42,14 +42,13 @@ class _CreateQuoteState extends State<CreateQuote> {
   final StorageServices _storageServices = StorageServices();
 
   String? vatValue;
-
+  String _address = '';
   int changeValue(String value) {
     if (value == 'YES')
       return 1;
     else
       return 0;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -111,8 +111,6 @@ class RemoteApi {
 
   Future<GetCustomerModel?> getCustomers() async {
     String? userId = await _servicesStorage.getUserId();
-    String? address = await _servicesStorage.getAddress();
-    debugPrint('User Address------***${address}');
     debugPrint('User ID------****** ${userId.toString()}');
     try {
       Response response = await http

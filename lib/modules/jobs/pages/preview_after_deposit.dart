@@ -32,7 +32,6 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd-MM-yyyy').format(now);
-
     TextStyle style = const TextStyle(
       fontSize: 14,
       fontFamily: 'Dongle Regular',
@@ -55,11 +54,6 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                 else {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> JobLivePage(customerId: widget.customerId, jobId: widget.jobId)));
                 }
-
-
-
-
-
               },
               child: smallButton(
                   context, 'SEND INVOICE', CustomColors.blueButton, 170)),
@@ -224,7 +218,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  '\£  ${snapshot.data!.data.totalIncVat}',
+                                  '\£${snapshot.data!.data.totalIncVat}',
                                   style: style,
                                 ),
                               ],

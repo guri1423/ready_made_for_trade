@@ -14,6 +14,7 @@ import 'package:ready_made_4_trade/modules/login/widgets/login_widget.dart';
 import 'package:ready_made_4_trade/services/remote_api.dart';
 import 'package:ready_made_4_trade/services/storage.dart';
 import 'package:ready_made_4_trade/widgets/bottom_bar_for_all.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditCustomerPage extends StatefulWidget {
   DatumCustomer model;
@@ -59,9 +60,11 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
   TextEditingController _mobileNo = TextEditingController();
   TextEditingController _email = TextEditingController();
 
-  String? customerTypeValue;
 
-  getTradeDetails() {
+
+  getTradeDetails() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email',widget.model.address!);
     _title = TextEditingController()..text = widget.model.title ?? "";
     _firstName = TextEditingController()..text = widget.model.firstName ?? "";
     _lastName = TextEditingController()..text = widget.model.lastName ?? "";
@@ -71,7 +74,8 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
     _email = TextEditingController()..text = widget.model.emailAddress ?? "";
   }
 
-
+  late String customerTypeValue;
+  String item='';
   final StorageServices _storageServices = StorageServices();
 
   final RemoteApi apiServices = RemoteApi();
@@ -294,7 +298,7 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
                                 color: CustomColors.textFieldTextColour),
                           ),
                         ),
-                        value: customerTypeValue,
+                        value: widget.model.cisGeneral,
                         onChanged: (value) {
                           setState(() {
                             customerTypeValue = value as String;

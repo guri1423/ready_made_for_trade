@@ -81,7 +81,7 @@ class _CreateProjectState extends State<CreateProject> {
       ),
       bottomNavigationBar: const BottomToolsForInsidePage(),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Column(
           children: [
             FutureBuilder<GetGalleryImages?>(
@@ -118,10 +118,13 @@ class _CreateProjectState extends State<CreateProject> {
                             },
                             child: Stack(
                               children: <Widget>[
-                                Image.network(
-                                  '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}',
-                                 fit: BoxFit.cover,
-                                  // Added to fill the image within the container
+                                Positioned.fill(
+                                  child: Image.network(
+                                    '${snapshot.data!.data[index].filePath}/${snapshot.data!
+                                        .data[index].image}',
+                                      fit: BoxFit.cover,
+                                    // Added to fill the image within the container
+                                  ),
                                 ),
                                 Container(
                                   color: _isCheckedList[index]
@@ -140,7 +143,6 @@ class _CreateProjectState extends State<CreateProject> {
                           );
                         },
                       ),
-
                     );
                     Expanded(
                       child: GridView.builder(

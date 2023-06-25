@@ -104,12 +104,12 @@ class _GalleryPageState extends State<GalleryPage> {
                             },
                             child: Image.network(
                               '${snapshot.data!.data[reversedIndex].
-                              filePath}/${snapshot.data!.data[reversedIndex].image}', fit: BoxFit.cover,
+                              filePath}/${snapshot.data!.data[reversedIndex].image}',
+                              fit: BoxFit.cover,
                             ),
                           );
                         },
                       ),
-
                     );
                   }
                   if (snapshot.hasError) {

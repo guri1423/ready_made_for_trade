@@ -67,7 +67,7 @@ class _DeletePageState extends State<DeletePage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Column(
           children: [
             FutureBuilder<GetGalleryImages?>(
@@ -84,6 +84,7 @@ class _DeletePageState extends State<DeletePage> {
                             crossAxisCount: 3,
                             mainAxisSpacing: 10.0,
                             crossAxisSpacing: 10.0,
+                              mainAxisExtent: 120
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             int reversedIndex = snapshot.data!.data.length - 1 - index;
@@ -105,9 +106,14 @@ class _DeletePageState extends State<DeletePage> {
                                   print(_imageList.toString());
                                 });
                               },
-                              child: Stack(children: <Widget>[
-                                Image.network(
-                                    '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}'),
+                              child: Stack(
+                                  children: <Widget>[
+                                Positioned.fill(
+                                  child: Image.network(
+                                      '${snapshot.data!.data[index].filePath}/${snapshot.data!.data[index].image}',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                                 Checkbox(
                                   value: _isCheckedList[index],
                                   onChanged: (bool? value) {
