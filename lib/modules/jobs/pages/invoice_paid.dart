@@ -179,7 +179,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                                             height: 12,
                                           ),
                                           Text(
-                                              snapshot.data!.data.address!,
+                                              snapshot.data!.data.customerAddress!,
                                               style: style),
                                         ],
                                       ),

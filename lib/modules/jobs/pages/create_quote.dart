@@ -128,7 +128,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                           child: viewJobQuote(context,
                               model: JobData(
                                   customerName: state.jobData.data.customerName,
-                                  address: state.jobData.data.address,
+                                  userAddress: state.jobData.data.customerAddress,
                                   userName: state.jobData.data.userName)),
                         ),
                         const SizedBox(

@@ -66,7 +66,8 @@ class JobData {
   String? userName;
   String? userLogo;
   String? filePath;
-  String? address;
+  String? userAddress;
+  String? customerAddress;
   dynamic remaining;
 
   JobData({
@@ -106,7 +107,8 @@ class JobData {
     this.userName,
     this.userLogo,
     this.filePath,
-    this.address,
+    this.userAddress,
+    this.customerAddress,
     this.remaining,
   });
 
@@ -147,7 +149,8 @@ class JobData {
     userName: json["user_name"],
     userLogo: json["user_logo"],
     filePath: json["file_path"],
-    address: json["address"],
+    userAddress: json["user_address"],
+    customerAddress: json["customer_address"],
     remaining: json["Remaining"],
   );
 
@@ -189,7 +192,7 @@ class JobData {
     "user_name": userName,
     "user_logo": userLogo,
     "file_path": filePath,
-    "address": address,
-    "Remaining": remaining,
+    "user_address": userAddress,
+    "customer_address": customerAddress,
   };
 }

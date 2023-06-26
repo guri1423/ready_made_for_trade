@@ -179,7 +179,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                             const SizedBox(
                                               height: 12,
                                             ),
-                                            Text(state.jobData.data.address!,
+                                            Text(state.jobData.data.customerAddress!,
                                                 style: style),
                                           ],
                                         ),
@@ -535,7 +535,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                                                 ),
                                                 Text(
                                                     snapshot
-                                                        .data!.data.address!,
+                                                        .data!.data.customerAddress!,
                                                     style: style),
                                               ],
                                             ),

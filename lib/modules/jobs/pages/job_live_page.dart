@@ -172,7 +172,7 @@ class _JobLivePageState extends State<JobLivePage> {
                                             const SizedBox(
                                               height: 12,
                                             ),
-                                            Text(state.jobData.data.address!,
+                                            Text(state.jobData.data.customerAddress!,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall!

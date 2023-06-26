@@ -179,7 +179,7 @@ class _QuoteSentState extends State<QuoteSent> {
                                                   height: 12,
                                                 ),
                                                 Text(
-                                                    state.jobData.data.address!,
+                                                    state.jobData.data.customerAddress!,
                                                     style: style),
                                               ],
                                             ),
