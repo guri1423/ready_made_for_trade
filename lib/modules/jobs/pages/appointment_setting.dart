@@ -230,6 +230,7 @@ class _AddJobsPageState extends State<AddJobsPage> {
                       hintText: 'Project Details'),
               ),*/
               TextFormField(
+                textCapitalization: TextCapitalization.sentences,
                 controller: _projectDetails,
                 validator: (value) {
                   return validationTxtField(value);

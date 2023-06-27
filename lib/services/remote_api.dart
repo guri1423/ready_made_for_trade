@@ -989,6 +989,10 @@ class RemoteApi {
 
   Future<AddProjectResponse?> addPayment(
       String payment, String jobId, String status, String date) async {
+   /* print(payment);
+    print(jobId);
+    print(status);
+    print(date);*/
     try {
       final response = await http.post(Uri.parse(Urls.addPayment),
           headers: {
@@ -997,14 +1001,19 @@ class RemoteApi {
           },
           body: json.encode({
             "job_id": jobId,
-            "deposit_amount": payment,
+            "deposit_amount": int.parse(payment),
             "status": status,
             "deposit_amount_date": date
-          }));
+          })
+      );
 
       var jsonResponse = json.decode(response.body);
       debugPrint('json response $jsonResponse');
-
+   /*   debugPrint(jobId);
+      debugPrint(status);
+      debugPrint(date);
+      debugPrint(payment);
+*/
       return addProjectResponseFromJson(response.body);
     } catch (e) {
       debugPrint(e.toString());

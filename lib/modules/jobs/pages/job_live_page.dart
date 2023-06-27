@@ -540,7 +540,7 @@ class _JobLivePageState extends State<JobLivePage> {
                       child: GestureDetector(
                         onTap: () async {
                           AddProjectResponse? model = await _remoteApi.addPayment(
-                              _totalPrice.text,
+                              _totalPrice.text.replaceAll('£', ' '),
                               widget.jobId.toString(),
                               'Deposit Paid',
                               BlocProvider.of<PickupDateCubit>(context).getPickupDate());
