@@ -803,16 +803,24 @@ class _DepositRequestedState extends State<DepositRequested> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                      child: SizedBox(
-                        height: 40,
-                        child: Padding(
-                          padding:  EdgeInsets.only(left: 10),
-                          child: textField1(
-                              context, _totalPrice, '£ Total Price', 40, 50),
+                      child: Container(
+                        decoration:  BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(
+                              color: CustomColors.textFieldBorderColor, width: 1),
+                          color: Colors.white,
+                        ),
+                        child: SizedBox(
+                          height: 38,
+                          child: Padding(
+                            padding:  EdgeInsets.only(left: 10),
+                            child: textField1(
+                                context, _totalPrice, '£ Total Price', 40, 50),
+                          ),
                         ),
                       ),
                   ),
-                  SizedBox(width: 5),
+                  SizedBox(width: 15),
                   Expanded(
                       child: Padding(
                         padding:EdgeInsets.only(right: 10),
