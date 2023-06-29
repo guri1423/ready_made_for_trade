@@ -20,12 +20,10 @@ class AddCustomerPage extends StatefulWidget {
   @override
   State<AddCustomerPage> createState() => _AddCustomerPageState();
 }
-
 class _AddCustomerPageState extends State<AddCustomerPage> {
   bool isFormError = false;
   bool phoneValidationError = false;
   bool emailValidationError = false;
-
   bool formValidate() {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
