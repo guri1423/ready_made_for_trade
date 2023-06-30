@@ -34,7 +34,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               firstDate: DateTime(2023),
               lastDate: DateTime(2050));
           if (pickedDate != null) {
-            String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);// here i change date format
+            String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);// here i change date format
             BlocProvider.of<PickupDateCubit>(context)
                 .setPickupDate(formattedDate);
             setState(() {
@@ -90,7 +90,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   String changeDateToString(DateTime dateTime) {
-    return DateFormat('yyyy/MM/dd').format(dateTime);
+    return DateFormat('dd-MM-yyyy').format(dateTime);
   }
 }
 
@@ -147,7 +147,7 @@ class _CustomDatePicker2State extends State<CustomDatePicker2> {
               firstDate: DateTime(2023),
               lastDate: DateTime(2050));
           if (pickedDate != null) {
-            String formattedDate = DateFormat('yyyy/MM/dd').format(pickedDate);
+            String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
             BlocProvider.of<PickupDateCubit2>(context)
                 .setPickupDate(formattedDate);
 
@@ -204,7 +204,7 @@ class _CustomDatePicker2State extends State<CustomDatePicker2> {
   }
 
   String changeDateToString(DateTime dateTime) {
-    return DateFormat('yyyy/MM/dd').format(dateTime);
+    return DateFormat('dd-MM-yyyy').format(dateTime);
   }
 }
 

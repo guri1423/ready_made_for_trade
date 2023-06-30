@@ -812,11 +812,8 @@ class _DepositRequestedState extends State<DepositRequested> {
                         ),
                         child: SizedBox(
                           height: 38,
-                          child: Padding(
-                            padding:  EdgeInsets.only(left: 10),
-                            child: textField1(
-                                context, _totalPrice, '£ Total Price', 40, 50),
-                          ),
+                          child: textField1(
+                              context, _totalPrice, '£ Total Price', 40, 50),
                         ),
                       ),
                   ),
@@ -839,7 +836,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                       child: GestureDetector(
                     onTap: () async {
                       AddProjectResponse? model = await _remoteApi.addPayment(
-                          _totalPrice.text,
+                          _totalPrice.text.replaceAll('£', ' '),
                           widget.jobId.toString(),
                           'Deposit Paid',
                         BlocProvider.of<PickupDateCubit>(context).getPickupDate());

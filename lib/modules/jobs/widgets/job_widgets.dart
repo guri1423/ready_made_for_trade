@@ -53,10 +53,15 @@ Widget viewJobQuote(context, {JobData? model}) {
                       const SizedBox(
                         height: 12,
                       ),
-                      /*Text(
-                          model.address ??
-                              "1 EXAMPLE LANE,\nSOUTHEND,\nESSEX,\nD50 HHD'",
-                          style: style),*/
+                     Text(model!.customerAddress!,style: Theme.of(context)
+                         .textTheme
+                         .titleSmall!
+                         .copyWith(),)
+                     /* Text(model!.customerAddress ?? 'MR JOHN SMITH',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith()),*/
                     ],
                   ),
                   const Spacer(),

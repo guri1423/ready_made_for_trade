@@ -237,7 +237,24 @@ class _JobLivePageState extends State<JobLivePage> {
                             ),
                           ),
                         ),
-                        Padding(
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: customTextFieldForm(context,
+                              controller: _projectTitle,
+                              hintText: 'Project Title'),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                            height: 200,
+                            child: customTextFieldForm(context,
+                                controller: _projectDetails,
+                                hintText: 'Project Details')),
+                        /*Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                             child: Container(
@@ -263,8 +280,8 @@ class _JobLivePageState extends State<JobLivePage> {
                                   ],
                                 ),
                               ),
-                            )),
-                        Padding(
+                            )),*/
+                       /* Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           child: Container(
@@ -290,16 +307,16 @@ class _JobLivePageState extends State<JobLivePage> {
                                               color: CustomColors.primeColour,fontSize: 15),
                                     ),
                                   ),
-                                 /* SizedBox(
+                                 *//* SizedBox(
                                       height: 200,
                                       child: customTextFieldForm(context,
                                           controller: _projectDetails,
-                                          hintText: 'Project Details')),*/
+                                          hintText: 'Project Details')),*//*
                                 ],
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                         Padding(
                           padding:  EdgeInsets.only(left:10.0),
                           child: Row(
@@ -512,11 +529,8 @@ class _JobLivePageState extends State<JobLivePage> {
                           ),
                         child: SizedBox(
                           height: 40,
-                          child: Padding(
-                            padding:  EdgeInsets.only(left: 10),
-                            child: textField1(
-                              context, _totalPrice, '£ Total Price', 40, 50,
-                            ),
+                          child: textField1(
+                            context, _totalPrice, '£ Total Price', 40, 50,
                           ),
                         ),
                       ),

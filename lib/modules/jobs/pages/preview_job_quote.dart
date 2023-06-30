@@ -32,7 +32,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -50,13 +50,13 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => QuoteSent(
-                              customerId: widget.customerId,
-                              jobId: widget.jobId,
-                              projectId: widget.projectId,
-                            )));
+                          customerId: widget.customerId,
+                          jobId: widget.jobId,
+                          projectId: widget.projectId,
+                        )));
               },
               child: smallButton(
-                  context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                  context, 'SEND QUOTE', CustomColors.blueButton, 170)),
           SizedBox(height: 10,),
           const BottomToolsForInsidePage(),
         ],
@@ -105,18 +105,18 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             children: [
                               Text(
                                 'INVOICE  #${snapshot.data!.data.quoteId}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
                                     color: CustomColors.blueButton,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 height: 20,
                               ),
                               Text(
-                                snapshot.data!.data.customerName,
-                                style: const TextStyle(
+                                snapshot.data!.data.customerName ?? '',
+                                style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
                                     color: CustomColors.blueButton,
@@ -145,7 +145,6 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       Row(
                         children: [
                           Text( snapshot.data!.data.customerAddress,
-
                               style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'Dongle Regular',
@@ -154,7 +153,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                           Spacer(),
                           Text(
                               '${formattedDate}\n'
-                              'Quote #${snapshot.data!.data.quoteId}',
+                                  'Quote #${snapshot.data!.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'Dongle Regular',
@@ -165,32 +164,18 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            snapshot.data!.data.projectDescription,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Dongle Regular',
-                              height: 1.5,
-                              color: CustomColors.greyButton,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                     /* Text(
-                        'Invoice terms - ${snapshot.data!.data.invoiceTerms}',
+                      Text(
+                        snapshot.data!.data.projectDescription!,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'Dongle Regular',
                           height: 1.5,
                           color: CustomColors.greyButton,
                         ),
-                      ),*/
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Divider(
                         thickness: 1,
                         color: CustomColors.black,
@@ -278,24 +263,6 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       ),
                       const SizedBox(
                         height: 20,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                           /* 'Quote terms - ${snapshot.data!.data.quoteTerms}',*/
-                            snapshot.data!.data.quoteTerms,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Dongle Regular',
-                              height: 1.5,
-                              color: CustomColors.greyButton,
-                            ),
-                          ),
-                        ],
                       ),
                       // const Text(
                       //   'Lorem ipsum dolor sit amet, consectetur adipiscing '

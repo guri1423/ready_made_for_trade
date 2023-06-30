@@ -62,6 +62,7 @@ class Data {
   String userName;
   String userLogo;
   String filePath;
+  String userAddress;
   String customerAddress;
   double remaining;
 
@@ -99,6 +100,7 @@ class Data {
     required this.userName,
     required this.userLogo,
     required this.filePath,
+    required this.userAddress,
     required this.customerAddress,
     required this.remaining,
   });
@@ -137,6 +139,7 @@ class Data {
     userName: json["user_name"],
     userLogo: json["user_logo"],
     filePath: json["file_path"],
+    userAddress: json["user_address"],
     customerAddress: json["customer_address"],
     remaining: json["Remaining"]?.toDouble(),
   );
@@ -167,14 +170,15 @@ class Data {
     "deposit_amount_date": depositAmountDate,
     "is_job_confirm": isJobConfirm,
     "status": status,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt,
+    "updated_at": updatedAt,
     "quote_terms": quoteTerms,
     "invoice_terms": invoiceTerms,
     "customer_name": customerName,
     "user_name": userName,
     "user_logo": userLogo,
     "file_path": filePath,
+    "user_address": userAddress,
     "customer_address": customerAddress,
     "Remaining": remaining,
   };

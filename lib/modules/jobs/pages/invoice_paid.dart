@@ -244,7 +244,13 @@ class _InvoicePaidState extends State<InvoicePaid> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
+                      SizedBox(
+                        height: 40,
+                        child: customTextFieldForm(context,
+                            controller: _projectTitle,
+                            hintText: 'Project Title'),
+                      ),
+                  /*    Padding(
                           padding:  EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -265,9 +271,14 @@ class _InvoicePaidState extends State<InvoicePaid> {
                               ),
                             ),
                           )
-                      ),
-
-                      Padding(
+                      ),*/
+                      SizedBox(height: 10,),
+                      SizedBox(
+                          height: 200,
+                          child: customTextFieldForm(context,
+                              controller: _projectDetails,
+                              hintText: 'Project Details')),
+                      /*Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -294,7 +305,7 @@ class _InvoicePaidState extends State<InvoicePaid> {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 20,
                       ),
@@ -468,59 +479,50 @@ class _InvoicePaidState extends State<InvoicePaid> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: CustomColors.primeColour,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 100,),
 
-          title: Container(
-            width: 600,
-            decoration: BoxDecoration(
-              color: CustomColors.primeColour,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 100,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('SET A SERVICE REMINDER',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: CustomColors.white,
-                            fontWeight: FontWeight.bold
-                        ),),
-                    ],
-                  ),
-
-                  SizedBox(height: 100,),
-
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                          onTap: ()async{
-
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderSetup(customerId: widget.customerId,
-                              jobId: widget.jobId, projectId: widget.projectId,)));
-
-                          },
-                          child: smallButton(context, 'YES', CustomColors.greyButton, 100)),
-                      GestureDetector(
-                          onTap: (){
-
-                            Navigator.pop(context);
-
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) =>  HomePage()));
-                          },
-                          child: smallButton(context, 'NO', CustomColors.yellow, 100)),
-                    ],
-                  ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text('SET A SERVICE REMINDER',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: CustomColors.white,
+                        fontWeight: FontWeight.bold,
+                    ),),
                 ],
               ),
-            ),
+
+              SizedBox(height: 100,),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                      onTap: ()async{
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ReminderSetup(customerId: widget.customerId,
+                          jobId: widget.jobId, projectId: widget.projectId,)));
+
+                      },
+                      child: smallButton(context, 'YES', CustomColors.greyButton, 100)),
+                  GestureDetector(
+                      onTap: (){
+
+                        Navigator.pop(context);
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) =>  HomePage()));
+                      },
+                      child: smallButton(context, 'NO', CustomColors.yellow, 100)),
+                ],
+              ),
+            ],
           ),
         );
       },

@@ -256,7 +256,13 @@ class _ReminderSetupState extends State<ReminderSetup> {
                     const SizedBox(
                       height: 35,
                     ),
-                    Padding(
+                    SizedBox(
+                      height: 40,
+                      child: customTextFieldForm(context,
+                          controller: _projectTitle,
+                          hintText: 'Project Title'),
+                    ),
+                   /* Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -270,16 +276,22 @@ class _ReminderSetupState extends State<ReminderSetup> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Center(
-                                  child: Text('   ${snapshot.data!.data.projectTitle!}',
-                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),),
+                                  child: Text('${snapshot.data!.data.projectTitle!}',
+                                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: CustomColors.primeColour),),
                                 ),
                               ],
                             ),
                           ),
-                        )
+                        ),
+                    ),*/
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 200,
+                      child: customTextFieldForm(context,
+                          controller: _projectDetails,
+                          hintText: 'Project Details'),
                     ),
-
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -293,17 +305,20 @@ class _ReminderSetupState extends State<ReminderSetup> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(  // Wrap the Text widget with Flexible
-                                child: Text(
-                                  '${snapshot.data!.data.projectDescription!}',
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                child: SizedBox(
+                                  height: 200,
+                                  child: Text(
+                                    '${snapshot.data!.data.projectDescription!}',
+                                    softWrap: true,
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: CustomColors.primeColour),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                    ),
+                    ),*/
 
                   ],
                 ),
