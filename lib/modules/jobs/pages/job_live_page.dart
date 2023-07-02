@@ -343,42 +343,7 @@ class _JobLivePageState extends State<JobLivePage> {
                         SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding:  EdgeInsets.only(left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              if (state.jobData.data.isVat! == '1')
-                                Text(
-                                  'Total Inc VAT - \£${state.jobData.data.totalIncVat!}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Dongle Regular',
-                                      color: CustomColors.blueButton,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              else
-                                Text(
-                                  'Total - \£${state.jobData.data.totalPrice!}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Dongle Regular',
-                                      color: CustomColors.blueButton,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                '          ',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: CustomColors.blueButton,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
+
                         SizedBox(
                           height: 20,
                         ),

@@ -24,6 +24,14 @@ class AllJobs extends StatefulWidget {
 
 class _AllJobsState extends State<AllJobs> {
   RemoteApi _remoteApi = RemoteApi();
+  String? jobStatus;
+
+
+  @override
+  void initState() {
+   jobStatus = widget.status;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +140,7 @@ class _AllJobsState extends State<AllJobs> {
                                 )))
                             .toList(),
                         onChanged: (val) {
+                          jobStatus = val.toString();
                           BlocProvider.of<JobsCubit>(context)
                               .getAllJobsByStatus(val.toString());
                         },
@@ -146,7 +155,7 @@ class _AllJobsState extends State<AllJobs> {
                             onTap: () {
                               navigateUserBasedOnStatus(
                                   context: context,
-                                  status: widget.status ?? '',
+                                  status: jobStatus!,
                                   customerId:
                                       state.jobData.data[index].customerId ??
                                           '',
