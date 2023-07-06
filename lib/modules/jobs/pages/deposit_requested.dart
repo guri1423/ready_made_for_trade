@@ -102,15 +102,15 @@ class _DepositRequestedState extends State<DepositRequested> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 12),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Expanded(
                                 child: Text(
                                   'JOB #${state.jobData.data.quoteId} - DEPOSIT REQUESTED',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Dongle Regular',
-                                      color: CustomColors.blueButton,
-                                      fontWeight: FontWeight.bold),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(color: CustomColors.primeColour),
                                 ),
                               ),
                               GestureDetector(
@@ -205,38 +205,41 @@ class _DepositRequestedState extends State<DepositRequested> {
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'Show Costs on quote',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          fontFamily: 'Dongle',
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
-                                    SizedBox(
-                                      width: 30,
-                                      child: Transform.scale(
-                                        scale: 0.5,
-                                        child: Theme(
-                                          data: Theme.of(context).copyWith(
-                                            unselectedWidgetColor: Colors.white,
-                                          ),
-                                          child: Checkbox(
-                                            value: false,
-                                            onChanged: (bool? val) {
-                                            },
-                                            checkColor: CustomColors.primeColour,
-                                            activeColor: Colors.transparent,
-                                            fillColor: MaterialStateProperty.all(CustomColors.white),
+                                SizedBox(
+                                  height: 22,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Show Costs on quote',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontFamily: 'Dongle',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
+                                      SizedBox(
+                                        width: 15,
+                                        child: Transform.scale(
+                                          scale: 0.5,
+                                          child: Theme(
+                                            data: Theme.of(context).copyWith(
+                                              unselectedWidgetColor: Colors.white,
+                                            ),
+                                            child: Checkbox(
+                                              value: false,
+                                              onChanged: (bool? val) {
+                                              },
+                                              checkColor: CustomColors.primeColour,
+                                              activeColor: Colors.transparent,
+                                              fillColor: MaterialStateProperty.all(CustomColors.white),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -263,6 +266,7 @@ class _DepositRequestedState extends State<DepositRequested> {
                           height: 20,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Material - \£${state.jobData.data.materialCost!}',
@@ -272,14 +276,17 @@ class _DepositRequestedState extends State<DepositRequested> {
                                   color: CustomColors.blueButton,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: 80),
-                            Text(
-                              'Labour - \£${state.jobData.data.labourCost!}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Dongle Regular',
-                                  color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold),
+                            SizedBox(width: 60),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 70),
+                              child: Text(
+                                'Labour - \£${state.jobData.data.labourCost!}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -317,11 +324,11 @@ class _DepositRequestedState extends State<DepositRequested> {
                             ),
                           ],
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
                                 onTap: () {
@@ -332,18 +339,15 @@ class _DepositRequestedState extends State<DepositRequested> {
                                 ),
                             ),
                             SizedBox(width: 20),
-                            SizedBox(
-                              height: 50,
-                              width: 115,
-                              child: Center(
-                                child: Text(
-                                  'Paid - \£ ${state.jobData.data.depositAmount ?? '0'}',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Dongle Regular',
-                                      color: CustomColors.blueButton,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 85),
+                              child: Text(
+                                'Paid - \£ ${state.jobData.data.depositAmount ?? '0'}',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Dongle Regular',
+                                    color: CustomColors.blueButton,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],
@@ -780,114 +784,133 @@ class _DepositRequestedState extends State<DepositRequested> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: CustomColors.primeColour,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          title: Padding(
+            padding: EdgeInsets.only(top: 65),
+            child: Container(
+              alignment: Alignment.center,
+              height: 250,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'PAYMENT',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Dongle',
-                        color: CustomColors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                      child: Container(
-                        decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                              color: CustomColors.textFieldBorderColor, width: 1),
-                          color: Colors.white,
-                        ),
-                        child: SizedBox(
-                          height: 38,
-                          child: textField1(
-                              context, _totalPrice, '£ Total Price', 40, 50),
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'PAYMENT',
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontFamily: 'Dongle',
+                            color: CustomColors.white,
+                            fontWeight: FontWeight.bold),
                       ),
+                    ],
                   ),
-                  SizedBox(width: 15),
-                  Expanded(
-                      child: Padding(
-                        padding:EdgeInsets.only(right: 10),
-                        child: CustomDatePicker(
-                          isMandate: false,
-                          isDiary: false,
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                          child: SizedBox(
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right:13,left: 5),
+                              child: Container(
+                                decoration:  BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                      color: CustomColors.textFieldBorderColor, width: 1),
+                                  color: Colors.white,
+                                ),
+                                child: textField1(
+                                    context, _totalPrice, '£ Total Price', 1, 100),
+                              ),
+                            ),
+                          ),
+                      ),
+                      SizedBox(width: 15),
+                      Expanded(
+                          child: SizedBox(
+                            height: 30,
+                            child: Padding(
+                              padding:EdgeInsets.only(right: 15),
+                              child: CustomDatePicker(
+                                isMandate: false,
+                                isDiary: false,
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                          child: GestureDetector(
+                        onTap: () async {
+                          AddProjectResponse? model = await _remoteApi.addPayment(
+                              _totalPrice.text.replaceAll('£', ' '),
+                              widget.jobId.toString(),
+                              'Deposit Paid',
+                            BlocProvider.of<PickupDateCubit>(context).getPickupDate());
+
+                          if (model != null) {
+                            /*Fluttertoast.showToast(
+                                msg: model.message!,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);*/
+
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            /*Fluttertoast.showToast(
+                                msg: 'Something went wrong',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);*/
+                          }
+                        },
+                        child: SizedBox(
+                          height: 30,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: smallButton2(
+                                context, 'SAVE', CustomColors.greyButton, 100),
+                          ),
                         ),
                       )),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                      child: GestureDetector(
-                    onTap: () async {
-                      AddProjectResponse? model = await _remoteApi.addPayment(
-                          _totalPrice.text.replaceAll('£', ' '),
-                          widget.jobId.toString(),
-                          'Deposit Paid',
-                        BlocProvider.of<PickupDateCubit>(context).getPickupDate());
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          child: GestureDetector(
+                        onTap: () {
+                          _totalPrice.clear();
+                          _date.clear();
+                          Navigator.pop(context);
 
-                      if (model != null) {
-                        /*Fluttertoast.showToast(
-                            msg: model.message!,
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 2,
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                            fontSize: 16.0);*/
-
-                        Navigator.pop(context);
-                        setState(() {});
-                      } else {
-                        /*Fluttertoast.showToast(
-                            msg: 'Something went wrong',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 2,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0);*/
-                      }
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5),
-                      child: smallButton(
-                          context, 'SAVE', CustomColors.greyButton, 100),
-                    ),
-                  )),
-                  const SizedBox(
-                    width: 20,
+                          setState(() {});
+                        },
+                        child: SizedBox(
+                          height: 30,
+                          child: smallButton1(
+                              context, 'DELETE', CustomColors.yellow, 100),
+                        ),
+                      )),
+                    ],
                   ),
-                  Expanded(
-                      child: GestureDetector(
-                    onTap: () {
-                      _totalPrice.clear();
-                      _date.clear();
-                      Navigator.pop(context);
-
-                      setState(() {});
-                    },
-                    child: smallButton(
-                        context, 'DELETE', CustomColors.yellow, 100),
-                  )),
                 ],
               ),
-            ],
+            ),
           ),
         );
       },

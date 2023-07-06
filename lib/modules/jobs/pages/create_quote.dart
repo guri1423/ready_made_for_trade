@@ -82,7 +82,7 @@ class _CreateQuoteState extends State<CreateQuote> {
         bottomNavigationBar: const BottomToolsForInsidePage(),
         body: BlocProvider<JobsCubit>(
           create: (context) =>
-              JobsCubit()..getJobsData(widget.jobId.toString()),
+          JobsCubit()..getJobsData(widget.jobId.toString()),
           child: BlocBuilder<JobsCubit, JobsState>(
             builder: (context, state) {
               if (state is JobsDataByIdLoaded) {
@@ -93,7 +93,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                 return SingleChildScrollView(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, right: 20, top: 20),
+                    const EdgeInsets.only(left: 20, right: 20, top: 20),
                     child: Column(
                       children: [
                         Row(
@@ -113,7 +113,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => HomePage()),
-                                    (route) => false);
+                                        (route) => false);
                               },
                               child: const Icon(
                                 Icons.close_outlined,
@@ -129,7 +129,9 @@ class _CreateQuoteState extends State<CreateQuote> {
                               model: JobData(
                                   customerName: state.jobData.data.customerName,
                                   customerAddress: state.jobData.data.customerAddress,
-                                  userName: state.jobData.data.userName)),
+                                  userName: state.jobData.data.userName,
+                              ),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -147,7 +149,9 @@ class _CreateQuoteState extends State<CreateQuote> {
                             height: 200,
                             child: customTextFieldForm(context,
                                 controller: _projectDetails,
-                                hintText: 'Project Details')),
+                                hintText: 'Project Details',
+                            ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -202,17 +206,17 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         buttonWidth: 40,
                                         buttonDecoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(4),
+                                            BorderRadius.circular(4),
                                             border: Border.all(
                                               color: CustomColors
                                                   .textFieldBorderColor,
                                             ),
                                             color: CustomColors.white),
                                         itemPadding:
-                                            EdgeInsets.symmetric(horizontal: 5),
+                                        EdgeInsets.symmetric(horizontal: 5),
                                         itemHeight:
-                                            MediaQuery.of(context).size.height *
-                                                0.056,
+                                        MediaQuery.of(context).size.height *
+                                            0.056,
                                         icon: const Padding(
                                           padding: EdgeInsets.only(right: 2),
                                           child: Icon(
@@ -229,15 +233,15 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         ),
                                         hint: Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 5),
+                                          const EdgeInsets.only(left: 5),
                                           child: Text(
                                             'VAT',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleSmall!
                                                 .copyWith(
-                                                    color: CustomColors
-                                                        .textFieldTextColour),
+                                                color: CustomColors
+                                                    .textFieldTextColour),
                                           ),
                                         ),
                                         value: vatValue,
@@ -248,20 +252,20 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         },
                                         items: vatList
                                             .map((item) => DropdownMenuItem(
-                                                value: item,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
-                                                  child: Text(
-                                                    item.toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall!
-                                                        .copyWith(
-                                                            color: CustomColors
-                                                                .black),
-                                                  ),
-                                                )))
+                                            value: item,
+                                            child: Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(horizontal: 5),
+                                              child: Text(
+                                                item.toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                    color: CustomColors
+                                                        .black),
+                                              ),
+                                            )))
                                             .toList(),
                                         validator: (value) {
                                           return validationDropField(value);
@@ -287,15 +291,74 @@ class _CreateQuoteState extends State<CreateQuote> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () async {
+                                  String? userId =
+                                  await _storageServices.getUserId();
+
+                                  AddQuoteResponse? model =
+                                  await _remoteApi.addQuote(AddQuoteModel(
+                                      userId: int.parse(userId!),
+                                      customerId:
+                                      int.parse(widget.customerId!),
+                                      materialCost: extractNumericValue(
+                                          _materialCost.text),
+                                      labourCost: extractNumericValue(
+                                          _labourCost.text),
+                                      vat: changeValue(vatValue!),
+                                      projectId: widget.projectId,
+                                      projectTitle: _projectTitle.text,
+                                      projectDescription:
+                                      _projectDetails.text,
+                                      jobId: widget.jobId,
+                                      status: 'Create Quotes'));
+
+                                  if (model != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PreviewJobQuote(
+                                              customerId: int.parse(
+                                                  widget.customerId!),
+                                              jobId: widget.jobId,
+                                              projectId: widget.projectId,
+                                            )));
+                                    /* Fluttertoast.showToast(
+                                      msg: model.message!,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 2,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);*/
+                                  } else {
+                                    /*Fluttertoast.showToast(
+                                      msg: 'Something went wrong',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 2,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);*/
+                                  }
+                                },
+                                child: SizedBox(
+                                  height: 40,
+                                  child: smallButton(
+                                      context, 'PREVIEW', CustomColors.skyblue, 0),
+                                ),
+                              ),
+                            ),
+                           /* Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => PreviewJobQuote(
-                                                customerId: int.parse(
-                                                    widget.customerId!),
-                                                jobId: widget.jobId,
-                                                projectId: widget.projectId,
-                                              )));
+                                            customerId: int.parse(
+                                                widget.customerId!),
+                                            jobId: widget.jobId,
+                                            projectId: widget.projectId,
+                                          )));
                                 },
                                 child: SizedBox(
                                   height: 40,
@@ -303,7 +366,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                       CustomColors.skyblue, 0),
                                 ),
                               ),
-                            ),
+                            ),*/
                             const SizedBox(
                               width: 20,
                             ),
@@ -311,44 +374,53 @@ class _CreateQuoteState extends State<CreateQuote> {
                               child: GestureDetector(
                                 onTap: () async {
                                   String? userId =
-                                      await _storageServices.getUserId();
+                                  await _storageServices.getUserId();
 
                                   AddQuoteResponse? model =
-                                      await _remoteApi.addQuote(AddQuoteModel(
-                                          userId: int.parse(userId!),
-                                          customerId:
-                                              int.parse(widget.customerId!),
-                                          materialCost: extractNumericValue(
-                                              _materialCost.text),
-                                          labourCost: extractNumericValue(
-                                              _labourCost.text),
-                                          vat: changeValue(vatValue!),
-                                          projectId: widget.projectId,
-                                          projectTitle: _projectTitle.text,
-                                          projectDescription:
-                                              _projectDetails.text,
-                                          jobId: widget.jobId,
-                                          status: 'Create Quotes'));
+                                  await _remoteApi.addQuote(AddQuoteModel(
+                                      userId: int.parse(userId!),
+                                      customerId:
+                                      int.parse(widget.customerId!),
+                                      materialCost: extractNumericValue(
+                                          _materialCost.text),
+                                      labourCost: extractNumericValue(
+                                          _labourCost.text),
+                                      vat: changeValue(vatValue!),
+                                      projectId: widget.projectId,
+                                      projectTitle: _projectTitle.text,
+                                      projectDescription:
+                                      _projectDetails.text,
+                                      jobId: widget.jobId,
+                                      status: 'Create Quotes'));
 
-                                  /* if (model != null) {
-                                  Fluttertoast.showToast(
+                                   if (model != null) {
+                                    /* Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                             builder: (context) => PreviewJobQuote(
+                                               customerId: int.parse(
+                                                   widget.customerId!),
+                                               jobId: widget.jobId,
+                                               projectId: widget.projectId,
+                                             )));*/
+                                 /* Fluttertoast.showToast(
                                       msg: model.message!,
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 2,
                                       backgroundColor: Colors.green,
                                       textColor: Colors.white,
-                                      fontSize: 16.0);
+                                      fontSize: 16.0);*/
                                 } else {
-                                  Fluttertoast.showToast(
+                                  /*Fluttertoast.showToast(
                                       msg: 'Something went wrong',
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 2,
                                       backgroundColor: Colors.red,
                                       textColor: Colors.white,
-                                      fontSize: 16.0);
-                                }*/
+                                      fontSize: 16.0);*/
+                                }
                                 },
                                 child: SizedBox(
                                   height: 40,
@@ -379,24 +451,24 @@ class _CreateQuoteState extends State<CreateQuote> {
                               child: GestureDetector(
                                 onTap: () async {
                                   String? userId =
-                                      await _storageServices.getUserId();
+                                  await _storageServices.getUserId();
 
                                   AddQuoteResponse? model =
-                                      await _remoteApi.addQuote(AddQuoteModel(
-                                          userId: int.parse(userId!),
-                                          customerId:
-                                              int.parse(widget.customerId!),
-                                          materialCost: extractNumericValue(
-                                              _materialCost.text),
-                                          labourCost: extractNumericValue(
-                                              _labourCost.text),
-                                          vat: changeValue(vatValue!),
-                                          projectId: widget.projectId,
-                                          projectTitle: _projectTitle.text,
-                                          projectDescription:
-                                              _projectDetails.text,
-                                          jobId: widget.jobId,
-                                          status: 'Create Quotes'));
+                                  await _remoteApi.addQuote(AddQuoteModel(
+                                      userId: int.parse(userId!),
+                                      customerId:
+                                      int.parse(widget.customerId!),
+                                      materialCost: extractNumericValue(
+                                          _materialCost.text),
+                                      labourCost: extractNumericValue(
+                                          _labourCost.text),
+                                      vat: changeValue(vatValue!),
+                                      projectId: widget.projectId,
+                                      projectTitle: _projectTitle.text,
+                                      projectDescription:
+                                      _projectDetails.text,
+                                      jobId: widget.jobId,
+                                      status: 'Create Quotes'));
 
                                   if (model != null) {
                                     /*Fluttertoast.showToast(
@@ -415,7 +487,7 @@ class _CreateQuoteState extends State<CreateQuote> {
                                         MaterialPageRoute(
                                           builder: (context) => PreviewJobQuote(
                                             customerId:
-                                                int.parse(widget.customerId!),
+                                            int.parse(widget.customerId!),
                                             projectId: widget.projectId,
                                             jobId: widget.jobId,
                                           ),

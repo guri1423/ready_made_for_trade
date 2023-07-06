@@ -217,6 +217,13 @@ void navigateUserBasedOnStatus({
                   )));
       break;
     case 'Confirm Start Date':
+     /* Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmJob(
+                customerId: int.tryParse(customerId),
+                jobId: jobId,
+              )));*/
       Navigator.push(
           context,
           MaterialPageRoute(

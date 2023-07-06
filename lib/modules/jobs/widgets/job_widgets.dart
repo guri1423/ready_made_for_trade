@@ -20,7 +20,7 @@ Widget viewJobQuote(context, {JobData? model}) {
         color: CustomColors.primeColour,
         borderRadius: BorderRadius.circular(5)),
     child: Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(10.0),
       child: Stack(
         alignment: Alignment.bottomRight,
         children: [
@@ -56,7 +56,7 @@ Widget viewJobQuote(context, {JobData? model}) {
                      Text(model!.customerAddress!,style: Theme.of(context)
                          .textTheme
                          .titleSmall!
-                         .copyWith(),)
+                         .copyWith(),),
                      /* Text(model!.customerAddress ?? 'MR JOHN SMITH',
                           style: Theme.of(context)
                               .textTheme
@@ -88,45 +88,46 @@ Widget viewJobQuote(context, {JobData? model}) {
                           width: 25,
                         ),
                       ),
-
                     ],
                   ),
                 ],
               ),
             ],
           ),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: [
-               Text(
-                'Show Costs on quote',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Dongle',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+          SizedBox(
+            height: 22,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Show Costs on quote',
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontFamily: 'Dongle',
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 15,
+                  child: Transform.scale(
+                    scale: 0.5,
+                    child: Theme(
+                      data: Theme.of(context).copyWith(
+                        unselectedWidgetColor: Colors.white,
+                      ),
+                      child: Checkbox(
+                        value: false,
+                        onChanged: (bool? val) {},
+                        checkColor: CustomColors.primeColour,
+                        activeColor: Colors.transparent,
+                        fillColor: MaterialStateProperty.all(CustomColors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-              /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
-               SizedBox(
-                 width: 30,
-                 child: Transform.scale(
-                   scale: 0.5,
-                   child: Theme(
-                     data: Theme.of(context).copyWith(
-                       unselectedWidgetColor: Colors.white,
-                     ),
-                     child: Checkbox(
-                       value: false,
-                       onChanged: (bool? val) {},
-                       checkColor: CustomColors.primeColour,
-                       activeColor: Colors.transparent,
-                       fillColor: MaterialStateProperty.all(CustomColors.white),
-                     ),
-                   ),
-                 ),
-               ),
-             ],
-           ),
         ],
       ),
     ),

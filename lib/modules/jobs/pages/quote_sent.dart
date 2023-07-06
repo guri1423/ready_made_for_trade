@@ -205,42 +205,46 @@ class _QuoteSentState extends State<QuoteSent> {
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          'Show Costs on quote',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontFamily: 'Dongle',
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
-                                        SizedBox(
-                                          width: 30,
-                                          child: Transform.scale(
-                                            scale: 0.5,
-                                            child: Theme(
-                                              data: Theme.of(context).copyWith(
-                                                unselectedWidgetColor: Colors.white,
-                                              ),
-                                              child: Checkbox(
-                                                value: false,
-                                                onChanged: (bool? val) {},
-                                                checkColor: CustomColors.primeColour,
-                                                activeColor: Colors.transparent,
-                                                fillColor: MaterialStateProperty.all(CustomColors.white),
+                                    SizedBox(
+                                      height: 22,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            'Show Costs on quote',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontFamily: 'Dongle',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          /* Text('vghgh',style: TextStyle(color: Colors.black),),*/
+                                          SizedBox(
+                                            width: 15,
+                                            child: Transform.scale(
+                                              scale: 0.5,
+                                              child: Theme(
+                                                data: Theme.of(context).copyWith(
+                                                  unselectedWidgetColor: Colors.white,
+                                                ),
+                                                child: Checkbox(
+                                                  value: false,
+                                                  onChanged: (bool? val) {},
+                                                  checkColor: CustomColors.primeColour,
+                                                  activeColor: Colors.transparent,
+                                                  fillColor: MaterialStateProperty.all(CustomColors.white),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            )),
+                            ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),

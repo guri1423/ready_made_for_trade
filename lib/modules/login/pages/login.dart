@@ -208,38 +208,32 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                Row(
-                  children: [
-                    Checkbox(
-                      checkColor: CustomColors.primeColour,
-                      activeColor: CustomColors.white,
-                      value: _checkBox,
-                      onChanged: (value) {
-                        _checkBox =! _checkBox!;
-                        setState(() {
-                          if(_checkBox == true){
-
-                          }else {
-                            _servicesStorage.removeEmailAndPass();
-                          }
-
-                        });
-
-                      },
-                    ),
-                    Text(
-                      'Remember Me',
-                      style: TextStyle(fontSize: 14,
-                        color: Color.fromRGBO(39, 69, 89, 1),
-                      ),
-                    ),
-                    /*SizedBox(width: 105),*/
-                  ],
-                ),
                 Padding(
-                  padding: EdgeInsets.only(left: 17),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: [
+                      Checkbox(
+                        checkColor: CustomColors.primeColour,
+                        activeColor: CustomColors.white,
+                        value: _checkBox,
+                        onChanged: (value) {
+                          _checkBox =! _checkBox!;
+                          setState(() {
+                            if(_checkBox == true){
+
+                            }else {
+                              _servicesStorage.removeEmailAndPass();
+                            }
+                          });
+                        },
+                      ),
+                      Text(
+                        'Remember Me',
+                        style: TextStyle(fontSize: 14,
+                          color: Color.fromRGBO(39, 69, 89, 1),
+                        ),
+                      ),
+                      Spacer(),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -253,11 +247,12 @@ class _LoginState extends State<Login> {
                             color: Color.fromRGBO(39, 69, 89, 1),
                           ),
                           /*Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(color: CustomColors.blueButton),*/
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: CustomColors.blueButton),*/
                         ),
                       ),
+                      /*SizedBox(width: 105),*/
                     ],
                   ),
                 ),

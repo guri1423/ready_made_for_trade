@@ -135,6 +135,7 @@ class RemoteApi {
     String? userId = await _servicesStorage.getUserId();
 
     debugPrint('User ID ${userId.toString()}');
+    /*debugPrint('Customer_id $}')*/
     try {
       Response response =
           await http.post(Uri.parse(Urls.fetchJobs), body: {'user_id': userId});
@@ -175,7 +176,11 @@ class RemoteApi {
     debugPrint('User ID77777 ${userId.toString()}');
     try {
       Response response = await http.post(Uri.parse(Urls.fetchJobs),
-          body: {'user_id': userId, 'customer_id': customerId});
+          body: {
+            'user_id': userId,
+            'customer_id': customerId,
+          }
+      );
       print(response.body);
       var jsonResponse = response.body;
 

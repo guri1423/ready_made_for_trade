@@ -31,8 +31,9 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
 
   @override
   Widget build(BuildContext context) {
+
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
 
     TextStyle style = const TextStyle(
       fontSize: 14,
@@ -56,7 +57,8 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                         )));
               },
               child: smallButton(
-                  context, 'SEND QUOTE', CustomColors.blueButton, 170)),
+                  context, 'SEND QUOTE', CustomColors.blueButton, 170),
+          ),
           SizedBox(height: 10,),
           const BottomToolsForInsidePage(),
         ],
@@ -104,7 +106,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'INVOICE  #${snapshot.data!.data.quoteId}',
+                                'QUOTE  #${snapshot.data!.data.quoteId}',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Dongle Regular',
@@ -125,7 +127,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             ],
                           ),
                           Spacer(),
-                          SizedBox(
+                          /*SizedBox(
                             height: 70,
                             width: 120,
                             child: Container(
@@ -136,7 +138,25 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                 '${snapshot.data!.data.filePath}/${snapshot.data!.data.userLogo}',
                               ),
                             ),
-                          )
+                          ),*/
+                          SizedBox(
+                            height: 80,
+                            width: 140,
+                            child: Container(
+                              child: Padding(
+                                padding:  EdgeInsets.only(left: 15,top: 9,bottom: 9),
+                                child: Image.network(
+                                  '${snapshot.data!.data.filePath}/${snapshot.data!.data.userLogo}',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              // Show an empty SizedBox if logo is null
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -149,29 +169,48 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                                   fontSize: 10,
                                   fontFamily: 'Dongle Regular',
                                   color: CustomColors.blueButton,
-                                  fontWeight: FontWeight.bold)),
-                          Spacer(),
-                          Text(
-                              '${formattedDate}\n'
+                                  fontWeight: FontWeight.bold,
+                              ),
+                          ),
+                        Spacer(),
+                          Text('   ${formattedDate}\n'
                                   'Quote #${snapshot.data!.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'Dongle Regular',
                                 color: CustomColors.blueButton,
-                              )),
+                              ),
+                          ),
                         ],
                       ),
+                     /* Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text('Quote #${snapshot.data!.data.quoteId}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Dongle Regular',
+                              color: CustomColors.blueButton,
+                            ),
+                          ),
+                        ],
+                      ),*/
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        snapshot.data!.data.projectDescription!,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Dongle Regular',
-                          height: 1.5,
-                          color: CustomColors.greyButton,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data!.data.projectDescription!,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -183,7 +222,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               children: [
                                 Text(
@@ -204,7 +243,7 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                           ),
                           if (snapshot.data!.data.isVat == '1')
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 47),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
                                 children: [
                                   Text(
@@ -221,8 +260,6 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                             )
                           else
                             SizedBox.shrink(),
-
-
                           // Padding(
                           //   padding: const EdgeInsets.symmetric(horizontal: 47),
                           //   child: Row(
@@ -263,6 +300,19 @@ class _PreviewJobQuoteState extends State<PreviewJobQuote> {
                       ),
                       const SizedBox(
                         height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(snapshot.data!.data.quoteTerms,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Dongle Regular',
+                              height: 1.5,
+                              color: CustomColors.greyButton,
+                            ),
+                          ),
+                        ],
                       ),
                       // const Text(
                       //   'Lorem ipsum dolor sit amet, consectetur adipiscing '

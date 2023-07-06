@@ -62,7 +62,8 @@ class JobsDatum {
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? address;
+  String? customerAddress;
+  String? userAddress;
   String? customerName;
 
   JobsDatum({
@@ -99,7 +100,8 @@ class JobsDatum {
     this.status,
     this.createdAt,
     this.updatedAt,
-    this.address,
+    this.customerAddress,
+    this.userAddress,
     this.customerName,
   });
 
@@ -137,7 +139,8 @@ class JobsDatum {
     status: json["status"] ?? "",
     createdAt: json["created_at"] != null ? DateTime.parse(json["created_at"]) : null,
     updatedAt: json["updated_at"] != null ? DateTime.parse(json["updated_at"]) : null,
-    address: json["address"] ?? "",
+    customerAddress: json["customer_address"] ?? "",
+    userAddress: json["user_address"] ?? "",
     customerName: json["customer_name"] ?? "",
   );
 
@@ -176,7 +179,8 @@ class JobsDatum {
     "status": status,
     "created_at": createdAt!.toIso8601String(),
     "updated_at": updatedAt!.toIso8601String(),
-    "address": address,
+    "customer_address": customerAddress,
+    "user_address": userAddress,
     "customer_name": customerName,
   };
 }

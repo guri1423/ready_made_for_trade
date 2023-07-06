@@ -126,6 +126,23 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                           ),
                           Spacer(),
                           SizedBox(
+                            height: 80,
+                            width: 140,
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 15,top: 9,bottom: 9),
+                                child: Image.network(
+                                  '${snapshot.data!.data.filePath}/${snapshot.data!.data.userLogo}',fit: BoxFit.fill,
+                                ),
+                              ),
+                              // Show an empty SizedBox if logo is null
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          /*SizedBox(
                             height: 70,
                             width: 120,
                             child: Container(
@@ -136,7 +153,7 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                 '${snapshot.data!.data.filePath}/${snapshot.data!.data.userLogo}',
                               ),
                             ),
-                          )
+                          )*/
                         ],
                       ),
                       const SizedBox(
@@ -153,13 +170,13 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
                           Text(
-                              '${formattedDate}\n'
+                              '   ${formattedDate}\n'
                                   'Quote #${snapshot.data!.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'Dongle Regular',
                                 color: CustomColors.blueButton,
-                              )),
+                              ),),
                         ],
                       ),
                       const SizedBox(
@@ -269,7 +286,12 @@ class _PreviewAfterDepositState extends State<PreviewAfterDeposit> {
                       const SizedBox(
                         height: 20,
                       ),
-
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(snapshot.data!.data.invoiceTerms,style: style,),
+                          ],
+                        ),
                     ],
                   ),
                 ),

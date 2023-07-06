@@ -55,7 +55,7 @@ class _SendDepositState extends State<SendDeposit> {
                             )));
               },
               child: smallButton(
-                  context, 'SEND INVOICE', CustomColors.blueButton, 170)),
+                  context, 'SEND DEPOSIT', CustomColors.blueButton, 170)),
           SizedBox(
             height: 10,
           ),
@@ -128,6 +128,23 @@ class _SendDepositState extends State<SendDeposit> {
                           ),
                           Spacer(),
                           SizedBox(
+                            height: 80,
+                            width: 140,
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 15,top: 9,bottom: 9),
+                                child: Image.network(
+                                  '${state.data.data.filePath}/${state.data.data.userLogo}',fit: BoxFit.fill,
+                                ),
+                              ),
+                              // Show an empty SizedBox if logo is null
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                         /* SizedBox(
                             height: 70,
                             width: 120,
                             child: Container(
@@ -138,7 +155,7 @@ class _SendDepositState extends State<SendDeposit> {
                                 '${state.data.data.filePath}/${state.data.data.userLogo}',
                               ),
                             ),
-                          )
+                          )*/
                         ],
                       ),
                       const SizedBox(
@@ -155,7 +172,7 @@ class _SendDepositState extends State<SendDeposit> {
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
                           Text(
-                              '${formattedDate}\n'
+                              '   ${formattedDate}\n'
                               'Quote #${state.data.data.quoteId}',
                               style: TextStyle(
                                 fontSize: 12,
@@ -203,7 +220,7 @@ class _SendDepositState extends State<SendDeposit> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               children: [
                                 Text(
@@ -225,7 +242,7 @@ class _SendDepositState extends State<SendDeposit> {
                           if (state.data.data.isVat == '1')
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 47),
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
                                 children: [
                                   Text(
@@ -247,7 +264,7 @@ class _SendDepositState extends State<SendDeposit> {
                             color: CustomColors.black,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 47),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               children: [
                                 Text(

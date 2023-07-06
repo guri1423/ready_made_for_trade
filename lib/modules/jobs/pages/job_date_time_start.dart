@@ -109,7 +109,8 @@ class _JobStartDateTimeState extends State<JobStartDateTime> {
                     child: GestureDetector(
                         onTap: () async {
                           JobAgreeResponse? model =
-                              await _remoteApi.jobAgreed(JobAgreedModel(
+                              await _remoteApi.jobAgreed(
+                                  JobAgreedModel(
                             jobId: widget.jobId,
                             jobStartDate:
                                 BlocProvider.of<PickupDateCubit>(context)

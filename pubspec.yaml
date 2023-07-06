@@ -48,9 +48,10 @@ dependencies:
   requests_inspector:
   intl: ^0.18.1
   youtube_player_flutter: ^8.1.2
-  flutter_sound: ^9.2.13
+  flutter_sound: ^8.1.9
   path_provider: ^2.0.15
   shared_preferences: ^2.0.16
+  permission_handler: ^8.1.2
 
 dev_dependencies:
   flutter_test:

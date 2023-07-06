@@ -251,16 +251,21 @@ Widget viewCustomerJobs(context, JobsDatum data, int index) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(data.projectTitle != null ? data.projectTitle! : 'Data not available',
-                      style: theme.textTheme.titleMedium),
                   Text(data.customerName != null ? data.customerName! : '',
-                      style: theme.textTheme.titleMedium),
-                  Text(data.address != null ? data.address! : '',
-                      style: theme.textTheme.titleMedium),
+                      style: theme.textTheme.titleLarge,),
+                  Text(data.projectTitle != null ? data.projectTitle! : 'Data not available',
+                      style: theme.textTheme.titleLarge),
+                  SizedBox(height: 10,),
+                  Text(data.jobStartDate != null ? data.jobStartDate! : '',
+                      style: TextStyle(color: Colors.white,fontSize: 10),),
+                  Text(data.status != null ? data.status! : '',
+                      style:TextStyle(color: Colors.white,fontSize: 10),),
+                    Text(data.customerAddress != null ? data.customerAddress! : '',
+                      style: TextStyle(color: Colors.white,fontSize: 10),),
+
                   SizedBox(
                     height: 5,
                   ),
-
                   SizedBox(
                     height: 5,
                   ),

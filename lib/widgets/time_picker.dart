@@ -32,15 +32,19 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
             context: context,
             initialTime: TimeOfDay.now(),
           );
+         /* print('*****&&&&');
+          print(userPickTime);
+          print('*****&&&&');
+          print(pickedTime!.hour);
+          print(pickedTime!.minute);*/
           if (pickedTime != null) {
-            String formattedTime = DateFormat.Hm().format(DateTime.now()
-                .toLocal()
-                .add(Duration(
-                    hours: pickedTime.hour, minutes: pickedTime.minute)));
+            String formattedTime = DateFormat.Hm().format(DateTime.now().toLocal());
+            print(formattedTime);
             BlocProvider.of<PickupTimeCubit>(context)
                 .setPickupTime(formattedTime);
+
             setState(() {
-              userPickTime = formattedTime;
+              userPickTime = "${pickedTime.hour}:${pickedTime.minute}";
             });
             if (widget.isDiary) {
               BlocProvider.of<DairyCubit>(context)
@@ -131,10 +135,7 @@ class _CustomTimePicker2State extends State<CustomTimePicker2> {
             initialTime: TimeOfDay.now(),
           );
           if (pickedTime != null) {
-            String formattedTime = DateFormat.Hm().format(DateTime.now()
-                .toLocal()
-                .add(Duration(
-                    hours: pickedTime.hour, minutes: pickedTime.minute)));
+            String formattedTime = "${pickedTime.hour}:${pickedTime.minute}";
             BlocProvider.of<PickupTimeCubit>(context)
                 .setPickupTime(formattedTime);
             setState(() {

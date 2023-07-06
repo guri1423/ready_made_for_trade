@@ -105,7 +105,7 @@ Widget textField1(context, TextEditingController controller, String hint, double
       maxLines: 1,
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(left: 10,bottom: 10),
+        contentPadding:  EdgeInsets.only(left: 10,bottom: 15),
         hintText: hint,
         hintStyle: Theme.of(context)
             .textTheme
@@ -244,7 +244,48 @@ Widget smallButton(context, String title, Color borderColour, double width) {
     ),
   );
 }
-
+Widget smallButton1(context, String title, Color borderColour, double width) {
+  return Padding(
+    padding:  EdgeInsets.only(right: 10.0),
+    child: SizedBox(
+      height: 40,
+      width: width,
+      child: Container(
+        decoration: BoxDecoration(
+          color: borderColour,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(color: CustomColors.primeColour,fontSize: 12),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+Widget smallButton2(context, String title, Color borderColour, double width) {
+  return Padding(
+    padding:  EdgeInsets.only(right: 10.0),
+    child: SizedBox(
+      height: 40,
+      width: width,
+      child: Container(
+        decoration: BoxDecoration(
+          color: borderColour,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(color: Colors.white,fontSize: 12),
+          ),
+        ),
+      ),
+    ),
+  );
+}
 Widget searchBarWidget(context,
     {required String hintText,
     required ThemeData theme,
